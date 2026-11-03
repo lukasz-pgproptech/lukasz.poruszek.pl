@@ -261,7 +261,14 @@ export function initHeroScene(container: HTMLElement) {
     renderer.render(scene, camera);
   }
 
-  animate();
+  const isReduced = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (isReduced) {
+    // Render static frame once, don't run continuous loop
+    animate();
+    cancelAnimationFrame(frameId);
+  } else {
+    animate();
+  }
 
   return () => {
     cancelAnimationFrame(frameId);
