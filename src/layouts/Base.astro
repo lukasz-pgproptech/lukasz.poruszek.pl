@@ -1,0 +1,102 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import { site } from '../data/site';
+import Loader from '../components/Loader.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import CheckoutModal from '../components/CheckoutModal.astro';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+}
+
+const { title, description = site.description, image = '/images/hero.jpg' } = Astro.props;
+const fullTitle = title ? `${title} | ${site.name}` : `${site.name}: Architekt Systemów AI i B2B`;
+const canonical = new URL(Astro.url.pathname, Astro.site ?? site.url).href;
+const ogImage = new URL(image, Astro.site ?? site.url).href;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: site.name,
+  jobTitle: site.role,
+  url: site.url,
+  email: `mailto:${site.email}`,
+  sameAs: site.socials.map((s) => s.href),
+  worksFor: {
+    '@type': 'Organization',
+    name: site.company,
+  },
+};
+---
+
+<!doctype html>
+<html lang="pl" transition:animate="none">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="theme-color" content="#090a0c" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <!-- Open Graph & Twitter -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Self-hosted Font Preloads -->
+    <link rel="preload" href="/fonts/plus-jakarta-sans-700-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/inter-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/jetbrains-mono-500-normal.woff2" as="font" type="font/woff2" crossorigin />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+    <!-- Prevent flash of unstyled content & register motion capability -->
+    <script is:inline>
+      document.documentElement.classList.add('js');
+      if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.documentElement.classList.add('motion');
+      }
+    </script>
+    <ClientRouter fallback="swap" />
+  </head>
+  <body class="bg-[#090a0c] text-[#f3f4f6] selection:bg-blue-500 selection:text-white">
+    <a class="skip-link" href="#main">Przejdź do treści (Skip to content)</a>
+    
+    <div id="curtain" transition:persist="curtain" aria-hidden="true">
+      <div class="curtain__panel"></div>
+    </div>
+    
+    <div id="cursor" transition:persist="cursor" aria-hidden="true">
+      <span data-cursor-label></span>
+    </div>
+
+    <Loader />
+    <Nav />
+
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+
+    <Footer />
+    <CheckoutModal />
+
+    <script>
+      import { start } from '../engine/astro';
+      import { setupMotion } from '../motion/setup';
+      start(setupMotion);
+    </script>
+  </body>
+</html>

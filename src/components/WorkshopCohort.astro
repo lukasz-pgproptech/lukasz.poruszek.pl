@@ -1,0 +1,258 @@
+---
+import { site } from '../data/site';
+const { workshop } = site;
+---
+
+<section id="warsztaty" class="py-24 sm:py-32 border-b border-white/[0.08] relative">
+  <div class="max-w-[1360px] mx-auto px-5 sm:px-8">
+    <!-- Header of the Pillar -->
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+      <div class="space-y-4 max-w-2xl">
+        <div class="flex items-center gap-3">
+          <span class="badge-mono live">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+            {workshop.cohortName} • {workshop.status}
+          </span>
+          <span class="font-mono text-xs text-[#9ca3af]">
+            // FILAR GŁÓWNY [01/03]
+          </span>
+        </div>
+        
+        <h2 class="font-display text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white leading-tight">
+          Warsztaty Orkiestracji AI
+        </h2>
+        
+        <p class="text-base sm:text-lg text-[#9ca3af] font-body leading-relaxed">
+          6-tygodniowa praktyczna ścieżka kohortowa. Zamiast roku eksperymentów metodą prób i błędów: poznaj inżynierskie wzorce projektowe, standard MCP i buduj autonomiczne systemy multiagentowe.
+        </p>
+      </div>
+
+      <!-- Cohort Metadata Badge Box -->
+      <div class="p-5 bg-white/[0.02] border border-white/[0.08] font-mono text-xs space-y-2 shrink-0 md:min-w-[300px]">
+        <div class="flex justify-between text-[#9ca3af]">
+          <span>START:</span>
+          <span class="text-white font-semibold">{workshop.startDate}</span>
+        </div>
+        <div class="flex justify-between text-[#9ca3af]">
+          <span>FORMAT:</span>
+          <span class="text-white">6x 120 min • Online na żywo</span>
+        </div>
+        <div class="flex justify-between text-[#9ca3af]">
+          <span>WYMÓG:</span>
+          <span class="text-blue-400 font-semibold">{workshop.prerequisite}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Grid: Syllabus (Left 7) vs Checkout & Features (Right 5) -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+      <!-- 6-Week Modules (Left 7 cols) -->
+      <div class="lg:col-span-7 space-y-4">
+        <div class="text-xs font-mono uppercase tracking-widest text-[#9ca3af] mb-2">
+          // PROGRAM 6-TYGODNIOWEGO ZJAZDU
+        </div>
+
+        {workshop.modules.map((m, idx) => (
+          <details 
+            class="group bg-[#12151b] border border-white/[0.08] open:border-blue-500/40 transition-colors duration-200"
+            open={idx === 0}
+          >
+            <summary class="flex items-center justify-between p-5 cursor-pointer list-none select-none hover:bg-white/[0.02] transition-colors min-h-[48px]">
+              <div class="flex items-center gap-4">
+                <span class="font-mono text-xs text-blue-400 font-bold px-2 py-1 bg-blue-500/10 border border-blue-500/20">
+                  W{m.number}
+                </span>
+                <div>
+                  <h3 class="font-display font-semibold text-base sm:text-lg text-white group-hover:text-blue-300 transition-colors">
+                    {m.title}
+                  </h3>
+                  <p class="font-mono text-xs text-[#9ca3af] mt-0.5">
+                    {m.subtitle}
+                  </p>
+                </div>
+              </div>
+
+              <!-- Chevron indicator -->
+              <span class="font-mono text-sm text-[#9ca3af] group-open:rotate-180 transition-transform duration-200 px-2">
+                ↓
+              </span>
+            </summary>
+
+            <div class="px-5 pb-5 pt-2 border-t border-white/[0.04]">
+              <ul class="space-y-2 mt-2">
+                {m.points.map((p) => (
+                  <li class="flex items-start gap-2.5 text-xs sm:text-sm text-[#9ca3af] leading-relaxed">
+                    <span class="font-mono text-blue-400 text-xs mt-0.5">•</span>
+                    <span>{p}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </details>
+        ))}
+
+        <!-- Workshop Atmosphere Photography with Negative Space -->
+        <div class="mt-8 relative overflow-hidden border border-white/[0.08] bg-[#12151b]">
+          <img 
+            src="/images/workshop.jpg" 
+            alt="Stanowisko pracy inżynierskiej i orkiestracja" 
+            width="1376"
+            height="768"
+            class="w-full aspect-[16/9] object-cover filter contrast-[1.05] grayscale-[15%]"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-[#090a0c] via-transparent to-transparent opacity-80"></div>
+          <div class="absolute bottom-4 left-5 right-5 flex justify-between items-center text-[11px] font-mono text-[#9ca3af]">
+            <span>[FOT: PRACA W CZASIE RZECZYWISTYM // LAB]</span>
+            <span class="text-white">LIVE CODING & PEER ROOMS</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pricing & Interactive Checkout Box (Right 5 cols) -->
+      <div class="lg:col-span-5 sticky top-24 space-y-6">
+        <div class="p-6 sm:p-8 bg-[#12151b] border border-white/[0.12] relative overflow-hidden card-technical">
+          <!-- Price Display Header -->
+          <div class="border-b border-white/[0.08] pb-6 mb-6">
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-mono text-xs uppercase tracking-wider text-[#9ca3af]">Cena za pełny program</span>
+              <span class="font-mono text-xs text-emerald-300 bg-emerald-500/10 px-2 py-0.5 border border-emerald-500/20">
+                Płatność jednorazowa
+              </span>
+            </div>
+
+            <div class="flex items-baseline gap-3">
+              <span id="display-price" class="font-display text-4xl sm:text-5xl font-bold text-white tracking-tight">
+                {workshop.pricePln} zł
+              </span>
+              <span id="original-price" class="hidden font-mono text-lg text-[#9ca3af] line-through">
+                1200 zł
+              </span>
+              <span class="font-mono text-xs text-[#9ca3af]">
+                brutto (z VAT 23%)
+              </span>
+            </div>
+
+            <div class="font-mono text-xs text-[#9ca3af] mt-2">
+              Bramka płatności: <strong class="text-white">mBank PayNow</strong> (BLIK, szybki przelew, karty) • Automatyczna faktura VAT na firmę lub osobę prywatną.
+            </div>
+          </div>
+
+          <!-- Interactive Coupon Simulator -->
+          <div class="mb-6 space-y-2">
+            <label for="coupon-input" class="block font-mono text-xs text-[#9ca3af] uppercase">
+              Posiadasz kod zniżkowy od partnera lub z newslettera?
+            </label>
+            <div class="flex gap-2">
+              <input 
+                type="text" 
+                id="coupon-input" 
+                placeholder="np. PARTNER100 lub KOD0" 
+                class="flex-1 bg-[#090a0c] border border-white/[0.15] px-3.5 py-2.5 text-xs font-mono text-white placeholder-neutral-500 focus:outline-none focus:border-blue-500 transition-colors uppercase min-h-[44px]"
+              />
+              <button 
+                type="button" 
+                id="apply-coupon-btn"
+                class="px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-mono text-xs font-semibold transition-all duration-200 border border-blue-500/30 min-h-[44px] flex items-center justify-center cursor-pointer shadow-sm hover:scale-[1.02] active:scale-[0.98]"
+              >
+                Zastosuj
+              </button>
+            </div>
+            <p id="coupon-message" class="text-xs font-mono text-emerald-400 hidden"></p>
+          </div>
+
+          <!-- Main CTA Trigger Button -->
+          <button 
+            type="button"
+            id="open-workshop-checkout"
+            class="w-full py-4 px-6 bg-white hover:bg-neutral-200 text-[#090a0c] font-display font-bold text-sm tracking-wide uppercase transition-colors duration-200 text-center flex items-center justify-center gap-2 min-h-[48px]"
+            style="background-color: #ffffff !important; color: #090a0c !important;"
+            data-cursor="Zapisz"
+          >
+            <span style="color: #090a0c !important;">Zapisz się do Kohorty #01</span>
+            <span class="font-mono text-xs" style="color: #090a0c !important;">→</span>
+          </button>
+
+          <!-- Guarantee & What's Included List -->
+          <div class="mt-8 pt-6 border-t border-white/[0.08] space-y-3">
+            <div class="font-mono text-xs uppercase tracking-wider text-white font-semibold">
+              W cenie uczestnictwa otrzymujesz:
+            </div>
+            <ul class="space-y-2.5">
+              {workshop.features.map((feat) => (
+                <li class="flex items-start gap-2 text-xs text-[#9ca3af] leading-relaxed">
+                  <span class="text-emerald-400 font-mono text-xs">✓</span>
+                  <span>{feat}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <!-- Prerequisite Callout Box -->
+        <div class="p-5 bg-white/[0.02] border border-white/[0.08] space-y-2">
+          <div class="flex items-center gap-2 font-mono text-xs text-amber-400 font-semibold">
+            <span>⚠</span>
+            <span>WYMAGANIE WSTĘPNE</span>
+          </div>
+          <p class="text-xs text-[#9ca3af] leading-relaxed">
+            Do realizacji zadań warsztatowych wymagana jest subskrypcja <strong class="text-white">Google Gemini Pro lub Ultra</strong> (dostęp do środowiska agentowego). Nie wymagamy żadnych innych płatnych narzędzi ani zewnętrznych tokenów API.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const couponInput = document.getElementById('coupon-input') as HTMLInputElement | null;
+  const applyBtn = document.getElementById('apply-coupon-btn');
+  const displayPrice = document.getElementById('display-price');
+  const originalPrice = document.getElementById('original-price');
+  const message = document.getElementById('coupon-message');
+  const checkoutBtn = document.getElementById('open-workshop-checkout');
+
+  let currentPrice = 1200;
+  let appliedDiscount = 0;
+
+  applyBtn?.addEventListener('click', () => {
+    if (!couponInput || !displayPrice || !message) return;
+    const code = couponInput.value.trim().toUpperCase();
+
+    if (code === 'PARTNER100' || code === 'KOD0' || code === 'FREE' || code === 'ANTIGRAVITY') {
+      currentPrice = 0;
+      appliedDiscount = 1200;
+      displayPrice.textContent = '0 zł';
+      originalPrice?.classList.remove('hidden');
+      message.textContent = 'Kod aktywny: Zniżka partnerska 100% (-1200 zł).';
+      message.classList.remove('hidden', 'text-red-400');
+      message.classList.add('text-emerald-400');
+    } else if (code === 'START20' || code === 'EARLYBIRD') {
+      currentPrice = 960;
+      appliedDiscount = 240;
+      displayPrice.textContent = '960 zł';
+      originalPrice?.classList.remove('hidden');
+      message.textContent = 'Kod aktywny: Zniżka Early Bird 20% (-240 zł).';
+      message.classList.remove('hidden', 'text-red-400');
+      message.classList.add('text-emerald-400');
+    } else if (code === '') {
+      message.textContent = 'Wprowadź kod rabatowy.';
+      message.classList.remove('hidden', 'text-emerald-400');
+      message.classList.add('text-red-400');
+    } else {
+      message.textContent = 'Nieprawidłowy kod kuponu lub wygasł.';
+      message.classList.remove('hidden', 'text-emerald-400');
+      message.classList.add('text-red-400');
+    }
+  });
+
+  checkoutBtn?.addEventListener('click', () => {
+    const event = new CustomEvent('open-checkout-modal', {
+      detail: {
+        product: 'Warsztaty Orkiestracji AI (Kohorta #01)',
+        price: currentPrice,
+        discount: appliedDiscount,
+      }
+    });
+    window.dispatchEvent(event);
+  });
+</script>

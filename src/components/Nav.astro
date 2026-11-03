@@ -1,0 +1,52 @@
+---
+import { site } from '../data/site';
+---
+
+<header class="fixed top-0 left-0 right-0 z-50 border-b border-white/[0.07] bg-[#090a0c]/85 backdrop-blur-md transition-all duration-300">
+  <div class="max-w-[1360px] mx-auto px-5 sm:px-8 h-20 flex items-center justify-between">
+    <!-- Brand / Identifier -->
+    <a href="#hero" class="flex items-center gap-3 group py-2" data-cursor="Góra">
+      <div class="w-2.5 h-2.5 bg-blue-500 rounded-xs group-hover:scale-125 transition-transform duration-200"></div>
+      <div class="flex flex-col">
+        <span class="font-display font-bold text-sm tracking-tight text-white group-hover:text-blue-400 transition-colors">
+          {site.name}
+        </span>
+        <span class="font-mono text-[10px] tracking-wider text-[#9ca3af] uppercase">
+          Orkiestracja & B2B
+        </span>
+      </div>
+    </a>
+
+    <!-- Desktop Navigation Links -->
+    <nav class="hidden md:flex items-center gap-6" aria-label="Główna nawigacja">
+      <a href="#warsztaty" class="text-xs font-mono tracking-wider uppercase text-[#9ca3af] hover:text-white transition-colors duration-150 py-3 px-2 min-h-[44px] flex items-center">
+        [01] Warsztaty
+      </a>
+      <a href="#mentoring-biznes" class="text-xs font-mono tracking-wider uppercase text-[#9ca3af] hover:text-white transition-colors duration-150 py-3 px-2 min-h-[44px] flex items-center">
+        [02] Mentoring Biznes
+      </a>
+      <a href="#mentoring-kariera" class="text-xs font-mono tracking-wider uppercase text-[#9ca3af] hover:text-white transition-colors duration-150 py-3 px-2 min-h-[44px] flex items-center">
+        [03] Mentoring Kariera
+      </a>
+      <a href="#o-mnie" class="text-xs font-mono tracking-wider uppercase text-[#9ca3af] hover:text-white transition-colors duration-150 py-3 px-2 min-h-[44px] flex items-center">
+        [04] Doświadczenie
+      </a>
+    </nav>
+
+    <!-- Status & Action Button -->
+    <div class="flex items-center gap-4">
+      <div class="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 font-mono text-[11px] tracking-wide">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span>{site.workshop.cohortName}: START 16.03</span>
+      </div>
+
+      <a
+        href="#warsztaty"
+        class="inline-flex items-center justify-center px-5 py-3 text-xs font-mono tracking-wider uppercase bg-white text-[#090a0c] font-bold hover:bg-neutral-200 transition-colors duration-200 min-h-[44px]"
+        data-cursor="Zapisz"
+      >
+        <span class="text-[#090a0c]">Sprawdź program</span>
+      </a>
+    </div>
+  </div>
+</header>

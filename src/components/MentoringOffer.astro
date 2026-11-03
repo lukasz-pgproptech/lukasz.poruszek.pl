@@ -1,0 +1,220 @@
+---
+import { site } from '../data/site';
+const [biznes, kariera] = site.mentoring;
+---
+
+<section id="mentoring-biznes" class="py-24 sm:py-32 border-b border-white/[0.08] relative">
+  <div class="max-w-[1360px] mx-auto px-5 sm:px-8">
+    <!-- Header of the Mentoring Section -->
+    <div class="max-w-3xl space-y-4 mb-16">
+      <div class="flex items-center gap-3">
+        <span class="badge-mono">
+          Doraźne Sesje 1:1 Online
+        </span>
+        <span class="font-mono text-xs text-[#9ca3af]">
+          // FILARY [02 & 03/03]
+        </span>
+      </div>
+      
+      <h2 class="font-display text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white leading-tight">
+        Doraźny Mentoring: Biznes i Kariera
+      </h2>
+      
+      <p class="text-base sm:text-lg text-[#9ca3af] font-body leading-relaxed">
+        Pojedyncze, 90-minutowe sesje skoncentrowane na natychmiastowym rozwiązaniu Twojego konkretnego problemu. Zamiast tracić miesiące na niepewność i błędy: przeanalizuj sytuację z kimś, kto zna realia od środka.
+      </p>
+    </div>
+
+    <!-- Dual Pillars Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+      <!-- Pillar 02: Mentoring Biznesowy -->
+      <div class="bg-[#12151b] border border-white/[0.08] p-7 sm:p-9 flex flex-col justify-between card-technical">
+        <div>
+          <div class="flex items-center justify-between mb-4">
+            <span class="font-mono text-xs text-blue-400 font-bold px-2 py-0.5 bg-blue-500/10 border border-blue-500/20">
+              [02] BIZNES & GRANTY
+            </span>
+            <span class="font-mono text-xs text-[#9ca3af]">
+              90 MIN • ONLINE
+            </span>
+          </div>
+
+          <h3 class="font-display text-2xl sm:text-3xl font-bold text-white mb-2">
+            {biznes.title}
+          </h3>
+
+          <div class="flex items-baseline gap-2 mb-6">
+            <span class="font-display text-3xl sm:text-4xl font-bold text-white">
+              {biznes.pricePln} zł
+            </span>
+            <span class="font-mono text-xs text-[#9ca3af]">
+              brutto za 90 min (faktura VAT)
+            </span>
+          </div>
+
+          <p class="text-sm text-[#9ca3af] leading-relaxed mb-6 font-body">
+            {biznes.summary}
+          </p>
+
+          <div class="space-y-4 pt-6 border-t border-white/[0.06]">
+            <div class="font-mono text-xs uppercase tracking-wider text-white font-semibold">
+              Zakres sesji:
+            </div>
+            <ul class="space-y-2.5">
+              {biznes.scope.map((item) => (
+                <li class="flex items-start gap-2 text-xs sm:text-sm text-[#9ca3af] leading-relaxed">
+                  <span class="text-blue-400 font-mono text-xs mt-0.5">•</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+
+            <div class="pt-4 space-y-1.5">
+              <div class="font-mono text-[11px] uppercase tracking-wider text-[#9ca3af]">
+                Czego tu nie ma (szacunek do czasu):
+              </div>
+              {biznes.notIncluded.map((item) => (
+                <div class="text-xs text-[#9ca3af] flex items-start gap-1.5 font-mono">
+                  <span>✕</span>
+                  <span>{item}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-8 pt-6 border-t border-white/[0.08]">
+          <button 
+            type="button"
+            class="booking-btn w-full py-4 px-5 bg-white/[0.06] hover:bg-white text-white hover:text-[#090a0c] font-mono text-xs uppercase tracking-wider font-semibold border border-white/[0.12] transition-all duration-200 text-center flex items-center justify-center gap-2 min-h-[48px]"
+            data-service="biznes"
+            data-price="400"
+            data-title="Doraźny Mentoring Biznesowy (90 min)"
+            data-cursor="Rezerwuj"
+          >
+            <span>Zarezerwuj sesję biznesową (400 zł)</span>
+            <span class="font-mono">→</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Pillar 03: Mentoring Kariery -->
+      <div id="mentoring-kariera" class="bg-[#12151b] border border-white/[0.08] p-7 sm:p-9 flex flex-col justify-between card-technical">
+        <div>
+          <div class="flex items-center justify-between mb-4">
+            <span class="font-mono text-xs text-neutral-300 font-bold px-2 py-0.5 bg-white/[0.06] border border-white/[0.1]">
+              [03] KARIERA & REKRUTACJA
+            </span>
+            <span class="font-mono text-xs text-[#9ca3af]">
+              90 MIN • ONLINE
+            </span>
+          </div>
+
+          <h3 class="font-display text-2xl sm:text-3xl font-bold text-white mb-2">
+            {kariera.title}
+          </h3>
+
+          <div class="flex items-baseline gap-2 mb-6">
+            <span class="font-display text-3xl sm:text-4xl font-bold text-white">
+              {kariera.pricePln} zł
+            </span>
+            <span class="font-mono text-xs text-[#9ca3af]">
+              brutto za 90 min (faktura VAT)
+            </span>
+          </div>
+
+          <p class="text-sm text-[#9ca3af] leading-relaxed mb-6 font-body">
+            {kariera.summary}
+          </p>
+
+          <div class="space-y-4 pt-6 border-t border-white/[0.06]">
+            <div class="font-mono text-xs uppercase tracking-wider text-white font-semibold">
+              Zakres sesji:
+            </div>
+            <ul class="space-y-2.5">
+              {kariera.scope.map((item) => (
+                <li class="flex items-start gap-2 text-xs sm:text-sm text-[#9ca3af] leading-relaxed">
+                  <span class="text-blue-400 font-mono text-xs mt-0.5">•</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+
+            <div class="pt-4 space-y-1.5">
+              <div class="font-mono text-[11px] uppercase tracking-wider text-[#9ca3af]">
+                Czego tu nie ma (szacunek do czasu):
+              </div>
+              {kariera.notIncluded.map((item) => (
+                <div class="text-xs text-[#9ca3af] flex items-start gap-1.5 font-mono">
+                  <span>✕</span>
+                  <span>{item}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-8 pt-6 border-t border-white/[0.08]">
+          <button 
+            type="button"
+            class="booking-btn w-full py-4 px-5 bg-white/[0.06] hover:bg-white text-white hover:text-[#090a0c] font-mono text-xs uppercase tracking-wider font-semibold border border-white/[0.12] transition-all duration-200 text-center flex items-center justify-center gap-2 min-h-[48px]"
+            data-service="kariera"
+            data-price="300"
+            data-title="Doraźny Mentoring Kariery (90 min)"
+            data-cursor="Rezerwuj"
+          >
+            <span>Zarezerwuj sesję kariery (300 zł)</span>
+            <span class="font-mono">→</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Human Dialog Photography & Philosophy Note -->
+    <div class="mt-12 p-8 bg-[#12151b] border border-white/[0.08] grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+      <div class="md:col-span-4 relative overflow-hidden border border-white/[0.08]">
+        <img 
+          src="/images/dialog.jpg" 
+          alt="Łukasz Poruszek podczas sesji 1:1" 
+          width="896"
+          height="1200"
+          class="w-full aspect-[4/3] object-cover filter contrast-[1.05] grayscale-[20%]"
+        />
+        <div class="absolute bottom-2 left-3 font-mono text-[10px] text-white/70">
+          [1:1 PARTNERSKI DIALOG]
+        </div>
+      </div>
+
+      <div class="md:col-span-8 space-y-3">
+        <div class="font-mono text-xs text-blue-400 uppercase tracking-wider">
+          // DLACZEGO FORMAT DORAŹNY (SINGLE SESSION)?
+        </div>
+        <h3 class="font-display text-xl sm:text-2xl font-bold text-white">
+          Nie potrzebujesz półrocznych abonamentów, by ruszyć z miejsca.
+        </h3>
+        <p class="text-sm text-[#9ca3af] leading-relaxed font-body">
+          Większość problemów blokujących rozwój biznesu lub kariery to 1-2 błędne założenia, które ktoś z zewnątrz widzi w pierwszych 20 minutach. Po sesji otrzymujesz syntetyczną notatkę wykonawczą i od razu przystępujesz do działania we własnym tempie.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll('.booking-btn').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      const target = e.currentTarget as HTMLElement;
+      const title = target.dataset.title || 'Mentoring';
+      const price = parseInt(target.dataset.price || '400', 10);
+      
+      const event = new CustomEvent('open-checkout-modal', {
+        detail: {
+          product: title,
+          price: price,
+          discount: 0,
+        }
+      });
+      window.dispatchEvent(event);
+    });
+  });
+</script>

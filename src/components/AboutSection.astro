@@ -1,0 +1,83 @@
+---
+import { site } from '../data/site';
+const { background } = site;
+---
+
+<section id="o-mnie" class="py-24 sm:py-32 border-b border-white/[0.08] relative">
+  <div class="max-w-[1360px] mx-auto px-5 sm:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+      <!-- Left Column: Biography & Philosophy (5 cols) -->
+      <div class="lg:col-span-5 space-y-6">
+        <div class="flex items-center gap-3">
+          <span class="badge-mono">
+            Profil & Praktyka
+          </span>
+          <span class="font-mono text-xs text-[#9ca3af]">
+            // SEKCJA [04]
+          </span>
+        </div>
+
+        <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-tight text-white leading-tight">
+          Praktyka inżynierska, nie teoria z prezentacji.
+        </h2>
+
+        <p class="text-sm sm:text-base text-[#9ca3af] leading-relaxed font-body">
+          {background.summary}
+        </p>
+
+        <p class="text-sm sm:text-base text-[#9ca3af] leading-relaxed font-body">
+          Przeszedłem przez pełen cykl budowy technologii: od badań materiałowych i wdrożeń przemysłowych na placu budowy, przez wygrywanie wielomilionowych dotacji B+R, aż po architekturę chmurową B2B SaaS i autonomiczne systemy multiagentowe.
+        </p>
+
+        <!-- Registered Company Info Card -->
+        <div class="p-5 bg-white/[0.02] border border-white/[0.08] font-mono text-xs space-y-1.5 text-[#9ca3af]">
+          <div class="text-white font-semibold mb-1">
+            // PODMIOT PROWADZĄCY:
+          </div>
+          <div>Firma: <strong class="text-white">{site.company}</strong></div>
+          <div>NIP: <span class="text-white">{site.nip}</span> • REGON: <span class="text-white">{site.regon}</span></div>
+          <div>KRS: <span class="text-white">{site.krs}</span> • Warszawa, Polska</div>
+        </div>
+      </div>
+
+      <!-- Right Column: Engineering Milestones (7 cols) -->
+      <div class="lg:col-span-7 space-y-4">
+        <div class="text-xs font-mono uppercase tracking-widest text-[#9ca3af] mb-2">
+          // OBSZARY SPECJALIZACJI I WDROŻEŃ
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {background.milestones.map((m, idx) => (
+            <div class="p-6 bg-[#12151b] border border-white/[0.08] space-y-2 card-technical">
+              <div class="flex items-center justify-between">
+                <span class="font-mono text-xs text-blue-400 font-semibold">
+                  [0{idx + 1}]
+                </span>
+                <span class="font-mono text-[11px] text-[#9ca3af]">
+                  Praktyka
+                </span>
+              </div>
+              
+              <h3 class="font-display font-bold text-lg text-white">
+                {m.label}
+              </h3>
+
+              <div class="font-mono text-xs text-neutral-300">
+                {m.role}
+              </div>
+
+              <p class="text-xs text-[#9ca3af] leading-relaxed font-body pt-2 border-t border-white/[0.04]">
+                {m.description}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        <!-- Callout box regarding no marketing slop -->
+        <div class="p-6 bg-white/[0.015] border border-white/[0.06] text-xs font-mono text-[#9ca3af] leading-relaxed">
+          <span class="text-white font-semibold">[ZASADA TRANSPARENTNOŚCI]</span> Na tej stronie nie znajdziesz kupionych recenzji, sztucznych liczników ani bezprawnego podpierania się logotypami korporacji. Każda wiedza, którą przekazuję, opiera się na kodzie, wdrożeniach i realnych decyzjach biznesowych.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
