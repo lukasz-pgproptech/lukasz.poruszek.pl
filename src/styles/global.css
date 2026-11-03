@@ -13,6 +13,7 @@
   --color-accent: #2563eb;
 
   --font-display: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-serif: 'Instrument Serif', Georgia, serif;
   --font-body: 'Inter', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
 }
