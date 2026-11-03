@@ -29,3 +29,10 @@ Ten plik rejestruje wszystkie kluczowe decyzje technologiczne, architektoniczne 
 - **Kontekst:** Przed rozpoczęciem pisania kodu i szablonów graficznych konieczne jest precyzyjne zrozumienie oferty komercyjnych warsztatów AI oraz dwóch ścieżek mentoringowych (biznes / kariera).
 - **Decyzja:** Opracowanie 100 pytań strategicznych podzielonych na 10 modułów tematycznych w pliku `docs/01_PYTANIA_STRATEGICZNE_100.md`.
 - **Konsekwencje:** Użytkownik ma pełną mapę zagadnień do uzupełnienia, a odpowiedzi posłużą jako wsad do copywritingu, architektury i logiki biznesowej strony.
+
+### ADR-003: Wykorzystanie Centralnej Bazy Wiedzy Łukasza jako Źródła Faktów
+- **Data:** 2026-11-03
+- **Status:** Zaakceptowane
+- **Kontekst:** Użytkownik posiada zorganizowaną bazę wiedzy w katalogu `/home/poruszek/Łukasz informacje` z opisem kariery, profilu, case studies, konspektu warsztatów i filozofii pracy.
+- **Decyzja:** Pobrano fakty z centralnej bazy i wypełniono bazę 100 pytań strategicznych w `docs/01_PYTANIA_STRATEGICZNE_100.md`.
+- **Konsekwencje:** Zaoszczędzono czas użytkownika; odpowiedzi odzwierciedlają autentyczne doświadczenia inżynieryjne i biznesowe (PARP, ResiCraft, Motzny, Dzielna 64, Grupa Zero); do decyzji użytkownika pozostały jedynie czysto operacyjne parametry (stawki w PLN, rejestrator domeny, NIP).

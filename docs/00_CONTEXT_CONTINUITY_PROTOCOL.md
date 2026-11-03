@@ -51,3 +51,4 @@ podsumuj aktualny stan prac i przejdźmy do realizacji kolejnego zadania z listy
     ├── 04_COPYWRITING_I_TRESCI.md        <-- Gotowe teksty na stronę
     └── 05_ARCHITEKTURA_TECHNICZNA.md     <-- Wybór stacku, schematy komponentów, SEO
 ```
+

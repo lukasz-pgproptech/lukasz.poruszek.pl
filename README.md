@@ -21,3 +21,4 @@ Kontynuujemy prace nad projektem lukasz.poruszek.pl.
 Zapoznaj się z plikiem PROJECT_STATUS.md oraz katalogiem docs/, 
 podsumuj aktualny stan prac i przejdźmy do realizacji kolejnego zadania z listy Next Actions.
 ```
+
