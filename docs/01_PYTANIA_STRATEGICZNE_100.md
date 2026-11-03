@@ -609,36 +609,45 @@ Status: **Oczekuje na odpowiedzi użytkownika (Faza 1)**
 #### 84. Podaj 2–3 przykłady stron internetowych, których design, styl lub układ bardzo Ci się podobają:
 *Dlaczego to ważne:* Najszybszy sposób na zrozumienie Twojego gustu i oczekiwań estetycznych (proszę o linki lub nazwy i co w nich urzeka).  
 > **Odpowiedź:**
-> - Linear.app (niedościgniony wzorzec szybkości, precyzji i nowoczesnego designu inżynierskiego)
-> - Vercel.com (czystość typografii, minimalizm, skupienie na faktach)
-> - Stripe.com (idealny balans między technologią a profesjonalizmem biznesowym)
-> *[Status: Rekomendacja wzorców]*
+> Wybrane inspiracje referencyjne (standard Awwwards / Independent Design Excellence):
+> 1. **https://noomoagency.com/** – nowoczesny, dynamiczny dark mode, kinetyczna typografia, płynne mikrointerakcje, głębia wizualna i wysoka kultura detalu.
+> 2. **https://cornrevolution.resn.global/** – immersyjny, kreatywny storytelling cyfrowy, płynne animacje i unikalna tożsamość wizualna (Resn).
+> 3. **https://byholm.co/** – wybitny, surowy minimalizm edytorski (Mathias Byholm): mocna typografia jako główny element wizualny, perfekcyjny grid, organiczne wideo/zdjęcia, zero sztuczności, absolutna pewność siebie bez marketingowego krzyku.
+> *[Status: Wskazane bezpośrednio przez Łukasza]*
 
 #### 85. Czego zdecydowanie NIE chcesz widzieć na swojej stronie pod kątem wizualnym i funkcjonalnym?
 *Dlaczego to ważne:* Np. irytujące pop-upy, sztuczne zdjęcia stockowe z uśmiechniętymi ludźmi w garniturach, przesadne animacje spowalniające czytanie?  
 > **Odpowiedź:**
-> - Żadnych sztucznych zdjęć stockowych (ludzie w garniturach ściskający sobie dłonie).
-> - Żadnych agresywnych, wyskakujących pop-upów blokujących ekran po 3 sekundach.
-> - Żadnych powolnych, ciężkich animacji utrudniających czytanie na telefonie.
-> *[Status: Standard jakościowy]*
+> - **ŻADNYCH AI SLOP** (kategoryczny zakaz tanich, plastikowych grafik wygenerowanych przez Midjourney/DALL-E, syntetycznych postaci ze sztucznym uśmiechem i generycznych ilustracji 3D).
+> - Żadnych stockowych zdjęć ludzi w garniturach ściskających dłonie.
+> - Żadnych wyskakujących pop-upów blokujących ekran.
+> - Żadnych pustych ozdobników spowalniających interakcję.
+> *[Status: Dodano zakaz AI Slop wg wytycznych Łukasza]*
 
 #### 86. Jakimi materiałami graficznymi i zdjęciowymi dysponujesz na ten moment?
 *Dlaczego to ważne:* Profesjonalne zdjęcia sesyjne, zdjęcia z wystąpień/szkoleń, logo, czy potrzebujesz wygenerowania/doboru minimalistycznych grafik wektorowych SVG?  
 > **Odpowiedź:**
-> Posiadamy zdjęcia profilowe Łukasza z archiwum i profilu LinkedIn. Zostaną one profesjonalnie wykadrowane, a warstwę wizualną uzupełnią minimalistyczne schematy wektorowe SVG (np. schemat orkiestracji multiagentowej, schemat FSM).
-> *[Status: Wypełnione na podstawie bazy wiedzy]*
+> Łukasz osobiście organizuje, wykonuje i dostarcza komplet autorskich zdjęć pod zaprojektowaną stronę na podstawie dedykowanego briefu zdjęciowego (Art Direction & Shot List) przygotowanego przez zespół projektowy (`docs/BRIEF_ZDJECIOWY.md`).
+> *[Status: Ustalenie z Łukaszem]*
 
 #### 87. Jaki stos technologiczny preferujesz dla strony?
 *Dlaczego to ważne:* Nasza rekomendacja: **Astro + Tailwind CSS** (zapewnia bezkonkurencyjną szybkość ładowania, 100/100 w Google Lighthouse, brak bloatu JavaScript, doskonałe SEO oraz łatwość rozbudowy). Czy masz inne preferencje (np. Next.js, czysty HTML/CSS)?  
 > **Odpowiedź:**
-> **Astro + Tailwind CSS** (statyczna generacja SSG, zerowy niepotrzebny JavaScript na starcie, 100/100 w Google Lighthouse, błyskawiczne ładowanie, łatwość tworzenia stron z plików Markdown).
-> *[Status: Decyzja techniczna ADR]*
+> **Astro + Tailwind CSS + Lenis (Smooth Scroll) + GSAP / Motion**
+> Dobór stacku bezpośrednio pod standard referencji (Noomo / Byholm / Resn):
+> - **Astro:** statyczna generacja (SSG), zerowy niepotrzebny narzut JavaScriptu na start, perfekcyjne Core Web Vitals (100/100 Lighthouse) i błyskawiczne renderowanie typografii.
+> - **Lenis:** subtelny, organiczny smooth scroll klasy premium (jak na Byholm i Noomo).
+> - **Tailwind CSS + fluid typography:** precyzyjny, rygorystyczny grid edytorski i responsywna skala tekstu.
+> - **GSAP / Motion:** kinetyczne mikroanimacje, reveal sekcji i magnetyczne przyciski.
+> - **Wyspy interaktywne (Astro Islands):** komponenty płatności mBank PayNow i kalendarza ładowane izolowanie.
+> *[Status: Dobór technologiczny pod wskazaną estetykę]*
 
 #### 88. Gdzie docelowo ma być hostowana strona?
 *Dlaczego to ważne:* Cloudflare Pages (darmowe, globalny CDN, błyskawiczne), Vercel, Netlify, czy własny serwer VPS / hosting linuxowy?  
 > **Odpowiedź:**
-> **Cloudflare Pages** (bezpłatny, globalny CDN o najniższych opóźnieniach, wbudowane bezpieczeństwo DDoS, automatyczny deploy z Git, wsparcie dla domeny `.pl`).
-> *[Status: Rekomendacja infrastrukturalna]*
+> **Cloudflare Pages** (domyślnie).  
+> Zapewnia darmowy, ultraszybki globalny edge CDN, nieograniczony transfer i integrację DNS dla domeny `.pl`. Jeśli na którymkolwiek etapie pojawi się ograniczenie funkcjonalne (np. specyficzne webhooki SSR), elastycznie przełączymy na VPS lub Vercel.
+> *[Status: Zatwierdzone przez Łukasza]*
 
 #### 89. Gdzie zarejestrowana jest domena `lukasz.poruszek.pl` i kto zarządza DNS?
 *Dlaczego to ważne:* Np. OVH, Cyberfolks, Cloudflare, seohost. Ułatwi to przygotowanie instrukcji podpięcia domeny pod produkcję.  
@@ -659,8 +668,9 @@ Status: **Oczekuje na odpowiedzi użytkownika (Faza 1)**
 #### 91. Pod jaką formą prawną prowadzisz działalność gospodarczą?
 *Dlaczego to ważne:* Jednoosobowa Działalność Gospodarcza (JDG), Spółka z o.o., działalność nierejestrowana? Jakie dane (NIP, REGON, adres) mają znaleźć się w stopce?  
 > **Odpowiedź:**
-> Polska Grupa Proptech Sp. z o.o. lub JDG Łukasza.  
-> *[Do wskazania dokładnego NIP/REGON do wpisania w stopce strony przez Łukasza]*
+> **Polska Grupa Proptech Sp. z o.o.**  
+> Dane rejestrowe spółki zostaną umieszczone w stopce, regulaminie sprzedaży i na fakturach VAT.
+> *[Status: Wskazane przez Łukasza]*
 
 #### 92. Czy posiadasz gotowe dokumenty prawne (Polityka Prywatności, Regulamin świadczenia usług)?
 *Dlaczego to ważne:* Czy przygotowujesz je z prawnikiem, czy mamy przygotować szablony zgodne z RODO i prawem telekomunikacyjnym do Twojej akceptacji?  

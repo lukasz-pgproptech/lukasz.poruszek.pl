@@ -64,3 +64,15 @@ Ten plik rejestruje wszystkie kluczowe decyzje technologiczne, architektoniczne 
   3. Zero podpierania się logami marek i zero sztucznych liczników/counterów.
   4. Czysty, lekki interfejs: 3 jasne oferty z bezpośrednią możliwością zakupu/rezerwacji terminu.
 - **Konsekwencje:** Błyskawiczny czas ładowania strony, maksymalny współczynnik konwersji, brak wrażenia "przeładowania", wysoki szacunek do czasu użytkownika.
+
+
+### ADR-007: Kierunek Wizualny Awwwards-Tier (Noomo / Byholm / Resn) & Stack Technologiczny
+- **Data:** 2026-11-03
+- **Status:** Zaakceptowane
+- **Kontekst:** Łukasz wskazał jako bezpośrednie wzorce estetyczne serwisy światowej klasy designerskiej: `noomoagency.com`, `byholm.co` oraz `cornrevolution.resn.global`. Wymóg: **Zero AI Slop**, rygorystyczny minimalizm edytorski, mocna typografia, kinetyczne mikroanimacje i autorskie zdjęcia wg dedykowanego briefu.
+- **Decyzja:** 
+  1. **Stack:** **Astro** (ultraszybki silnik SSG, zerowy bloat JS) + **Tailwind CSS v4** + **Lenis** (organiczny, kinetyczny smooth scroll) + **GSAP / Motion** (subtelne reveal-on-scroll animacje).
+  2. **Interakcje:** Komponenty rezerwacji i płatności PayNow osadzone jako wyspy Astro (Astro Islands).
+  3. **Hosting:** Cloudflare Pages (domyślnie, global edge CDN).
+  4. **Fotografia:** Wdrożenie profesjonalnego briefu artystycznego (`docs/BRIEF_ZDJECIOWY.md`) z podziałem na 4 ujęcia (Hero, Focus/Work, Dialog/Partnerstwo, Detal).
+- **Konsekwencje:** Strona uzyskuje unikalny, luksusowo-inżynierski charakter (jak portfolio Byholma i Noomo), wyróżniając się drastycznie na tle typowych polskich stron szkoleniowych, zachowując 100/100 punktów w Google Lighthouse.

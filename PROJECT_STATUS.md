@@ -1,7 +1,7 @@
 # Status Projektu: lukasz.poruszek.pl
-Ostatnia aktualizacja: **2026-11-03 19:35**  
-Aktualna faza: **Faza 2: Synteza Strategii, Oferty i Myśli Przewodniej (B2C-First & Transfer Wiedzy)**  
-Główny cel: **Minimalistyczna strona personal brandingu: warsztaty orkiestracji (6 tyg., 1200 zł) + doraźny mentoring 90 min (biznes: 400 zł, kariera: 300 zł) z bezpośrednią płatnością mBank PayNow, oparta na wartości transferu wiedzy i ekonomii czasu**
+Ostatnia aktualizacja: **2026-11-03 20:12**  
+Aktualna faza: **Faza 2 -> Faza 3: Architektura Informacji, Design System & Brief Zdjęciowy**  
+Główny cel: **Strona internetowa personal brandingu w estetyce Awwwards / Byholm / Noomo: warsztaty orkiestracji (6 tyg., 1200 zł) + doraźny mentoring 90 min (biznes: 400 zł, kariera: 300 zł) z bezpośrednią płatnością mBank PayNow**
 
 ---
 
@@ -23,37 +23,39 @@ podsumuj aktualny stan prac i przejdźmy do realizacji kolejnego zadania z listy
 
 | Faza | Nazwa Fazy | Status | Opis |
 | :--- | :--- | :--- | :--- |
-| **Faza 1** | **Strategiczne Odkrywanie & Baza 100 Pytań** | 🟢 **ZAKOŃCZONA** | Wdrożono precyzyjne wytyczne Łukasza (jawne ceny, PayNow, Brevo, eliminacja szumu, zaktualizowano 19 pytań pod nową narrację). |
+| **Faza 1** | **Strategiczne Odkrywanie & Baza 100 Pytań** | 🟢 **ZAKOŃCZONA** | Wszystkie 100 pytań sfinalizowane, wyczyszczone z klisz, zdefiniowany cennik i reguły Anti-Bloat. |
 | **Faza 2** | **Synteza Strategii, Oferty i Myśli Przewodniej** | 🟢 **ZAKOŃCZONA** | Ustanowiono myśl przewodnią opartą na transferze wiedzy i ekonomii czasu (`docs/NARRACJA_I_MYSL_PRZEWODNIA.md`). |
-| **Faza 3** | **Architektura Informacji i Copywriting** | 🟡 **W TRAKCIE** | Projekt surowego, minimalistycznego layoutu (zero bloga, zero logotypów, zero counterów, proste klocki ofertowe). |
-| **Faza 4** | **Setup Techniczny & Design System** | ⚪ Oczekuje | Inicjalizacja Astro + Tailwind CSS, integracja interaktywnego kalendarza i formularza z kodem rabatowym. |
-| **Faza 5** | **Implementacja Komponentów & RWD** | ⚪ Oczekuje | 3 czyste kafelki ofertowe: Warsztaty (1200 zł), Mentoring Biznes (400 zł), Mentoring Kariera (300 zł). |
-| **Faza 6** | **Integracja Płatności i Fakturowania** | ⚪ Oczekuje | Podpięcie mBank PayNow (BLIK/PBL) + automatyczne fakturowanie (mOrganizer/Fakturownia) + Brevo. |
-| **Faza 7** | **Optymalizacja, SEO i Aspekty Prawne** | ⚪ Oczekuje | Privacy-first (brak banera cookies), regulamin sprzedaży, polityka prywatności. |
-| **Faza 8** | **Wdrożenie Produkcyjne (Deployment)** | ⚪ Oczekuje | Podpięcie domeny `lukasz.poruszek.pl` (Cloudflare Pages), testy transakcji PayNow na żywo. |
+| **Faza 3** | **Architektura Informacji, Layout & Brief Zdjęciowy** | 🟡 **W TRAKCIE** | Przygotowano brief zdjęciowy (`docs/BRIEF_ZDJECIOWY.md`) pod styl Byholm / Noomo; projekt struktury komponentów. |
+| **Faza 4** | **Setup Techniczny & Design System (Astro + Lenis)** | ⚪ Oczekuje | Inicjalizacja Astro + Tailwind v4 + Lenis (smooth scroll) + animacje edytorskie. |
+| **Faza 5** | **Implementacja Komponentów & RWD** | ⚪ Oczekuje | Hero z manifestem, klocki 3 usług (1200 zł / 400 zł / 300 zł), sekcja O mnie, interaktywny kalendarz. |
+| **Faza 6** | **Integracja Płatności i Fakturowania** | ⚪ Oczekuje | Podpięcie mBank PayNow (BLIK/PBL) + automatyczne fakturowanie + Brevo. |
+| **Faza 7** | **Optymalizacja, SEO i Aspekty Prawne** | ⚪ Oczekuje | Dane Polska Grupa Proptech Sp. z o.o., regulamin, privacy-first (zero banera cookies). |
+| **Faza 8** | **Wdrożenie Produkcyjne (Deployment)** | ⚪ Oczekuje | Cloudflare Pages, rekordy DNS dla `lukasz.poruszek.pl`, testy transakcyjne na żywo. |
 
 ---
 
-## 📊 Zatwierdzone Parametry Biznesowe i Cennik (Stan na 03.11)
-- **Warsztaty AI (Orkiestracja):** 1200 zł za 6-tygodniowy cykl online (6 spotkań po 2h, prace domowe z nadzorem, pokoje dyskusyjne, sesje 1:1) z obsługą kodów rabatowych obniżających cenę nawet do 0 zł.
-- **Mentoring Biznesowy:** Stała cena **400 zł** za sesję 90 min (doraźna diagnoza, rozbijanie fałszywych stałych, analiza dotacja vs inwestor). Ewentualne pisanie wniosku to odrębna umowa (ryczałt + success fee).
-- **Mentoring Kariery:** Stała cena **300 zł** za sesję 90 min (audyt CV/LinkedIn, reguły korpo vs mała firma, sprowadzanie rozmowy na własne tory, bez AI i bez mocków).
-- **Płatności:** **mBank PayNow** (BLIK, Pay-By-Link, karty, Google/Apple Pay).
-- **Fakturowanie:** Pełna automatyzacja (mOrganizer Finansów mBanku / API fakturowni).
-- **E-mail marketing / automatyzacja:** **Brevo** (darmowa nielimitowana baza kontaktów, 300 maili/dzień, pełne scenariusze automatyzacji).
-- **Filozofia interfejsu (Anti-Bloat):** Zero bloga, zero zbędnych case studies, zero podpierania się logami marek, zero sztucznych liczników/counterów, zero skomplikowanych lead magnetów.
+## 📊 Kluczowe Decyzje Techniczne i Estetyczne (Stan na 03.11)
+- **Wzorce wizualne (Awwwards-tier):** `byholm.co` (surowy, bezkompromisowy minimalizm edytorski, dominująca typografia, perfekcyjny grid), `noomoagency.com` (nowoczesny dark mode, kinetyczna płynność), `cornrevolution.resn.global` (unikalna tożsamość i interakcja).
+- **Zasada wizualna:** **ŻADNYCH AI SLOP**. Autorskie fotografie wykonane według dedykowanego briefu (`docs/BRIEF_ZDJECIOWY.md`).
+- **Stack technologiczny:** **Astro** (SSG, zero bloatu) + **Tailwind CSS v4** + **Lenis** (kinetyczny smooth scroll) + **GSAP / Motion** + izolowane wyspy Astro dla płatności i kalendarza.
+- **Hosting:** **Cloudflare Pages** (domyślnie, global edge CDN).
+- **Procesor płatności:** **mBank PayNow** (BLIK, Pay-By-Link, karty).
+- **Firma:** **Polska Grupa Proptech Sp. z o.o.**
 
 ---
 
 ## 🎯 Najbliższe Zadania (Next Actions)
-1. **Faza 3 – Architektura Informacji i Gotowe Copy:** Przygotowanie czystego szkicu treści poszczególnych sekcji strony głównej w duchu nowej narracji.
-2. **Faza 4 – Inicjalizacja Astro + Tailwind:** Konfiguracja projektu frontendu i komponentów płatności PayNow.
+1. **Zdjęcia:** Łukasz organizuje 3–4 ujęcia wg [`docs/BRIEF_ZDJECIOWY.md`](file:///home/poruszek/lukasz.poruszek.pl/docs/BRIEF_ZDJECIOWY.md).
+2. **Inicjalizacja projektu (Faza 4):** Utworzenie projektu Astro z Tailwind v4 i konfiguracją Lenis smooth scroll w katalogu `/home/poruszek/lukasz.poruszek.pl`.
+3. **Makieta kodu:** Zakodowanie surowego layoutu w duchu Byholm z miejscem na zdjęcia, mocną typografię i klocki zakupowe PayNow.
 
 ---
 
 ## 📝 Dziennik Zdarzeń (Action Log)
-- **2026-11-03 (19:35):**
-  - Przeniesiono nową narrację (transfer wiedzy jako najwyższa wartość cywilizacyjna i ekonomia czasu) do bazy 100 pytań strategicznych.
-  - Zaktualizowano 19 pytań w `docs/01_PYTANIA_STRATEGICZNE_100.md`.
-  - Usunięto z pytań wszelkie pretensjonalne wątki autobiograficzne i mentorszenie z góry.
-  - Zacommitowano zmiany lokalnie w Git.
+- **2026-11-03 (20:12):**
+  - Wdrożono inspiracje wizualne: Noomo, Resn, Byholm.
+  - Wdrożono zakaz „AI Slop” (Q85).
+  - Przygotowano profesjonalny brief zdjęciowy (`docs/BRIEF_ZDJECIOWY.md`) z podziałem na 4 kadry (Hero, Focus, Dialog, Detal).
+  - Dobrano stack technologiczny: Astro + Tailwind v4 + Lenis + Motion pod standard Awwwards.
+  - Zdefiniowano Cloudflare Pages (Q88) oraz dane firmy Polska Grupa Proptech Sp. z o.o. (Q91).
+  - Zarejestrowano ADR-007 w `docs/02_DECISION_LOG.md`.
