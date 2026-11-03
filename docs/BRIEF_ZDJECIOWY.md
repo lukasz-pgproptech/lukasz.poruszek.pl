@@ -76,3 +76,4 @@ Potrzebujemy łącznie **3 do 4 kluczowych ujęć**, które idealnie wypełnią 
    - Mocnych filtrów z telefonu, sztucznego wygładzania skóry („beauty filter”).
    - Zdjęć robionych w pełnym słońcu na zewnątrz bez blendy (ostre, nieprzyjemne cienie pod oczami).
    - Bałaganu w tle (kable, jaskrawe plakaty, kubki z plastiku).
+

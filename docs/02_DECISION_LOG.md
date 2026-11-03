@@ -76,3 +76,14 @@ Ten plik rejestruje wszystkie kluczowe decyzje technologiczne, architektoniczne 
   3. **Hosting:** Cloudflare Pages (domyślnie, global edge CDN).
   4. **Fotografia:** Wdrożenie profesjonalnego briefu artystycznego (`docs/BRIEF_ZDJECIOWY.md`) z podziałem na 4 ujęcia (Hero, Focus/Work, Dialog/Partnerstwo, Detal).
 - **Konsekwencje:** Strona uzyskuje unikalny, luksusowo-inżynierski charakter (jak portfolio Byholma i Noomo), wyróżniając się drastycznie na tle typowych polskich stron szkoleniowych, zachowując 100/100 punktów w Google Lighthouse.
+
+
+### ADR-008: Wdrożenie Skilli /awwwards oraz /jury (Standard Awwwards Site of the Day)
+- **Data:** 2026-11-03
+- **Status:** Zaakceptowane
+- **Kontekst:** Łukasz zidentyfikował i wskazał wyspecjalizowane skille agentowe: `/awwwards` oraz `/jury` (autorstwa `juliobsz/skills`).
+- **Decyzja:** 
+  1. Zainstalowano skille globalnie (`~/.gemini/config/skills/`) oraz lokalnie w projekcie (`.agents/skills/`).
+  2. Skill `/awwwards` dostarcza zoptymalizowany dla Astro silnik ruchu (Astro ClientRouter + Lenis + GSAP, waga zaledwie ~75 KB), wolne od AI-slop schematy typograficzne i zasady kompozycji plakatowej (każda klatka jako plakat).
+  3. Skill `/jury` realizuje bezstronny audyt jakościowy: wykonuje zrzuty ekranu w headless Chromium (Playwright), mierzy LCP/CLS na dławionym łączu mobilnym, audytuje dostępność (axe-core) i wystawia kartę ocen wg kryteriów Awwwards.
+- **Konsekwencje:** Pełna automatyzacja dowożenia jakości Awwwards-tier bez kompromisów wydajnościowych.
