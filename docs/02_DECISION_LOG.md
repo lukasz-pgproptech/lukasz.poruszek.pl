@@ -35,4 +35,14 @@ Ten plik rejestruje wszystkie kluczowe decyzje technologiczne, architektoniczne 
 - **Status:** Zaakceptowane
 - **Kontekst:** Użytkownik posiada zorganizowaną bazę wiedzy w katalogu `/home/poruszek/Łukasz informacje` z opisem kariery, profilu, case studies, konspektu warsztatów i filozofii pracy.
 - **Decyzja:** Pobrano fakty z centralnej bazy i wypełniono bazę 100 pytań strategicznych w `docs/01_PYTANIA_STRATEGICZNE_100.md`.
-- **Konsekwencje:** Zaoszczędzono czas użytkownika; odpowiedzi odzwierciedlają autentyczne doświadczenia inżynieryjne i biznesowe (PARP, ResiCraft, Motzny, Dzielna 64, Grupa Zero); do decyzji użytkownika pozostały jedynie czysto operacyjne parametry (stawki w PLN, rejestrator domeny, NIP).
+- **Konsekwencje:** Zaoszczędzono czas użytkownika; odpowiedzi odzwierciedlają autentyczne doświadczenia inżynieryjne i biznesowe (PARP, ResiCraft, Motzny, Dzielna 64, Grupa Zero).
+
+### ADR-004: Zwrot Strategiczny: Prymat Klienta Indywidualnego (B2C First) & Model Samoobsługowy
+- **Data:** 2026-11-03
+- **Status:** Zaakceptowane
+- **Kontekst:** Wstępne założenia błędnie kładły nacisk na korporacyjne B2B i długie procesy discovery calli. Łukasz sprecyzował, że głównym odbiorcą jest **klient indywidualny (B2C)**, a oferta dla firm to opcja dodatkowa dla większych grup.
+- **Decyzja:**
+  1. **Warsztaty AI:** 6-tygodniowy cykl online (6x 2h) w ekosystemie Antigravity z ekstrapolacją na rynek, 1200 zł cena bazowa z obsługą kodów rabatowych (do 0 zł), pokoje wymiany wiedzy, prace domowe i sesje 1:1.
+  2. **Mentoring (Biznes i Kariera):** Pojedyncze sesje 90 min doraźnej diagnozy (brak pakietów/sprintów). W karierze brak AI i brak mock interviews (nauka sterowania rozmową na własne tory).
+  3. **Sprzedaż & UX:** W 100% samoobsługowa – jawne ceny na stronie, wybór terminu w kalendarzu, formularz i natychmiastowa płatność online (BLIK/szybki przelew). Zero „rozmów o rozmowach”.
+- **Konsekwencje:** Drastyczne uproszczenie lejka, wysoka przejrzystość strony, zautomatyzowana konwersja.

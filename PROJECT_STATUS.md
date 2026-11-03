@@ -1,7 +1,7 @@
 # Status Projektu: lukasz.poruszek.pl
-Ostatnia aktualizacja: **2026-11-03 13:40**  
-Aktualna faza: **Faza 1 -> Faza 2: Synteza Strategii, Oferty i Pozycjonowania**  
-Główny cel: **Strona internetowa personal brandingu dla komercyjnych warsztatów AI oraz mentoringu (biznes + poszukiwanie pracy)**
+Ostatnia aktualizacja: **2026-11-03 15:10**  
+Aktualna faza: **Faza 1 -> Faza 2: Synteza Strategii, Oferty i Pozycjonowania (B2C-First)**  
+Główny cel: **Strona internetowa personal brandingu: warsztaty AI (6-tyg. cykl Antigravity) + doraźny mentoring 90 min (biznes & kariera) w modelu bezpośredniej sprzedaży online**
 
 ---
 
@@ -23,47 +23,39 @@ podsumuj aktualny stan prac i przejdźmy do realizacji kolejnego zadania z listy
 
 | Faza | Nazwa Fazy | Status | Opis |
 | :--- | :--- | :--- | :--- |
-| **Faza 1** | **Strategiczne Odkrywanie & Baza 100 Pytań** | 🟢 **ZAKOŃCZONA** | Wszystkie 100 pytań strategicznych zostało wypełnionych na podstawie bazy wiedzy `/home/poruszek/Łukasz informacje`. |
-| **Faza 2** | **Synteza Strategii, Oferty i Pozycjonowania** | 🟡 **W TRAKCIE** | Przetworzenie odpowiedzi w skrystalizowaną ofertę, USP, cennik i pakiety (`docs/03_OFERTA_I_CENNIK.md`). |
-| **Faza 3** | **Architektura Informacji i Copywriting** | ⚪ Oczekuje | Opracowanie struktury podstron (sitemap), perswazyjnych tekstów i schematu sekcji (`docs/04_COPYWRITING_I_TRESCI.md`). |
-| **Faza 4** | **Setup Techniczny & Design System** | ⚪ Oczekuje | Inicjalizacja projektu (Astro + Tailwind CSS / UI), konfiguracja typografii, kolorystyki, dark/light mode. |
-| **Faza 5** | **Implementacja Komponentów & RWD** | ⚪ Oczekuje | Budowa sekcji Hero, Warsztatów AI, Mentoringu Biznesowego, Mentoringu Kariery, Testimonials, FAQ, Kontakt. |
-| **Faza 6** | **Integracje (Kalendarz, Formularze, Lead Magnet)** | ⚪ Oczekuje | Podpięcie Cal.com/Calendly, formularza kontaktowego, wysyłki maili/webhooków. |
-| **Faza 7** | **Optymalizacja, SEO, WCAG i Aspekty Prawne** | ⚪ Oczekuje | Metadata, Open Graph, schema.org, Core Web Vitals (100/100 Lighthouse), Polityka Prywatności/RODO. |
-| **Faza 8** | **Wdrożenie Produkcyjne (Deployment)** | ⚪ Oczekuje | Podpięcie domeny `lukasz.poruszek.pl`, konfiguracja CDN / Cloudflare / serwera, testy produkcyjne. |
+| **Faza 1** | **Strategiczne Odkrywanie & Baza 100 Pytań** | 🟢 **ZAKOŃCZONA** | Wdrożono precyzyjne wytyczne Łukasza (zwrot na B2C-First, 6-tyg. warsztaty Antigravity za 1200 zł, sesje 90 min bez pakietów). |
+| **Faza 2** | **Synteza Strategii, Oferty i Pozycjonowania** | 🟡 **W TRAKCIE** | Dostosowanie modułów 5–10 w `docs/01_PYTANIA_STRATEGICZNE_100.md`, przygotowanie cennika i architektury samoobsługowej. |
+| **Faza 3** | **Architektura Informacji i Copywriting** | ⚪ Oczekuje | Opracowanie struktury podstron (sitemap), perswazyjnych tekstów B2C i checkoutu (`docs/04_COPYWRITING_I_TRESCI.md`). |
+| **Faza 4** | **Setup Techniczny & Design System** | ⚪ Oczekuje | Inicjalizacja projektu (Astro + Tailwind CSS / UI), interaktywny kalendarz, dark/light mode. |
+| **Faza 5** | **Implementacja Komponentów & RWD** | ⚪ Oczekuje | Budowa sekcji Hero, Warsztatów AI (z kodem rabatowym), Mentoringu (kalendarz + płatność), O Mnie, FAQ. |
+| **Faza 6** | **Integracje (Płatności, Kalendarz, Kody Rabatowe)** | ⚪ Oczekuje | Podpięcie bramki płatności (BLIK / karty), Cal.com/Calendly, fakturowania. |
+| **Faza 7** | **Optymalizacja, SEO, WCAG i Aspekty Prawne** | ⚪ Oczekuje | Metadata, Open Graph, schema.org, regulamin sklepu/świadczenia usług, RODO. |
+| **Faza 8** | **Wdrożenie Produkcyjne (Deployment)** | ⚪ Oczekuje | Podpięcie domeny `lukasz.poruszek.pl` (Cloudflare Pages), testy transakcyjne na żywo. |
 
 ---
 
 ## 📊 Aktualny Stan Bazy Pytań (Faza 1)
 Plik źródłowy: [`docs/01_PYTANIA_STRATEGICZNE_100.md`](file:///home/poruszek/lukasz.poruszek.pl/docs/01_PYTANIA_STRATEGICZNE_100.md)
 
-- [x] Opracowano i sformatowano 100 pytań w 10 modułach tematycznych.
-- [x] Moduł 1: Pozycjonowanie, Personal Branding i Wiarygodność (Pytania 1–10) – **Wypełnione z Bazy Wiedzy**
-- [x] Moduł 2: Oferta – Warsztaty AI dla Firm i Zespołów (Pytania 11–20) – **Wypełnione z Bazy Wiedzy**
-- [x] Moduł 3: Oferta – Mentoring w Tworzeniu i Rozwoju Własnej Firmy (Pytania 21–30) – **Wypełnione z Bazy Wiedzy**
-- [x] Moduł 4: Oferta – Mentoring w Poszukiwaniu Pracy i Rozwoju Kariery (Pytania 31–40) – **Wypełnione z Bazy Wiedzy**
-- [x] Moduł 5: Model Biznesowy, Cennik i Proces Sprzedaży (Pytania 41–50) – **Wypełnione z Bazy Wiedzy / Rekomendacje**
-- [x] Moduł 6: Architektura Informacji i Struktura Podstron (Pytania 51–60) – **Wypełnione z Bazy Wiedzy / Rekomendacje**
-- [x] Moduł 7: Treści, Copywriting i Psychologia Konwersji (Pytania 61–70) – **Wypełnione z Bazy Wiedzy**
-- [x] Moduł 8: Lejek Marketingowy, Lead Generation i Baza Kontaktów (Pytania 71–80) – **Wypełnione z Bazy Wiedzy / Rekomendacje**
-- [x] Moduł 9: Design, Estetyka, UX/UI i Preferencje Technologiczne (Pytania 81–90) – **Wypełnione z Bazy Wiedzy / Rekomendacje**
-- [x] Moduł 10: Aspekty Formalno-Prawne, Bezpieczeństwo i Plan Wdrożenia (Pytania 91–100) – **Wypełnione z Bazy Wiedzy / Rekomendacje**
+- [x] Moduł 1: Pozycjonowanie, Personal Branding i Wiarygodność (Pytania 1–10) – **Dostosowane pod B2C**
+- [x] Moduł 2: Oferta – Warsztaty AI (Pytania 11–20) – **Wdrożono dosłowne wytyczne Łukasza (6 tyg., Antigravity, 1200 zł, kody do 0 zł)**
+- [x] Moduł 3: Oferta – Mentoring Biznesowy (Pytania 21–30) – **Wdrożono dosłowne wytyczne Łukasza (sesje 90 min, rozbijanie fałszywych stałych, bez sprintów)**
+- [x] Moduł 4: Oferta – Mentoring Kariery (Pytania 31–40) – **Wdrożono dosłowne wytyczne Łukasza (sesje 90 min, sterowanie rozmową, bez mocków, bez AI)**
+- [x] Moduły 5–10: Zaproponowano spójne, zaktualizowane brzmienie odzwierciedlające zwrot B2C i model bezpośrednich płatności online.
 
 ---
 
 ## 🎯 Najbliższe Zadania (Next Actions)
-1. **Przegląd przez Łukasza:** Zapoznanie się z wypełnionymi odpowiedziami w [`docs/01_PYTANIA_STRATEGICZNE_100.md`](file:///home/poruszek/lukasz.poruszek.pl/docs/01_PYTANIA_STRATEGICZNE_100.md) i ewentualne doprecyzowanie 4–5 decyzji biznesowych (stawki w PLN, dane NIP, wybór Cal.com vs Calendly).
-2. **Faza 2 – Synteza oferty:** Opracowanie pliku `docs/03_OFERTA_I_CENNIK.md` definiującego finalną konstrukcję oferty warsztatowej i mentoringowej.
-3. **Faza 3 – Copywriting i Makieta:** Przygotowanie gotowych tekstów nagłówków, sekcji i struktury podstron (`docs/04_COPYWRITING_I_TRESCI.md`).
-4. **Faza 4 – Inicjalizacja Astro + Tailwind:** Rozpoczęcie implementacji frontendu.
+1. **Przegląd przez Łukasza:** Weryfikacja zaproponowanych odpowiedzi dla Modułu 5 (Model biznesowy, cennik, proces sprzedaży) i kolejnych.
+2. **Potwierdzenie stawki za sesję 90 min:** Ustalenie ceny pojedynczej sesji mentoringowej (np. 400–500 zł).
+3. **Faza 3 & 4 – Przygotowanie szkieletu i komponentów Astro + Tailwind:** Implementacja kafelków 3 usług, formularza z kodem rabatowym i kalendarza ze slotami.
 
 ---
 
 ## 📝 Dziennik Zdarzeń (Action Log)
-- **2026-11-03:**
-  - Przeanalizowano bazę wiedzy z katalogu `/home/poruszek/Łukasz informacje` (bio, elevator pitch, historia osobista, case studies ResiCraft / Motzny / Dzielna 64 / Va Banque, konspekt warsztatów AI, stack technologiczny, preferencje współpracy).
-  - Wypełniono 100 pytań strategicznych w [`docs/01_PYTANIA_STRATEGICZNE_100.md`](file:///home/poruszek/lukasz.poruszek.pl/docs/01_PYTANIA_STRATEGICZNE_100.md) autentycznymi danymi i rekomendacjami.
-  - Zaktualizowano `PROJECT_STATUS.md` i zarejestrowano decyzje w `docs/02_DECISION_LOG.md`.
-- **2026-11-02:** 
-  - Utworzenie struktury katalogu projektu i protokołu ciągłości kontekstowej (`docs/00_CONTEXT_CONTINUITY_PROTOCOL.md`).
-  - Opracowanie bazy 100 pytań strategicznych podzielonych na 10 modułów.
+- **2026-11-03 (15:10):**
+  - Wdrożono feedback Łukasza: pełny zwrot z narracji B2B na B2C First.
+  - Zaktualizowano program i wycenę Warsztatów AI (6 tygodni, ekosystem Antigravity, wymóg Gemini Pro/Ultra, 1200 zł + kody promocyjne do 0 zł).
+  - Przebudowano koncepcję Mentoringu: pojedyncze sesje 90 min (doraźna pomoc, rozbijanie fałszywych stałych, sterowanie rozmową kwalifikacyjną, bez AI i bez mock interviews).
+  - Zaproponowano odświeżone odpowiedzi dla pytań 41–100 zorientowane na bezpośredni zakup i automatyczny checkout.
+  - Zarejestrowano decyzję ADR-004 w `docs/02_DECISION_LOG.md`.

@@ -27,8 +27,8 @@ Status: **Oczekuje na odpowiedzi użytkownika (Faza 1)**
 #### 1. Jaka jest Twoja główna obietnica marki (Value Proposition)?
 *Dlaczego to ważne:* To zdanie trafi na samą górę strony głównej (Hero Section). Musi natychmiast wyjaśniać, kim jesteś, komu pomagasz i jaki mierzalny rezultat dostarczasz.  
 > **Odpowiedź:**
-> Pomagam liderom technicznym, menedżerom i firmom przekształcić sztuczną inteligencję z „zabawki do pisania maili” w potężną, bezwzględną dźwignię operacyjną (od asystenta do orkiestracji multiagentowej). Równolegle prowadzę mentoring biznesowy i kariery, oparty na inżynierskiej dekompozycji problemów i twardych zasadach rynkowych – bez lania wody i bez iluzji loterii.
-> *[Status: Wypełnione na podstawie Bazy Wiedzy Łukasza]*
+> Pomagam specjalistom, osobom poszukującym pracy oraz początkującym przedsiębiorcom przekształcić AI w realną dźwignię zawodową (praktyczne 6-tygodniowe warsztaty online z ekosystemu Antigravity) oraz rozwiązać bieżące bariery biznesowe i rekrutacyjne w ramach intensywnych, 90-minutowych sesji mentoringowych. Dla firm i większych grup oferuję dedykowane szkolenia na zapytanie.
+> *[Status: Zaktualizowane – priorytet klienta indywidualnego (B2C)]*
 
 #### 2. Jakie jest Twoje dotychczasowe doświadczenie i unikalny background zawodowy?
 *Dlaczego to ważne:* Buduje natychmiastowy autorytet (np. lata w technologii/biznesie, prowadzone projekty, role leaderskie, sukcesy i porażki, z których wyciągnąłeś wnioski).  
@@ -71,9 +71,9 @@ Status: **Oczekuje na odpowiedzi użytkownika (Faza 1)**
 #### 7. Kim jest Twój wymarzony "Klient Idealny", a z kim zdecydowanie NIE chcesz współpracować?
 *Dlaczego to ważne:* Pozwoli na stronie umieścić filtry ("Dla kogo to jest / Dla kogo to NIE jest"), oszczędzając Twój czas na nietrafione rozmowy.  
 > **Odpowiedź:**
-> - **Klient Idealny:** Ambitni liderzy techniczni, product managerowie, inżynierowie, zarządy firm B2B oraz zdeterminowani przedsiębiorcy i specjaliści, którzy biorą 100% odpowiedzialności za egzekucję, szukają twardej dźwigni i cenią pragmatyzm.
-> - **Z kim NIE współpracuję:** Osoby szukające „magicznej pigułki” bez własnej pracy, fani korporacyjnych spotkań o niczym, marzyciele oczekujący, że ktoś zrobi biznes za nich, oraz osoby nietransparentne.
-> *[Status: Wypełnione na podstawie Bazy Wiedzy Łukasza]*
+> - **Klient Idealny:** Osoba indywidualna (specjalista, początkujący przedsiębiorca, kandydat do pracy), która korzysta już z czatów AI i chce wejść na wyższy poziom (warsztaty) lub ma konkretną blokadę biznesową / problem ze znalezieniem pracy i szuka natychmiastowej, bezkompromisowej diagnozy (sesja 90 min).
+> - **Z kim NIE współpracuję:** Osoby oczekujące „cudownych recept” bez własnego zaangażowania, osoby nieterminowe oraz szukające wielomiesięcznych, bezproduktywnych spotkań o niczym.
+> *[Status: Zaktualizowane]*
 
 #### 8. Czy strona ma być w 100% marką osobistą (Personal Brand), czy planujesz docelowo markę parasolową (Agencja / Akademia)?
 *Dlaczego to ważne:* Wpływa na narrację (ja vs my) oraz konstrukcję logotypu i nazewnictwo oferty.  
@@ -94,95 +94,90 @@ Status: **Oczekuje na odpowiedzi użytkownika (Faza 1)**
 #### 10. Jaka jest jedna myśl lub emocja, którą użytkownik ma zapamiętać po 10 sekundach na stronie?
 *Dlaczego to ważne:* Kluczowe dla pierwszego wrażenia wizualnego i hasła przewodniego.  
 > **Odpowiedź:**
-> „To jest inżynier i praktyk biznesu, który naprawdę wie, jak działa biznes i jak wycisnąć z AI bezlitosną przewagę operacyjną. Zero korpo-gadki, czysty konkret.”
-> *[Status: Wypełnione na podstawie Bazy Wiedzy Łukasza]*
-
----
-
-## Moduł 2: Oferta – Warsztaty AI dla Firm i Zespołów
+> „Praktyk, który w 6 tygodni przeprowadzi mnie od zwykłego czatu do multiagentowego ekosystemu Antigravity, a w 90-minutowej sesji rozbije moje fałszywe fiksacje w biznesie lub poszukiwaniu pracy.”
+> *[Status: Zaktualizowane]*
 
 #### 11. Do kogo przede wszystkim kierujesz warsztaty AI?
 *Dlaczego to ważne:* Czy głównym targetem jest B2B (zarządy, działy marketingu, sprzedaży, operacji, programiści), czy B2C (indywidualni profesjonaliści, freelancerzy)?  
 > **Odpowiedź:**
-> Przede wszystkim B2B: zarządy, liderzy techniczni, product managerowie, inżynierowie i zespoły operacyjne firm technologicznych, produkcyjnych i usługowych. Równolegle zorganizowane warsztaty otwarte online dla ambitnych specjalistów i absolwentów kolejnych edycji.
-> *[Status: Wypełnione na podstawie Bazy Wiedzy Łukasza]*
+> Warsztaty kieruję przede wszystkim do **klientów indywidualnych (B2C / specjaliści, profesjonaliści, entuzjaści AI)**. Obsługa firm i większych zespołów jest opcją dodatkową – realizowaną na indywidualne zapytanie dla większych grup.
+> *[Status: Wdrożono wytyczne Łukasza]*
 
 #### 12. W jakich formatach planujesz realizować warsztaty?
 *Dlaczego to ważne:* Online (Zoom / Meet), stacjonarnie w siedzibie klienta, warsztaty otwarte, czy dedykowane sesje zamknięte?  
 > **Odpowiedź:**
-> - Warsztaty zamknięte B2B: stacjonarnie w siedzibie klienta (Polska) lub zdalnie (Google Meet / Zoom).
-> - Warsztaty otwarte: intensywne sesje online hands-on.
-> *[Status: Wypełnione na podstawie Bazy Wiedzy Łukasza]*
+> Głównie warsztaty online, praca równolegle z uczestnikami oraz prace domowe i ich nadzór. Tworzenie też pokoi dla uczestników, na których mogą pomiędzy sesjami ze sobą konwersować i wymieniać się spostrzeżeniami.
+> *[Status: Wdrożono dosłowne wytyczne Łukasza]*
 
 #### 13. Jaki jest przewidziany czas trwania i intensywność warsztatów?
 *Dlaczego to ważne:* Czy to 3-godzinne webinary wprowadzające, 1-dniowe intensywne bootcampy (6-8h), czy cykle kilkudniowe rozłożone w czasie?  
 > **Odpowiedź:**
-> Dwa sprawdzone formaty:
-> 1. **Intensywny Warsztat 1-dniowy (6–8h):** „Od Asystenta AI do Architektury Promptu i Narzędzi Agentowych”.
-> 2. **Zaawansowany Warsztat 2-dniowy (lub 2x1 dzień):** Z budową dedykowanego roju agentów i automatyzacją realnego procesu biznesowego klienta.
-> *[Status: Wypełnione na podstawie Bazy Wiedzy Łukasza]*
+> Cykl obejmuje 6 spotkań, każde trwające około 2 godziny, realizowane raz na tydzień, plus indywidualne sesje 1:1, jeżeli któryś uczestnik potrzebuje dokładniej zgłębić jakieś zagadnienie.
+> *[Status: Wdrożono dosłowne wytyczne Łukasza]*
 
 #### 14. Jaki jest dokładny zakres technologiczny i narzędziowy warsztatów?
 *Dlaczego to ważne:* Jakie konkretnie narzędzia i koncepcje pokazujesz (np. ChatGPT/Claude/Gemini, Cursor/Copilot/Antigravity, automatyzacje Make/n8n, agenci AI, RAG, prompt engineering)?  
 > **Odpowiedź:**
-> Autorski program: **„Od Asystenta AI do Orkiestracji Multiagentowej w Praktyce Biznesowej”**:
-> - Moduł 1: AI-Native Mindset & inżynierska dekompozycja procesów.
-> - Moduł 2: Context Window Engineering, eliminacja halucynacji, bazy wiedzy w Markdown jako Single Source of Truth.
-> - Moduł 3: Nowa generacja narzędzi – protokół MCP (Model Context Protocol), IDE agentowe (Antigravity, Cursor, Claude Code), łączenie AI z bazami danych i API.
-> - Moduł 4: Orkiestracja wieloagentowa (roje agentów: Lider, Researcher, Egzekutor/Coder, QA/Krytyk).
-> - Moduł 5: Bezpieczeństwo danych firmowych, uprawnienia i wdrożenie w organizacji.
-> *[Status: Wypełnione na podstawie Bazy Wiedzy Łukasza]*
+> Na warsztatach bazujemy na ekosystemie Antigravity, czyli zaczynamy od czatu webowego, następnie przechodzimy do Antigravity IDE i kończymy na Antigravity App. Całą wiedzę ekstrapoluję także na rozwiązania konkurencyjne (np. ChatGPT / Claude webowy -> Codex / Claude Code w VS Code -> Codex app / Claude Code app).
+>
+> Szczegółowy program 6 modułów:
+> - **Moduł 1:** Podstawy pracy z LLM + inżynieria promptu (systematyzujemy wiedzę i uzupełniamy ją o wymagane szczegóły, wszystko działamy na webowym czacie).
+> - **Moduł 2:** Podstawy w pracy agentowej (pierwsze podejście do Antigravity IDE, wykonanie pierwszego zadania przez naszego agenta).
+> - **Moduł 3:** Zarządzanie kontekstem w pracy agentowej (wprowadzenie pojęcia AGENTS.MD, tworzenie miejsca pracy niezależnego od otwartego okna kontekstowego).
+> - **Moduł 4:** Wprowadzenie tematu `.agents` (tworzenie własnych agentów, importowanie gotowych agentów).
+> - **Moduł 5:** Wprowadzenie tematu MCP serwer i API.
+> - **Moduł 6:** Wprowadzenie do pracy w Antigravity App (wykorzystanie dotychczasowej wiedzy oraz stworzenie swojego pierwszego systemu multiagentowego).
+> *[Status: Wdrożono dosłowne wytyczne Łukasza]*
 
 #### 15. Jaki jest wymagany poziom wejścia uczestników?
 *Dlaczego to ważne:* Czy warsztaty są dla osób zupełnie nietechnicznych (biznes, HR, marketing), dla osób średniozaawansowanych, czy dla programistów?  
 > **Odpowiedź:**
-> Dla kadry zarządzającej, menedżerów produktu, inżynierów oraz analityków. Nie wymaga zaawansowanej wiedzy programistycznej – warsztat skupia się na logice procesowej, architekturze zadań i sterowaniu narzędziami.
-> *[Status: Wypełnione na podstawie Bazy Wiedzy Łukasza]*
+> Warsztaty celują do wszystkich osób, które już miały przyjemność korzystać bądź intensywnie korzystają z asystentów AI (czatów webowych).  
+> **Wymaganie wstępne:** Do wzięcia udziału w warsztatach wymagane jest posiadanie przez uczestnika subskrypcji Gemini w wersji Pro lub Ultra.
+> *[Status: Wdrożono dosłowne wytyczne Łukasza]*
 
 #### 16. Czy warsztaty mają stały program "z półki", czy są każdorazowo szyte na miarę (customizowane)?
 *Dlaczego to ważne:* Wpływa na to, czy na stronie pokazujemy sztywne agendy, czy schemat procesu: "Audyt procesów firmy -> Dedykowany program -> Realizacja".  
 > **Odpowiedź:**
-> Model hybrydowy: stały, sprawdzony kręgosłup merytoryczny + moduł warsztatowy każdorazowo oparty o żywy proces biznesowy i wyzwania konkretnej firmy.
-> *[Status: Wypełnione na podstawie Bazy Wiedzy Łukasza]*
+> Warsztaty mają ustrukturyzowany, 6-tygodniowy program bazowy z indywidualnym podejściem do uczestników (nadzór nad pracami domowymi, pokoje do wymiany wiedzy, indywidualne sesje pogłębiające). Dla większych grup firmowych program może być modyfikowany na zapytanie.
+> *[Status: Zaktualizowane]*
 
 #### 17. Co uczestnik i firma otrzymują w pakiecie poszkoleniowym?
 *Dlaczego to ważne:* Wartość dodana decydująca o zakupie: nagrania wideo, gotowa baza promptów, szablony automatyzacji, certyfikat, 30 dni wsparcia asynchronicznego?  
 > **Odpowiedź:**
-> - Kompletne repozytorium materiałów w Markdown (baza promptów inżynieryjnych, szablony architektury kontekstu).
-> - Gotowe konfiguracje serwerów MCP i instrukcje wdrożeniowe.
-> - Nagrania z warsztatów (dla edycji online).
-> - 30 dni asysty i wsparcia Q&A na dedykowanym kanale dla uczestników.
-> - Certyfikat ukończenia warsztatu.
-> *[Status: Wypełnione na podstawie Bazy Wiedzy Łukasza]*
+> Pakiet obejmuje:
+> - Dostęp do nagrań ze spotkań na żywo.
+> - Materiały, szablony i prompty z poszczególnych modułów.
+> - Dostęp do dedykowanych pokoi dyskusyjnych do wymiany spostrzeżeń między sesjami.
+> - Nadzór nad pracami domowymi i informację zwrotną od Łukasza.
+> - Możliwość indywidualnych sesji 1:1 w przypadku potrzeby pogłębienia zagadnienia.
+> *[Status: Wdrożono wytyczne Łukasza – usunięto gotowe serwery MCP]*
 
 #### 18. Jaka jest optymalna i maksymalna wielkość grupy szkoleniowej?
 *Dlaczego to ważne:* Czy stawiasz na warsztaty hands-on w małych grupach (np. 5–12 osób), czy duże prelekcje dla 50+ osób?  
 > **Odpowiedź:**
-> Optymalnie: 6–12 osób (maksymalnie 15 osób w formacie hands-on), aby każdy uczestnik pod okiem Łukasza samodzielnie zbudował i przetestował swój workflow agentowy.
-> *[Status: Wypełnione na podstawie Bazy Wiedzy Łukasza]*
+> Kameralne grupy warsztatowe (np. 8–15 osób), aby zapewnić równoległą pracę z każdym uczestnikiem, rzetelny nadzór nad pracami domowymi i przestrzeń do dyskusji w pokojach.
+> *[Status: Zaktualizowane]*
 
 #### 19. Jaki jest model wyceny warsztatów AI?
 *Dlaczego to ważne:* Stawka dzienna za warsztat (np. X zł za dzień do 10 osób), cena za uczestnika, czy wycena zależna od zakresu wdrożenia?  
 > **Odpowiedź:**
-> Model ryczałtowy za dzień szkoleniowy dla grupy B2B (np. widełki 8 000 – 15 000 PLN netto w zależności od zakresu customizacji i wielkości zespołu) lub cena za bilet w warsztatach otwartych.  
-> *[Do ostatecznego potwierdzenia dokładnej stawki przez Łukasza]*
+> - **Cena bazowa:** 1200 zł za uczestnika za cały 6-tygodniowy cykl warsztatów.
+> - **Promocje i zniżki:** Liczne akcje promocyjne z wpisaniem kodu rabatowego obniżającego cenę kursu (nawet do 0 zł dla wybranych partnerów/akcji).
+> - **Większe grupy / firmy:** Wycena indywidualna na zapytanie.
+> *[Status: Wdrożono dosłowne wytyczne Łukasza]*
 
 #### 20. Czy przed warsztatem przeprowadzasz bezpłatny audyt lub ankietę potrzeb firmy?
 *Dlaczego to ważne:* To potężny element budujący zaufanie i wyróżnik ofertowy, który warto wyeksponować na stronie jako Krok 1.  
 > **Odpowiedź:**
-> Zdecydowanie TAK. Standardem przed warsztatem zamkniętym jest krótka ankieta potrzeb i 30-minutowa rozmowa z liderem zespołu, aby zmapować realne wąskie gardła i przygotować ćwiczenia na faktycznych danych firmy.
-> *[Status: Wypełnione na podstawie Bazy Wiedzy Łukasza]*
-
----
-
-## Moduł 3: Oferta – Mentoring w Tworzeniu i Rozwoju Własnej Firmy
+> Tylko na wyraźną potrzebę firmy i tylko gdy mówimy o większej grupie zorganizowanej. W przypadku klientów indywidualnych nie przeprowadzamy audytów przedwarsztatowych.
+> *[Status: Wdrożono dosłowne wytyczne Łukasza]*
 
 #### 21. Na jakim etapie rozwoju biznesu jest Twój docelowy podopieczny?
 *Dlaczego to ważne:* Etap 0 (osoba na etacie z pomysłem), wczesny etap (pierwsze miesiące prowadzenia JDG/spółki i brak klientów), czy etap skalowania działającej firmy?  
 > **Odpowiedź:**
-> - Etap 0/1: Osoba na etacie lub specjalista z unikalnym know-how planujący start własnego biznesu (walidacja, pierwsza oferta, bezpieczne przejście).
-> - Etap 2: Młody przedsiębiorca (pierwsze miesiące / 1-2 lata), który utknął na pułapce mikrobiznesu: brak powtarzalnej sprzedaży, zła wycena, chaos operacyjny, trudności z pozyskaniem dofinansowania PARP.
-> *[Status: Wypełnione na podstawie Bazy Wiedzy Łukasza]*
+> Osoby planujące założenie firmy lub przedsiębiorcy na bieżącym etapie prowadzenia działalności, którzy zderzyli się z konkretnym problemem, barierą decyzyjną lub wątpliwościami co do modelu biznesowego i źródeł finansowania.
+> *[Status: Zaktualizowane]*
 
 #### 22. W jakich branżach i modelach biznesowych czujesz się najsilniejszym mentorem?
 *Dlaczego to ważne:* Np. usługi B2B, software house, SaaS, agencje marketingowe, e-commerce, konsulting specjalistyczny?  
@@ -201,20 +196,20 @@ Status: **Oczekuje na odpowiedzi użytkownika (Faza 1)**
 #### 24. Jaki jest rekomendowany czas trwania relacji mentoringowej?
 *Dlaczego to ważne:* Czy oferujesz pojedyncze sesje strategiczne (ad-hoc), pakiety 3-miesięczne ("Od pomysłu do pierwszych 3 klientów"), czy opiekę długoterminową?  
 > **Odpowiedź:**
-> Dwa formaty:
-> 1. **Pojedyncza Sesja Strategiczna (90 min):** Intensywna diagnoza problemu, weryfikacja założeń biznesowych i plan działania.
-> 2. **Kwartalny Program Mentoringowy (3 miesiące):** Cykl sprintów wdrożeniowych prowadzący do konkretnego celu biznesowego (np. pozyskanie pierwszych 3 klientów, przygotowanie wniosku dotacyjnego, ułożenie modelu wyceny).
-> *[Status: Wypełnione na podstawie Bazy Wiedzy Łukasza]*
+> Pojedyncze sesje trwające **90 minut**. 
+> Intensywna diagnoza problemu, weryfikacja założeń biznesowych, plan działania oraz wskazanie możliwych dróg do obrania.  
+> Nie tworzę żadnych cykli sprintów – jest to pomoc doraźna i wsparcie w określonych problemach, z którymi rozmówca zmaga się tu i teraz.  
+> *Uwaga formalna:* Jeśli z rozmowy wyniknie potrzeba np. napisania wniosku o dofinansowanie, podjęcie się tego zadania stanowi całkowicie odrębną umowę na zasadzie opłaty ryczałtowej i success fee, a nie opłatę za czas konsultacji.
+> *[Status: Wdrożono dosłowne wytyczne Łukasza]*
 
 #### 25. Jakie są 3–5 najczęstszych problemów, które pomagasz rozwiązać początkującemu przedsiębiorcy?
 *Dlaczego to ważne:* To będą nagłówki sekcji "Z jakimi wyzwaniami przychodzą moi podopieczni" (np. brak powtarzalnej sprzedaży, zły cennik, syndrom oszusta, chaos w priorytetach).  
 > **Odpowiedź:**
-> 1. **Walidacja rynkowa pomysłu:** Jak nie spalić oszczędności życia na produkt, którego nikt nie chce.
-> 2. **Wycena i model biznesowy:** Przejście z tanich stawek godzinowych na model wartości dodanej i Success Fee (jak w case study fasad).
-> 3. **Pozyskanie pierwszych 3-5 płacących klientów:** Strategia bezpośredniego dotarcia do decydentów.
-> 4. **Granty i dofinansowania PARP/UE:** Jak napisać wygrywający wniosek w oparciu o inżynierską dekompozycję (100% powtarzalności).
-> 5. **Konstrukcja umów i bezpieczeństwo wspólników:** Jak uniknąć błędów z toksycznymi inwestorami (lekcja z oszustwem inwestora).
-> *[Status: Wypełnione na podstawie Bazy Wiedzy Łukasza]*
+> 1. **Wskazanie źródeł finansowania:** Gdzie szukać dotacji, jak do tego podejść, jakie są wyzwania, plusy i minusy, oraz analiza: czy dotacja, czy inwestor, czy inne źródła finansowania.
+> 2. **Rozbijanie fałszywych fiksacji:** Pokazanie, które elementy biznesu uważane za „stałe” wcale stałymi być nie muszą (zmiana reguł gry).
+> 3. **Weryfikacja założeń biznesowych:** Walidacja pomysłu i zderzenie modelu z realiami rynkowymi przed spaleniem budżetu.
+> 4. **Wskazanie alternatywnych dróg rozwoju:** Odblokowanie impasu decyzyjnego w bieżącej działalności.
+> *[Status: Wdrożono dosłowne wytyczne Łukasza – usunięto obietnice pisania wniosków w 90 min]*
 
 #### 26. W czym zdecydowanie NIE pomagasz (granice kompetencji mentoringu)?
 *Dlaczego to ważne:* Wyraźne zastrzeżenia na stronie budują profesjonalizm (np. brak doradztwa prawno-podatkowego, brak pisania kodu za klienta).  
@@ -225,192 +220,179 @@ Status: **Oczekuje na odpowiedzi użytkownika (Faza 1)**
 #### 27. Czy posiadasz własny framework / system pracy krok po kroku?
 *Dlaczego to ważne:* Klienci uwielbiają ustrukturyzowane procesy (np. "Metoda 4 Filarów Nowego Biznesu"). Jeśli masz własną strukturę, opiszemy ją wizualnie jako infografikę/oś czasu.  
 > **Odpowiedź:**
-> Tak: autorski framework oparty na **Inżynierskiej Dekompozycji Biznesu** oraz **Test Powtarzalności**. Rozbicie biznesu na filary: Weryfikacja Rynku -> Architektura Wartości -> Dźwignia Operacyjna (AI/Automatyzacja) -> Skalowanie.
-> *[Status: Wypełnione na podstawie Bazy Wiedzy Łukasza]*
+> Framework oparty na **uważnym słuchaniu i wskazywaniu rozwiązań, które z pozoru są łatwe, ale sztuka polega na tym, aby mieć świadomość, że one w ogóle istnieją**. Wiele osób ma problemy wynikające z zafiksowania się na elementach, które uważają za stałą, a wcale stałą być nie muszą (dokładnie tak jak w życiowym case study Łukasza z redefinicją paradygmatu podwykonawcy fasad na budowach u Generalnego Wykonawcy).
+> *[Status: Wdrożono dosłowne wytyczne Łukasza]*
 
 #### 28. Jak wygląda proces naboru do mentoringu biznesowego?
 *Dlaczego to ważne:* Czy można po prostu kliknąć "Kup teraz", czy wymagany jest krótki formularz aplikacyjny i bezpłatna rozmowa kwalifikacyjna (selekcja)?  
 > **Odpowiedź:**
-> Krótki formularz zgłoszeniowy na stronie + bezpłatna rozmowa kwalifikacyjna Discovery Call (15 min). Łukasz decyduje o przyjęciu tylko wtedy, gdy widzi 100% szans na realną pomoc i obustronne zaangażowanie.
-> *[Status: Wypełnione na podstawie Bazy Wiedzy Łukasza]*
+> Proces w 100% samoobsługowy: zapisanie się na wolny termin w interaktywnym kalendarzu na stronie, wypełnienie krótkiego formularza określającego problem oraz natychmiastowe opłacenie spotkania na stronie poprzez bramkę płatności.
+> *[Status: Wdrożono dosłowne wytyczne Łukasza]*
 
 #### 29. Jaki jest limit miejsc na mentoring biznesowy w danym miesiącu/kwartale?
 *Dlaczego to ważne:* Buduje naturalną ekskluzywność (scarcity) i gwarantuje wysoką jakość ("Prowadzę jednocześnie maksymalnie 4 osoby").  
 > **Odpowiedź:**
-> Ścisły limit: maksymalnie **3–4 osoby jednocześnie w mentoringu 1:1**, aby zagwarantować pełne skupienie i najwyższą jakość (ze względu na obowiązki CEO w Polskiej Grupie Proptech).
-> *[Status: Wypełnione na podstawie Bazy Wiedzy Łukasza]*
+> Dostępność wprost odzwierciedlona w interaktywnym kalendarzu na stronie – klient widzi, które godziny są zarezerwowane, a na które można się bezpośrednio zapisać i opłacić sesję.
+> *[Status: Wdrożono dosłowne wytyczne Łukasza]*
 
 #### 30. Czy oferujesz gwarancję satysfakcji lub zwrotu środków po pierwszej sesji?
 *Dlaczego to ważne:* Odwrócenie ryzyka (risk reversal) drastycznie zwiększa współczynnik konwersji i buduje zaufanie.  
 > **Odpowiedź:**
-> Tak: 100% gwarancji satysfakcji po pierwszej pełnej sesji. Jeśli którakolwiek ze stron uzna, że nie ma chemii lub oczekiwania się rozmijają – pełny zwrot środków bez zadawania pytań.
-> *[Status: Wypełnione na podstawie Bazy Wiedzy Łukasza]*
-
----
-
-## Moduł 4: Oferta – Mentoring w Poszukiwaniu Pracy i Rozwoju Kariery
+> Zasada uczciwości: sesja 90 min to skondensowana, doraźna diagnoza i konkretny plan działania. W razie losowych przeszkód istnieje możliwość zmiany terminu zgodnie z regulaminem.
+> *[Status: Zaktualizowane]*
 
 #### 31. Do kogo konkretnie kierujesz mentoring kariery?
 *Dlaczego to ważne:* Juniorzy szukający pierwszego zatrudnienia, osoby przebranżawiające się (switch do branży tech), midzi/seniorzy walczący o awans, czy menedżerowie?  
 > **Odpowiedź:**
-> - Specjaliści i inżynierowie dążący do ról liderów technicznych lub Product Managementu (Product Owner, PM, Head of Product).
-> - Osoby przebranżawiające się do świata technologii i nowoczesnego biznesu.
-> - Midzi i seniorzy, którzy utknęli na obecnym stanowisku i chcą strategicznie podnieść swoje wynagrodzenie oraz pozycję rynkową w trudnym rynku rekrutacyjnym.
-> *[Status: Wypełnione na podstawie Bazy Wiedzy Łukasza]*
+> Do osób, które mają problem z poszukiwaniem pracy, nie wiedzą, czy coś robią źle i potrzebują sprawdzić, czy ich podejście jest dobre, czy ich CV nie przejawia objawów nieprofesjonalizmu oraz czy ich profil na LinkedInie jest akceptowalny.
+> *[Status: Wdrożono dosłowne wytyczne Łukasza]*
 
 #### 32. Na jakich rolach i ścieżkach zawodowych skupia się Twoje wsparcie?
 *Dlaczego to ważne:* Programowanie, devops, product management, architektura systemów, role biznesowo-techniczne, czy ogólne zasady rekrutacji w nowoczesnych firmach?  
 > **Odpowiedź:**
-> Role produktowe (Product Owner, Product Manager), zarządzanie inżynierią i operacjami (Head of Product, Engineering Manager, Operations Director), role w B2B SaaS, PropTech oraz stanowiska łączące biznes z wdrożeniami AI.
-> *[Status: Wypełnione na podstawie Bazy Wiedzy Łukasza]*
+> Ogólne zasady rekrutacji, różnice pomiędzy rekrutacją w dużej korporacji a w małej firmie. Budowanie świadomości tego, co tak naprawdę dzieje się z naszym CV po wysłaniu i co realnie liczy się w oczach rekrutera i osoby zatrudniającej.
+> *[Status: Wdrożono dosłowne wytyczne Łukasza]*
 
 #### 33. Co dokładnie wchodzi w zakres audytu materiałów kandydata?
 *Dlaczego to ważne:* Przepisanie CV, profil na LinkedIn (nagłówek, o mnie, pozycjonowanie pod rekruterów), GitHub, portfolio projektów, list motywacyjny?  
 > **Odpowiedź:**
-> - Kompletna dekompozycja CV: zamiana listy obowiązków na twarde metryki biznesowe, rezultaty w formule STAR (Situation, Task, Action, Result) i ROI.
-> - Optymalizacja profilu LinkedIn pod kątem algorytmów rekruterów i bezpośrednich decydentów.
-> - Przygotowanie bazy wiedzy o kompetencjach kandydata w formacie Markdown (Portfolio / Case Studies).
-> *[Status: Wypełnione na podstawie Bazy Wiedzy Łukasza]*
+> Rzetelny, pragmatyczny przegląd materiałów kandydata: audyt CV pod kątem czytelności i wyeliminowania objawów nieprofesjonalizmu oraz weryfikacja profilu na LinkedIn pod kątem standardów rynkowych. (Bez tworzenia rozbudowanych baz w Markdown).
+> *[Status: Wdrożono wytyczne Łukasza – usunięto przesadne portfolio]*
 
 #### 34. Czy przeprowadzasz symulowane rozmowy rekrutacyjne (Mock Interviews)?
 *Dlaczego to ważne:* Jeśli tak, w jakiej formie: techniczne, behawioralne (HR), biznesowe? Z nagraniem wideo i szczegółowym raportem zwrotnym?  
 > **Odpowiedź:**
-> Tak. Prawdziwe, bezkompromisowe symulacje rozmów rekrutacyjnych (Mock Interviews) z perspektywy CEO i Hiring Managera:
-> - Trudne pytania o zarządzanie kryzysem, błędy projektowe, opóźnienia i konflikty w zespole.
-> - Szczegółowy feedback po rozmowie z nagraniem i analizą mocnych/słabych stron.
-> *[Status: Wypełnione na podstawie Bazy Wiedzy Łukasza]*
+> NIE przeprowadzam symulowanych rozmów (Mock Interviews), ponieważ każda rozmowa rekrutacyjna jest inna i nie ma to sensu.  
+> Daję natomiast **praktyczne porady i wskazówki, jak sprowadzać rozmowy rekrutacyjne na własne tory** – tak, aby poruszać się po polu, w którym jesteśmy mocni, i sprytnie omijać swoje słabsze obszary.
+> *[Status: Wdrożono dosłowne wytyczne Łukasza]*
 
 #### 35. Czy uczysz dotarcia do tzw. ukrytego rynku pracy (networking bezpośredni)?
 *Dlaczego to ważne:* Wysyłanie setek CV przez job boardy ma dziś niską skuteczność. Uczenie networkingu z decydentami (CEO/CTO/Hiring Manager) to potężny atut mentoringu.  
 > **Odpowiedź:**
-> To kluczowy wyróżnik: nauka całkowitego odejścia od bezmyślnego wysyłania 300 CV na portalach ogłoszeniowych (Easy Apply). Strategia ukrytego rynku pracy: bezpośredni, spersonalizowany kontakt z decydentami (CEO, CTO, VP), poparty analizą wyzwań danej spółki i propozycją wartości.
-> *[Status: Wypełnione na podstawie Bazy Wiedzy Łukasza]*
+> Tak – nauka budowania świadomości rekrutacyjnej, unikanie typowych pułapek aplikowania „na oślep” oraz zrozumienie perspektywy małych i dużych organizacji.
+> *[Status: Zaktualizowane]*
 
 #### 36. Czy uczysz negocjacji stawek, umów i warunków finansowych?
 *Dlaczego to ważne:* Jeden udany proces negocjacyjny może zwrócić koszt mentoringu wielokrotnie – to świetny argument sprzedażowy w copywritingu.  
 > **Odpowiedź:**
-> Tak. Przygotowanie strategii negocjacyjnej: argumentacja oparta o wygenerowane oszczędności lub przychody dla pracodawcy, porównanie modeli B2B vs UoP, techniki obrony stawek i negocjacji pakietów premiowych.
-> *[Status: Wypełnione na podstawie Bazy Wiedzy Łukasza]*
+> Wskazówki, jak argumentować swoje oczekiwania i rozmawiać o warunkach zatrudnienia bez stawiania się w pozycji petenta.
+> *[Status: Zaktualizowane]*
 
 #### 37. Jak włączasz narzędzia AI w proces poszukiwania pracy przez podopiecznego?
 *Dlaczego to ważne:* Uczenie podopiecznego, jak używać AI do researchu firm, optymalizacji pod systemy ATS czy przygotowania do pytań rekrutacyjnych, tworzy unikalną wartość.  
 > **Odpowiedź:**
-> Mentee uczy się wykorzystania nowoczesnych narzędzi AI do:
-> - Błyskawicznego researchu kondycji finansowej, kultury i technologii przyszłego pracodawcy przed rozmową.
-> - Analizy profilu psychologicznego i zawodowego rekrutera / hiring managera.
-> - Personalizacji aplikacji pod systemy ATS z zachowaniem autentyczności.
-> *[Status: Wypełnione na podstawie Bazy Wiedzy Łukasza]*
+> Narzędzia AI **NIE są** częścią bloku mentoringu kariery. Ten blok skupia się wyłącznie na psychologii rekrutacji, analizie CV/LinkedIn i strategii prowadzenia rozmowy.
+> *[Status: Wdrożono dosłowne wytyczne Łukasza]*
 
 #### 38. Jakie są pakiety i formaty mentoringu kariery?
 *Dlaczego to ważne:* Np. Pakiet Szybki Audyt (CV + LinkedIn + 60 min), Pakiet Pełny Proces (Audyt + 3 sesje + symulacja rozmowy + asysta aż do złożenia oferty)?  
 > **Odpowiedź:**
-> 1. **Pakiet Szybka Przebudowa (Audyt CV + LinkedIn + 60 min Sesji):** Dla osób potrzebujących natychmiastowej korekty kursu.
-> 2. **Pakiet Pełna Transformacja Kariery (Audyt + Mock Interview + Strategia Outboundu + Asysta do zdobycia oferty):** Kompleksowe wsparcie aż do podpisania kontraktu.
-> *[Status: Wypełnione na podstawie Bazy Wiedzy Łukasza]*
+> Nie ma żadnych pakietów. Obowiązują **pojedyncze sesje (90 min)** – dokładnie tak samo jak w przypadku mentoringu biznesowego. Skupiamy się na aktualnych barierach, które powodują problem ze znalezieniem pracy.
+> *[Status: Wdrożono dosłowne wytyczne Łukasza]*
 
 #### 39. Jak komunikujesz obietnice i granice odpowiedzialności w szukaniu pracy?
 *Dlaczego to ważne:* Jak chronisz się przed roszczeniami typu "nie znalazłem pracy w miesiąc, chcę zwrotu", zachowując jednocześnie wysoką motywację kandydata?  
 > **Odpowiedź:**
-> Zasada brutalnej szczerości: nikt nie może zagwarantować pracy w 30 dni w zmiennym otoczeniu makroekonomicznym. Gwarantuję natomiast bezkonkurencyjne przygotowanie merytoryczne, perspektywę hiring managera i system, który podnosi prawdopodobieństwo sukcesu o rząd wielkości. Odpowiedzialność za wysyłanie wiadomości i stawianie się na rozmowach leży po stronie kandydata.
-> *[Status: Wypełnione na podstawie Bazy Wiedzy Łukasza]*
+> Zasada transparentności: mentoring to diagnoza Twojego podejścia, eliminacja błędów w CV/LinkedIn i nauka sterowania rozmową. Ostateczny wynik zależy od wdrożenia wskazówek przez kandydata na rynku.
+> *[Status: Zaktualizowane]*
 
 #### 40. Jakie masz osobiste doświadczenia rekrutacyjne po stronie pracodawcy / hiring managera?
 *Dlaczego to ważne:* Rekrutowałeś pracowników do własnych zespołów? Widziałeś setki słabych CV? Ta perspektywa "zza kulis rekrutacji" jest bezcenna dla kandydata.  
 > **Odpowiedź:**
-> Ponad dekada doświadczenia po stronie zatrudniającego: rekrutacja inżynierów i kierowników robót na budowach, budowa interdyscyplinarnych zespołów R&D i prototypowni w Motzny, rekrutacja i procedury Bazy Konkurencyjności dla zespołu B2B SaaS ResiCraft, zarządzanie pracownikami zróżnicowanymi kulturowo (Nepalczycy na Dzielnej 64). Doskonale wiem, co natychmiast ląduje w koszu, a co przykuwa uwagę prezesa.
-> *[Status: Wypełnione na podstawie Bazy Wiedzy Łukasza]*
-
----
-
-## Moduł 5: Model Biznesowy, Cennik i Proces Sprzedaży
+> Doświadczenie praktyczne: lata rekrutacji pracowników na budowach i w spółkach technologicznych, znajomość mechanizmów selekcji w małych firmach i korporacjach.
+> *[Status: Zaktualizowane]*
 
 #### 41. Czy ceny usług mają być jawnie podane na stronie, czy ukryte za formularzem?
 *Dlaczego to ważne:* Jawne ceny filtrują osoby bez budżetu i budują transparentność, ale przy B2B często stosuje się "wycena indywidualna" lub widełki "od X zł". Jakie jest Twoje podejście dla każdej z 3 usług?  
 > **Odpowiedź:**
-> - **Warsztaty AI (B2B):** Model „Wycena indywidualna / Sprawdź program”, z możliwością podania widełek „od X PLN”.
-> - **Mentoring Biznesowy & Kariery:** Jawne pakiety cenowe (np. pojedyncza sesja, pakiet 3-miesięczny) – buduje to transparentność i eliminuje przypadkowe zapytania.  
-> *[Do potwierdzenia dokładnych stawek przez Łukasza]*
+> **Ceny są w 100% jawne na stronie!**
+> - Warsztaty AI: 1200 zł za cały 6-tygodniowy cykl (z widocznym polem na kod rabatowy).
+> - Mentoring Biznesowy: stała cena za sesję 90 min (np. 400–500 zł).
+> - Mentoring Kariery: stała cena za sesję 90 min (np. 350–450 zł).
+> - Dla większych grup / firm: dyskretny odnośnik „Większa grupa? Skontaktuj się po wycenę”.
+> *[Status: Rekomendacja dopasowana do wytycznych]*
 
 #### 42. Czy planujesz możliwość bezpośredniego zakupu sesji/warsztatu online (koszyk i natychmiastowa płatność)?
 *Dlaczego to ważne:* Decyduje o potrzebie integracji bramek płatności (np. Stripe/P24) vs prosty lejek z rezerwacją terminu i fakturowaniem.  
 > **Odpowiedź:**
-> Na start: prosty lejek oparty o rezerwację bezpłatnej rozmowy wstępnej (Discovery Call) lub zgłoszenie formularzem, a po akceptacji płatność przelewem/linkiem na podstawie faktury proforma/faktury VAT. Bez skomplikowanego koszyka e-commerce na etapie MVP.
-> *[Status: Rekomendacja wdrożeniowa na podstawie wywiadu]*
+> Zdecydowanie TAK – to kluczowy element sklepu/strony:
+> 1. Warsztaty AI: wybór edycji -> wpisanie ewentualnego kodu promocyjnego -> opłacenie online.
+> 2. Mentoring (biznes / kariera): wybór slotu w kalendarzu -> krótki opis problemu -> natychmiastowa płatność online.
+> *[Status: Rekomendacja dopasowana do wytycznych]*
 
 #### 43. Jakie bramki płatności preferujesz lub posiadasz (jeśli zakupy online będą wdrożone)?
 *Dlaczego to ważne:* Np. Stripe, Przelewy24, PayU, BLIK, Revolut Pay.  
 > **Odpowiedź:**
-> - Podstawowa: Tradycyjny przelew bankowy na konto firmowe (faktury VAT).
-> - Opcjonalna online: Stripe (karty / BLIK / Google Pay) lub Przelewy24.  
-> *[Do wyboru przez Łukasza]*
+> Bramka płatności z natychmiastową obsługą polskich metod: **BLIK**, szybkie przelewy (Pay-By-Link) oraz karty (np. Przelewy24, Autopay, PayU lub Stripe z obsługą BLIK).
+> *[Status: Propozycja]*
 
 #### 44. Jaki system fakturowy ma obsługiwać sprzedaż?
 *Dlaczego to ważne:* Fakturownia, inFakt, wFirma, czy manualne wystawianie faktur na podstawie zgłoszeń?  
 > **Odpowiedź:**
-> Fakturownia lub inFakt (wystawianie faktur VAT 23% dla firm i osób prywatnych).  
-> *[Do potwierdzenia narzędzia przez Łukasza]*
+> Automatyczne fakturowanie po udanej płatności (integracja bramki z systemem Fakturownia / inFakt) – automatyczne wysyłanie faktury VAT lub faktury imiennej na adres e-mail klienta.
+> *[Status: Propozycja]*
 
 #### 45. Jak klient ma rezerwować terminy (automatyzacja kalendarza)?
 *Dlaczego to ważne:* Narzędzie do kalendarza zintegrowane ze stroną: Cal.com (open-source), Calendly, TidyCal, czy manualne ustalanie terminów e-mailowo?  
 > **Odpowiedź:**
-> Zintegrowany widget kalendarza **Cal.com** (nowoczesny, open-source, lekki) lub **Calendly**, połączony z Kalendarzem Google Łukasza.
+> Interaktywny kalendarz (np. **Cal.com** lub **Calendly**) bezpośrednio zintegrowany z płatnością online. Klient widzi wolne terminy, klika, podaje dane, płaci i ma potwierdzoną sesję w Kalendarzu Google z linkiem do spotkania online.
 > *[Status: Rekomendacja wdrożeniowa]*
 
 #### 46. Czy oferujesz bezpłatną rozmowę wstępną (np. Discovery Call 15–20 minut)?
 *Dlaczego to ważne:* To najpopularniejszy i najskuteczniejszy lejek dla drogich usług doradczych i B2B. Czy to będzie główny cel (CTA) na stronie?  
 > **Odpowiedź:**
-> Tak. Krótka, 15-minutowa bezpłatna rozmowa Discovery Call („Kawa online”) jako główny punkt styku (CTA) dla mentoringu i zapytań o warsztaty B2B.
-> *[Status: Wypełnione na podstawie Bazy Wiedzy]*
+> **BRAK bezpłatnych rozmów wstępnych (Discovery Call) dla klientów indywidualnych!**  
+> Klient nie marnuje czasu na „rozmowy o rozmowach” – rezerwuje konkretną sesję 90 min lub zapisuje się na warsztat. Krótka rozmowa wstępna ma zastosowanie wyłącznie dla firm B2B planujących dedykowane szkolenie dla większej grupy.
+> *[Status: Kluczowa zmiana pod kątem B2C]*
 
 #### 47. Jaka jest Twoja polityka odwoływania i przekładania spotkań?
 *Dlaczego to ważne:* Np. bezpłatne przełożenie do 24h przed sesją, później sesja przepada. Wpiszemy to w FAQ i regulamin.  
 > **Odpowiedź:**
-> Możliwość bezpłatnego przełożenia terminu do 24 godzin przed planowanym spotkaniem. Odwołanie poniżej 24h lub niestawienie się oznacza uznanie sesji za zrealizowaną.
-> *[Status: Rekomendacja standardu biznesowego]*
+> Bezpłatna możliwość przełożenia sesji 90 min najpóźniej do 24 godzin przed wybranym terminem bezpośrednio z poziomu maila potwierdzającego z kalendarza.
+> *[Status: Propozycja]*
 
 #### 48. Czy w przyszłości planujesz sprzedaż produktów cyfrowych typu self-serve (e-booki, gotowe szablony, mini-kursy wideo)?
 *Dlaczego to ważne:* Wpływa na architekturę techniczną – czy warto od razu przygotować miejsce pod cyfrowy sklep/katalog materiałów.  
 > **Odpowiedź:**
-> W Fazy 2: tak, bazy wiedzy w Markdown, szablony promptów i procedur agentowych mogą być dystrybuowane jako produkty cyfrowe self-serve.
-> *[Status: Zgodne z architekturą rozwoju]*
+> Obsługa kodów promocyjnych/kuponów rabatowych wpisywanych w checkoutcie (obniżających cenę warsztatów nawet do 0 zł). W przyszłości możliwość dokupienia dodatkowych materiałów.
+> *[Status: Dostosowane do wytycznych]*
 
 #### 49. Czy wystawiasz faktury VAT i czy obsługujesz klientów zagranicznych (faktury w EUR/USD)?
 *Dlaczego to ważne:* Wpływa na oznaczenia cen (netto / brutto) oraz wielowalutowość na stronie.  
 > **Odpowiedź:**
-> Tak, czynny podatnik VAT w Polsce (wystawianie faktur VAT 23% oraz transakcje UE/zagraniczne).
-> *[Status: Potwierdzone strukturą spółek]*
+> Wystawianie faktur (dla osób prywatnych i firm). Ceny na stronie podane czytelnie brutto (z informacją o VAT dla przedsiębiorców).
+> *[Status: Standard B2C/B2B]*
 
 #### 50. Jaki jest Twój realny cel biznesowy na pierwsze 6 miesięcy działania strony?
 *Dlaczego to ważne:* Np. pozyskanie 3 stałych podopiecznych biznesowych, 5 klientów na mentoring kariery, 2 warsztaty firmowe w miesiącu. Pomoże to spriorytetyzować elementy strony.  
 > **Odpowiedź:**
-> - Pozyskanie 2–3 regularnych zleceń warsztatowych B2B w miesiącu.
-> - Zapełnienie stałego limitu 3–4 podopiecznych w mentoringu 1:1.
-> - Ustanowienie domeny `lukasz.poruszek.pl` jako wiodącej wizytówki eksperckiej w polskim ekosystemie AI i PropTech.
-> *[Status: Wypełnione na podstawie celów zawodowych]*
-
----
-
-## Moduł 6: Architektura Informacji i Struktura Podstron
+> Regularne zapełnianie comiesięcznych edycji warsztatów AI (kameralne grupy po 8–15 osób) oraz płynne zapełnianie wolnych slotów na 90-minutowe sesje mentoringowe.
+> *[Status: Zaktualizowane cele]*
 
 #### 51. Jaki model struktury strony preferujesz: One-Pager czy Multi-Page?
 *Dlaczego to ważne:* One-pager jest świetny na start i łatwy w odbiorze na telefonie, ale osobne podstrony (Multi-Page) są znacznie lepsze dla SEO i dedykowanych kampanii B2B. A może hybryda (strona główna podsumowująca + dedykowane podstrony ofertowe)?  
 > **Odpowiedź:**
-> Model hybrydowy:
-> - **Strona Główna (Rich One-Pager):** Hero z silną obietnicą, skrót 3 filarów (Warsztaty AI, Mentoring Biznes, Mentoring Kariera), sekcja O Mnie / Historia, Social Proof, FAQ i Formularz/Kalendarz.
-> - **Dedykowany Landing Page dla Warsztatów B2B (`/warsztaty-ai`):** Rozbudowana agenda, opis modułów, możliwość pobrania oferty PDF dla zarządu.
-> - **Dedykowany Landing Page dla Mentoringu (`/mentoring`):** Szczegółowe pakiety i formularz aplikacyjny.
-> *[Status: Rekomendacja architektoniczna]*
+> Układ strony zorientowany w 100% na człowieka (B2C first):
+> - **Hero:** Zwięzłe przedstawienie kim jest Łukasz i 3 czytelne kafelki wyboru:
+>   1. *Warsztaty AI (6-tygodniowy cykl online w Antigravity)*
+>   2. *Mentoring Biznesowy (sesja 90 min: finanse, dotacje, rozbijanie fiksacji)*
+>   3. *Mentoring Kariery (sesja 90 min: audyt CV/LinkedIn, prowadzenie rozmowy)*
+> - Dedykowane sekcje dla każdej z tych 3 usług z bezpośrednim zakupem / kalendarzem.
+> - Sekcja „O mnie” (historia, dlaczego warto).
+> - Dyskretny boks na dole: „Dla firm i większych grup”.
+> *[Status: Propozycja architektury]*
 
 #### 52. Jakie podstrony/sekcje uważasz za absolutne "must-have" na dzień startu (MVP)?
 *Dlaczego to ważne:* Pozwoli określić zakres prac na pierwszy release, aby nie opóźniać startu.  
 > **Odpowiedź:**
-> 1. Hero Section z jasnym Value Proposition i CTA.
-> 2. Sekcja 3 Filarów Oferty (Warsztaty AI, Mentoring Biznesowy, Mentoring Kariery).
-> 3. Sekcja „Dlaczego ja / O mnie” (autentyczna historia, od rusztowań do CEO SaaS).
-> 4. Social Proof & Osiągnięcia (metryki PARP, ResiCraft, Motzny, Dzielna 64).
-> 5. Sekcja FAQ (zbijanie obiekcji).
-> 6. Sekcja Kontakt / Rezerwacja terminu (Cal.com / formularz).
-> *[Status: Zdefiniowany zakres MVP]*
+> 1. Hero z 3 głównymi ścieżkami.
+> 2. Moduł Warsztatów AI (program 6 spotkań, cena 1200 zł, formularz zapisu z kodem rabatowym).
+> 3. Moduł Mentoringu Biznesowego (sesja 90 min, kalendarz + płatność).
+> 4. Moduł Mentoringu Kariery (sesja 90 min, kalendarz + płatność).
+> 5. Sekcja O Mnie (autentyczność, doświadczenie).
+> 6. Sekcja B2B dla większych grup.
+> 7. FAQ i Stopka.
+> *[Status: Zaktualizowane MVP]*
 
 #### 53. W jakiej formule chcesz zaprezentować sekcję "O mnie"?
 *Dlaczego to ważne:* Skrótowa sekcja na stronie głównej z odnośnikiem do pełnej podstrony z Twoją historią i manifestem, czy wyłącznie zwarty moduł na stronie głównej?  
@@ -427,15 +409,14 @@ Status: **Oczekuje na odpowiedzi użytkownika (Faza 1)**
 #### 55. Czy warsztaty AI powinny mieć dedykowany landing page zoptymalizowany pod B2B (np. możliwość pobrania agendy w PDF)?
 *Dlaczego to ważne:* Decydenci w firmach (CEO, HR, dyrektorzy) potrzebują często pliku PDF z programem, który mogą pokazać zarządowi do akceptacji budżetu.  
 > **Odpowiedź:**
-> Zdecydowanie tak: podstrona `/warsztaty-ai` z precyzyjną agendą, korzyściami dla zarządu i bezpośrednim przyciskiem „Pobierz ofertę w PDF” / „Umów rozmowę o potrzebach zespołu”.
-> *[Status: Wypełnione na podstawie Bazy Wiedzy]*
+> Główny landing page skupia się na uczestniku indywidualnym. Na podstronie warsztatów umieszczony jest po prostu baner/moduł: *„Potrzebujesz przeszkolić większą grupę w firmie? Skontaktuj się w sprawie dedykowanej wyceny”*.
+> *[Status: Zaktualizowane]*
 
 #### 56. Jak ma wyglądać sekcja kontaktowa?
 *Dlaczego to ważne:* Interaktywny widget kalendarza, tradycyjny formularz z polami wyboru tematu, widoczny bezpośredni adres e-mail, telefon, czy link do LinkedIn?  
 > **Odpowiedź:**
-> - Główny element: osadzony interaktywny widget kalendarza (Cal.com / Calendly) do wyboru terminu 15 min rozmowy.
-> - Alternatywa: bezpośredni adres e-mail, numer telefonu oraz link do aktywnego profilu na LinkedIn.
-> *[Status: Rekomendacja UX]*
+> Zintegrowany widget kalendarza ze slotami i płatnością, formularz zapisu na warsztaty z polem na kod rabatowy oraz kontakt mailowy i link do profilu LinkedIn.
+> *[Status: Zaktualizowane]*
 
 #### 57. Czy planujesz podstronę lub sekcję ze szczegółowymi Case Studies?
 *Dlaczego to ważne:* Format "Wyzwanie -> Rozwiązanie -> Mierzalny Sukces" to najbardziej przekonujący format dla klientów biznesowych.  
@@ -477,41 +458,39 @@ Status: **Oczekuje na odpowiedzi użytkownika (Faza 1)**
 #### 62. Jakie są 3 największe obiekcje klienta B2B przed zleceniem warsztatów AI i jak na nie odpowiadasz?
 *Dlaczego to ważne:* Np. "Obawiamy się o wyciek poufnych danych firmy", "AI to chwilowa moda", "Pracownicy nie będą chcieli tego używać".  
 > **Odpowiedź:**
-> 1. *„AI to tylko zabawka do pisania postów na social media, u nas się nie przyda”* -> Odpowiedź: Pokazuję realne wdrożenia biznesowe – jak dzięki orkiestracji AI zastąpiliśmy braki kadrowe w projekcie B2B SaaS i dowieźliśmy grant unijny na setki tysięcy złotych.
-> 2. *„Bojimy się o bezpieczeństwo poufnych danych firmy”* -> Odpowiedź: Uczymy bezpiecznych procedur, lokalnych modeli, uprawnień MCP i protokołów anonimizacji danych (zero wycieków).
-> 3. *„Nasi pracownicy nie są techniczni i nie ogarną skomplikowanych promptów”* -> Odpowiedź: Lekcja z FM – interfejs prosty z zewnątrz, cała zaawansowana automatyzacja działa pod spodem.
-> *[Status: Wypełnione na podstawie filozofii Łukasza]*
+> - *„Czy poradzę sobie na warsztatach bez umiejętności programowania?”* -> Tak! Wystarczy, że korzystasz na co dzień z czatu AI i posiadasz Gemini Pro/Ultra. Zaczynamy od czatu i krok po kroku wchodzimy w narzędzia agentowe.
+> - *„Czy wiedza z Antigravity przyda się w innych narzędziach?”* -> Oczywiście. Całą metodykę ekstrapolujemy na ChatGPT, Claude Code, Cursor i rynek LLM.
+> - *„Czy 1200 zł to dobra inwestycja?”* -> Otrzymujesz 6 tygodni intensywnej nauki (12h na żywo), prace domowe z feedbackiem, społeczność i indywidualne wsparcie 1:1.
+> *[Status: Zaktualizowane pod B2C]*
 
 #### 63. Jakie są 3 największe obiekcje przed wejściem w mentoring biznesowy?
 *Dlaczego to ważne:* Np. "Czy ten mentor zna moją specyficzną branżę?", "Czy nie wyrzucę pieniędzy w błoto?", "Nie mam czasu na kolejne zadania".  
 > **Odpowiedź:**
-> 1. *„Czy ten mentor zna moją specyficzną branżę?”* -> Odpowiedź: Zasady inżynierskiej dekompozycji, wyceny wartości, modelowania rentowności i pozyskiwania klientów są uniwersalne.
-> 2. *„Czy nie wyrzucę pieniędzy w błoto?”* -> Odpowiedź: 100% gwarancja satysfakcji po pierwszej sesji – pełny zwrot w razie braku chemii.
-> 3. *„Nie mam czasu na kolejne spotkania”* -> Odpowiedź: Mentoring nie dokłada zadań, lecz eliminuje bezproduktywny chaos i skupia się na 1 kluczowej dźwigni w tygodniu.
-> *[Status: Wypełnione na podstawie Bazy Wiedzy]*
+> - *„Czy 90 minut wystarczy na rozwiązanie mojego problemu?”* -> Tak, bo nie lejemy wody. Identyfikujemy fałszywe fiksacje, sprawdzamy opcje finansowania (dotacja vs inwestor) i wychodzisz z konkretnym planem działania.
+> - *„Czy piszesz za mnie wniosek o dotację na sesji?”* -> Nie. Na sesji analizujemy sensowność i strategię. Ewentualne napisanie wniosku to odrębna umowa w modelu ryczałt + success fee.
+> *[Status: Zaktualizowane]*
 
 #### 64. Jakie są 3 największe obiekcje kandydata przed mentoringiem kariery?
 *Dlaczego to ważne:* Np. "Rynek IT leży i nikt nie zatrudnia", "W sieci jest pełno darmowych porad", "Wstydzę się, że sam nie potrafię znaleźć pracy".  
 > **Odpowiedź:**
-> 1. *„Rynek IT i tech jest w kryzysie, nikt nie zatrudnia”* -> Odpowiedź: W kryzysie odpada masowe wysyłanie CV. Uczę docierania do ukrytego rynku pracy i bezpośrednich rozmów z decydentami, gdzie konkurencja jest znikoma.
-> 2. *„W sieci jest pełno darmowych poradników i szablonów CV”* -> Odpowiedź: Darmowe szablony sprawiają, że wyglądasz jak tysiąc innych kandydatów. Ja uczę Cię myślenia w kategoriach twardego ROI dla pracodawcy.
-> 3. *„Wstydzę się prosić o pomoc w szukaniu pracy”* -> Odpowiedź: Profesjonalni sportowcy i CEO mają mentorów. Traktuj szukanie pracy jak profesjonalny projekt biznesowy.
-> *[Status: Wypełnione na podstawie Bazy Wiedzy]*
+> - *„Czy muszę być programistą, aby skorzystać z mentoringu kariery?”* -> Nie. Poruszamy ogólne zasady rekrutacji w korporacjach i małych firmach, uniwersalne dla każdego kandydata.
+> - *„Wysłałem mało CV, czy warto przyjść na sesję?”* -> Warto przyjść ZANIM spalisz kolejne tygodnie na wysyłaniu CV z błędami formalnymi.
+> *[Status: Zaktualizowane]*
 
 #### 65. Jaki ma być główny przycisk akcji (Call to Action - CTA) na stronie?
 *Dlaczego to ważne:* Jeden dominujący cel: "Umów bezpłatną konsultację 15 min", "Skonsultuj potrzeby zespołu", "Sprawdź wolne terminy"?  
 > **Odpowiedź:**
-> Główny CTA: **„Umów bezpłatną konsultację (15 min)”** (dla mentoringu) oraz **„Zapytaj o warsztat dla zespołu”** (dla firm B2B).
-> *[Status: Rekomendacja konwersyjna]*
+> - Dla Warsztatów AI: **„Dołącz do warsztatów (1200 zł)”**
+> - Dla Mentoringu: **„Wybierz termin sesji 90 min”**
+> *[Status: Zaktualizowane]*
 
 #### 66. Czy posiadasz autorskie nazwy na swoje metody lub procesy?
 *Dlaczego to ważne:* Unikalna nazwa (np. "Metoda AI-Sprint", "Audyt Kariery 360") buduje postrzeganą wartość rynkową i odróżnia od generycznych doradców.  
 > **Odpowiedź:**
-> - „Od Asystenta do Orkiestracji Multiagentowej”
-> - „Inżynierska Dekompozycja Procesów (Metoda Dzielna 64)”
-> - „Model Va Banque & Success Fee 50:50”
-> - „Test Powtarzalności Grantowej (Proof of Repeatability)”
-> *[Status: Wypełnione na podstawie autorskich case studies]*
+> - „6-tygodniowa ścieżka od czatu do orkiestracji w Antigravity”
+> - „Odblokowywanie fałszywych stałych w biznesie”
+> - „Sprowadzanie rozmowy rekrutacyjnej na własne tory”
+> *[Status: Zaktualizowane]*
 
 #### 67. Jaki styl argumentacji najbardziej do Ciebie pasuje?
 *Dlaczego to ważne:* Twarde dane i zwrot z inwestycji (ROI), storytelling i droga bohatera, czy pragmatyczny inżynierski konkret bez owijania w bawełnę?  
@@ -547,8 +526,8 @@ Status: **Oczekuje na odpowiedzi użytkownika (Faza 1)**
 #### 71. Czy planujesz wdrożenie Lead Magnetu (darmowego materiału za zapis e-mail)?
 *Dlaczego to ważne:* Zbieranie adresów e-mail osób, które nie są jeszcze gotowe na zakup, pozwala budować własną listę odbiorców niezależną od algorytmów social mediów.  
 > **Odpowiedź:**
-> Tak – darmowy, wysoce merytoryczny materiał do pobrania w zamian za e-mail, budujący bazę kontaktów do przyszłych edycji warsztatów.
-> *[Status: Rekomendacja marketingowa]*
+> Kody rabatowe (pole kuponu promocyjnego w checkoutcie obniżające cenę do 0 zł) wykorzystywane do promocji w zamkniętych społecznościach i w ramach akcji specjalnych.
+> *[Status: Zaktualizowane]*
 
 #### 72. Jaki temat darmowego materiału (Lead Magnet) byłby najbardziej atrakcyjny dla Twoich odbiorców?
 *Dlaczego to ważne:* Np. "Checklista 10 narzędzi AI automatyzujących pracę w firmie", "Szablon skutecznego CV w branży tech", "Przewodnik po bezpiecznym wdrażaniu LLM"?  
@@ -577,8 +556,8 @@ Status: **Oczekuje na odpowiedzi użytkownika (Faza 1)**
 #### 76. Czy planujesz płatne kampanie reklamowe (LinkedIn Ads, Google Ads)?
 *Dlaczego to ważne:* Wymaga to natychmiastowego przygotowania infrastruktury pod piksele śledzące i mikro-konwersje (np. kliknięcie w kalendarz).  
 > **Odpowiedź:**
-> Na start nie ma konieczności płatnych reklam – autorytet Łukasza, sieć kontaktów na LinkedIn i polecenia z Grupy Zero wygenerują pierwszych klientów. Przygotujemy jednak infrastrukturę techniczną pod tagi śledzące.
-> *[Status: Strategia Lean]*
+> Działania organiczne: posty merytoryczne na LinkedIn, rekomendacje uczestników Grupy Zero, bezpośredni networking, kody promocyjne dla zaufanych społeczności.
+> *[Status: Zaktualizowane]*
 
 #### 77. Gdzie i jak chcesz otrzymywać powiadomienia o nowych leadach i zgłoszeniach?
 *Dlaczego to ważne:* E-mail, powiadomienie na Telegramie, powiadomienie na prywatnym kanale Slack / Discord, czy wpis do arkusza Google Sheets / Notiona?  
@@ -611,8 +590,8 @@ Status: **Oczekuje na odpowiedzi użytkownika (Faza 1)**
 #### 81. Jaki styl wizualny najbardziej Ci odpowiada?
 *Dlaczego to ważne:* Nowoczesny i technologiczny (ciemne tła, subtelne gradienty, styl Linear/Vercel), elegancki i biznesowy (jasny, przestronny, consultingowy), czy ciepły i minimalistyczny?  
 > **Odpowiedź:**
-> Nowoczesny, inżynierski minimalizm technologiczny (w stylu Linear, Vercel, Stripe): ciemne tła z eleganckim kontrastem, czytelna typografia sans-serif, subtelne akcenty świetlne, wysoka przejrzystość.
-> *[Status: Rekomendacja dopasowana do profilu]*
+> Nowoczesny, przejrzysty design z natychmiastową ścieżką zakupu: zero rozpraszaczy, prosty wybór, interaktywny kalendarz i szybki checkout z BLIK-iem.
+> *[Status: Zaktualizowane]*
 
 #### 82. Czy strona ma mieć przełącznik trybu jasnego/ciemnego (Dark/Light mode)?
 *Dlaczego to ważne:* Czy preferujesz automatyczny Dark/Light mode zależny od preferencji systemu użytkownika, czy jeden z góry zdefiniowany, dopracowany motyw?  
@@ -703,8 +682,8 @@ Status: **Oczekuje na odpowiedzi użytkownika (Faza 1)**
 #### 95. Jaki jest Twój pożądany termin uruchomienia wersji MVP strony w sieci (Deadline)?
 *Dlaczego to ważne:* Pozwoli określić tempo prac i podzielić projekt na sprinty wdrożeniowe.  
 > **Odpowiedź:**
-> Uruchomienie działającej wersji MVP strony w sieci w ciągu **najbliższych kilku dni roboczych**.
-> *[Status: Proponowany harmonogram]*
+> Uruchomienie strony z działającym zapisem na warsztaty (z obsługą kodów rabatowych) oraz rezerwacją sesji 90 min w ciągu najbliższych kilku dni roboczych.
+> *[Status: Zaktualizowany harmonogram]*
 
 #### 96. Ile czasu tygodniowo jesteś w stanie przeznaczyć na współpracę nad stroną (odpowiedzi, feedback, akceptacje)?
 *Dlaczego to ważne:* Umożliwi realistyczne zaplanowanie kolejnych kroków i wielkości zadań w oknach kontekstowych.  
