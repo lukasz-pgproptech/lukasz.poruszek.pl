@@ -1,7 +1,7 @@
 # Status Projektu: lukasz.poruszek.pl
-Ostatnia aktualizacja: **2026-11-03 15:10**  
-Aktualna faza: **Faza 1 -> Faza 2: Synteza Strategii, Oferty i Pozycjonowania (B2C-First)**  
-Główny cel: **Strona internetowa personal brandingu: warsztaty AI (6-tyg. cykl Antigravity) + doraźny mentoring 90 min (biznes & kariera) w modelu bezpośredniej sprzedaży online**
+Ostatnia aktualizacja: **2026-11-03 19:10**  
+Aktualna faza: **Faza 2: Synteza Strategii, Oferty i Myśli Przewodniej (B2C-First)**  
+Główny cel: **Minimalistyczna strona personal brandingu: warsztaty orkiestracji (6 tyg., 1200 zł) + doraźny mentoring 90 min (biznes: 400 zł, kariera: 300 zł) z bezpośrednią płatnością mBank PayNow**
 
 ---
 
@@ -23,39 +23,40 @@ podsumuj aktualny stan prac i przejdźmy do realizacji kolejnego zadania z listy
 
 | Faza | Nazwa Fazy | Status | Opis |
 | :--- | :--- | :--- | :--- |
-| **Faza 1** | **Strategiczne Odkrywanie & Baza 100 Pytań** | 🟢 **ZAKOŃCZONA** | Wdrożono precyzyjne wytyczne Łukasza (zwrot na B2C-First, 6-tyg. warsztaty Antigravity za 1200 zł, sesje 90 min bez pakietów). |
-| **Faza 2** | **Synteza Strategii, Oferty i Pozycjonowania** | 🟡 **W TRAKCIE** | Dostosowanie modułów 5–10 w `docs/01_PYTANIA_STRATEGICZNE_100.md`, przygotowanie cennika i architektury samoobsługowej. |
-| **Faza 3** | **Architektura Informacji i Copywriting** | ⚪ Oczekuje | Opracowanie struktury podstron (sitemap), perswazyjnych tekstów B2C i checkoutu (`docs/04_COPYWRITING_I_TRESCI.md`). |
-| **Faza 4** | **Setup Techniczny & Design System** | ⚪ Oczekuje | Inicjalizacja projektu (Astro + Tailwind CSS / UI), interaktywny kalendarz, dark/light mode. |
-| **Faza 5** | **Implementacja Komponentów & RWD** | ⚪ Oczekuje | Budowa sekcji Hero, Warsztatów AI (z kodem rabatowym), Mentoringu (kalendarz + płatność), O Mnie, FAQ. |
-| **Faza 6** | **Integracje (Płatności, Kalendarz, Kody Rabatowe)** | ⚪ Oczekuje | Podpięcie bramki płatności (BLIK / karty), Cal.com/Calendly, fakturowania. |
-| **Faza 7** | **Optymalizacja, SEO, WCAG i Aspekty Prawne** | ⚪ Oczekuje | Metadata, Open Graph, schema.org, regulamin sklepu/świadczenia usług, RODO. |
-| **Faza 8** | **Wdrożenie Produkcyjne (Deployment)** | ⚪ Oczekuje | Podpięcie domeny `lukasz.poruszek.pl` (Cloudflare Pages), testy transakcyjne na żywo. |
+| **Faza 1** | **Strategiczne Odkrywanie & Baza 100 Pytań** | 🟢 **ZAKOŃCZONA** | Wdrożono precyzyjne wytyczne Łukasza (jawne ceny, PayNow, Brevo, eliminacja szumu). |
+| **Faza 2** | **Synteza Strategii, Oferty i Myśli Przewodniej** | 🟡 **W TRAKCIE** | Integracja narracji z transkrypcji (zbiorowy mózg, rzymski beton, rozbijanie fałszywych stałych) + specyfikacja checkoutu. |
+| **Faza 3** | **Architektura Informacji i Copywriting** | ⚪ Oczekuje | Projekt surowego, minimalistycznego layoutu (zero bloga, zero logotypów, zero counterów). |
+| **Faza 4** | **Setup Techniczny & Design System** | ⚪ Oczekuje | Inicjalizacja Astro + Tailwind CSS, integracja interaktywnego kalendarza i formularza z kodem rabatowym. |
+| **Faza 5** | **Implementacja Komponentów & RWD** | ⚪ Oczekuje | 3 czyste kafelki ofertowe: Warsztaty (1200 zł), Mentoring Biznes (400 zł), Mentoring Kariera (300 zł). |
+| **Faza 6** | **Integracja Płatności i Fakturowania** | ⚪ Oczekuje | Podpięcie mBank PayNow (BLIK/PBL) + automatyczne fakturowanie (mOrganizer/Fakturownia) + Brevo. |
+| **Faza 7** | **Optymalizacja, SEO i Aspekty Prawne** | ⚪ Oczekuje | Privacy-first (brak banera cookies), regulamin sprzedaży, polityka prywatności. |
+| **Faza 8** | **Wdrożenie Produkcyjne (Deployment)** | ⚪ Oczekuje | Podpięcie domeny `lukasz.poruszek.pl` (Cloudflare Pages), testy transakcji PayNow na żywo. |
 
 ---
 
-## 📊 Aktualny Stan Bazy Pytań (Faza 1)
-Plik źródłowy: [`docs/01_PYTANIA_STRATEGICZNE_100.md`](file:///home/poruszek/lukasz.poruszek.pl/docs/01_PYTANIA_STRATEGICZNE_100.md)
-
-- [x] Moduł 1: Pozycjonowanie, Personal Branding i Wiarygodność (Pytania 1–10) – **Dostosowane pod B2C**
-- [x] Moduł 2: Oferta – Warsztaty AI (Pytania 11–20) – **Wdrożono dosłowne wytyczne Łukasza (6 tyg., Antigravity, 1200 zł, kody do 0 zł)**
-- [x] Moduł 3: Oferta – Mentoring Biznesowy (Pytania 21–30) – **Wdrożono dosłowne wytyczne Łukasza (sesje 90 min, rozbijanie fałszywych stałych, bez sprintów)**
-- [x] Moduł 4: Oferta – Mentoring Kariery (Pytania 31–40) – **Wdrożono dosłowne wytyczne Łukasza (sesje 90 min, sterowanie rozmową, bez mocków, bez AI)**
-- [x] Moduły 5–10: Zaproponowano spójne, zaktualizowane brzmienie odzwierciedlające zwrot B2C i model bezpośrednich płatności online.
+## 📊 Zatwierdzone Parametry Biznesowe i Cennik (Stan na 03.11)
+- **Warsztaty AI (Orkiestracja):** 1200 zł za 6-tygodniowy cykl online (6 spotkań po 2h, prace domowe z nadzorem, pokoje dyskusyjne, sesje 1:1) z obsługą kodów rabatowych obniżających cenę nawet do 0 zł.
+- **Mentoring Biznesowy:** Stała cena **400 zł** za sesję 90 min (doraźna diagnoza, rozbijanie fałszywych stałych, analiza dotacja vs inwestor). Ewentualne pisanie wniosku to odrębna umowa (ryczałt + success fee).
+- **Mentoring Kariery:** Stała cena **300 zł** za sesję 90 min (audyt CV/LinkedIn, reguły korpo vs mała firma, sprowadzanie rozmowy na własne tory, bez AI i bez mocków).
+- **Płatności:** **mBank PayNow** (BLIK, Pay-By-Link, karty, Google/Apple Pay).
+- **Fakturowanie:** Pełna automatyzacja (mOrganizer Finansów mBanku / API fakturowni).
+- **E-mail marketing / automatyzacja:** **Brevo** (darmowa nielimitowana baza kontaktów, 300 maili/dzień, pełne scenariusze automatyzacji).
+- **Filozofia interfejsu (Anti-Bloat):** Zero bloga, zero zbędnych case studies, zero podpierania się logami marek, zero sztucznych liczników/counterów, zero skomplikowanych lead magnetów.
 
 ---
 
 ## 🎯 Najbliższe Zadania (Next Actions)
-1. **Przegląd przez Łukasza:** Weryfikacja zaproponowanych odpowiedzi dla Modułu 5 (Model biznesowy, cennik, proces sprzedaży) i kolejnych.
-2. **Potwierdzenie stawki za sesję 90 min:** Ustalenie ceny pojedynczej sesji mentoringowej (np. 400–500 zł).
-3. **Faza 3 & 4 – Przygotowanie szkieletu i komponentów Astro + Tailwind:** Implementacja kafelków 3 usług, formularza z kodem rabatowym i kalendarza ze slotami.
+1. **Odbiór raportu narracji:** Przegląd syntezy przygotowanej przez agenta z transkrypcji `docs/transkrypcja.txt` (zbiorowy mózg, wyjście z izolacji).
+2. **Akceptacja myśli przewodniej przez Łukasza:** Wybór hasła i manifestu na stronę główną.
+3. **Faza 3 – Makieta i Copywriting:** Przygotowanie czystego kodu szablonu Astro bez przeładowania zbędnymi elementami.
 
 ---
 
 ## 📝 Dziennik Zdarzeń (Action Log)
-- **2026-11-03 (15:10):**
-  - Wdrożono feedback Łukasza: pełny zwrot z narracji B2B na B2C First.
-  - Zaktualizowano program i wycenę Warsztatów AI (6 tygodni, ekosystem Antigravity, wymóg Gemini Pro/Ultra, 1200 zł + kody promocyjne do 0 zł).
-  - Przebudowano koncepcję Mentoringu: pojedyncze sesje 90 min (doraźna pomoc, rozbijanie fałszywych stałych, sterowanie rozmową kwalifikacyjną, bez AI i bez mock interviews).
-  - Zaproponowano odświeżone odpowiedzi dla pytań 41–100 zorientowane na bezpośredni zakup i automatyczny checkout.
-  - Zarejestrowano decyzję ADR-004 w `docs/02_DECISION_LOG.md`.
+- **2026-11-03 (19:10):**
+  - Wdrożono twarde decyzje cenowe: Warsztaty 1200 zł, Mentoring Biznes 400 zł, Mentoring Kariera 300 zł.
+  - Wybrano bramkę płatności mBank PayNow.
+  - Wybrano Brevo jako bezkonkurencyjne narzędzie do e-mailingu w darmowym planie (nielimitowane kontakty + pełna automatyzacja).
+  - Wdrożono regułę Anti-Bloat: wycięto blog, case studies, logotypy, liczniki i lead magnety.
+  - Zlecono subagentowi syntezę myśli przewodniej z transkrypcji ("Dlaczego 300 000 lat epoki kamienia...").
+  - Zarejestrowano ADR-005 oraz ADR-006 w `docs/02_DECISION_LOG.md`.

@@ -44,5 +44,23 @@ Ten plik rejestruje wszystkie kluczowe decyzje technologiczne, architektoniczne 
 - **Decyzja:**
   1. **Warsztaty AI:** 6-tygodniowy cykl online (6x 2h) w ekosystemie Antigravity z ekstrapolacją na rynek, 1200 zł cena bazowa z obsługą kodów rabatowych (do 0 zł), pokoje wymiany wiedzy, prace domowe i sesje 1:1.
   2. **Mentoring (Biznes i Kariera):** Pojedyncze sesje 90 min doraźnej diagnozy (brak pakietów/sprintów). W karierze brak AI i brak mock interviews (nauka sterowania rozmową na własne tory).
-  3. **Sprzedaż & UX:** W 100% samoobsługowa – jawne ceny na stronie, wybór terminu w kalendarzu, formularz i natychmiastowa płatność online (BLIK/szybki przelew). Zero „rozmów o rozmowach”.
+  3. **Sprzedaż & UX:** W 100% samoobsługowa – jawne ceny na stronie, wybór terminu w kalendarzu, formularz i natychmiastowa płatność online.
 - **Konsekwencje:** Drastyczne uproszczenie lejka, wysoka przejrzystość strony, zautomatyzowana konwersja.
+
+### ADR-005: Wybór Bramki Płatności mBank PayNow & Automatyzacja Fakturowania
+- **Data:** 2026-11-03
+- **Status:** Zaakceptowane
+- **Kontekst:** Potrzebna jest niezawodna, polska bramka obsługująca natychmiastowe płatności (BLIK, PBL, karty) zintegrowana z kontem firmowym w mBanku oraz zautomatyzowane fakturowanie.
+- **Decyzja:** Wybrano **mBank PayNow**. Fakturowanie zintegrowane poprzez mOrganizer Finansów mBanku lub bezpośrednie API fakturowni generujące faktury imienne (B2C) i faktury VAT (B2B z obsługą KSeF).
+- **Konsekwencje:** Niskie prowizje, bezpośrednie księgowanie na rachunku w mBanku, natychmiastowa wysyłka PDF z fakturą do klienta.
+
+### ADR-006: Zasada Radykalnego Minimalizmu Treściowego (Anti-Bloat)
+- **Data:** 2026-11-03
+- **Status:** Zaakceptowane
+- **Kontekst:** Strony szkoleniowe często toną w marketingowym szumie: sztucznych licznikach ("1000+ absolwentów"), ścianach case studies, logotypach i lead magnetach, których nikt nie czyta.
+- **Decyzja:** 
+  1. Całkowita rezygnacja z bloga/artykułów na stronie.
+  2. Całkowita rezygnacja z osobnej sekcji Case Studies (konkretne doświadczenie wplecione w zwięzłe bio).
+  3. Zero podpierania się logami marek i zero sztucznych liczników/counterów.
+  4. Czysty, lekki interfejs: 3 jasne oferty z bezpośrednią możliwością zakupu/rezerwacji terminu.
+- **Konsekwencje:** Błyskawiczny czas ładowania strony, maksymalny współczynnik konwersji, brak wrażenia "przeładowania", wysoki szacunek do czasu użytkownika.

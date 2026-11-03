@@ -306,11 +306,11 @@ Status: **Oczekuje na odpowiedzi użytkownika (Faza 1)**
 *Dlaczego to ważne:* Jawne ceny filtrują osoby bez budżetu i budują transparentność, ale przy B2B często stosuje się "wycena indywidualna" lub widełki "od X zł". Jakie jest Twoje podejście dla każdej z 3 usług?  
 > **Odpowiedź:**
 > **Ceny są w 100% jawne na stronie!**
-> - Warsztaty AI: 1200 zł za cały 6-tygodniowy cykl (z widocznym polem na kod rabatowy).
-> - Mentoring Biznesowy: stała cena za sesję 90 min (np. 400–500 zł).
-> - Mentoring Kariery: stała cena za sesję 90 min (np. 350–450 zł).
-> - Dla większych grup / firm: dyskretny odnośnik „Większa grupa? Skontaktuj się po wycenę”.
-> *[Status: Rekomendacja dopasowana do wytycznych]*
+> - **Warsztaty AI:** 1200 zł za cały 6-tygodniowy cykl (z widocznym polem na wpisanie kodu rabatowego).
+> - **Mentoring Biznesowy:** stała cena 400 zł za sesję 90 minut.
+> - **Mentoring Kariery:** stała cena 300 zł za sesję 90 minut.
+> - **Dla firm / większych grup:** dyskretny odnośnik „Większa grupa? Skontaktuj się po indywidualną wycenę”.
+> *[Status: Zatwierdzone przez Łukasza]*
 
 #### 42. Czy planujesz możliwość bezpośredniego zakupu sesji/warsztatu online (koszyk i natychmiastowa płatność)?
 *Dlaczego to ważne:* Decyduje o potrzebie integracji bramek płatności (np. Stripe/P24) vs prosty lejek z rezerwacją terminu i fakturowaniem.  
@@ -323,14 +323,18 @@ Status: **Oczekuje na odpowiedzi użytkownika (Faza 1)**
 #### 43. Jakie bramki płatności preferujesz lub posiadasz (jeśli zakupy online będą wdrożone)?
 *Dlaczego to ważne:* Np. Stripe, Przelewy24, PayU, BLIK, Revolut Pay.  
 > **Odpowiedź:**
-> Bramka płatności z natychmiastową obsługą polskich metod: **BLIK**, szybkie przelewy (Pay-By-Link) oraz karty (np. Przelewy24, Autopay, PayU lub Stripe z obsługą BLIK).
-> *[Status: Propozycja]*
+> **mBank PayNow** (https://www.mbank.pl/firmy/system-platnosci-online-paynow/)  
+> Bezpośrednia integracja z kontem firmowym mBanku: obsługa BLIK, szybkich przelewów internetowych (PBL), kart płatniczych, Google Pay i Apple Pay.
+> *[Status: Wybór Łukasza]*
 
 #### 44. Jaki system fakturowy ma obsługiwać sprzedaż?
 *Dlaczego to ważne:* Fakturownia, inFakt, wFirma, czy manualne wystawianie faktur na podstawie zgłoszeń?  
 > **Odpowiedź:**
-> Automatyczne fakturowanie po udanej płatności (integracja bramki z systemem Fakturownia / inFakt) – automatyczne wysyłanie faktury VAT lub faktury imiennej na adres e-mail klienta.
-> *[Status: Propozycja]*
+> Pełna automatyzacja fakturowania:
+> 1. Płatności klientów z mBank PayNow połączone z automatycznym wystawianiem faktur przez wbudowany w mBank **mOrganizer Finansów** lub bezpośrednie API fakturowni/inFaktu.
+> 2. Klient po opłaceniu (BLIK/przelew) natychmiast otrzymuje e-mail z fakturą w PDF.
+> 3. KSeF (Krajowy System e-Faktur) obsługuje transakcje B2B (przez moduł mOrganizera/fakturowni), natomiast dla klientów indywidualnych (B2C) generowana jest z automatu faktura imienna.
+> *[Status: Wypełnione zgodnie z architekturą mBanku]*
 
 #### 45. Jak klient ma rezerwować terminy (automatyzacja kalendarza)?
 *Dlaczego to ważne:* Narzędzie do kalendarza zintegrowane ze stroną: Cal.com (open-source), Calendly, TidyCal, czy manualne ustalanie terminów e-mailowo?  
@@ -403,8 +407,8 @@ Status: **Oczekuje na odpowiedzi użytkownika (Faza 1)**
 #### 54. Czy planujesz sekcję Bloga / Bazy Wiedzy / Artykułów?
 *Dlaczego to ważne:* Blog jest potężną machiną SEO, ale wymaga regularnego pisania. Czy startujemy z blogiem od razu (np. 3 mocne artykuły wdrożeniowe), czy w Fazy 2?  
 > **Odpowiedź:**
-> Na start (MVP) nie uruchamiamy pustego bloga. Zamieszczamy 2–3 wybitne, głębokie case studies (ResiCraft B2B SaaS, Fasady Va Banque, Przejście od czatu do roju agentów), które generują potężny autorytet. Pełny blog w Fazy 2.
-> *[Status: Rekomendacja architektoniczna]*
+> **ZDECYDOWANIE NIE.** Na stronie nie będzie sekcji bloga ani bazy artykułów. Strona ma być zwięzła, minimalistyczna i nastawiona na konkretny zakup/zapis, bez generowania zbędnych treści do czytania.
+> *[Status: Decyzja Łukasza]*
 
 #### 55. Czy warsztaty AI powinny mieć dedykowany landing page zoptymalizowany pod B2B (np. możliwość pobrania agendy w PDF)?
 *Dlaczego to ważne:* Decydenci w firmach (CEO, HR, dyrektorzy) potrzebują często pliku PDF z programem, który mogą pokazać zarządowi do akceptacji budżetu.  
@@ -421,11 +425,8 @@ Status: **Oczekuje na odpowiedzi użytkownika (Faza 1)**
 #### 57. Czy planujesz podstronę lub sekcję ze szczegółowymi Case Studies?
 *Dlaczego to ważne:* Format "Wyzwanie -> Rozwiązanie -> Mierzalny Sukces" to najbardziej przekonujący format dla klientów biznesowych.  
 > **Odpowiedź:**
-> Tak: sekcja lub podstrona z 3 kluczowymi case studies w formacie STAR:
-> 1. ResiCraft (FSM SaaS & kryzysowe przywództwo AI, grant PARP).
-> 2. Dzielna 64 (Dekompozycja inżynieryjna procesu montażu fasad z zespołem z Nepalu).
-> 3. Va Banque na Fasadach (Zwycięstwo przetargowe i model Success Fee 50:50).
-> *[Status: Wypełnione na podstawie materiałów źródłowych]*
+> **NIE.** Brak osobnej podstrony lub sekcji z rozbudowanymi case studies. Wiarygodność budowana jest bezpośrednio w opisie doświadczenia i w konkretnych modułach oferty, bez przeładowywania strony dokumentacją minionych projektów.
+> *[Status: Decyzja Łukasza]*
 
 #### 58. Czy planujesz sekcję FAQ dla każdej z oferowanych usług?
 *Dlaczego to ważne:* FAQ rozbija obiekcje, ułatwia pozycjonowanie w Google (bogate wyniki wyszukiwania schema.org) i skraca czas rozmów handlowych.  
@@ -487,10 +488,10 @@ Status: **Oczekuje na odpowiedzi użytkownika (Faza 1)**
 #### 66. Czy posiadasz autorskie nazwy na swoje metody lub procesy?
 *Dlaczego to ważne:* Unikalna nazwa (np. "Metoda AI-Sprint", "Audyt Kariery 360") buduje postrzeganą wartość rynkową i odróżnia od generycznych doradców.  
 > **Odpowiedź:**
-> - „6-tygodniowa ścieżka od czatu do orkiestracji w Antigravity”
+> - „6-tygodniowa ścieżka od czatu do orkiestracji” (uniwersalna orkiestracja modeli i agentów)
 > - „Odblokowywanie fałszywych stałych w biznesie”
 > - „Sprowadzanie rozmowy rekrutacyjnej na własne tory”
-> *[Status: Zaktualizowane]*
+> *[Status: Poprawione – usunięto wzmianki o Antigravity z nazw metod]*
 
 #### 67. Jaki styl argumentacji najbardziej do Ciebie pasuje?
 *Dlaczego to ważne:* Twarde dane i zwrot z inwestycji (ROI), storytelling i droga bohatera, czy pragmatyczny inżynierski konkret bez owijania w bawełnę?  
@@ -507,33 +508,26 @@ Status: **Oczekuje na odpowiedzi użytkownika (Faza 1)**
 #### 69. Jakie logotypy firm / instytucji możemy legalnie pokazać w sekcji "Doświadczenie zdobyte w..."?
 *Dlaczego to ważne:* Logotypy znanych marek natychmiast uwiarygadniają Twoją ekspertyzę.  
 > **Odpowiedź:**
-> PARP (Polska Agencja Rozwoju Przedsiębiorczości), Fundusze Europejskie (FEPW), ResiCraft, Motzny, Motiveglass, inwestycje komercyjne (np. Dzielna 64).
-> *[Status: Potwierdzone doświadczeniem]*
+> **ŻADNE.** Świadoma decyzja o niepodpieraniu się logotypami korporacji ani marek zewnętrznych. Autorytet wynika z autentycznego podejścia, transparentności i konkretnej wiedzy, a nie z „odznak zaufania”.
+> *[Status: Decyzja Łukasza]*
 
 #### 70. Czy chcesz prezentować mierzalne statystyki liczbowe (Counter Section)?
 *Dlaczego to ważne:* Np. "X godzin przeprowadzonych warsztatów", "Y przeszkolonych osób", "Z zadowolonych podopiecznych", "N zaoszczędzonych roboczogodzin w firmach".  
 > **Odpowiedź:**
-> - **~600 000 PLN** – pozyskane dofinansowanie B+R (Komponent 2a PARP) dowiezione z sukcesem;
-> - **100% skuteczności** – w przygotowanych wnioskach o dotacje unijne;
-> - **10+ lat** – praktyki inżynieryjnej, operacyjnej i leadershipu;
-> - **100% praktyki** – zero teoretyzowania.
-> *[Status: Wypełnione na podstawie faktów z kariery]*
-
----
-
-## Moduł 8: Lejek Marketingowy, Lead Generation i Baza Kontaktów
+> **NIE.** Całkowity brak liczników i kafelków ze statystykami (żadnych „1000+ godzin”, „100% zadowolenia”). Strona ma być lekka, surowa i minimalistyczna, aby nikt nie czuł się przytłoczony marketingowym szumem.
+> *[Status: Decyzja Łukasza]*
 
 #### 71. Czy planujesz wdrożenie Lead Magnetu (darmowego materiału za zapis e-mail)?
 *Dlaczego to ważne:* Zbieranie adresów e-mail osób, które nie są jeszcze gotowe na zakup, pozwala budować własną listę odbiorców niezależną od algorytmów social mediów.  
 > **Odpowiedź:**
-> Kody rabatowe (pole kuponu promocyjnego w checkoutcie obniżające cenę do 0 zł) wykorzystywane do promocji w zamkniętych społecznościach i w ramach akcji specjalnych.
-> *[Status: Zaktualizowane]*
+> Brak nachalnych lead magnetów czy sztucznych e-booków. Jedyna lekka forma to możliwość zapisania się na listę powiadomień o kolejnej edycji warsztatów (waitlista) lub wpisanie kodu rabatowego.
+> *[Status: Skorygowane]*
 
 #### 72. Jaki temat darmowego materiału (Lead Magnet) byłby najbardziej atrakcyjny dla Twoich odbiorców?
 *Dlaczego to ważne:* Np. "Checklista 10 narzędzi AI automatyzujących pracę w firmie", "Szablon skutecznego CV w branży tech", "Przewodnik po bezpiecznym wdrażaniu LLM"?  
 > **Odpowiedź:**
-> Tytuł: **„Od czatu do roju agentów: Inżynierski przewodnik po orkiestracji AI w firmie”** (Checklista narzędzi, serwerów MCP i zasad bezpiecznego wdrażania agentów bez ryzyka wycieku danych).
-> *[Status: Propozycja oparta o ofertę warsztatów]*
+> Brak generowania sztucznych checklist. Strona skupia się w 100% na bezpośredniej ofercie warsztatów i mentoringu.
+> *[Status: Skorygowane]*
 
 #### 73. Czy planujesz regularny Newsletter (np. cotygodniowy lub co 2 tygodnie)?
 *Dlaczego to ważne:* Jeśli tak, wyeksponujemy sekcję newslettera jako stały element budowania relacji i autorytetu.  
@@ -544,8 +538,13 @@ Status: **Oczekuje na odpowiedzi użytkownika (Faza 1)**
 #### 74. Z jakiego narzędzia do e-mail marketingu korzystasz lub chciałbyś skorzystać?
 *Dlaczego to ważne:* Np. MailerLite (bardzo popularny i tani w PL), Kit (dawniej ConvertKit), Brevo, Resend (dla developerów)?  
 > **Odpowiedź:**
-> MailerLite (prosty, zgodny z RODO, serwery w UE) lub Resend (nowoczesne API mailowe dla developerów).  
-> *[Do wyboru przez Łukasza]*
+> **Brevo (dawniej Sendinblue)**  
+> Rekomendowane narzędzie dające najwięcej w 100% darmowej wersji:
+> - Nielimitowana baza kontaktów (zero opłat za liczbę zapisanych osób).
+> - Do 300 e-maili dziennie za darmo (wystarcza na powiadomienia transakcyjne i mailingi do uczestników).
+> - W pełni zautomatyzowane scenariusze (e-maile po zakupie, webhooki, transakcyjne wiadomości z linkiem do sesji).
+> - Serwery w Unii Europejskiej, pełna zgodność z RODO.
+> *[Status: Analiza darmowych narzędzi dla Łukasza]*
 
 #### 75. W jakich kanałach social media jesteś aktywny i skąd będziesz kierować ruch na stronę?
 *Dlaczego to ważne:* LinkedIn, YouTube, X (Twitter), GitHub, podcasty? Przygotujemy odpowiednie linki, Open Graph tagi i integracje.  
