@@ -1,9 +1,4 @@
 /* Engine CSS: Accessibility, Lenis, Reveals, Cursor, Curtain, Loader */
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
 
 html {
   background-color: var(--c-bg);
@@ -44,8 +39,6 @@ a {
 
 h1, h2, h3, h4 {
   font-family: var(--font-display);
-  font-weight: inherit;
-  font-size: inherit;
   text-wrap: balance;
 }
 
