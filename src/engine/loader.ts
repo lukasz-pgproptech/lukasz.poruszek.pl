@@ -1,5 +1,5 @@
 import { gsap } from 'gsap';
-import { ease, prefersReducedMotion } from './env';
+import { ease, prefersReducedMotion, isMobile } from './env';
 
 let format = (p: number) => String(Math.round(p)).padStart(3, '0');
 export const setLoaderFormat = (fn: (p: number) => string) => { format = fn; };
@@ -7,8 +7,8 @@ export const setLoaderFormat = (fn: (p: number) => string) => { format = fn; };
 let exit: ((root: HTMLElement) => gsap.core.Timeline) | null = null;
 export const setLoaderExit = (fn: (root: HTMLElement) => gsap.core.Timeline) => { exit = fn; };
 
-const MIN = 0.9;
-const MAX = 2.2;
+const MIN = 0.25;
+const MAX = 0.8;
 
 function criticalAssets(): Promise<unknown>[] {
   if (typeof window === 'undefined') return [];
@@ -19,9 +19,9 @@ function criticalAssets(): Promise<unknown>[] {
 export async function runLoader(): Promise<void> {
   const root = document.getElementById('loader');
   if (!root) return;
-  if (prefersReducedMotion()) {
-    await Promise.race([Promise.all(criticalAssets()), wait(MAX)]);
-    await gsap.to(root, { autoAlpha: 0, duration: 0.3 });
+  if (prefersReducedMotion() || isMobile()) {
+    await Promise.race([Promise.all(criticalAssets()), wait(0.2)]);
+    await gsap.to(root, { autoAlpha: 0, duration: 0.2 });
     return finish(root);
   }
   const count = root.querySelector<HTMLElement>('[data-loader-count]');

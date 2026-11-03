@@ -5,7 +5,7 @@ import { site } from '../data/site';
 <header class="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-[#0a0b0d]/85 backdrop-blur-md">
   <div class="max-w-[1440px] mx-auto px-6 sm:px-10 h-20 flex items-center justify-between">
     <!-- Brand Name (Top Left Corner) -->
-    <a href="#hero" class="group flex items-baseline gap-2 py-2" data-cursor="Góra">
+    <a href="/#hero" class="group flex items-baseline gap-2 py-2" data-cursor="Góra">
       <span class="font-display font-bold text-base tracking-tight text-white group-hover:text-neutral-300 transition-colors">
         ŁUKASZ PORUSZEK
       </span>
@@ -16,17 +16,14 @@ import { site } from '../data/site';
 
     <!-- Center Navigation Links -->
     <nav class="hidden md:flex items-center gap-8 text-xs font-mono tracking-wider uppercase text-[#7e8594]" aria-label="Główna nawigacja">
-      <a href="#warsztaty" class="link-editorial hover:text-white transition-colors py-2 min-h-[44px] flex items-center">
+      <a href="/#warsztaty" class="link-editorial hover:text-white transition-colors py-2 min-h-[44px] flex items-center">
         01 Warsztaty
       </a>
-      <a href="#mentoring" class="link-editorial hover:text-white transition-colors py-2 min-h-[44px] flex items-center">
+      <a href="/#mentoring" class="link-editorial hover:text-white transition-colors py-2 min-h-[44px] flex items-center">
         02 Mentoring
       </a>
-      <a href="#manifest" class="link-editorial hover:text-white transition-colors py-2 min-h-[44px] flex items-center">
-        03 Manifest
-      </a>
-      <a href="#doswiadczenie" class="link-editorial hover:text-white transition-colors py-2 min-h-[44px] flex items-center">
-        04 Doświadczenie
+      <a href="/#doswiadczenie" class="link-editorial hover:text-white transition-colors py-2 min-h-[44px] flex items-center">
+        03 Doświadczenie
       </a>
     </nav>
 
@@ -47,13 +44,17 @@ import { site } from '../data/site';
         <span class="tracking-wider">AUDIO: <span id="sound-status-label" class="font-bold">OFF</span></span>
       </button>
 
-      <div class="hidden xl:flex items-center font-mono text-xs text-[#7e8594]">
+      <div class="hidden xl:flex items-center gap-2.5 font-mono text-xs text-[#7e8594]">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+        </span>
         <span>Kohorta #01: 16 marca</span>
       </div>
 
       <a
-        href="#warsztaty"
-        class="inline-flex items-center justify-center px-4 sm:px-5 py-2.5 bg-white text-[#0a0b0d] font-mono text-xs font-bold uppercase tracking-wider hover:bg-neutral-200 transition-colors duration-200 min-h-[44px]"
+        href="/#warsztaty"
+        class="inline-flex items-center justify-center px-4 sm:px-5 py-2.5 bg-white text-[#0a0b0d] font-mono text-xs font-bold uppercase tracking-wider hover:bg-neutral-200 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 min-h-[44px]"
         data-cursor="Zapisz"
       >
         <span>Sprawdź program</span>

@@ -111,9 +111,11 @@ html.lenis, html.lenis body {
   z-index: var(--z-content);
 }
 
-/* Hidden-until-revealed */
-.motion [data-split], .motion [data-reveal] {
-  visibility: hidden;
+/* Hidden-until-revealed on desktop only for instant mobile LCP */
+@media (min-width: 768px) {
+  .motion [data-split], .motion [data-reveal] {
+    visibility: hidden;
+  }
 }
 
 .split-line {

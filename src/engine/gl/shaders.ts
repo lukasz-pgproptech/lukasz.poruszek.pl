@@ -155,30 +155,30 @@ void main() {
   vec2 mouseUv = vec2(uMouse.x * aspect, uMouse.y);
   
   // Base architectural deep dark background
-  vec3 bgBase = vec3(0.038, 0.042, 0.050); // #0a0b0d
+  vec3 bgBase = vec3(0.039, 0.043, 0.051); // #0a0b0d
   vec3 bgDeep = vec3(0.022, 0.025, 0.030); // #060708
   
-  // Slow organic drift + mouse interaction
-  float t = uTime * 0.04;
-  vec2 drift = vec2(fbm(aspectUv * 1.2 + t), fbm(aspectUv * 1.2 - t * 0.8));
+  // Living organic drift + mouse interaction
+  float t = uTime * 0.18;
+  vec2 drift = vec2(fbm(aspectUv * 1.3 + t), fbm(aspectUv * 1.3 - t * 0.85));
   
   // Dynamic glow tracking cursor
   float mouseDist = distance(aspectUv, mouseUv);
-  float mouseGlow = smoothstep(0.85, 0.0, mouseDist) * 0.14;
+  float mouseGlow = smoothstep(0.85, 0.0, mouseDist) * 0.16;
   
   // Fluid turbulence influenced by scroll velocity
   float vel = abs(uVelocity) * 0.008;
-  float f = fbm(aspectUv * 2.0 + drift * 0.6 + vec2(0.0, uScroll * 1.5 + vel));
+  float f = fbm(aspectUv * 2.2 + drift * 0.7 + vec2(0.0, uScroll * 1.5 + vel));
   
-  // Subtle cool blue-slate & amber neural highlights
-  vec3 glowColor = mix(vec3(0.08, 0.18, 0.38), vec3(0.22, 0.12, 0.32), sin(uTime * 0.1) * 0.5 + 0.5);
+  // Living cool blue-slate & cobalt neural luminescence
+  vec3 glowColor = mix(vec3(0.12, 0.26, 0.55), vec3(0.25, 0.15, 0.42), sin(uTime * 0.3) * 0.5 + 0.5);
   
   vec3 color = mix(bgDeep, bgBase, uv.y);
-  color += glowColor * f * 0.12;
-  color += vec3(0.06, 0.14, 0.28) * mouseGlow;
+  color += glowColor * f * 0.25;
+  color += vec3(0.08, 0.18, 0.35) * mouseGlow;
   
   // Tactile film grain
-  float grain = (hash(gl_FragCoord.xy + fract(uTime * 17.0)) - 0.5) * 0.028;
+  float grain = (hash(gl_FragCoord.xy + fract(uTime * 17.0)) - 0.5) * 0.03;
   color += grain;
   
   gl_FragColor = vec4(color, 1.0);

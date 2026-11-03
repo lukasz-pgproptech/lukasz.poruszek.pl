@@ -12,15 +12,15 @@ export function setupMotion() {
     tl.to(root.querySelectorAll('[data-loader-out]'), {
       yPercent: -100,
       opacity: 0,
-      duration: 0.6,
+      duration: 0.35,
       ease: ease.inOut,
-      stagger: 0.04,
+      stagger: 0.03,
     })
     .to(root, {
       clipPath: 'inset(0% 0% 100% 0%)',
-      duration: 0.8,
+      duration: 0.45,
       ease: ease.inOut,
-    }, '-=0.3');
+    }, '-=0.15');
     return tl;
   });
 

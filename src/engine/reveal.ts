@@ -1,7 +1,7 @@
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SplitText } from 'gsap/SplitText';
-import { ease, prefersReducedMotion } from './env';
+import { ease, prefersReducedMotion, isMobile } from './env';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger, SplitText);
@@ -78,7 +78,7 @@ function blockTween(el: HTMLElement, paused: boolean) {
 
 export function initReveals(root: ParentNode = document) {
   const intro = gsap.timeline({ paused: true });
-  if (prefersReducedMotion()) return intro;
+  if (prefersReducedMotion() || isMobile()) return intro;
 
   root.querySelectorAll<HTMLElement>('[data-split]').forEach((el) => {
     const isIntro = el.hasAttribute('data-intro');
