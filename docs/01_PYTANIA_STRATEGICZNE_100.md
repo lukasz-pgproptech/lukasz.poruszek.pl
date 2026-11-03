@@ -28,7 +28,7 @@ Status: **Oczekuje na odpowiedzi użytkownika (Faza 1)**
 *Dlaczego to ważne:* To zdanie trafi na samą górę strony głównej (Hero Section). Musi natychmiast wyjaśniać, kim jesteś, komu pomagasz i jaki mierzalny rezultat dostarczasz.  
 > **Odpowiedź:**
 > Dzielę się praktyczną, sprawdzoną wiedzą z zakresu orkiestracji narzędzi AI (6-tygodniowe warsztaty online) oraz pomagam rozwiązywać konkretne bariery biznesowe i rekrutacyjne w ramach intensywnych, 90-minutowych sesji mentoringowych. Wychodzę z założenia, że wymyślanie koła na nowo jest nieopłacalne czasowo i kosztowo – lepiej przejąć działające rozwiązania od doświadczonej osoby, zaoszczędzić czas i rozwijać je u siebie.
-> *[Status: Dostosowane do nadrzędnej filozofii transferu wiedzy]*
+> *[Status: Zaktualizowane – nowa narracja transferu wiedzy]*
 
 #### 2. Jakie jest Twoje dotychczasowe doświadczenie i unikalny background zawodowy?
 *Dlaczego to ważne:* Buduje natychmiastowy autorytet (np. lata w technologii/biznesie, prowadzone projekty, role leaderskie, sukcesy i porażki, z których wyciągnąłeś wnioski).  
@@ -43,14 +43,14 @@ Status: **Oczekuje na odpowiedzi użytkownika (Faza 1)**
 #### 3. Dlaczego klient powinien wybrać właśnie Ciebie zamiast dużych firm szkoleniowych lub innych mentorów? (Twoje USP)
 *Dlaczego to ważne:* Wyróżnik na tle konkurencji: czy to praktyczne doświadczenie wdrożeniowe, brak akademickiego lania wody, indywidualna opieka, czy unikalna metodologia?  
 > **Odpowiedź:**
-> Jestem praktykiem biznesu, inżynierem i aktywnym CEO, a nie teoretykiem z LinkedIna ani certyfikowanym szkoleniowcem-prezenterem. Sam przeszedłem drogę od fizycznej pracy o 5:00 rano do budowy skalowalnego oprogramowania i zarządzania grantami unijnymi. W kryzysowych momentach sam siadam do kodu i infrastruktury. Nie uczę szablonowych promptów, lecz systemowego myślenia inżynieryjnego, dekompozycji złożoności na proste procesy oraz budowania autonomicznych rojów agentowych w realnym biznesie.
-> *[Status: Wypełnione na podstawie Bazy Wiedzy Łukasza]*
+> Daję sprawdzoną w bojach, inżynierską praktykę zamiast teoretycznych poradników. Nie uczę z piedestału ani nie pouczam – traktuję współpracę jak bezpośredni transfer wiedzy od praktyka do praktyka. Zamiast zmuszać Cię do powielania moich błędów czy miesięcy błądzenia w pojedynkę, przekazuję przetestowane ramy i narzędzia, które natychmiast zaoszczędzą Twój czas i pieniądze.
+> *[Status: Zaktualizowane – nowa narracja transferu wiedzy]*
 
 #### 4. Jaki ma być ton komunikacji (Tone of Voice) na stronie?
 *Dlaczego to ważne:* Determinuje styl wszystkich nagłówków i akapitów. Np. bezpośredni, partnerski ("na Ty"), pragmatyczny, ekspercki, techniczny czy biznesowo-elegancki ("Pan/Pani")?  
 > **Odpowiedź:**
-> Bezpośredni, partnerski, pragmatyczny i inżyniersko precyzyjny. Komunikacja bez korporacyjnego bełkotu i marketingowej waty. Szacunek do faktów, metryk i logiki biznesowej. Zwracanie się do odbiorcy po partnersku („na Ty” w mentoringu / partnerskie „Wy / Państwo” w dedykowanej ofercie B2B).
-> *[Status: Wypełnione na podstawie Bazy Wiedzy Łukasza]*
+> Rzeczowy, partnerski, inżynierski i bezpośredni. Zero motywacyjnego coachingu, zero mentorszenia z góry i zero marketingowego lukru. Komunikacja oparta na szacunku do czasu odbiorcy, faktach i zasadzie: „Oto jak to działa, oto gdzie są pułapki – bierz sprawdzone klocki, zaoszczędź czas i rozwijaj je u siebie”.
+> *[Status: Zaktualizowane – nowa narracja transferu wiedzy]*
 
 #### 5. Jakie posiadasz dowody społeczne (Social Proof) na start?
 *Dlaczego to ważne:* Opinie, rekomendacje z LinkedIn, logotypy firm, referencje lub statystyki, które możemy umieścić na stronie w sekcji zaufania.  
@@ -65,8 +65,8 @@ Status: **Oczekuje na odpowiedzi użytkownika (Faza 1)**
 #### 6. Jaka jest Twoja osobista misja – dlaczego wchodzisz w warsztaty AI i mentoring akurat teraz?
 *Dlaczego to ważne:* Ludzie kupują od ludzi z misją. Autentyczna historia ("Dlaczego to robię") doskonale konwertuje w sekcji "O mnie".  
 > **Odpowiedź:**
-> Przekazywanie wiedzy to najwyższa wartość, jaka pcha ludzi i cywilizację do przodu. Przez długi czas pomagałem innym nieformalnie, widząc jak potężny skrót czasowy i finansowy daje bezpośrednia wymiana doświadczeń zamiast wielomiesięcznego błądzenia po omacku. Zorganizowanie tego w formie profesjonalnych warsztatów i sesji mentoringowych to naturalny krok: usystematyzowany transfer wiedzy, który szanuje czas obu stron i pozwala odbiorcy natychmiast budować na sprawdzonych fundamentach.
-> *[Status: Dostosowane do nadrzędnej filozofii transferu wiedzy]*
+> Przekazywanie wiedzy to najwyższa wartość cywilizacyjna, która pcha nas do przodu. Przez lata widziałem, jak ludzie marnują miesiące i oszczędności, próbując wymyślać koło na nowo w biznesie, karierze czy narzędziach AI. Moją misją jest tworzenie bezpośredniego skrótu: przekazywanie gotowych, działających fundamentów, aby inni mogli zaoszczędzić swój czas i budować na nich własne rozwiązania.
+> *[Status: Zaktualizowane – nowa narracja transferu wiedzy]*
 
 #### 7. Kim jest Twój wymarzony "Klient Idealny", a z kim zdecydowanie NIE chcesz współpracować?
 *Dlaczego to ważne:* Pozwoli na stronie umieścić filtry ("Dla kogo to jest / Dla kogo to NIE jest"), oszczędzając Twój czas na nietrafione rozmowy.  
@@ -84,18 +84,18 @@ Status: **Oczekuje na odpowiedzi użytkownika (Faza 1)**
 #### 9. Jakie 3–5 kluczowych wartości definiują Twoją pracę?
 *Dlaczego to ważne:* Np. pragmatyzm, bezpieczeństwo danych, bezkompromisowa szczerość, skupienie na ROI, partnerstwo. Trafią do sekcji wartości/filozofii.  
 > **Odpowiedź:**
-> 1. **Pragmatyzm i egzekucja:** Liczy się działający rezultat w świecie fizycznym lub w kodzie, a nie slajdy w prezentacji.
-> 2. **Inżynierska dekompozycja:** Rozbijanie skomplikowanych problemów na proste, powtarzalne mikrokroki („macdonaldyzacja procesu”).
-> 3. **Test powtarzalności:** Odrzucenie iluzji przypadku i loterii – budowanie systemów, które działają za każdym razem.
-> 4. **Szacunek do czasu i brutalna prawda:** Zero lania wody, bezpośrednia komunikacja, wycena wartości w zamian za realną dźwignię.
-> 5. **Dźwignia operacyjna (Leverage):** Człowiek nadaje strategię i kontekst, AI i automatyzacja wykonują ciężką pracę.
-> *[Status: Wypełnione na podstawie Bazy Wiedzy Łukasza]*
+> 1. **Ekonomia czasu:** Wymyślanie koła na nowo w pojedynkę jest skrajnie nieopłacalne. Szanujemy Twój czas.
+> 2. **Kultura transferu wiedzy:** Wiedza ma wartość, gdy jest przekazywana i rozwijana dalej w konkretnych zastosowaniach.
+> 3. **Inżynierski pragmatyzm:** Działające fakty, mechanizmy i dekompozycja zamiast teorii i motywacyjnego szumu.
+> 4. **Partnerstwo i pokora:** Brak mentorowania z piedestału – rozmowa z pozycji praktyka bez pouczania.
+> 5. **Dźwignia operacyjna:** Przejmujesz sprawdzone fundamenty, by skupić się na budowaniu własnej wartości.
+> *[Status: Zaktualizowane – nowa narracja transferu wiedzy]*
 
 #### 10. Jaka jest jedna myśl lub emocja, którą użytkownik ma zapamiętać po 10 sekundach na stronie?
 *Dlaczego to ważne:* Kluczowe dla pierwszego wrażenia wizualnego i hasła przewodniego.  
 > **Odpowiedź:**
-> „Praktyk, który w 6 tygodni przeprowadzi mnie od zwykłego czatu do multiagentowego ekosystemu Antigravity, a w 90-minutowej sesji rozbije moje fałszywe fiksacje w biznesie lub poszukiwaniu pracy.”
-> *[Status: Zaktualizowane]*
+> „Wymyślanie koła na nowo w pojedynkę nie ma sensu. Tutaj dostanę konkretne, sprawdzone klocki, zaoszczędzę miesiące błądzenia i rozwinę je u siebie.”
+> *[Status: Zaktualizowane – nowa narracja transferu wiedzy]*
 
 #### 11. Do kogo przede wszystkim kierujesz warsztaty AI?
 *Dlaczego to ważne:* Czy głównym targetem jest B2B (zarządy, działy marketingu, sprzedaży, operacji, programiści), czy B2C (indywidualni profesjonaliści, freelancerzy)?  
@@ -176,8 +176,8 @@ Status: **Oczekuje na odpowiedzi użytkownika (Faza 1)**
 #### 21. Na jakim etapie rozwoju biznesu jest Twój docelowy podopieczny?
 *Dlaczego to ważne:* Etap 0 (osoba na etacie z pomysłem), wczesny etap (pierwsze miesiące prowadzenia JDG/spółki i brak klientów), czy etap skalowania działającej firmy?  
 > **Odpowiedź:**
-> Osoby planujące założenie firmy lub przedsiębiorcy na bieżącym etapie prowadzenia działalności, którzy zderzyli się z konkretnym problemem, barierą decyzyjną lub wątpliwościami co do modelu biznesowego i źródeł finansowania.
-> *[Status: Zaktualizowane]*
+> Do osób, które stoją przed konkretną barierą w firmie lub planują start i nie chcą marnować miesięcy na wyważanie otwartych drzwi. Do każdego, kto woli w 90 minut zweryfikować pomysł i źródła finansowania z praktykiem, niż uczyć się na własnych kosztownych błędach.
+> *[Status: Zaktualizowane – nowa narracja transferu wiedzy]*
 
 #### 22. W jakich branżach i modelach biznesowych czujesz się najsilniejszym mentorem?
 *Dlaczego to ważne:* Np. usługi B2B, software house, SaaS, agencje marketingowe, e-commerce, konsulting specjalistyczny?  
@@ -205,11 +205,11 @@ Status: **Oczekuje na odpowiedzi użytkownika (Faza 1)**
 #### 25. Jakie są 3–5 najczęstszych problemów, które pomagasz rozwiązać początkującemu przedsiębiorcy?
 *Dlaczego to ważne:* To będą nagłówki sekcji "Z jakimi wyzwaniami przychodzą moi podopieczni" (np. brak powtarzalnej sprzedaży, zły cennik, syndrom oszusta, chaos w priorytetach).  
 > **Odpowiedź:**
-> 1. **Wskazanie źródeł finansowania:** Gdzie szukać dotacji, jak do tego podejść, jakie są wyzwania, plusy i minusy, oraz analiza: czy dotacja, czy inwestor, czy inne źródła finansowania.
-> 2. **Rozbijanie fałszywych fiksacji:** Pokazanie, które elementy biznesu uważane za „stałe” wcale stałymi być nie muszą (zmiana reguł gry).
-> 3. **Weryfikacja założeń biznesowych:** Walidacja pomysłu i zderzenie modelu z realiami rynkowymi przed spaleniem budżetu.
-> 4. **Wskazanie alternatywnych dróg rozwoju:** Odblokowanie impasu decyzyjnego w bieżącej działalności.
-> *[Status: Wdrożono dosłowne wytyczne Łukasza – usunięto obietnice pisania wniosków w 90 min]*
+> 1. **Wskazanie źródeł finansowania (dotacja, inwestor czy środki własne):** Oszczędność miesięcy błądzenia w formalnościach.
+> 2. **Rozbijanie fałszywych fiksacji:** Uświadomienie rozwiązań, które rozmówca uważał za nienaruszalne stałe, a które wcale stałymi być nie muszą.
+> 3. **Weryfikacja założeń biznesowych:** Zderzenie modelu z realiami rynkowymi przed spaleniem budżetu i oszczędności.
+> 4. **Przekazanie sprawdzonych mechanizmów:** Gotowe schematy myślenia, które można od razu zaaplikować we własnej działalności.
+> *[Status: Zaktualizowane – nowa narracja transferu wiedzy]*
 
 #### 26. W czym zdecydowanie NIE pomagasz (granice kompetencji mentoringu)?
 *Dlaczego to ważne:* Wyraźne zastrzeżenia na stronie budują profesjonalizm (np. brak doradztwa prawno-podatkowego, brak pisania kodu za klienta).  
@@ -220,8 +220,8 @@ Status: **Oczekuje na odpowiedzi użytkownika (Faza 1)**
 #### 27. Czy posiadasz własny framework / system pracy krok po kroku?
 *Dlaczego to ważne:* Klienci uwielbiają ustrukturyzowane procesy (np. "Metoda 4 Filarów Nowego Biznesu"). Jeśli masz własną strukturę, opiszemy ją wizualnie jako infografikę/oś czasu.  
 > **Odpowiedź:**
-> Framework oparty na **uważnym słuchaniu i wskazywaniu rozwiązań, które z pozoru są łatwe, ale sztuka polega na tym, aby mieć świadomość, że one w ogóle istnieją**. Wiele osób ma problemy wynikające z zafiksowania się na elementach, które uważają za stałą, a wcale stałą być nie muszą (dokładnie tak jak w życiowym case study Łukasza z redefinicją paradygmatu podwykonawcy fasad na budowach u Generalnego Wykonawcy).
-> *[Status: Wdrożono dosłowne wytyczne Łukasza]*
+> Oparty na uważnym słuchaniu i transferze sprawdzonych klocków: uświadomienie rozmówcy rozwiązań, które uważa za stałe, a które są zmiennymi. Zasada: zamiast tracić energię na wyważanie otwartych drzwi, zmieniasz reguły gry w oparciu o wiedzę kogoś, kto już to przepracował.
+> *[Status: Zaktualizowane – nowa narracja transferu wiedzy]*
 
 #### 28. Jak wygląda proces naboru do mentoringu biznesowego?
 *Dlaczego to ważne:* Czy można po prostu kliknąć "Kup teraz", czy wymagany jest krótki formularz aplikacyjny i bezpłatna rozmowa kwalifikacyjna (selekcja)?  
@@ -244,8 +244,8 @@ Status: **Oczekuje na odpowiedzi użytkownika (Faza 1)**
 #### 31. Do kogo konkretnie kierujesz mentoring kariery?
 *Dlaczego to ważne:* Juniorzy szukający pierwszego zatrudnienia, osoby przebranżawiające się (switch do branży tech), midzi/seniorzy walczący o awans, czy menedżerowie?  
 > **Odpowiedź:**
-> Do osób, które mają problem z poszukiwaniem pracy, nie wiedzą, czy coś robią źle i potrzebują sprawdzić, czy ich podejście jest dobre, czy ich CV nie przejawia objawów nieprofesjonalizmu oraz czy ich profil na LinkedInie jest akceptowalny.
-> *[Status: Wdrożono dosłowne wytyczne Łukasza]*
+> Do osób, które utknęły w szukaniu pracy, wysyłają aplikacje bez odpowiedzi i nie chcą marnować kolejnych miesięcy na zgadywanie, co robią źle. Do każdego, kto woli w 90 minut poznać realia rekrutacji od osoby zatrudniającej, niż uczyć się metodą bolesnych odrzuceń.
+> *[Status: Zaktualizowane – nowa narracja transferu wiedzy]*
 
 #### 32. Na jakich rolach i ścieżkach zawodowych skupia się Twoje wsparcie?
 *Dlaczego to ważne:* Programowanie, devops, product management, architektura systemów, role biznesowo-techniczne, czy ogólne zasady rekrutacji w nowoczesnych firmach?  
@@ -293,8 +293,8 @@ Status: **Oczekuje na odpowiedzi użytkownika (Faza 1)**
 #### 39. Jak komunikujesz obietnice i granice odpowiedzialności w szukaniu pracy?
 *Dlaczego to ważne:* Jak chronisz się przed roszczeniami typu "nie znalazłem pracy w miesiąc, chcę zwrotu", zachowując jednocześnie wysoką motywację kandydata?  
 > **Odpowiedź:**
-> Zasada transparentności: mentoring to diagnoza Twojego podejścia, eliminacja błędów w CV/LinkedIn i nauka sterowania rozmową. Ostateczny wynik zależy od wdrożenia wskazówek przez kandydata na rynku.
-> *[Status: Zaktualizowane]*
+> Transparentność i ekonomia czasu: w 90 minut dostajesz bezcenny skrót – eliminację błędów w dokumentach i strategię sterowania rozmową. Nie gwarantuję etatu, bo decyzję podejmuje pracodawca, ale gwarantuję, że przestaniesz marnować czas na błędy, które natychmiast dyskwalifikują Cię na starcie.
+> *[Status: Zaktualizowane – nowa narracja transferu wiedzy]*
 
 #### 40. Jakie masz osobiste doświadczenia rekrutacyjne po stronie pracodawcy / hiring managera?
 *Dlaczego to ważne:* Rekrutowałeś pracowników do własnych zespołów? Widziałeś setki słabych CV? Ta perspektywa "zza kulis rekrutacji" jest bezcenna dla kandydata.  
@@ -401,8 +401,8 @@ Status: **Oczekuje na odpowiedzi użytkownika (Faza 1)**
 #### 53. W jakiej formule chcesz zaprezentować sekcję "O mnie"?
 *Dlaczego to ważne:* Skrótowa sekcja na stronie głównej z odnośnikiem do pełnej podstrony z Twoją historią i manifestem, czy wyłącznie zwarty moduł na stronie głównej?  
 > **Odpowiedź:**
-> Kondensacja na stronie głównej (wciągający storytelling: dzieciństwo w FM o 5:00 rano, Politechnika, fasady, kryzys z inwestorem, ResiCraft, orkiestracja AI) z opcjonalnym odnośnikiem do pełnego manifestu i osi czasu.
-> *[Status: Wypełnione na podstawie Bazy Wiedzy]*
+> Krótka, rzeczowa, skupiona na doświadczeniu inżynieryjnym i produktowym. Bez pretensjonalnych opowieści „byłem nikim, teraz was pouczę”. Zamiast tego: kim jestem, jakie systemy zbudowałem, czego się nauczyłem i dlaczego dzielę się tą wiedzą, by inni nie musieli marnować czasu na błędy, które ja już rozwiązałem.
+> *[Status: Zaktualizowane – nowa narracja transferu wiedzy]*
 
 #### 54. Czy planujesz sekcję Bloga / Bazy Wiedzy / Artykułów?
 *Dlaczego to ważne:* Blog jest potężną machiną SEO, ale wymaga regularnego pisania. Czy startujemy z blogiem od razu (np. 3 mocne artykuły wdrożeniowe), czy w Fazy 2?  
@@ -459,31 +459,33 @@ Status: **Oczekuje na odpowiedzi użytkownika (Faza 1)**
 #### 62. Jakie są 3 największe obiekcje klienta B2B przed zleceniem warsztatów AI i jak na nie odpowiadasz?
 *Dlaczego to ważne:* Np. "Obawiamy się o wyciek poufnych danych firmy", "AI to chwilowa moda", "Pracownicy nie będą chcieli tego używać".  
 > **Odpowiedź:**
-> - *„Czy poradzę sobie na warsztatach bez umiejętności programowania?”* -> Tak! Wystarczy, że korzystasz na co dzień z czatu AI i posiadasz Gemini Pro/Ultra. Zaczynamy od czatu i krok po kroku wchodzimy w narzędzia agentowe.
-> - *„Czy wiedza z Antigravity przyda się w innych narzędziach?”* -> Oczywiście. Całą metodykę ekstrapolujemy na ChatGPT, Claude Code, Cursor i rynek LLM.
-> - *„Czy 1200 zł to dobra inwestycja?”* -> Otrzymujesz 6 tygodni intensywnej nauki (12h na żywo), prace domowe z feedbackiem, społeczność i indywidualne wsparcie 1:1.
-> *[Status: Zaktualizowane pod B2C]*
+> - *„Czy nie nauczę się tego sam z YouTube'a?”* -> Możesz uczyć się sam metodą prób i błędów przez rok, tracąc setki godzin. Warsztaty to skrót czasowy: ułożona wiedza, nadzór nad zadaniami i pokoje wymiany wiedzy, dzięki którym natychmiast aplikujesz narzędzia w praktyce.
+> - *„Czy wiedza z orkiestracji przyda się w różnych narzędziach?”* -> Tak, uczymy uniwersalnych zasad zarządzania kontekstem i agentami, które stosujesz w dowolnym środowisku.
+> - *„Czy 1200 zł to dobra inwestycja?”* -> Otrzymujesz 6 tygodni ułożonego transferu wiedzy, który zwraca się w pierwszym zaoszczędzonym tygodniu pracy.
+> *[Status: Zaktualizowane – nowa narracja transferu wiedzy]*
 
 #### 63. Jakie są 3 największe obiekcje przed wejściem w mentoring biznesowy?
 *Dlaczego to ważne:* Np. "Czy ten mentor zna moją specyficzną branżę?", "Czy nie wyrzucę pieniędzy w błoto?", "Nie mam czasu na kolejne zadania".  
 > **Odpowiedź:**
-> - *„Czy 90 minut wystarczy na rozwiązanie mojego problemu?”* -> Tak, bo nie lejemy wody. Identyfikujemy fałszywe fiksacje, sprawdzamy opcje finansowania (dotacja vs inwestor) i wychodzisz z konkretnym planem działania.
+> - *„Czy 90 minut wystarczy na rozwiązanie mojego problemu?”* -> Wystarczy, bo nie wymyślamy Twojego biznesu od zera, tylko diagnozujemy blokadę i przekazujemy konkretne rozwiązanie. W 90 minut możesz zaoszczędzić pół roku przepalania budżetu.
 > - *„Czy piszesz za mnie wniosek o dotację na sesji?”* -> Nie. Na sesji analizujemy sensowność i strategię. Ewentualne napisanie wniosku to odrębna umowa w modelu ryczałt + success fee.
-> *[Status: Zaktualizowane]*
+> *[Status: Zaktualizowane – nowa narracja transferu wiedzy]*
 
 #### 64. Jakie są 3 największe obiekcje kandydata przed mentoringiem kariery?
 *Dlaczego to ważne:* Np. "Rynek IT leży i nikt nie zatrudnia", "W sieci jest pełno darmowych porad", "Wstydzę się, że sam nie potrafię znaleźć pracy".  
 > **Odpowiedź:**
-> - *„Czy muszę być programistą, aby skorzystać z mentoringu kariery?”* -> Nie. Poruszamy ogólne zasady rekrutacji w korporacjach i małych firmach, uniwersalne dla każdego kandydata.
-> - *„Wysłałem mało CV, czy warto przyjść na sesję?”* -> Warto przyjść ZANIM spalisz kolejne tygodnie na wysyłaniu CV z błędami formalnymi.
-> *[Status: Zaktualizowane]*
+> - *„Czy nie lepiej po prostu wysyłać więcej CV?”* -> Wysyłanie 200 wadliwych CV to strata kolejnych miesięcy. W 90 minut poznasz reguły gry, poprawisz materiały i nauczysz się sprowadzać rozmowę na własne tory, oszczędzając czas i nerwy.
+> - *„Wysłałem mało aplikacji, czy warto przyjść na sesję?”* -> Warto przyjść ZANIM spalisz kolejne tygodnie na wysyłaniu CV z błędami formalnymi.
+> *[Status: Zaktualizowane – nowa narracja transferu wiedzy]*
 
 #### 65. Jaki ma być główny przycisk akcji (Call to Action - CTA) na stronie?
 *Dlaczego to ważne:* Jeden dominujący cel: "Umów bezpłatną konsultację 15 min", "Skonsultuj potrzeby zespołu", "Sprawdź wolne terminy"?  
 > **Odpowiedź:**
-> - Dla Warsztatów AI: **„Dołącz do warsztatów (1200 zł)”**
-> - Dla Mentoringu: **„Wybierz termin sesji 90 min”**
-> *[Status: Zaktualizowane]*
+> Główny przekaz Call to Action:
+> - Warsztaty AI: **„Zaoszczędź miesiące nauki – dołącz do warsztatów (1200 zł)”**
+> - Mentoring Biznesowy: **„Zarezerwuj sesję 90 min (400 zł) – skróć czas błądzenia”**
+> - Mentoring Kariery: **„Zarezerwuj sesję 90 min (300 zł) – poznaj reguły gry”**
+> *[Status: Zaktualizowane – nowa narracja transferu wiedzy]*
 
 #### 66. Czy posiadasz autorskie nazwy na swoje metody lub procesy?
 *Dlaczego to ważne:* Unikalna nazwa (np. "Metoda AI-Sprint", "Audyt Kariery 360") buduje postrzeganą wartość rynkową i odróżnia od generycznych doradców.  
@@ -496,8 +498,8 @@ Status: **Oczekuje na odpowiedzi użytkownika (Faza 1)**
 #### 67. Jaki styl argumentacji najbardziej do Ciebie pasuje?
 *Dlaczego to ważne:* Twarde dane i zwrot z inwestycji (ROI), storytelling i droga bohatera, czy pragmatyczny inżynierski konkret bez owijania w bawełnę?  
 > **Odpowiedź:**
-> Inżynierski pragmatyzm, twarde liczby, autentyczne przykłady z placu budowy i rozwoju oprogramowania SaaS, bezkompromisowa szczerość i szacunek do faktów.
-> *[Status: Wypełnione na podstawie Bazy Wiedzy]*
+> Czysta ekonomia czasu i pragmatyzm inżynierski. Pokazywanie bilansu zysków i strat: ile czasu i pieniędzy kosztuje samodzielne wyważanie otwartych drzwi w porównaniu do natychmiastowego przejęcia sprawdzonej wiedzy.
+> *[Status: Zaktualizowane – nowa narracja transferu wiedzy]*
 
 #### 68. Czy planujesz nagrać krótkie wideo powitalne (Video Hero 60-90 sek)?
 *Dlaczego to ważne:* Wideo na stronie osobistej zwiększa konwersję o kilkadziesiąt procent, natychmiast skracając dystans i budując zaufanie.  
@@ -705,14 +707,11 @@ Status: **Oczekuje na odpowiedzi użytkownika (Faza 1)**
 #### 99. Co będzie dla Ciebie wskaźnikiem sukcesu (KPI) w pierwszych 3 miesiącach od uruchomienia?
 *Dlaczego to ważne:* Np. 3 sprzedane warsztaty komercyjne AI, zapełniony kalendarz mentoringowy, 500 subskrybentów newslettera, czy po prostu profesjonalna wizytówka do wysyłania linku decydentom?  
 > **Odpowiedź:**
-> - Przeprowadzenie pierwszych 2–3 płatnych warsztatów komercyjnych B2B.
-> - Zapełnienie puli 3–4 stałych podopiecznych w mentoringu 1:1.
-> - Profesjonalna, budząca respekt wizytówka do podsyłania inwestorom, klientom ResiCraft i decydentom.
-> *[Status: Zgodne z celami strategicznymi]*
+> Poczucie uczestników i klientów, że czas i pieniądze zainwestowane w warsztaty lub sesję 90 min zwróciły się wielokrotnie w zaoszczędzonym czasie, unikniętych kosztownych błędach i przyspieszeniu ich własnych projektów.
+> *[Status: Zaktualizowane – nowa narracja transferu wiedzy]*
 
 #### 100. Czy jest jakikolwiek aspekt, marzenie, nietypowy pomysł lub obawa, o którą nie zapytałem w poprzednich 99 pytaniach, a o której chciałbyś wspomnieć?
 *Dlaczego to ważne:* Twoje otwarte pole na wszystko, co nie zmieściło się w schemacie – szalone pomysły, inspiracje, nietypowe funkcje.  
 > **Odpowiedź:**
-> Siłą tego projektu jest autentyczność: połączenie twardego inżynierskiego fachu (od rusztowań o 5:00 rano) z nowoczesnym leadershipem w B2B SaaS i zaawansowanym AI. Na polskim rynku edukacji technologicznej nie ma drugiej osoby z takim przekrojem doświadczeń.
-> *[Status: Podsumowanie tożsamości marki]*
-
+> Projekt `lukasz.poruszek.pl` to nie kolejny biznes trenerski ani coachingowy. To platforma uczciwego transferu inżynieryjnej i biznesowej wiedzy, oparta na głębokim szacunku do czasu drugiego człowieka. Wymyślanie koła na nowo jest nieopłacalne – dzielenie się sprawdzonymi rozwiązaniami to najszybsza dźwignia rozwoju.
+> *[Status: Zaktualizowane – nowa narracja transferu wiedzy]*
