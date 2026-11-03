@@ -27,8 +27,8 @@ Status: **Oczekuje na odpowiedzi użytkownika (Faza 1)**
 #### 1. Jaka jest Twoja główna obietnica marki (Value Proposition)?
 *Dlaczego to ważne:* To zdanie trafi na samą górę strony głównej (Hero Section). Musi natychmiast wyjaśniać, kim jesteś, komu pomagasz i jaki mierzalny rezultat dostarczasz.  
 > **Odpowiedź:**
-> Pomagam specjalistom, osobom poszukującym pracy oraz początkującym przedsiębiorcom przekształcić AI w realną dźwignię zawodową (praktyczne 6-tygodniowe warsztaty online z ekosystemu Antigravity) oraz rozwiązać bieżące bariery biznesowe i rekrutacyjne w ramach intensywnych, 90-minutowych sesji mentoringowych. Dla firm i większych grup oferuję dedykowane szkolenia na zapytanie.
-> *[Status: Zaktualizowane – priorytet klienta indywidualnego (B2C)]*
+> Dzielę się praktyczną, sprawdzoną wiedzą z zakresu orkiestracji narzędzi AI (6-tygodniowe warsztaty online) oraz pomagam rozwiązywać konkretne bariery biznesowe i rekrutacyjne w ramach intensywnych, 90-minutowych sesji mentoringowych. Wychodzę z założenia, że wymyślanie koła na nowo jest nieopłacalne czasowo i kosztowo – lepiej przejąć działające rozwiązania od doświadczonej osoby, zaoszczędzić czas i rozwijać je u siebie.
+> *[Status: Dostosowane do nadrzędnej filozofii transferu wiedzy]*
 
 #### 2. Jakie jest Twoje dotychczasowe doświadczenie i unikalny background zawodowy?
 *Dlaczego to ważne:* Buduje natychmiastowy autorytet (np. lata w technologii/biznesie, prowadzone projekty, role leaderskie, sukcesy i porażki, z których wyciągnąłeś wnioski).  
@@ -65,8 +65,8 @@ Status: **Oczekuje na odpowiedzi użytkownika (Faza 1)**
 #### 6. Jaka jest Twoja osobista misja – dlaczego wchodzisz w warsztaty AI i mentoring akurat teraz?
 *Dlaczego to ważne:* Ludzie kupują od ludzi z misją. Autentyczna historia ("Dlaczego to robię") doskonale konwertuje w sekcji "O mnie".  
 > **Odpowiedź:**
-> Przez miesiące pomagałem startupom i znajomym za darmo w ramach wolontariatu i networkingu (pisanie wniosków grantowych, układanie biznesów, nauka promptingu). Wnioski wygrywały setki tysięcy złotych, a ludzie dostawali potężną dźwignię, podczas gdy ja oddawałem swój najcenniejszy zasób – czas. Po przetestowaniu autorskiej metodyki na zamkniętej „Grupie Zero”, nadszedł dojrzały moment na pełną profesjonalizację i komercjalizację. Moja misja to nauczyć ambitne firmy i ludzi traktowania AI jako bezwzględnej dźwigni operacyjnej, uwalniającej z koszmaru biurokracji i dającej realną przewagę rynkową.
-> *[Status: Wypełnione na podstawie Bazy Wiedzy Łukasza]*
+> Przekazywanie wiedzy to najwyższa wartość, jaka pcha ludzi i cywilizację do przodu. Przez długi czas pomagałem innym nieformalnie, widząc jak potężny skrót czasowy i finansowy daje bezpośrednia wymiana doświadczeń zamiast wielomiesięcznego błądzenia po omacku. Zorganizowanie tego w formie profesjonalnych warsztatów i sesji mentoringowych to naturalny krok: usystematyzowany transfer wiedzy, który szanuje czas obu stron i pozwala odbiorcy natychmiast budować na sprawdzonych fundamentach.
+> *[Status: Dostosowane do nadrzędnej filozofii transferu wiedzy]*
 
 #### 7. Kim jest Twój wymarzony "Klient Idealny", a z kim zdecydowanie NIE chcesz współpracować?
 *Dlaczego to ważne:* Pozwoli na stronie umieścić filtry ("Dla kogo to jest / Dla kogo to NIE jest"), oszczędzając Twój czas na nietrafione rozmowy.  
