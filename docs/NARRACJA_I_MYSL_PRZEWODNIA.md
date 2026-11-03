@@ -16,14 +16,14 @@ Prawdziwy skok cywilizacyjny nie wydarzył się dlatego, że staliśmy się mąd
 > **Nikt nie dochodzi do niczego od zera w pojedynkę.**  
 > Wszyscy stoimy na barkach tych, którzy rozwiązali dany problem przed nami.  
 > Przekazywanie wiedzy to najwyższa wartość, która sprawia, że jako ludzkość jesteśmy tu, gdzie jesteśmy.  
-> **Wymyślanie koła na nowo w samotności jest skrajnie nieopłacalne – czasowo i kosztowo.**
+> **Samodzielne odkrywanie wszystkiego od zera w pojedynkę jest po prostu nieefektywne – czasowo i kosztowo.**
 
 ---
 
 ## 2. HASŁO PRZEWODNIE (LEITMOTIF STRONY)
 
 ### Hasło Główne (Rekomendowane na stronę):
-> **„Wymyślanie koła na nowo jest nieopłacalne. Przejmij sprawdzoną wiedzę, zaoszczędź czas i rozwijaj ją u siebie.”**
+> **„Zamiast tracić miesiące na błądzenie po omacku – przejmij sprawdzoną wiedzę, zaoszczędź czas i rozwijaj ją u siebie.”**
 
 #### Alternatywne warianty:
 - *Wariant skrócony:* **„Przekazywanie wiedzy to największa dźwignia. Nie trać miesięcy na wyważanie otwartych drzwi.”**
@@ -46,7 +46,7 @@ Przekazywanie wiedzy to najwyższa wartość, jaka doprowadziła nas do miejsca,
 To jedyny powód, dla którego nikt z nas nie musi od zera uczyć się rozniecania ognia, żeby zagotować wodę.
 
 A jednak w biznesie, w poszukiwaniu pracy czy przy nowych technologiach wciąż wpadamy w tę samą pułapkę:
-próbujemy wymyślać koło na nowo.
+próbujemy odkrywać wszystko od zera w samotności.
 Siedzimy samotnie przed ekranem, błądzimy miesiącami po omacku i tracimy czas oraz pieniądze na błędy, które ktoś inny już dawno rozwiązał.
 
 To po prostu nieopłacalne.
@@ -71,7 +71,7 @@ Każda z trzech usług to konkretny **skrót czasowo-kosztowy**: zamiast tracić
 ```
                               +---------------------------------------------------+
                               |                 MYŚL PRZEWODNIA:                  |
-                              |      Wymyślanie koła na nowo jest nieopłacalne.   |
+                              |      Odkrywanie wszystkiego od zera jest zbędne.  |
                               |   Przejmij wiedzę, oszczędź czas i buduj u siebie.|
                               +---------------------------------------------------+
                                         |                   |                   |

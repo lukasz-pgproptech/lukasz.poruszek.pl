@@ -27,7 +27,7 @@ Status: **Oczekuje na odpowiedzi użytkownika (Faza 1)**
 #### 1. Jaka jest Twoja główna obietnica marki (Value Proposition)?
 *Dlaczego to ważne:* To zdanie trafi na samą górę strony głównej (Hero Section). Musi natychmiast wyjaśniać, kim jesteś, komu pomagasz i jaki mierzalny rezultat dostarczasz.  
 > **Odpowiedź:**
-> Dzielę się praktyczną, sprawdzoną wiedzą z zakresu orkiestracji narzędzi AI (6-tygodniowe warsztaty online) oraz pomagam rozwiązywać konkretne bariery biznesowe i rekrutacyjne w ramach intensywnych, 90-minutowych sesji mentoringowych. Wychodzę z założenia, że wymyślanie koła na nowo jest nieopłacalne czasowo i kosztowo – lepiej przejąć działające rozwiązania od doświadczonej osoby, zaoszczędzić czas i rozwijać je u siebie.
+> Dzielę się praktyczną, sprawdzoną wiedzą z zakresu orkiestracji narzędzi AI (6-tygodniowe warsztaty online) oraz pomagam rozwiązywać konkretne bariery biznesowe i rekrutacyjne w ramach intensywnych, 90-minutowych sesji mentoringowych. Wychodzę z założenia, że lepiej przejąć działające rozwiązania od doświadczonej osoby, zaoszczędzić czas i rozwijać je u siebie.
 > *[Status: Zaktualizowane – nowa narracja transferu wiedzy]*
 
 #### 2. Jakie jest Twoje dotychczasowe doświadczenie i unikalny background zawodowy?
@@ -65,7 +65,7 @@ Status: **Oczekuje na odpowiedzi użytkownika (Faza 1)**
 #### 6. Jaka jest Twoja osobista misja – dlaczego wchodzisz w warsztaty AI i mentoring akurat teraz?
 *Dlaczego to ważne:* Ludzie kupują od ludzi z misją. Autentyczna historia ("Dlaczego to robię") doskonale konwertuje w sekcji "O mnie".  
 > **Odpowiedź:**
-> Przekazywanie wiedzy to najwyższa wartość cywilizacyjna, która pcha nas do przodu. Przez lata widziałem, jak ludzie marnują miesiące i oszczędności, próbując wymyślać koło na nowo w biznesie, karierze czy narzędziach AI. Moją misją jest tworzenie bezpośredniego skrótu: przekazywanie gotowych, działających fundamentów, aby inni mogli zaoszczędzić swój czas i budować na nich własne rozwiązania.
+> Przekazywanie wiedzy to najwyższa wartość cywilizacyjna, która pcha nas do przodu. Przez lata widziałem, jak ludzie marnują miesiące i oszczędności w biznesie, karierze czy narzędziach AI. Moją misją jest tworzenie bezpośredniego skrótu: przekazywanie gotowych, działających fundamentów, aby inni mogli zaoszczędzić swój czas i budować na nich własne rozwiązania.
 > *[Status: Zaktualizowane – nowa narracja transferu wiedzy]*
 
 #### 7. Kim jest Twój wymarzony "Klient Idealny", a z kim zdecydowanie NIE chcesz współpracować?
@@ -84,7 +84,7 @@ Status: **Oczekuje na odpowiedzi użytkownika (Faza 1)**
 #### 9. Jakie 3–5 kluczowych wartości definiują Twoją pracę?
 *Dlaczego to ważne:* Np. pragmatyzm, bezpieczeństwo danych, bezkompromisowa szczerość, skupienie na ROI, partnerstwo. Trafią do sekcji wartości/filozofii.  
 > **Odpowiedź:**
-> 1. **Ekonomia czasu:** Wymyślanie koła na nowo w pojedynkę jest skrajnie nieopłacalne. Szanujemy Twój czas.
+> 1. **Ekonomia czasu:** Szanujemy Twój czas.
 > 2. **Kultura transferu wiedzy:** Wiedza ma wartość, gdy jest przekazywana i rozwijana dalej w konkretnych zastosowaniach.
 > 3. **Inżynierski pragmatyzm:** Działające fakty, mechanizmy i dekompozycja zamiast teorii i motywacyjnego szumu.
 > 4. **Partnerstwo i pokora:** Brak mentorowania z piedestału – rozmowa z pozycji praktyka bez pouczania.
@@ -94,7 +94,7 @@ Status: **Oczekuje na odpowiedzi użytkownika (Faza 1)**
 #### 10. Jaka jest jedna myśl lub emocja, którą użytkownik ma zapamiętać po 10 sekundach na stronie?
 *Dlaczego to ważne:* Kluczowe dla pierwszego wrażenia wizualnego i hasła przewodniego.  
 > **Odpowiedź:**
-> „Wymyślanie koła na nowo w pojedynkę nie ma sensu. Tutaj dostanę konkretne, sprawdzone klocki, zaoszczędzę miesiące błądzenia i rozwinę je u siebie.”
+> „Tutaj dostanę konkretne, sprawdzone klocki, zaoszczędzę miesiące błądzenia i rozwinę je u siebie.”
 > *[Status: Zaktualizowane – nowa narracja transferu wiedzy]*
 
 #### 11. Do kogo przede wszystkim kierujesz warsztaty AI?
@@ -713,5 +713,5 @@ Status: **Oczekuje na odpowiedzi użytkownika (Faza 1)**
 #### 100. Czy jest jakikolwiek aspekt, marzenie, nietypowy pomysł lub obawa, o którą nie zapytałem w poprzednich 99 pytaniach, a o której chciałbyś wspomnieć?
 *Dlaczego to ważne:* Twoje otwarte pole na wszystko, co nie zmieściło się w schemacie – szalone pomysły, inspiracje, nietypowe funkcje.  
 > **Odpowiedź:**
-> Projekt `lukasz.poruszek.pl` to nie kolejny biznes trenerski ani coachingowy. To platforma uczciwego transferu inżynieryjnej i biznesowej wiedzy, oparta na głębokim szacunku do czasu drugiego człowieka. Wymyślanie koła na nowo jest nieopłacalne – dzielenie się sprawdzonymi rozwiązaniami to najszybsza dźwignia rozwoju.
+> Projekt `lukasz.poruszek.pl` to nie kolejny biznes trenerski ani coachingowy. To platforma uczciwego transferu inżynieryjnej i biznesowej wiedzy, oparta na głębokim szacunku do czasu drugiego człowieka. dzielenie się sprawdzonymi rozwiązaniami to najszybsza dźwignia rozwoju.
 > *[Status: Zaktualizowane – nowa narracja transferu wiedzy]*
