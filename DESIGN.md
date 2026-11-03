@@ -1,49 +1,45 @@
-# DESIGN SYSTEM & CONCEPT SPECIFICATION
+# DESIGN SPECIFICATION: BYHOLM & NOOMO EDITORIAL ARCHITECTURE
 
-## Concept Card
-- **Idea:** Praktyczny transfer wiedzy inżynierskiej i biznesowej – eliminacja miesięcy błądzenia w pojedynkę dzięki bezpośredniemu doświadczeniu w budowie produktów, grantów i orkiestracji systemów multiagentowych.
-- **Metaphor:** Antropologia akumulacji kulturowej (Henrich, Derex, Boyd) połączona z rygorem inżynierii materiałowej i systemów agentowych.
-- **Signature:** Interaktywny Inspektor Kohorty Warsztatowej z dynamicznym rozwijaniem 6 modułów inżynierskich, walidatorem kodów zniżkowych (1200 zł → 0 zł), bezpośrednią bramką mBank PayNow oraz natychmiastowym rezerwowaniem doraźnych sesji mentoringowych (400 zł / 300 zł).
-- **Emotion:** Rygor inżynierski, autentyczność, brak taniego marketingu i „guru AI slop”. Poczucie kontaktu ze sprawdzonym praktykiem, który sam wdraża to, o czym mówi.
-- **Motion verb:** *Settle with weight* – elementy przesuwają się z precyzyjnym dociążeniem (`expo.out`), osiadając pewnie i bez zbędnych sprężynujących ozdobników.
-- **Screenshot:** Asymetryczny Hero z autentycznym portretem w głębokim oświetleniu, dyskretnym oznaczeniem inżynierskim `[ŁUKASZ PORUSZEK // B2C & B2B ARCHITECT]`, manifestem wiedzy i bezpośrednim wejściem w 3 filary.
-
----
-
-## Palette
-- `--ground`: `#090A0C` (głęboki antracyt inżynieryjny)
-- `--surface`: `#12151B` (tło bloków i kart)
-- `--surface-elevated`: `#1A1E26` (podświetlone elementy aktywne)
-- `--line`: `rgba(255, 255, 255, 0.08)` (precyzyjna linia techniczna)
-- `--line-focus`: `rgba(255, 255, 255, 0.20)`
-- `--ink`: `#F3F4F6` (czysta biel o wysokim kontraście)
-- `--muted`: `#8B94A5` (czytelny szary dla metadanych)
-- `--accent`: `#3B82F6` (inżynieryjny błękit funkcjonalny)
-- `--accent-live`: `#10B981` (zielony indykator dostępności)
-- `--curtain`: `#060709`
+## 1. Concept Card
+- **Idea:** Architektoniczny Rejestr Wiedzy (Architectural Protocol Ledger) — surowy, bezkompromisowy minimalizm edytorski, w którym treść i potężna typografia stanowią 100% doświadczenia wizualnego.
+- **Metaphor:** Monografia inżynierska i manifest transferu wiedzy (Henrich, Derex, Boyd).
+- **Anti-AI-Slop Rules:**
+  - ZERO wygenerowanych przez AI sztucznych twarzy czy plastikowych biurek (zamiast tego: surowy edytorski plakat typograficzny i czysta przestrzeń; docelowo tylko autorskie fotografie z sesji).
+  - ZERO zielonych pulsujących kropek i generycznych badge'y SaaS.
+  - ZERO komentarzy w stylu `// ARCHITEKT WDROŻEŃ` czy `// FILAR GŁÓWNY`.
+  - ZERO powtarzalnych zaokrąglonych kart z szarymi ramkami.
+  - ZERO ozdobników bez funkcji.
+- **Signature:**
+  - **The Four-Corner Architectural Viewport:** Nazwisko w lewym górnym rogu, status kohorty w prawym, metadane inżynierskie w lewym dolnym, wezwanie do przewinięcia w prawym dolnym.
+  - **Mega-Scale Typography Poster:** Potężny, bezkompromisowy manifest (clamp 3.5rem do 7rem) dominujący nad ekranem.
+  - **Architectural Index List (Byholm / Obys style):** Zamiast 3 identycznych kart SaaS — 3 monumentalne wiersze rejestru oddzielone liniami włoskowatymi (`01 Warsztaty Orkiestracji AI`, `02 Mentoring Biznesowy`, `03 Mentoring Kariery`) z kinetycznym rozwijaniem szczegółów i checkoutu.
+- **Motion verb:** *Snap & Unfold* — precyzyjne mechaniczne odsłanianie linii i treści na wzór rozkładania rysunku technicznego lub planu inżynierskiego (`expo.out`).
 
 ---
 
-## Typography
-- **Display / Headers:** `Plus Jakarta Sans` / `Inter`, 700 / 600 weight, -0.03em tracking.
-- **Mono / Labels:** `JetBrains Mono` / `ui-monospace`, 500 weight, tracking +0.05em, tabular figures.
-- **Body:** `Inter` / system-ui, 400 / 450 weight, leading 1.6.
+## 2. Palette (High-Contrast Editorial)
+- `--ground`: `#0a0b0d` (głęboki, matowy obsydian inżynieryjny)
+- `--ground-elevated`: `#111317`
+- `--ink`: `#f7f8fa` (czysta, wyrazista biel papierowa)
+- `--muted`: `#7e8594` (stonowany, czytelny grafit z zachowaniem kontrastu WCAG AAA)
+- `--line`: `rgba(255, 255, 255, 0.12)` (linie włoskowate jak na rysunku technicznym)
+- `--line-focus`: `rgba(255, 255, 255, 0.35)`
+- `--accent`: `#2563eb` (inżynieryjny błękit)
 
 ---
 
-## Grid & Composition Plan
-1. **Header / Masthead:** Minimalistyczny pasek: Sygnatura `ŁUKASZ PORUSZEK`, status aktywności kohorty `[REKRUTACJA OTWARTA]`, szybka nawigacja kotwiczna (`Warsztaty`, `Mentoring Biznes`, `Mentoring Kariera`, `O mnie`).
-2. **Hero:** Asymetryczny układ: Lewa kolumna z mocnym manifestem transferu wiedzy i ekonomii czasu, prawa kolumna z portretem w negatywnej przestrzeni i kluczowymi parametrami inżynierskimi.
-3. **Filar 1: Warsztaty Orkiestracji AI:**
-   - 6-tygodniowy program kohortowy (6x 2h/tydz.)
-   - Dynamiczny rozkład modułów [01 do 06] od Prompt/LLM do Multiagent Swarms
-   - Cena 1200 PLN z interaktywnym polem na kod rabatowy (zniżki do 0 PLN dla partnerów)
-   - Wymaganie wstępne: Subskrypcja Gemini Pro lub Ultra
-4. **Filar 2 & 3: Doraźny Mentoring (Biznes & Kariera):**
-   - Mentoring Biznesowy: 90 min / 400 PLN (diagnoza, znoszenie fałszywych stałych, granty B+R)
-   - Mentoring Kariery: 90 min / 300 PLN (audyt CV/LinkedIn, niepisane reguły korporacji vs małych firm, sterowanie dynamiką rozmowy rekrutacyjnej)
-   - Przycisk natychmiastowej rezerwacji terminu (zintegrowany terminarz / formularz)
-5. **Sekcja O Mnie & Doświadczenie:** Fakturowy, oszczędny profil inżynierski (Polska Grupa Proptech, ResiCraft, Motzny, BIPV, FSM). Bez pustych przechwałek, bez logotypów korporacji, bez sztucznych liczników.
-6. **Dyskretne B2B:** Komunikat dla firm poszukujących dedykowanych zamkniętych warsztatów lub audytów systemów agentowych.
-7. **Footer:** Pełne dane rejestrowe: Polska Grupa Proptech Sp. z o.o., NIP, REGON, kontakt, polityka prywatności.
+## 3. Typography
+- **Display:** `Plus Jakarta Sans`, 700 / 800 weight, tracking -0.04em, leading 0.95 do 1.05.
+- **Body & Editorial Statements:** `Inter`, 400 / 500 weight, leading 1.6.
+- **Technical Index & Currency:** `JetBrains Mono`, 500 / 700 weight, tabular numbers, tracking +0.02em.
 
+---
+
+## 4. Section Rhythm
+1. **Four-Corner Navigation & Masthead:** Rygorystyczny układ krawędziowy (Name / Nav / Status & CTA).
+2. **Hero Poster:** Mega-tytuł manifestu + 3 kluczowe liczby rejestru (6 TYG / 90 MIN / 90 MIN).
+3. **The Anthropological Statement:** 9-kolumnowy blok manifestu wiedzy (Henrich/Boyd) z gigantyczną typografią.
+4. **The Offerings (Architectural Index List):** Pełnoekranowe wiersze usług [01, 02, 03] z płynnym rozwijaniem programu warsztatów, kalkulatora kodów (do 0 zł) oraz bezpośredniej integracji PayNow.
+5. **The Engineering Ledger (Fakty & Podmiot):** 4 fakturowe rozdziały doświadczenia (Polska Grupa Proptech, ResiCraft, Granty B+R, Multi-Agent Architecture).
+6. **Executive B2B Callout:** Dyskretna, prestiżowa sekcja dla firm i zespołów inżynierskich.
+7. **Footer as Finale:** Monumentalna sygnatura `ŁUKASZ PORUSZEK` rozciągnięta na całą szerokość, dane spółki Polska Grupa Proptech Sp. z o.o., kontakt.

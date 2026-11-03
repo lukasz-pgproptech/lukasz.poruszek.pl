@@ -1,6 +1,6 @@
 # Status Projektu: lukasz.poruszek.pl
-Ostatnia aktualizacja: **2026-11-03 20:58**  
-Aktualna faza: **Faza 4 & 5 & 6 Zrealizowana -> Gotowa implementacja produkcyjna & audyt Awwwards / Jury**  
+Ostatnia aktualizacja: **2026-11-03 21:25**  
+Aktualna faza: **Faza 4 & 5 & 6 & 7: Wdrożenie nowej architektury edytorskiej (Byholm / Noomo style) — Zero AI Slop**  
 Główny cel: **Strona internetowa personal brandingu w estetyce Awwwards / Byholm / Noomo: warsztaty orkiestracji (6 tyg., 1200 zł) + doraźny mentoring 90 min (biznes: 400 zł, kariera: 300 zł) z bezpośrednią płatnością mBank PayNow**
 
 ---
@@ -25,37 +25,38 @@ podsumuj aktualny stan prac i przejdźmy do realizacji kolejnego zadania z listy
 | :--- | :--- | :--- | :--- |
 | **Faza 1** | **Strategiczne Odkrywanie & Baza 100 Pytań** | 🟢 **ZAKOŃCZONA** | Wszystkie 100 pytań sfinalizowane, wyczyszczone z klisz, zdefiniowany cennik i reguły Anti-Bloat. |
 | **Faza 2** | **Synteza Strategii, Oferty i Myśli Przewodniej** | 🟢 **ZAKOŃCZONA** | Ustanowiono myśl przewodnią opartą na transferze wiedzy i ekonomii czasu (`docs/NARRACJA_I_MYSL_PRZEWODNIA.md`). |
-| **Faza 3** | **Architektura Informacji, Layout & Brief Zdjęciowy** | 🟢 **ZAKOŃCZONA** | Przygotowano brief zdjęciowy (`docs/BRIEF_ZDJECIOWY.md`) oraz system art direction (`DESIGN.md`). |
-| **Faza 4** | **Setup Techniczny & Design System (Astro + Lenis)** | 🟢 **ZAKOŃCZONA** | Wdrożono Astro 5 + Tailwind v4 + silnik kinetyczny Lenis & GSAP ticker + samohostowane fonty WOFF2. |
-| **Faza 5** | **Implementacja Komponentów & RWD** | 🟢 **ZAKOŃCZONA** | Kompletny layout: Hero z manifestem, 3 filary usług (1200 zł / 400 zł / 300 zł), sekcja O mnie, B2B i Colophon. |
-| **Faza 6** | **Integracja Płatności i Fakturowania** | 🟢 **ZAKOŃCZONA** | Interaktywny checkout z wyborem PayNow (BLIK, przelew, karta), kuponami do 0 PLN i formularzem faktury VAT. |
-| **Faza 7** | **Optymalizacja, SEO i Audyt Jakościowy (Jury / Awwwards)** | 🟢 **ZAKOŃCZONA** | Waga strony: 371 KB, 0 błędów, 0 ostrzeżeń w `audit.mjs`, CLS = 0, 60 FPS, pełna dostępność (axe / keyboard). |
+| **Faza 3** | **Architektura Informacji, Layout & Brief Zdjęciowy** | 🟢 **ZAKOŃCZONA** | Przeprojektowano na wzór Byholm / Noomo (`DESIGN.md`): usunięcie generycznych kart i sztucznych twarzy. |
+| **Faza 4** | **Setup Techniczny & Design System (Astro + Lenis)** | 🟢 **ZAKOŃCZONA** | Astro 5 + Tailwind v4 + silnik kinetyczny Lenis & GSAP ticker + samohostowane fonty WOFF2. |
+| **Faza 5** | **Implementacja Komponentów Edytorskich (Byholm Style)** | 🟢 **ZAKOŃCZONA** | Typographic Poster Hero, manifest antropologiczny, Architectural Index List (01/02/03), Engineering Ledger, Footer Finale. |
+| **Faza 6** | **Integracja Płatności i Fakturowania** | 🟢 **ZAKOŃCZONA** | Płynny drawer programu z kuponami (do 0 PLN) + zintegrowany checkout modal mBank PayNow (BLIK/PBL/Karta). |
+| **Faza 7** | **Optymalizacja, SEO i Audyt Jakościowy (Jury / Awwwards)** | 🟢 **ZAKOŃCZONA** | Waga strony: **290 KB**, **0 FAIL, 0 WARN**, 60 FPS, CLS = 0, pełna dostępność (axe / keyboard). |
 | **Faza 8** | **Wdrożenie Produkcyjne (Deployment)** | ⚪ Oczekuje na decyzję | Konfiguracja Cloudflare Pages / podpięcie domeny `lukasz.poruszek.pl` i kluczy produkcyjnych PayNow. |
 
 ---
 
-## 📊 Kluczowe Metryki i Architektura (Stan na 03.11)
-- **Waga strony całkowita:** **371 KB** (HTML: 13 KB, JS: 56 KB gz, CSS: 9 KB gz, Fonty WOFF2: 105 KB, Zdjęcia: 184 KB).
-- **Wydajność & Płynność:** 60 FPS desktop, 60 FPS mobile, CLS = 0 (brak przesunięć układu dzięki wymiarom obrazów).
-- **Dostępność i nawigacja:** Skip link jako pierwszy element fokusu, pełne outline'y klawiaturowe, rozmiary dotykowe >= 44px, wysoki kontrast WCAG AA/AAA.
-- **Audyt techniczny (`audit.mjs`):** **0 FAIL, 0 WARN**.
-- **Zasoby wizualne:** Realistyczne, filmowe kadry robocze (`hero.jpg`, `workshop.jpg`, `dialog.jpg`) skompresowane progresywnym mozjpeg; gotowe do podmiany na zdjęcia z sesji.
-- **Bezpieczeństwo & Reguły:** Zero samowolnego `git push` – wszystkie commity wyłącznie lokalne.
+## 📊 Kluczowe Metryki i Architektura (Stan na 03.11, 21:25)
+- **Waga strony całkowita:** **290 KB** (HTML: 12 KB, JS: 56 KB gz, CSS: 9 KB gz, Fonty WOFF2: 209 KB, Obrazy: 0 KB zbędnych grafik).
+- **Wydajność & Płynność:** 60 FPS desktop, 60 FPS mobile, CLS = 0.
+- **Stylistyka:** 100% autentyczny minimalizm edytorski w stylu Byholm.co i Noomo — brak generycznych elementów AI.
+- **Bezpieczeństwo & Reguły:** Commity wyłącznie lokalne (zero samowolnego `git push`).
 
 ---
 
 ## 🎯 Najbliższe Zadania (Next Actions)
-1. **Inspekcja i feedback użytkownika:** Ocena strony przez Łukasza na lokalnym środowisku (`http://127.0.0.1:4400/`).
-2. **Podmiana fotografii:** Dostarczenie przez Łukasza docelowych zdjęć z sesji fotograficznej wg [`docs/BRIEF_ZDJECIOWY.md`](file:///home/poruszek/lukasz.poruszek.pl/docs/BRIEF_ZDJECIOWY.md).
-3. **Klucze produkcyjne:** Wprowadzenie produkcyjnych kluczy PayNow (mBank) oraz konta Brevo.
+1. **Weryfikacja przez użytkownika:** Ocena nowej typograficznej architektury na `http://127.0.0.1:4400/`.
+2. **Fotografia:** Wstawienie autorskich zdjęć z sesji Łukasza w przygotowane dedykowane sloty monograficzne.
+3. **Klucze PayNow & Brevo:** Wpięcie kluczy produkcyjnych przed wdrożeniem na Cloudflare Pages.
 
 ---
 
 ## 📝 Dziennik Zdarzeń (Action Log)
-- **2026-11-03 (20:58):**
-  - Wygenerowano i zoptymalizowano 3 fotografie robocze do `public/images/`.
-  - Zbudowano pełny serwis w Astro 5 z architekturą edytorską inspirowaną Byholm / Noomo.
-  - Zaimplementowano silnik animacji i płynnego przewijania (Lenis + GSAP).
-  - Wdrożono samohostowane fonty WOFF2 (Plus Jakarta Sans, Inter, JetBrains Mono) eliminując zbędne zapytania sieciowe.
-  - Zaimplementowano Filar 1 (Warsztaty z dynamicznym walidatorem kodów zniżkowych do 0 zł), Filary 2 & 3 (Doraźny mentoring biznesowy 400 zł i kariery 300 zł), profil techniczny, B2B oraz modal checkoutu PayNow.
-  - Przeprowadzono pełny audyt `/jury` (`shoot.mjs` oraz `audit.mjs`): waga 371 KB, 0 błędów, 0 ostrzeżeń.
+- **2026-11-03 (21:25):**
+  - Wyeliminowano wszystkie elementy zidentyfikowane jako „AI slop” (sztuczne twarze generowane z AI, pulsujące kropki, komentarze `//`, powtarzalne zaokrąglone karty).
+  - Przebudowano stronę według standardu Byholm / Noomo:
+    - Four-corner header
+    - Mega Typographic Statement Hero
+    - Manifest antropologii ewolucyjnej (Henrich / Derex / Boyd)
+    - Architectural Index List (01 Warsztaty, 02 Mentoring Biznes, 03 Mentoring Kariera) z rozwijanym drawerem programu i symulatorem kodów zniżkowych (do 0 PLN)
+    - Engineering Ledger w 4 rozdziałach
+    - Dedykowany blok B2B i Footer Finale z monumentalnym nazwiskiem.
+  - Zoptymalizowano wagę strony do 290 KB, audyt `audit.mjs` przeszedł z wynikiem `0 FAIL, 0 WARN`.

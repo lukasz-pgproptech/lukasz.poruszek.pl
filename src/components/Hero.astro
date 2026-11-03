@@ -2,148 +2,98 @@
 import { site } from '../data/site';
 ---
 
-<section id="hero" class="relative pt-32 pb-20 md:pt-40 md:pb-28 border-b border-white/[0.08] overflow-hidden">
-  <!-- Subtle technical grid background -->
-  <div class="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none"></div>
+<section id="hero" class="relative pt-36 pb-20 md:pt-48 md:pb-28 border-b border-white/10 overflow-hidden min-h-[92vh] flex flex-col justify-between">
+  <!-- Subtle architectural coordinate grid background -->
+  <div class="absolute inset-0 bg-[linear-gradient(to_right,#ffffff04_1px,transparent_1px),linear-gradient(to_bottom,#ffffff04_1px,transparent_1px)] bg-[size:6rem_6rem] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_0%,#000_80%,transparent_100%)] pointer-events-none"></div>
 
-  <div class="max-w-[1360px] mx-auto px-5 sm:px-8 relative">
-    <!-- Top Meta Identifier -->
-    <div class="flex flex-wrap items-center gap-3 mb-8" data-intro data-reveal="fade">
-      <span class="badge-mono live">
-        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-        Status: Rekrutacja Kohorta #01
-      </span>
-      <span class="badge-mono">
-        B2C & B2B Engineering
-      </span>
-      <span class="text-xs font-mono text-[#9ca3af] hidden sm:inline">
-        // 52°13'N 21°00'E • Warszawa
-      </span>
+  <div class="max-w-[1440px] mx-auto px-6 sm:px-10 w-full relative z-10 flex-1 flex flex-col justify-between">
+    <!-- Top Ledger Row -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-6 mb-12 sm:mb-16" data-intro data-reveal="fade">
+      <div class="font-mono text-xs uppercase tracking-widest text-[#7e8594] flex items-center gap-3">
+        <span>ARCHITEKTURA SYSTEMÓW AGENTOWYCH & B2B</span>
+      </div>
+      <div class="font-mono text-xs text-[#7e8594]">
+        POLSKA GRUPA PROPTECH • WARSZAWA
+      </div>
     </div>
 
-    <!-- Main Grid: Typography & Portrait -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-start">
-      <!-- Left Column: Manifest & Lead (7 cols) -->
-      <div class="lg:col-span-7 flex flex-col justify-between">
-        <div class="space-y-6">
-          <h1 
-            class="font-display text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-bold tracking-tight text-white leading-[1.12]"
-            data-intro
-            data-split="lines"
-          >
-            Zamiast tracić miesiące na błądzenie po omacku: przejmij sprawdzoną wiedzę i buduj u siebie.
-          </h1>
+    <!-- Mega Typographic Statement Poster -->
+    <div class="max-w-6xl my-auto py-4">
+      <h1 
+        class="font-display text-4xl sm:text-6xl md:text-7xl lg:text-[5.25rem] font-bold text-white tracking-[-0.04em] leading-[0.98] text-balance mb-8"
+        data-intro
+        data-split="lines"
+      >
+        Większość ludzi traci rok na błędy, które ktoś inny rozwiązał w 6 tygodni.
+      </h1>
 
-          <p 
-            class="text-base sm:text-lg text-[#9ca3af] max-w-2xl leading-relaxed font-body"
-            data-intro
-            data-reveal="up"
-            data-delay="0.1"
-          >
-            Przez 300 000 lat historii człowiek nie wymyślił niczego w samotności. Prawdziwe przyspieszenie następuje wtedy, gdy przejmujesz sprawdzone wzorce od kogoś, kto już rozwiązał Twój problem. Czysta ekonomia Twojego czasu i budżetu.
-          </p>
+      <p 
+        class="text-lg sm:text-2xl text-[#7e8594] font-body max-w-3xl leading-relaxed text-pretty"
+        data-intro
+        data-reveal="up"
+        data-delay="0.1"
+      >
+        Zamiast błądzić w samotności metodą prób i błędów: przejmij sprawdzony system inżynierski, zaoszczędź czas i rozwijaj rozwiązania u siebie.
+      </p>
+    </div>
+
+    <!-- Bottom Architectural Delta Bar -->
+    <div 
+      class="mt-16 pt-8 border-t border-white/10 grid grid-cols-1 md:grid-cols-3 gap-8 items-start"
+      data-intro
+      data-reveal="up"
+      data-delay="0.2"
+    >
+      <a 
+        href="#warsztaty" 
+        class="group space-y-2 block"
+        data-cursor="Program"
+      >
+        <div class="flex justify-between items-baseline font-mono text-xs text-[#7e8594]">
+          <span class="group-hover:text-white transition-colors">01 / WARSZTATY</span>
+          <span>6 TYGODNI</span>
         </div>
-
-        <!-- 3 Pillars Shortcut Grid -->
-        <div 
-          class="mt-10 sm:mt-12 grid grid-cols-1 sm:grid-cols-3 gap-3 border-t border-white/[0.08] pt-8"
-          data-intro
-          data-reveal="up"
-          data-delay="0.2"
-        >
-          <a 
-            href="#warsztaty" 
-            class="group p-4 bg-white/[0.02] border border-white/[0.06] hover:border-blue-500/40 hover:bg-blue-500/[0.03] transition-all duration-200 min-h-[48px]"
-            data-cursor="Sprawdź"
-          >
-            <div class="flex items-center justify-between mb-2">
-              <span class="font-mono text-[11px] text-blue-400 font-semibold">[01] WARSZTATY</span>
-              <span class="font-mono text-[10px] text-[#9ca3af]">6 TYG</span>
-            </div>
-            <div class="text-sm font-semibold text-white group-hover:text-blue-300 transition-colors">
-              Orkiestracja AI
-            </div>
-            <div class="text-xs text-[#9ca3af] mt-1 font-mono">
-              1200 PLN • Kod do 0 PLN
-            </div>
-          </a>
-
-          <a 
-            href="#mentoring-biznes" 
-            class="group p-4 bg-white/[0.02] border border-white/[0.06] hover:border-blue-500/40 hover:bg-blue-500/[0.03] transition-all duration-200 min-h-[48px]"
-            data-cursor="Termin"
-          >
-            <div class="flex items-center justify-between mb-2">
-              <span class="font-mono text-[11px] text-neutral-300 font-semibold">[02] MENTORING</span>
-              <span class="font-mono text-[10px] text-[#9ca3af]">90 MIN</span>
-            </div>
-            <div class="text-sm font-semibold text-white group-hover:text-neutral-200 transition-colors">
-              Biznes & Granty
-            </div>
-            <div class="text-xs text-[#9ca3af] mt-1 font-mono">
-              400 PLN • 1:1 online
-            </div>
-          </a>
-
-          <a 
-            href="#mentoring-kariera" 
-            class="group p-4 bg-white/[0.02] border border-white/[0.06] hover:border-blue-500/40 hover:bg-blue-500/[0.03] transition-all duration-200 min-h-[48px]"
-            data-cursor="Termin"
-          >
-            <div class="flex items-center justify-between mb-2">
-              <span class="font-mono text-[11px] text-neutral-300 font-semibold">[03] MENTORING</span>
-              <span class="font-mono text-[10px] text-[#9ca3af]">90 MIN</span>
-            </div>
-            <div class="text-sm font-semibold text-white group-hover:text-neutral-200 transition-colors">
-              Kariera & Rynek
-            </div>
-            <div class="text-xs text-[#9ca3af] mt-1 font-mono">
-              300 PLN • Audyt profilu
-            </div>
-          </a>
+        <div class="font-display text-xl font-bold text-white group-hover:text-blue-400 transition-colors">
+          Orkiestracja AI w firmie
         </div>
-      </div>
-
-      <!-- Right Column: Editorial Portrait & Technical Bio Card (5 cols) -->
-      <div class="lg:col-span-5 relative" data-intro data-reveal="scale" data-delay="0.15">
-        <div class="relative overflow-hidden border border-white/[0.12] bg-[#12151b] group">
-          <img 
-            src="/images/hero.jpg" 
-            alt="Łukasz Poruszek: Architekt Systemów Agentowych"
-            width="896"
-            height="1200"
-            class="w-full aspect-[4/5] object-cover filter contrast-[1.05] grayscale-[20%] transition-transform duration-700 ease-out group-hover:scale-[1.02]"
-            data-critical
-          />
-
-          <!-- Gradient Vignette & Overlay -->
-          <div class="absolute inset-0 bg-gradient-to-t from-[#090a0c] via-transparent to-transparent opacity-90"></div>
-
-          <!-- Bottom Card Data -->
-          <div class="absolute bottom-0 left-0 right-0 p-6 sm:p-7 space-y-3">
-            <div class="flex items-center justify-between">
-              <div class="font-mono text-xs text-blue-400 tracking-wider uppercase font-semibold">
-                // ARCHITEKT WDROŻEŃ
-              </div>
-              <div class="font-mono text-[11px] text-[#9ca3af]">
-                POLSKA GRUPA PROPTECH
-              </div>
-            </div>
-
-            <div class="text-white font-display text-xl font-bold tracking-tight">
-              Łukasz Poruszek
-            </div>
-
-            <div class="text-xs text-[#9ca3af] leading-relaxed font-mono">
-              Inżynieria materiałowa • Exity technologiczne • Granty B+R (NCBR, PARP) • Autonomiczne systemy multiagentowe w produkcji.
-            </div>
-          </div>
+        <div class="font-mono text-xs text-[#7e8594]">
+          1 200 PLN • Zniżka z kodem do 0 PLN
         </div>
+      </a>
 
-        <!-- Decorative Technical Corner Pins -->
-        <div class="absolute -top-1.5 -left-1.5 w-3 h-3 border-t-2 border-l-2 border-white/40 pointer-events-none"></div>
-        <div class="absolute -bottom-1.5 -right-1.5 w-3 h-3 border-b-2 border-r-2 border-white/40 pointer-events-none"></div>
-      </div>
+      <a 
+        href="#mentoring" 
+        class="group space-y-2 block"
+        data-cursor="Termin"
+      >
+        <div class="flex justify-between items-baseline font-mono text-xs text-[#7e8594]">
+          <span class="group-hover:text-white transition-colors">02 / MENTORING BIZNES</span>
+          <span>90 MINUT</span>
+        </div>
+        <div class="font-display text-xl font-bold text-white group-hover:text-blue-400 transition-colors">
+          Diagnoza & Granty B+R
+        </div>
+        <div class="font-mono text-xs text-[#7e8594]">
+          400 PLN • Sesja 1:1 online
+        </div>
+      </a>
+
+      <a 
+        href="#mentoring" 
+        class="group space-y-2 block"
+        data-cursor="Termin"
+      >
+        <div class="flex justify-between items-baseline font-mono text-xs text-[#7e8594]">
+          <span class="group-hover:text-white transition-colors">03 / MENTORING KARIERA</span>
+          <span>90 MINUT</span>
+        </div>
+        <div class="font-display text-xl font-bold text-white group-hover:text-blue-400 transition-colors">
+          Audyt profilu & Rynek
+        </div>
+        <div class="font-mono text-xs text-[#7e8594]">
+          300 PLN • Realia selekcji
+        </div>
+      </a>
     </div>
   </div>
 </section>

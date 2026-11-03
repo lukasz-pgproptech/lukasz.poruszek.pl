@@ -1,0 +1,88 @@
+---
+import { site } from '../data/site';
+---
+
+<section id="doswiadczenie" class="py-24 sm:py-36 border-b border-white/10 bg-[#0a0b0d]">
+  <div class="max-w-[1440px] mx-auto px-6 sm:px-10">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+      <!-- Left Column: Biography (4 cols) -->
+      <div class="lg:col-span-4 space-y-6 sticky top-28">
+        <div class="font-mono text-xs uppercase tracking-widest text-[#7e8594]">
+          04 / DOŚWIADCZENIE
+        </div>
+        <h2 class="font-display text-3xl sm:text-4xl font-bold text-white tracking-tight">
+          Praktyka inżynierska, nie teoria z prezentacji.
+        </h2>
+        <p class="text-base text-[#7e8594] font-body leading-relaxed">
+          Przeszedłem drogę od fizycznych wdrożeń budowlanych i badań materiałowych na Politechnice, przez wygrywanie wielomilionowych grantów B+R, aż po architekturę chmurową B2B SaaS i produkcyjne systemy multiagentowe.
+        </p>
+
+        <!-- Registered Company Box -->
+        <div class="p-6 border border-white/10 bg-[#111317] space-y-2 font-mono text-xs text-[#7e8594]">
+          <div class="text-white font-bold uppercase tracking-wider mb-2">
+            PODMIOT PROWADZĄCY
+          </div>
+          <div>Firma: <strong class="text-white">{site.company}</strong></div>
+          <div>NIP: <span class="text-white">{site.nip}</span> • REGON: <span class="text-white">{site.regon}</span></div>
+          <div>KRS: <span class="text-white">{site.krs}</span> • Warszawa, Polska</div>
+        </div>
+      </div>
+
+      <!-- Right Column: 4 Chapters of Real Track Record (8 cols) -->
+      <div class="lg:col-span-8 divide-y divide-white/10 border-t border-b border-white/10">
+        <div class="py-8 space-y-2">
+          <div class="flex justify-between items-baseline font-mono text-xs text-[#7e8594]">
+            <span>ROZDZIAŁ 01</span>
+            <span>POLITECHNIKA WARSZAWSKA</span>
+          </div>
+          <h3 class="font-display text-xl sm:text-2xl font-bold text-white">
+            Inżynieria materiałowa & wdrożenia fizyczne
+          </h3>
+          <p class="text-sm text-[#7e8594] font-body leading-relaxed max-w-2xl">
+            Rygor fizyczny i laboratoryjny. Koordynacja prac inżynierskich, zaawansowane fasady i automatyzacja procesów wykonawczych od wczesnych godzin porannych na budowie.
+          </p>
+        </div>
+
+        <div class="py-8 space-y-2">
+          <div class="flex justify-between items-baseline font-mono text-xs text-[#7e8594]">
+            <span>ROZDZIAŁ 02</span>
+            <span>B2B SAAS DLA NIERUCHOMOŚCI</span>
+          </div>
+          <h3 class="font-display text-xl sm:text-2xl font-bold text-white">
+            Polska Grupa Proptech & ResiCraft
+          </h3>
+          <p class="text-sm text-[#7e8594] font-body leading-relaxed max-w-2xl">
+            Założyciel i architekt produktu. Budowa, skalowanie i komercjalizacja platformy B2B SaaS usprawniającej procesy deweloperskie i obsługę inwestycji mieszkaniowych.
+          </p>
+        </div>
+
+        <div class="py-8 space-y-2">
+          <div class="flex justify-between items-baseline font-mono text-xs text-[#7e8594]">
+            <span>ROZDZIAŁ 03</span>
+            <span>FINANSOWANIE INNOWACJI B+R</span>
+          </div>
+          <h3 class="font-display text-xl sm:text-2xl font-bold text-white">
+            Wielomilionowe granty badawczo-rozwojowe
+          </h3>
+          <p class="text-sm text-[#7e8594] font-body leading-relaxed max-w-2xl">
+            Pozyskiwanie, koordynacja konsorcjów oraz inżynierskie rozliczanie dotacji w programach NCBR, PARP i FENG (BIPV, innowacje materiałowe, platformy algorytmiczne).
+          </p>
+        </div>
+
+        <div class="py-8 space-y-2">
+          <div class="flex justify-between items-baseline font-mono text-xs text-[#7e8594]">
+            <span>ROZDZIAŁ 04</span>
+            <span>SYSTEMY AGENTOWE W BIZNESIE</span>
+          </div>
+          <h3 class="font-display text-xl sm:text-2xl font-bold text-white">
+            Architektura orkiestracji & Model Context Protocol
+          </h3>
+          <p class="text-sm text-[#7e8594] font-body leading-relaxed max-w-2xl">
+            Projektowanie autonomicznych rojów agentów, protokołów MCP, bezpiecznych sandboxów i deterministycznych pętli weryfikacji jakości kodu i procesów decyzyjnych.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+

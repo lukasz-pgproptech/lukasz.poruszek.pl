@@ -3,72 +3,42 @@
 @import "./engine.css";
 
 @theme {
-  --color-ground: #090a0c;
-  --color-surface: #12151b;
-  --color-surface-elevated: #1a1e26;
-  --color-surface-card: #0e1117;
-  --color-ink: #f3f4f6;
-  --color-muted: #8b94a5;
-  --color-line: rgba(255, 255, 255, 0.08);
-  --color-line-strong: rgba(255, 255, 255, 0.18);
-  --color-accent: #3b82f6;
-  --color-accent-live: #10b981;
+  --color-ground: #0a0b0d;
+  --color-surface: #111317;
+  --color-surface-elevated: #16181f;
+  --color-ink: #f7f8fa;
+  --color-muted: #7e8594;
+  --color-line: rgba(255, 255, 255, 0.12);
+  --color-line-strong: rgba(255, 255, 255, 0.28);
+  --color-accent: #2563eb;
 
   --font-display: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   --font-body: 'Inter', system-ui, -apple-system, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, 'Fira Code', monospace;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
 }
 
-/* Base utilities & editorial touches */
-.badge-mono {
+/* Editorial micro-craft */
+.link-editorial {
+  position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  padding: 0.35rem 0.75rem;
-  border-radius: 9999px;
-  border: 1px solid var(--c-line);
-  background: rgba(255, 255, 255, 0.03);
-  color: var(--c-muted);
+  transition: color 0.2s ease;
 }
 
-.badge-mono.live {
-  border-color: rgba(16, 185, 129, 0.25);
-  color: #34d399;
-  background: rgba(16, 185, 129, 0.06);
-}
-
-.card-technical {
-  background: var(--c-surface);
-  border: 1px solid var(--c-line);
-  position: relative;
-  transition: border-color 0.25s ease, background-color 0.25s ease;
-}
-
-.card-technical:hover {
-  border-color: var(--c-line-strong);
-  background: var(--c-surface-elevated);
-}
-
-.glow-subtle {
-  position: relative;
-}
-
-.glow-subtle::before {
+.link-editorial::after {
   content: '';
   position: absolute;
-  inset: -1px;
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), transparent 70%);
-  pointer-events: none;
-  border-radius: inherit;
-  opacity: 0;
-  transition: opacity 0.3s ease;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.glow-subtle:hover::before {
-  opacity: 1;
+.link-editorial:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
 }
-
