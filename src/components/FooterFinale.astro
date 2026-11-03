@@ -2,7 +2,7 @@
 import { site } from '../data/site';
 ---
 
-<footer class="pt-20 pb-12 border-t border-white/10 bg-[#050608] relative overflow-hidden">
+<footer class="pt-20 pb-12 border-t border-white/10 bg-[#050608]/80 backdrop-blur-sm relative overflow-hidden">
   <div class="max-w-[1440px] mx-auto px-6 sm:px-10 space-y-16">
     <!-- Top Row: Contact & Links -->
     <div class="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-white/10">
@@ -60,8 +60,8 @@ import { site } from '../data/site';
     </div>
 
     <!-- Monumental Name Finale (Byholm style) -->
-    <div class="pt-4 select-none pointer-events-none" aria-hidden="true">
-      <div class="font-display font-extrabold text-[clamp(2.5rem,10vw,8.5rem)] text-white/10 tracking-[-0.05em] leading-[0.85] uppercase text-center sm:text-left" aria-hidden="true">
+    <div class="pt-4 select-none pointer-events-none" aria-hidden="true" role="presentation">
+      <div class="font-display font-extrabold text-[clamp(2.5rem,10vw,8.5rem)] text-white/20 tracking-[-0.05em] leading-[0.85] uppercase text-center sm:text-left" aria-hidden="true" role="presentation">
         {site.name}
       </div>
     </div>

@@ -236,3 +236,33 @@ html:not(.js) #loader, #loader[hidden] {
     scroll-behavior: auto !important;
   }
 }
+
+/* WebGL Host & Canvas */
+#gl {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-gl, 1);
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.gl-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.gl-on [data-gl] img, .gl-on [data-gl] .gl-fallback {
+  opacity: 0;
+}
+
+.gl-on [data-gl] {
+  background: none !important;
+}
+
+[data-gl] {
+  position: relative;
+}
+

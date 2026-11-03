@@ -2,6 +2,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { initScroll, resetScroll, startScroll, stopScroll } from './scroll';
 import { initReveals } from './reveal';
+import { initGL, mountGL, unmountGL } from './gl';
 import { initCursor, initMagnetic } from './interactions';
 import { runLoader } from './loader';
 import { playEnter, playLeave } from './transition';
@@ -10,6 +11,7 @@ import { prefersReducedMotion } from './env';
 export { onScroll, scrollState, scrollToTarget, stopScroll, startScroll } from './scroll';
 export { setTransition } from './transition';
 export { setLoaderFormat, setLoaderExit } from './loader';
+export { hideGL, setBackground, clearBackground, glSupported } from './gl';
 export { ease, isTouch, isMobile, prefersReducedMotion } from './env';
 
 export type PageFn = (page: { intro: gsap.core.Timeline; path: string }) => void | (() => void);
@@ -38,6 +40,7 @@ export function syncFlags() {
   const h = document.documentElement.classList;
   h.add('js', 'is-booted');
   h.toggle('motion', !prefersReducedMotion());
+  if (document.querySelector('.gl-canvas')) h.add('gl-on');
 }
 
 function initPage() {
@@ -47,6 +50,7 @@ function initPage() {
     intro = initReveals(document);
     initMagnetic(document);
   });
+  mountGL(document);
   ready = true;
   pageFns.forEach(runPageFn);
   requestAnimationFrame(() => ScrollTrigger.refresh());
@@ -57,6 +61,7 @@ export async function boot(setup?: () => void) {
   booted = true;
   syncFlags();
   initScroll();
+  initGL();
   initCursor();
   setup?.();
   stopScroll();
@@ -77,6 +82,7 @@ export function cleanup() {
   cleanups.splice(0).forEach((c) => c());
   ctx?.revert();
   ctx = null;
+  unmountGL();
 }
 
 export async function enter({ transition = true, scrollTop = true } = {}) {

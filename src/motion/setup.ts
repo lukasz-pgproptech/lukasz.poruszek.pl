@@ -1,5 +1,6 @@
 import { gsap } from 'gsap';
-import { setLoaderFormat, setLoaderExit, ease } from '../engine';
+import { setLoaderFormat, setLoaderExit, ease, setBackground } from '../engine';
+import { fluidBackgroundFragment } from '../engine/gl/shaders';
 
 export function setupMotion() {
   setLoaderFormat((p: number) => {
@@ -22,5 +23,8 @@ export function setupMotion() {
     }, '-=0.3');
     return tl;
   });
+
+  // Living organic fluid matter & interactive cursor light background
+  setBackground(fluidBackgroundFragment);
 }
 

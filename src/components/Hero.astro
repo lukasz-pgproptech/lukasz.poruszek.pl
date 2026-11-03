@@ -2,55 +2,112 @@
 import { site } from '../data/site';
 ---
 
-<section id="hero" class="relative pt-36 pb-20 md:pt-48 md:pb-28 border-b border-white/10 overflow-hidden min-h-[92vh] flex flex-col justify-between">
+<section id="hero" class="relative pt-32 pb-16 md:pt-44 md:pb-24 border-b border-white/10 overflow-hidden min-h-[94vh] flex flex-col justify-between">
   <!-- Subtle architectural coordinate grid background -->
-  <div class="absolute inset-0 bg-[linear-gradient(to_right,#ffffff04_1px,transparent_1px),linear-gradient(to_bottom,#ffffff04_1px,transparent_1px)] bg-[size:6rem_6rem] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_0%,#000_80%,transparent_100%)] pointer-events-none"></div>
+  <div class="absolute inset-0 bg-[linear-gradient(to_right,#ffffff04_1px,transparent_1px),linear-gradient(to_bottom,#ffffff04_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_75%_65%_at_50%_0%,#000_80%,transparent_100%)] pointer-events-none"></div>
 
   <div class="max-w-[1440px] mx-auto px-6 sm:px-10 w-full relative z-10 flex-1 flex flex-col justify-between">
     <!-- Top Ledger Row -->
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-6 mb-12 sm:mb-16" data-intro data-reveal="fade">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/10 pb-6 mb-8 sm:mb-12" data-intro data-reveal="fade">
       <div class="font-mono text-xs uppercase tracking-widest text-[#7e8594] flex items-center gap-3">
+        <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
         <span>ARCHITEKTURA SYSTEMÓW AGENTOWYCH & B2B</span>
       </div>
-      <div class="font-mono text-xs text-[#7e8594]">
-        POLSKA GRUPA PROPTECH • WARSZAWA
+      <div class="font-mono text-xs text-[#7e8594] flex items-center gap-4">
+        <span>POLSKA GRUPA PROPTECH • WARSZAWA</span>
+        <span class="hidden md:inline text-white/30">|</span>
+        <span class="hidden md:inline text-blue-400">LAT: 52.2297° N • LON: 21.0122° E</span>
       </div>
     </div>
 
-    <!-- Mega Typographic Statement Poster -->
-    <div class="max-w-6xl my-auto py-4">
-      <h1 
-        class="font-display text-4xl sm:text-6xl md:text-7xl lg:text-[5.25rem] font-bold text-white tracking-[-0.04em] leading-[0.98] text-balance mb-8"
-        data-intro
-        data-split="lines"
-      >
-        Większość ludzi traci rok na błędy, które ktoś inny rozwiązał w 6 tygodni.
-      </h1>
+    <!-- Main Hero Stage: Typography + 3D Agentic Constellation Canvas -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center my-auto py-2">
+      <!-- Left Column: Typographic Poster -->
+      <div class="lg:col-span-7 space-y-6">
+        <div class="inline-flex items-center gap-2 px-3 py-1 border border-blue-500/30 bg-blue-500/10 text-blue-400 font-mono text-[11px] uppercase tracking-wider" data-intro data-reveal="fade">
+          <span>Zbiorowy mózg zamiast izolacji</span>
+        </div>
 
-      <p 
-        class="text-lg sm:text-2xl text-[#7e8594] font-body max-w-3xl leading-relaxed text-pretty"
-        data-intro
-        data-reveal="up"
-        data-delay="0.1"
-      >
-        Zamiast błądzić w samotności metodą prób i błędów: przejmij sprawdzony system inżynierski, zaoszczędź czas i rozwijaj rozwiązania u siebie.
-      </p>
+        <h1 
+          class="font-display text-4xl sm:text-6xl md:text-6xl lg:text-[4.75rem] font-bold text-white tracking-[-0.04em] leading-[0.98] text-balance"
+          data-intro
+          data-split="lines"
+        >
+          Większość ludzi traci rok na błędy, które ktoś inny rozwiązał w 6 tygodni.
+        </h1>
+
+        <p 
+          class="text-base sm:text-xl text-[#7e8594] font-body max-w-2xl leading-relaxed text-pretty"
+          data-intro
+          data-reveal="up"
+          data-delay="0.1"
+        >
+          Zamiast błądzić w samotności metodą prób i błędów: przejmij sprawdzony system inżynierski, zaoszczędź setki godzin i buduj z wyprzedzeniem rynku.
+        </p>
+
+        <!-- Proof metrics tags -->
+        <div class="pt-4 flex flex-wrap items-center gap-6 font-mono text-xs text-[#7e8594]" data-intro data-reveal="up" data-delay="0.15">
+          <div class="flex items-center gap-2">
+            <span class="text-white font-bold">6 TYGODNI</span>
+            <span class="text-white/40">vs 1 ROK CHAOSU</span>
+          </div>
+          <div class="w-1 h-1 rounded-full bg-white/20"></div>
+          <div class="flex items-center gap-2">
+            <span class="text-blue-400 font-bold">100% INŻYNIERIA</span>
+            <span class="text-white/40">ZERO AI SLOP</span>
+          </div>
+          <div class="w-1 h-1 rounded-full bg-white/20"></div>
+          <div class="flex items-center gap-2">
+            <span class="text-emerald-400 font-bold">MCP PROTOCOL</span>
+            <span class="text-white/40">MULTI-AGENTY</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Interactive 3D WebGL Neural Core -->
+      <div class="lg:col-span-5 relative" data-intro data-reveal="fade" data-delay="0.2">
+        <div class="relative w-full h-[360px] sm:h-[440px] lg:h-[480px] rounded-xl border border-white/10 bg-[#0d0e12]/60 backdrop-blur-sm p-4 flex flex-col justify-between overflow-hidden group">
+          <!-- 3D Viewport Header -->
+          <div class="flex items-center justify-between text-[10px] font-mono text-[#7e8594] border-b border-white/10 pb-2 z-10 pointer-events-none">
+            <div class="flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-blue-400"></span>
+              <span>CORE_LATTICE // AGENTIC_SWARM</span>
+            </div>
+            <div class="text-white/50">
+              60 FPS • THREE.JS
+            </div>
+          </div>
+
+          <!-- The Interactive Three.js Canvas Container -->
+          <div 
+            id="hero-3d-stage" 
+            class="absolute inset-0 w-full h-full cursor-grab active:cursor-grabbing"
+            data-cursor="Obróć 3D"
+          ></div>
+
+          <!-- 3D Viewport Footer Coordinates & Hint -->
+          <div class="flex items-center justify-between text-[10px] font-mono text-[#7e8594] border-t border-white/10 pt-2 z-10 pointer-events-none">
+            <div>INTERAKCJA: MYSZKA / KLIKNIJ PULS</div>
+            <div class="text-blue-400 font-bold">VORTEX: ACTIVE</div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Bottom Architectural Delta Bar -->
     <div 
-      class="mt-16 pt-8 border-t border-white/10 grid grid-cols-1 md:grid-cols-3 gap-8 items-start"
+      class="mt-12 pt-8 border-t border-white/10 grid grid-cols-1 md:grid-cols-3 gap-8 items-start"
       data-intro
       data-reveal="up"
-      data-delay="0.2"
+      data-delay="0.25"
     >
       <a 
         href="#warsztaty" 
-        class="group space-y-2 block"
+        class="group space-y-2 block p-3 -m-3 hover:bg-white/[0.03] transition-colors rounded-lg"
         data-cursor="Program"
       >
         <div class="flex justify-between items-baseline font-mono text-xs text-[#7e8594]">
-          <span class="group-hover:text-white transition-colors">01 / WARSZTATY</span>
+          <span class="group-hover:text-blue-400 transition-colors">01 / WARSZTATY KOHORTOWE</span>
           <span>6 TYGODNI</span>
         </div>
         <div class="font-display text-xl font-bold text-white group-hover:text-blue-400 transition-colors">
@@ -63,11 +120,11 @@ import { site } from '../data/site';
 
       <a 
         href="#mentoring" 
-        class="group space-y-2 block"
+        class="group space-y-2 block p-3 -m-3 hover:bg-white/[0.03] transition-colors rounded-lg"
         data-cursor="Termin"
       >
         <div class="flex justify-between items-baseline font-mono text-xs text-[#7e8594]">
-          <span class="group-hover:text-white transition-colors">02 / MENTORING BIZNES</span>
+          <span class="group-hover:text-blue-400 transition-colors">02 / MENTORING BIZNES</span>
           <span>90 MINUT</span>
         </div>
         <div class="font-display text-xl font-bold text-white group-hover:text-blue-400 transition-colors">
@@ -80,11 +137,11 @@ import { site } from '../data/site';
 
       <a 
         href="#mentoring" 
-        class="group space-y-2 block"
+        class="group space-y-2 block p-3 -m-3 hover:bg-white/[0.03] transition-colors rounded-lg"
         data-cursor="Termin"
       >
         <div class="flex justify-between items-baseline font-mono text-xs text-[#7e8594]">
-          <span class="group-hover:text-white transition-colors">03 / MENTORING KARIERA</span>
+          <span class="group-hover:text-blue-400 transition-colors">03 / MENTORING KARIERA</span>
           <span>90 MINUT</span>
         </div>
         <div class="font-display text-xl font-bold text-white group-hover:text-blue-400 transition-colors">
@@ -97,3 +154,18 @@ import { site } from '../data/site';
     </div>
   </div>
 </section>
+
+<script>
+  async function mountHero3D() {
+    const stage = document.getElementById('hero-3d-stage');
+    if (stage && !stage.hasChildNodes()) {
+      const { initHeroScene } = await import('./hero-scene');
+      initHeroScene(stage);
+    }
+  }
+
+  if (typeof window !== 'undefined') {
+    requestAnimationFrame(() => mountHero3D());
+    document.addEventListener('astro:page-load', () => mountHero3D());
+  }
+</script>
