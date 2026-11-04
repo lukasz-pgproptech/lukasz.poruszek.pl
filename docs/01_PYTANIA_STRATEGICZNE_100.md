@@ -1,6 +1,7 @@
 # Baza 100 Pytań Strategicznych – Projekt lukasz.poruszek.pl
 Data utworzenia: **02.11.2026**  
-Status: **Oczekuje na odpowiedzi użytkownika (Faza 1)**
+Ostatnia aktualizacja: **04.11.2026** (Struktura strony zastąpiona w 100% wzorcem Corn Revolution / Resn)  
+Status: **Zaktualizowane (Faza 1)**
 
 > **Wskazówka dla Łukasza:**  
 > Nie musisz odpowiadać na wszystkie 100 pytań za jednym razem. Możesz odpowiadać modułami (np. 1–10, 11–20) bezpośrednio w tym pliku lub wklejać odpowiedzi na czacie, a ja będę je uzupełniał i zapisywał.  
@@ -14,7 +15,7 @@ Status: **Oczekuje na odpowiedzi użytkownika (Faza 1)**
 3. [Moduł 3: Oferta – Mentoring w Tworzeniu i Rozwoju Własnej Firmy (Pytania 21–30)](#moduł-3-oferta--mentoring-w-tworzeniu-i-rozwoju-własnej-firmy)
 4. [Moduł 4: Oferta – Mentoring w Poszukiwaniu Pracy i Rozwoju Kariery (Pytania 31–40)](#moduł-4-oferta--mentoring-w-poszukiwaniu-pracy-i-rozwoju-kariery)
 5. [Moduł 5: Model Biznesowy, Cennik i Proces Sprzedaży (Pytania 41–50)](#moduł-5-model-biznesowy-cennik-i-proces-sprzedaży)
-6. [Moduł 6: Architektura Informacji i Struktura Podstron (Pytania 51–60)](#moduł-6-architektura-informacji-i-struktura-podstron)
+6. [Moduł 6: Architektura Informacji i Struktura Strony – Wzorzec: Corn Revolution (Resn)](#moduł-6-architektura-informacji-i-struktura-strony--wzorzec-corn-revolution-resn)
 7. [Moduł 7: Treści, Copywriting i Psychologia Konwersji (Pytania 61–70)](#moduł-7-treści-copywriting-i-psychologia-konwersji)
 8. [Moduł 8: Lejek Marketingowy, Lead Generation i Baza Kontaktów (Pytania 71–80)](#moduł-8-lejek-marketingowy-lead-generation-i-baza-kontaktów)
 9. [Moduł 9: Design, Estetyka, UX/UI i Preferencje Technologiczne (Pytania 81–90)](#moduł-9-design-estetyka-uxui-i-preferencje-technologiczne)
@@ -373,78 +374,12 @@ Status: **Oczekuje na odpowiedzi użytkownika (Faza 1)**
 > Regularne zapełnianie comiesięcznych edycji warsztatów AI (kameralne grupy po 8–15 osób) oraz płynne zapełnianie wolnych slotów na 90-minutowe sesje mentoringowe.
 > *[Status: Zaktualizowane cele]*
 
-#### 51. Jaki model struktury strony preferujesz: One-Pager czy Multi-Page?
-*Dlaczego to ważne:* One-pager jest świetny na start i łatwy w odbiorze na telefonie, ale osobne podstrony (Multi-Page) są znacznie lepsze dla SEO i dedykowanych kampanii B2B. A może hybryda (strona główna podsumowująca + dedykowane podstrony ofertowe)?  
-> **Odpowiedź:**
-> Układ strony zorientowany w 100% na człowieka (B2C first):
-> - **Hero:** Zwięzłe przedstawienie kim jest Łukasz i 3 czytelne kafelki wyboru:
->   1. *Warsztaty AI (6-tygodniowy cykl online w Antigravity)*
->   2. *Mentoring Biznesowy (sesja 90 min: finanse, dotacje, rozbijanie fiksacji)*
->   3. *Mentoring Kariery (sesja 90 min: audyt CV/LinkedIn, prowadzenie rozmowy)*
-> - Dedykowane sekcje dla każdej z tych 3 usług z bezpośrednim zakupem / kalendarzem.
-> - Sekcja „O mnie” (historia, dlaczego warto).
-> - Dyskretny boks na dole: „Dla firm i większych grup”.
-> *[Status: Propozycja architektury]*
+## Moduł 6: Architektura Informacji i Struktura Strony – Wzorzec: Corn Revolution (Resn)
 
-#### 52. Jakie podstrony/sekcje uważasz za absolutne "must-have" na dzień startu (MVP)?
-*Dlaczego to ważne:* Pozwoli określić zakres prac na pierwszy release, aby nie opóźniać startu.  
-> **Odpowiedź:**
-> 1. Hero z 3 głównymi ścieżkami.
-> 2. Moduł Warsztatów AI (program 6 spotkań, cena 1200 zł, formularz zapisu z kodem rabatowym).
-> 3. Moduł Mentoringu Biznesowego (sesja 90 min, kalendarz + płatność).
-> 4. Moduł Mentoringu Kariery (sesja 90 min, kalendarz + płatność).
-> 5. Sekcja O Mnie (autentyczność, doświadczenie).
-> 6. Sekcja B2B dla większych grup.
-> 7. FAQ i Stopka.
-> *[Status: Zaktualizowane MVP]*
-
-#### 53. W jakiej formule chcesz zaprezentować sekcję "O mnie"?
-*Dlaczego to ważne:* Skrótowa sekcja na stronie głównej z odnośnikiem do pełnej podstrony z Twoją historią i manifestem, czy wyłącznie zwarty moduł na stronie głównej?  
-> **Odpowiedź:**
-> Krótka, rzeczowa, skupiona na doświadczeniu inżynieryjnym i produktowym. Bez pretensjonalnych opowieści „byłem nikim, teraz was pouczę”. Zamiast tego: kim jestem, jakie systemy zbudowałem, czego się nauczyłem i dlaczego dzielę się tą wiedzą, by inni nie musieli marnować czasu na błędy, które ja już rozwiązałem.
-> *[Status: Zaktualizowane – nowa narracja transferu wiedzy]*
-
-#### 54. Czy planujesz sekcję Bloga / Bazy Wiedzy / Artykułów?
-*Dlaczego to ważne:* Blog jest potężną machiną SEO, ale wymaga regularnego pisania. Czy startujemy z blogiem od razu (np. 3 mocne artykuły wdrożeniowe), czy w Fazy 2?  
-> **Odpowiedź:**
-> **ZDECYDOWANIE NIE.** Na stronie nie będzie sekcji bloga ani bazy artykułów. Strona ma być zwięzła, minimalistyczna i nastawiona na konkretny zakup/zapis, bez generowania zbędnych treści do czytania.
-> *[Status: Decyzja Łukasza]*
-
-#### 55. Czy warsztaty AI powinny mieć dedykowany landing page zoptymalizowany pod B2B (np. możliwość pobrania agendy w PDF)?
-*Dlaczego to ważne:* Decydenci w firmach (CEO, HR, dyrektorzy) potrzebują często pliku PDF z programem, który mogą pokazać zarządowi do akceptacji budżetu.  
-> **Odpowiedź:**
-> Główny landing page skupia się na uczestniku indywidualnym. Na podstronie warsztatów umieszczony jest po prostu baner/moduł: *„Potrzebujesz przeszkolić większą grupę w firmie? Skontaktuj się w sprawie dedykowanej wyceny”*.
-> *[Status: Zaktualizowane]*
-
-#### 56. Jak ma wyglądać sekcja kontaktowa?
-*Dlaczego to ważne:* Interaktywny widget kalendarza, tradycyjny formularz z polami wyboru tematu, widoczny bezpośredni adres e-mail, telefon, czy link do LinkedIn?  
-> **Odpowiedź:**
-> Zintegrowany widget kalendarza ze slotami i płatnością, formularz zapisu na warsztaty z polem na kod rabatowy oraz kontakt mailowy i link do profilu LinkedIn.
-> *[Status: Zaktualizowane]*
-
-#### 57. Czy planujesz podstronę lub sekcję ze szczegółowymi Case Studies?
-*Dlaczego to ważne:* Format "Wyzwanie -> Rozwiązanie -> Mierzalny Sukces" to najbardziej przekonujący format dla klientów biznesowych.  
-> **Odpowiedź:**
-> **NIE.** Brak osobnej podstrony lub sekcji z rozbudowanymi case studies. Wiarygodność budowana jest bezpośrednio w opisie doświadczenia i w konkretnych modułach oferty, bez przeładowywania strony dokumentacją minionych projektów.
-> *[Status: Decyzja Łukasza]*
-
-#### 58. Czy planujesz sekcję FAQ dla każdej z oferowanych usług?
-*Dlaczego to ważne:* FAQ rozbija obiekcje, ułatwia pozycjonowanie w Google (bogate wyniki wyszukiwania schema.org) i skraca czas rozmów handlowych.  
-> **Odpowiedź:**
-> Tak, sekcja akordeonowa FAQ na stronie głównej i podstronach ofertowych, zoptymalizowana pod rich snippets Google (Schema.org FAQPage).
-> *[Status: Rekomendacja SEO]*
-
-#### 59. Czy strona ma być wyłącznie w języku polskim, czy również po angielsku?
-*Dlaczego to ważne:* Jeśli myślisz o zagranicznych warsztatach lub mentoringu dla klientów z całego świata, warto od razu zaplanować architekturę i18n (np. `/pl` i `/en`).  
-> **Odpowiedź:**
-> Faza 1 (MVP): Język polski (główny rynek warsztatów i mentoringu w PL). Architektura kodu przygotowana pod bezproblemowe wdrożenie wersji angielskiej (i18n) w kolejnym kroku.
-> *[Status: Rekomendacja wdrożeniowa]*
-
-#### 60. Co dokładnie ma znaleźć się w stopce (Footer)?
-*Dlaczego to ważne:* Dane rejestrowe, NIP, linki do polityki prywatności/RODO, odnośniki do mediów społecznościowych, szybka nawigacja, formularz newslettera?  
-> **Odpowiedź:**
-> Dane rejestrowe firmy (NIP, REGON), link do Polityki Prywatności / RODO, bezpośredni kontakt e-mail i telefon, link do profilu LinkedIn, informacja o prawach autorskich oraz dyskretny cytat/filozofia.
-> *[Status: Standard formalny]*
+> **Decyzja strategiczna i architektoniczna:**  
+> Pytania i odpowiedzi dotyczące tradycyjnej struktury strony (dawne pytania 51–60: model One-Pager vs Multi-Page, podstrony/sekcje MVP, formuła sekcji O mnie, blog/artykuły, landing page B2B, sekcja kontaktowa, case studies, sekcja FAQ, wersje językowe, zawartość stopki) zostały usunięte z dokumentu.  
+> Jedyną stroną referencyjną, na której w 100% wzorujemy strukturę strony, podział na akty i sceny, kinetykę, potok WebGL oraz immersyjny storytelling, jest:  
+> **https://cornrevolution.resn.global/** (immersyjna oś narracyjna stworzona przez studio Resn).
 
 ---
 
@@ -606,14 +541,12 @@ Status: **Oczekuje na odpowiedzi użytkownika (Faza 1)**
 > Głęboka czerń / grafit węglowy (`#0B0F17`), technologiczny kobalt / indygo (`#3B82F6` / `#6366F1`) jako akcent energii i AI, oraz szmaragdowa zieleń sukcesu (`#10B981`).  
 > *[Do potwierdzenia przez Łukasza]*
 
-#### 84. Podaj 2–3 przykłady stron internetowych, których design, styl lub układ bardzo Ci się podobają:
+#### 84. Podaj stronę internetową, której design, styl, narracja lub układ jest głównym wzorcem:
 *Dlaczego to ważne:* Najszybszy sposób na zrozumienie Twojego gustu i oczekiwań estetycznych (proszę o linki lub nazwy i co w nich urzeka).  
 > **Odpowiedź:**
-> Wybrane inspiracje referencyjne (standard Awwwards / Independent Design Excellence):
-> 1. **https://noomoagency.com/** – nowoczesny, dynamiczny dark mode, kinetyczna typografia, płynne mikrointerakcje, głębia wizualna i wysoka kultura detalu.
-> 2. **https://cornrevolution.resn.global/** – immersyjny, kreatywny storytelling cyfrowy, płynne animacje i unikalna tożsamość wizualna (Resn).
-> 3. **https://byholm.co/** – wybitny, surowy minimalizm edytorski (Mathias Byholm): mocna typografia jako główny element wizualny, perfekcyjny grid, organiczne wideo/zdjęcia, zero sztuczności, absolutna pewność siebie bez marketingowego krzyku.
-> *[Status: Wskazane bezpośrednio przez Łukasza]*
+> Główna i jedyna strona referencyjna (standard Awwwards / Site of the Year / Resn):
+> - **https://cornrevolution.resn.global/** – immersyjny, kreatywny storytelling cyfrowy, płynna narracja rozdziałowa (akty), kinetyka, potok WebGL i unikalna tożsamość wizualna (Resn). To jedyna strona, na której w 100% się wzorujemy pod kątem struktury narracyjnej, interakcji, płynności i inżynieryjnego charakteru.
+> *[Status: Wskazane bezpośrednio przez Łukasza jako jedyny wzorzec]*
 
 #### 85. Czego zdecydowanie NIE chcesz widzieć na swojej stronie pod kątem wizualnym i funkcjonalnym?
 *Dlaczego to ważne:* Np. irytujące pop-upy, sztuczne zdjęcia stockowe z uśmiechniętymi ludźmi w garniturach, przesadne animacje spowalniające czytanie?  
@@ -633,12 +566,12 @@ Status: **Oczekuje na odpowiedzi użytkownika (Faza 1)**
 #### 87. Jaki stos technologiczny preferujesz dla strony?
 *Dlaczego to ważne:* Nasza rekomendacja: **Astro + Tailwind CSS** (zapewnia bezkonkurencyjną szybkość ładowania, 100/100 w Google Lighthouse, brak bloatu JavaScript, doskonałe SEO oraz łatwość rozbudowy). Czy masz inne preferencje (np. Next.js, czysty HTML/CSS)?  
 > **Odpowiedź:**
-> **Astro + Tailwind CSS + Lenis (Smooth Scroll) + GSAP / Motion**
-> Dobór stacku bezpośrednio pod standard referencji (Noomo / Byholm / Resn):
+> **Astro + Tailwind CSS + Lenis (Smooth Scroll) + GSAP / Motion + Three.js / WebGL**
+> Dobór stacku bezpośrednio pod standard referencji (**Resn / Corn Revolution**):
 > - **Astro:** statyczna generacja (SSG), zerowy niepotrzebny narzut JavaScriptu na start, perfekcyjne Core Web Vitals (100/100 Lighthouse) i błyskawiczne renderowanie typografii.
-> - **Lenis:** subtelny, organiczny smooth scroll klasy premium (jak na Byholm i Noomo).
+> - **Lenis:** subtelny, organiczny smooth scroll klasy premium (jak na Corn Revolution).
 > - **Tailwind CSS + fluid typography:** precyzyjny, rygorystyczny grid edytorski i responsywna skala tekstu.
-> - **GSAP / Motion:** kinetyczne mikroanimacje, reveal sekcji i magnetyczne przyciski.
+> - **GSAP / Motion:** kinetyczne mikroanimacje, reveal sekcji i interaktywne przejścia scen.
 > - **Wyspy interaktywne (Astro Islands):** komponenty płatności mBank PayNow i kalendarza ładowane izolowanie.
 > *[Status: Dobór technologiczny pod wskazaną estetykę]*
 
