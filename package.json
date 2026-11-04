@@ -1,0 +1,11 @@
+{
+  "name": "lukasz-poruszek-pl",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "lukasz.poruszek.pl – Corn Revolutionized architectural clone & development base",
+  "scripts": {
+    "dev": "node server.mjs",
+    "start": "node server.mjs"
+  }
+}
+
