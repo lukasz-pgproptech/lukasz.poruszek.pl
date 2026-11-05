@@ -469,3 +469,12 @@
     margin-top: 20px;
   }
 }
+
+
+/* -------------------------------------------------------------
+   BLOKADA MOCKUPU: Ukrycie Chapter 2 i Chapter 3 (niegotowe widoki)
+   ------------------------------------------------------------- */
+[data-ui="btnTesting"],
+[data-ui="btnResult"] {
+  display: none !important;
+}

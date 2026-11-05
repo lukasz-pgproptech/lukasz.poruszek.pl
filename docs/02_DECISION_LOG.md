@@ -109,3 +109,13 @@ Ten plik rejestruje wszystkie kluczowe decyzje technologiczne, architektoniczne 
   3. **Kinetyczny widżet orbitalny:** Zastosowano kultowy okrągły widżet orbitalny (1:1 jak w Scenie 1) z obracającym się pierścieniem i szklanym dyskiem, umieszczony pod tekstem po prawej stronie prawej sekcji (`align-self: flex-end; margin-top: 10px;`). Nie koliduje on ze wskaźnikiem rozdziału *SCIENCE*.
   4. **Podwójna synchronizacja Three.js + Scroll:** Połączono aktywację bezpośrednio z hookami `onActive` / `offActive` sekcji `data` w `main.js` oraz zapasowym mechanizmem pozycji scrolla. Zdublowane obiekty tekstu 3D w WebGL są automatycznie ukrywane (`visible = false`).
 - **Konsekwencje:** Pełna spójność wizualna i kinetyczna ze standardem Awwwards SOTD / Resn, z zachowaniem konwertującego CTA na każdym z 3 produktów.
+
+### ADR-011: Usunięcie Kwot ze Sceny 2 i Bezpośrednia Nawigacja Widżetu do Kalendarza DNA
+- **Data:** 2026-11-05
+- **Status:** Zaakceptowane i Wdrożone
+- **Kontekst:** Na prośbę użytkownika zrezygnowano z wyświetlania cen przy produktach w Scenie 2, aby utrzymać surowy, bezkompromisowy ton edytorski. Jednocześnie zrezygnowano z modalnych popupów i osobnych podstron – kliknięcie w okrągły widżet orbitalny ma kierować dokładnie w to samo miejsce, co widżet ze Sceny 1 (widok kalendarza rezerwacji).
+- **Decyzja:** 
+  1. **Usunięcie cen z metryk:** Oczyszczono metryki produktów z kwot (`1200 ZŁ`, `400 ZŁ`, `300 ZŁ`). Pozostawiono precyzyjny wymiar czasu i formy (`6 TYGODNI (6X 2H) · KAMERALNA GRUPA` oraz `SESJA 90 MINUT · SPOTKANIE ONLINE`).
+  2. **Likwidacja modali i zbędnych podstron:** Skasowano plik `mockup-warsztaty.html` oraz usunięto strukturę HTML i style CSS modalu `#product-modal-backdrop`.
+  3. **Bezpośrednie przekierowanie do widoku kalendarza (Hotspot DNA):** Kliknięcie w `#circularWidget` wykonuje `goToCalendarView()` – płynne przewinięcie na pozycję snapu `science/dna` oraz aktywację natywnego stanu Three.js `window.appStore.state.navigation.hotspotDna = true`.
+- **Konsekwencje:** Jednolity, intuicyjny lejek użytkownika – każdy widżet prowadzi do tego samego, centralnego widoku rezerwacji, a strona zyskuje jeszcze czystszy, luksusowy charakter pozbawiony szumu cenowego.
