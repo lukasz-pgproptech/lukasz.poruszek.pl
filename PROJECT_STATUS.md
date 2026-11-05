@@ -1,10 +1,24 @@
 # PROJECT STATUS: lukasz.poruszek.pl
-**Ostatnia aktualizacja:** 2026-11-05 (Finalizacja Sceny 2 w surowej estetyce Pioneer/Resn z orbitalnym widżetem)
-**Architektura:** Pioneer Corn Revolution WebGL Engine (Three.js + GLSL + MSDF Fonts) + Kinetic Editorial Brutalism
+**Ostatnia aktualizacja:** 2026-11-05 (Wdrożenie strony „W przebudowie” z wbudowanym widżetem rezerwacji i warsztatów)
+**Architektura:** Lekki interfejs Dark Luxury / Pioneer Monochromatic + Bezpośredni moduł rezerwacji (Cal.com / Cloudflare Workers API)
 
 ---
 
-## 1. Aktualny Stan Prac
+## 0. Tryb awaryjny / Strona w przebudowie (PROD Ready)
+- [x] **Kopia zapasowa 3D WebGL:** Pełny kod silnika 3D z Three.js, modelami i shaderami zabezpieczony w [`index.3d.html`](file:///home/poruszek/lukasz.poruszek.pl/index.3d.html) oraz `index.html.full-3d-backup`.
+- [x] **Nowa strona główna (`index.html`):**
+  - Lekka, błyskawicznie ładująca się strona z oficjalnym komunikatem *„Nowa odsłona serwisu już wkrótce.”* oraz statusem *„STRONA W PRZEBUDOWIE”*.
+  - Zachowana pełna estetyka Pioneer/Resn (obsydianowe tło, subtelny radial glow, typografia systemowa wysokiej czytelności).
+  - W 100% zintegrowany, wbudowany bezpośrednio gotowy moduł rezerwacji i zapisów:
+    1. **Mentoring biznesowy (1:1):** kalendarz z wykupionymi terminami na listopad 2026 i formularz listy rezerwowej z notatką (`/api/waitlist` -> Cal.com).
+    2. **Mentoring kariery (1:1):** analogiczna obsługa terminów i listy rezerwowej.
+    3. **Warsztaty AI (Grupa grudniowa):** pełny harmonogram 6 spotkań + formularz rezerwacji miejsca (`/api/reserve-workshop` -> Cal.com).
+  - Brak jakichkolwiek modyfikacji w kodzie silnika widżetu ([`booking-widget.js`](file:///home/poruszek/lukasz.poruszek.pl/booking-widget.js)) i stylach bazowych ([`booking-widget.css`](file:///home/poruszek/lukasz.poruszek.pl/booking-widget.css)).
+  - Zweryfikowano działanie i responsywność na Desktopie (1440px) i Mobile (390px) za pomocą Chrome DevTools.
+
+---
+
+## 1. Stan Silnika 3D (Projekt Docelowy - w `index.3d.html`)
 - [x] **Hero / Landing (Akt 0):** Tytuł *„Nie błądź samotnie.”*, 3D artefakt pięściaka (Acheulean stone axe), polskie znaki diakrytyczne w atlasach fontów BMFont MSDF (Manifold & Gilroy).
 - [x] **Scena 1 / DNA (Akt 1.1):** *„Podłącz zbiorowy mózg.”*, rotujący widżet orbitalny *„ZAPISZ SIĘ NA WARSZTATY”*.
 - [x] **Scena 2 / Data (Akt 1.2 – „Przejmij klocki. Buduj swoje.”):** 
