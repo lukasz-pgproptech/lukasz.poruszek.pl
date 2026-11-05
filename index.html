@@ -66,6 +66,8 @@
         <meta name="twitter:image" content="/tw.jpg" />
         <meta name="twitter:image:alt" content="ŁUKASZ PORUSZEK" />
 
+        <link rel="stylesheet" href="/products-view.css" />
+
         <style>
             html, body {
                 background-color: #000;
@@ -244,11 +246,115 @@
         
 
 
-<!-- 
-&text=true
--->
+        <!-- Interaktywny widok 3 produktów (Sekcja 2 - "Przejmij klocki. Buduj swoje.") -->
+        <div id="products-view-container" class="products-view-container">
+            <div class="products-view-inner">
+                <!-- Lewa kolumna: Selektor 3 produktów -->
+                <div class="products-selector-column">
+                    <div class="products-selector-label">WYBIERZ OBSZAR WSPARCIA:</div>
+                    <div class="products-selector-list" role="tablist">
+                        <button class="product-nav-card is-active" data-product="workshops" role="tab" aria-selected="true">
+                            <div class="nav-card-indicator"></div>
+                            <div class="nav-card-content">
+                                <div class="nav-card-header">
+                                    <span class="nav-card-index">01</span>
+                                    <span class="nav-card-title">Warsztaty AI</span>
+                                </div>
+                                <div class="nav-card-desc">od promptu do orkiestracji multiagentów.</div>
+                            </div>
+                            <div class="nav-card-arrow">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+                            </div>
+                        </button>
 
+                        <button class="product-nav-card" data-product="business" role="tab" aria-selected="false">
+                            <div class="nav-card-indicator"></div>
+                            <div class="nav-card-content">
+                                <div class="nav-card-header">
+                                    <span class="nav-card-index">02</span>
+                                    <span class="nav-card-title">Mentoring Biznesowy</span>
+                                </div>
+                                <div class="nav-card-desc">weryfikacja założeń i koniec fiksacji.</div>
+                            </div>
+                            <div class="nav-card-arrow">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+                            </div>
+                        </button>
 
+                        <button class="product-nav-card" data-product="career" role="tab" aria-selected="false">
+                            <div class="nav-card-indicator"></div>
+                            <div class="nav-card-content">
+                                <div class="nav-card-header">
+                                    <span class="nav-card-index">03</span>
+                                    <span class="nav-card-title">Mentoring Kariery</span>
+                                </div>
+                                <div class="nav-card-desc">bezbłędne CV i przejęcie kontroli nad rekrutacją.</div>
+                            </div>
+                            <div class="nav-card-arrow">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Prawa kolumna: Dynamiczny panel szczegółów i widżet CTA -->
+                <div class="products-detail-column">
+                    <div class="product-glass-panel">
+                        <div class="panel-content-wrap">
+                            <div class="panel-kicker" id="product-kicker">CYKL WARSZTATOWY • ONLINE</div>
+                            <h3 class="panel-title" id="product-title">ORKIESTRACJA SYSTEMÓW AI</h3>
+                            <div class="panel-badge-row">
+                                <span class="panel-badge" id="product-badge">1200 ZŁ • 6 TYGODNI (6x 2H) • KAMERALNA GRUPA</span>
+                            </div>
+                            <div class="panel-body-text" id="product-description">
+                                Kompleksowy proces wdrożeniowy: od precyzyjnego promptowania na czacie webowym, przez pracę agentową w IDE, po tworzenie własnych wieloagentowych systemów i integrację serwerów MCP/API.
+                            </div>
+                            <ul class="panel-bullet-list" id="product-bullets">
+                                <li class="panel-bullet-item">
+                                    <svg class="panel-bullet-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+                                    <span>W cenie: spotkania na żywo raz w tygodniu, nadzór nad zadaniami domowymi, pokoje wymiany wiedzy oraz konsultacje 1:1 w razie trudniejszych zagadnień.</span>
+                                </li>
+                                <li class="panel-bullet-item">
+                                    <svg class="panel-bullet-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+                                    <span>Wymaganie: subskrypcja Gemini Pro lub Ultra.</span>
+                                </li>
+                            </ul>
+                            <div class="panel-cta-wrap">
+                                <button class="panel-cta-button" id="product-cta-btn">
+                                    <span id="product-cta-text">ZAPISZ SIĘ NA WARSZTATY</span>
+                                    <svg class="panel-cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                                </button>
+                                <span class="panel-cta-note" id="product-cta-note">Dostępne kody rabatowe obniżające cenę do 0 zł</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Glass Modal Dialog -->
+        <div id="product-modal-backdrop" class="product-modal-backdrop">
+            <div class="product-modal-card">
+                <button id="product-modal-close" class="product-modal-close" aria-label="Zamknij">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                </button>
+                <div class="panel-kicker">INFORMACJA O ZAPISIE</div>
+                <h3 class="panel-title" id="modal-dyn-title">Zapisz się na warsztaty</h3>
+                <div class="panel-badge-row">
+                    <span class="panel-badge" id="modal-dyn-badge">1200 ZŁ • 6 TYGODNI</span>
+                </div>
+                <div class="panel-body-text" id="modal-dyn-body">
+                    Szczegóły zapisu...
+                </div>
+                <div class="panel-cta-wrap" style="margin-top: 24px;">
+                    <button class="panel-cta-button" id="modal-dyn-btn">
+                        <span>PRZEJDŹ DO ZAPISU</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <script src="/products-view.js"></script>
 
     </body>
 </html>

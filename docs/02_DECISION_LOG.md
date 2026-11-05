@@ -87,3 +87,14 @@ Ten plik rejestruje wszystkie kluczowe decyzje technologiczne, architektoniczne 
   2. Skill `/awwwards` dostarcza zoptymalizowany dla Astro silnik ruchu (Astro ClientRouter + Lenis + GSAP, waga zaledwie ~75 KB), wolne od AI-slop schematy typograficzne i zasady kompozycji plakatowej (każda klatka jako plakat).
   3. Skill `/jury` realizuje bezstronny audyt jakościowy: wykonuje zrzuty ekranu w headless Chromium (Playwright), mierzy LCP/CLS na dławionym łączu mobilnym, audytuje dostępność (axe-core) i wystawia kartę ocen wg kryteriów Awwwards.
 - **Konsekwencje:** Pełna automatyzacja dowożenia jakości Awwwards-tier bez kompromisów wydajnościowych.
+
+### ADR-009: Interaktywny Selektor 3 Produktów i Dynamiczny Panel Glassmorphism (Scena 2)
+- **Data:** 2026-11-05
+- **Status:** Zaakceptowane i Wdrożone
+- **Kontekst:** W widoku Sceny 2 („Computers cut down the contenders”) brakowało prezentacji 3 kluczowych produktów Łukasza oraz znikał widżet zapisów widoczny w Scenie 1.
+- **Decyzja:** 
+  1. **Typografia WebGL:** Zaktualizowano nagłówek 3D na `PRZEJMIJ KLOCKI. BUDUJ SWOJE.` oraz intro `Zamiast tracić miesiące na wyważanie otwartych drzwi, wybierz sprawdzoną dźwignię:`. Zoptymalizowano pozycję pionową w scenie WebGL (+140 jednostek), aby stworzyć ergonomiczną przestrzeń pod selektor.
+  2. **Interaktywny Selektor (Lewa Kolumna):** Wdrożono 3 klikalne karty produktowe (01 Warsztaty AI, 02 Mentoring Biznesowy, 03 Mentoring Kariery) z podświetleniem aktywnego wyboru w szmaragdowym akcencie `#00e599`.
+  3. **Dynamiczny Panel Glassmorphism (Prawa Kolumna):** Luksusowe okno ze szkła akrylowego (`backdrop-filter: blur(28px) saturate(180%)`), prezentujące kicker, tytuł, badge z ceną/czasem, punktorowany opis oraz dedykowany widżet CTA (`ZAPISZ SIĘ NA WARSZTATY` / `ZAREZERWUJ TERMIN SESJI`).
+  4. **Synchronizacja i Modal:** Stan widoczności powiązany z silnikiem scrolla i hookami `onActive` / `offActive` Sceny 2 (`data`). Kliknięcie w CTA uruchamia dopasowany modal z podsumowaniem i opcją natychmiastowego przejścia.
+- **Konsekwencje:** Widok Sceny 2 stał się w pełni interaktywnym, konwertującym katalogiem usług o jakości Awwwards SOTD, płynnie zintegrowanym z trójwymiarową chmurą cząsteczek.
