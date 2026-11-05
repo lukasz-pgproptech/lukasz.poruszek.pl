@@ -1,10 +1,14 @@
+Teraz w 
+
 # SEKCJA ZWŁOK ARCHITEKTURY I INŻYNIERIA WSTECZNA: CORNREVOLUTION.RESN.GLOBAL
+
 ## Forensic Reverse-Engineering & Deep Technical Audit
-**Projekt referencyjny:** Pioneer – *Corn. Revolutionized.*  
-**Studio deweloperskie:** Resn (resn.global) – wielokrotny zdobywca Awwwards Site of the Year / Agency of the Year  
-**Klient:** Corteva Agriscience / Pioneer Seeds  
-**Data audytu:** Listopad 2026  
-**Audytor:** Bezwzględny Analityk Techniczny i Ekspert Inżynierii Wstecznej WebGL/Awwwards  
+
+**Projekt referencyjny:** Pioneer – *Corn. Revolutionized.*
+**Studio deweloperskie:** Resn (resn.global) – wielokrotny zdobywca Awwwards Site of the Year / Agency of the Year
+**Klient:** Corteva Agriscience / Pioneer Seeds
+**Data audytu:** Listopad 2026
+**Audytor:** Bezwzględny Analityk Techniczny i Ekspert Inżynierii Wstecznej WebGL/Awwwards
 **Cel audytu:** Dogłębna dekonstrukcja mechaniki, architektury narracyjnej, potoku graficznego WebGL i kinetyki strony w celu transferu najwyższej klasy wzorców projektowych do `lukasz.poruszek.pl`.
 
 ---
@@ -12,9 +16,11 @@
 ## 1. TOŻSAMOŚĆ CYFROWA I FENOMEN STUDIA RESN
 
 ### 1.1. Dlaczego ta strona deklasuje rynek i zdobywa nagrody (Site of the Day / FWA of the Day)
-Typowa strona korporacyjna lub rolnicza to nudny portal informacyjny oparty na WordPressie, przeładowany generycznymi kafelkami, stockowymi zdjęciami uśmiechniętych rolników na traktorze i ścianami tekstu w bootstrapowej siatce. 
+
+Typowa strona korporacyjna lub rolnicza to nudny portal informacyjny oparty na WordPressie, przeładowany generycznymi kafelkami, stockowymi zdjęciami uśmiechniętych rolników na traktorze i ścianami tekstu w bootstrapowej siatce.
 
 Resn odwrócił ten paradygmat o 180 stopni:
+
 1. **Traktowanie produktu rolniczego jak luksusowego supercaru lub technologii kosmicznej:** Ziarno kukurydzy nie jest „paszą” – jest biologicznym mikroprocesorem, produktem 100 lat inżynierii genetycznej i symulacji petabajtów danych.
 2. **Pojedyncza oś narracyjna (Single Narrative Spine):** Użytkownik nie błądzi po skomplikowanym menu. Zostaje wciągnięty w hipnotyczny, liniowy, a zarazem interaktywny tunel czasoprzestrzenny, który prowadzi go od skali makro (kolba kukurydzy) przez mikro (DNA i doniczka laboratoryjna) po megaskalę (pola uprawne widziane z lotu ptaka) i z powrotem do pojedynczego, wyselekcjonowanego ziarna.
 3. **Organiczne poczucie żywego interfejsu (Living Interface):** Cały ekran żyje. Drobinki pyłków unoszą się w powietrzu z głębią ostrości (Bokeh / Depth of Field), obiekty 3D reagują mikro-wychyleniami na ruch kursora myszy oraz żyroskopu w smartfonie (parallax 3D), a przejścia między scenami nie są brutalnymi przeładowaniami, lecz cięciami ukośnymi (Scissor Testing) w jednym wspólnym render loopie.
@@ -24,6 +30,7 @@ Resn odwrócił ten paradygmat o 180 stopni:
 ## 2. NARRACJA I COPYWRITING – ANATOMIA PRZEKAZU
 
 ### 2.1. Podział na akty i ekonomia słów
+
 Doświadczenie podzielone jest na **3 główne rozdziały** (z 7 scenami technicznymi), tworząc klasyczną strukturę trójaktową w narracji naukowej:
 
 ```
@@ -59,6 +66,7 @@ Doświadczenie podzielone jest na **3 główne rozdziały** (z 7 scenami technic
 ```
 
 ### 2.2. Pełny wyciąg haseł (Hard Data z ekstrakcji kodu źródłowego)
+
 Każda scena operuje bezwzględną dyscypliną tekstu – **jeden nagłówek stenciled (maks. 5-7 słów)** oraz **jeden akapit wyjaśniający (2 zdania, twarde liczby)**:
 
 * **Landing:**
@@ -103,6 +111,7 @@ Każda scena operuje bezwzględną dyscypliną tekstu – **jeden nagłówek ste
 ## 3. INŻYNIERIA TYPOGRAFII I STRUKTURA LAYOUTU
 
 ### 3.1. Zbadany zestaw krojów (Font Stack)
+
 1. **Krój Tytułowy / Akcentowy:** `Manifold CF Extra Bold` (Colophon Foundry / Connary Fagen)
    * Zastosowanie: Wielkie nagłówki `.title`, `.title2`, `.title3`, przyciski `.btnMain`, linki zewnętrzne.
    * Renderowanie: **MSDF (Multi-channel Signed Distance Field)** w WebGL shaderze oraz font webowy `.woff` dla formularzy.
@@ -110,6 +119,7 @@ Każda scena operuje bezwzględną dyscypliną tekstu – **jeden nagłówek ste
    * Zastosowanie: `.body`, `.subText`, `.subText2`, etykiety, stopka, formularze.
 
 ### 3.2. Genialna formuła skalowania Resn (Fluid REM System)
+
 Resn nie używa arbitralnych breakpointów, w których layout „skacze”. Zamiast tego zdefiniowano dynamiczną bazę `rem` powiązaną ściśle z szerokością okna przeglądarki (`vw`):
 
 ```css
@@ -141,16 +151,16 @@ Dzięki temu zapis w CSS `font-size: 9rem` oznacza **dokładnie 90px na monitorz
 
 ### 3.3. Tabela parametrów typograficznych
 
-| Klasa CSS | Rodzina Fontu | Waga | Rozmiar Desktop (1920px) | Rozmiar Mobile | Line-Height | Letter-Spacing | Transform |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| `.title` | Manifold CF Extra Bold | 800 (w pliku 400) | `10rem` (100px) | `12.5rem` | `1.0` | `-0.02em` | UPPERCASE |
-| `.title2` | Manifold CF Extra Bold | 800 | `10rem` (100px) | `11.0rem` | `1.0` | `-0.02em` | UPPERCASE |
-| `.title3` | Manifold CF Extra Bold | 800 | `9rem` (90px) | `9.0rem` | `1.0` | `-0.02em` | UPPERCASE |
-| `.body` | Gilroy | 200 (Light) | `2rem` (20px) | `4.0rem` | `1.5` | `+0.02em` | Normal |
-| `.subText` | Gilroy | 200 (Light) | `2rem` (20px) | `2.5rem` | `1.0` | `+0.05em` | UPPERCASE |
-| `.subText2` | Gilroy | 200 (Light) | `1.2rem` (12px) | `2.5rem` | `1.0` | `+0.05em` | UPPERCASE |
-| `.bottomCta`| Gilroy | 200 (Light) | `2rem` (20px) | `2.5rem` | `1.0` | `+0.05em` | UPPERCASE |
-| `.btnMain` | Manifold CF Extra Bold | 800 | `2rem` (20px) | `5.0rem` | `1.0` | `0em` | UPPERCASE |
+| Klasa CSS      | Rodzina Fontu          | Waga              | Rozmiar Desktop (1920px) | Rozmiar Mobile | Line-Height | Letter-Spacing | Transform |
+| :------------- | :--------------------- | :---------------- | :----------------------- | :------------- | :---------- | :------------- | :-------- |
+| `.title`     | Manifold CF Extra Bold | 800 (w pliku 400) | `10rem` (100px)        | `12.5rem`    | `1.0`     | `-0.02em`    | UPPERCASE |
+| `.title2`    | Manifold CF Extra Bold | 800               | `10rem` (100px)        | `11.0rem`    | `1.0`     | `-0.02em`    | UPPERCASE |
+| `.title3`    | Manifold CF Extra Bold | 800               | `9rem` (90px)          | `9.0rem`     | `1.0`     | `-0.02em`    | UPPERCASE |
+| `.body`      | Gilroy                 | 200 (Light)       | `2rem` (20px)          | `4.0rem`     | `1.5`     | `+0.02em`    | Normal    |
+| `.subText`   | Gilroy                 | 200 (Light)       | `2rem` (20px)          | `2.5rem`     | `1.0`     | `+0.05em`    | UPPERCASE |
+| `.subText2`  | Gilroy                 | 200 (Light)       | `1.2rem` (12px)        | `2.5rem`     | `1.0`     | `+0.05em`    | UPPERCASE |
+| `.bottomCta` | Gilroy                 | 200 (Light)       | `2rem` (20px)          | `2.5rem`     | `1.0`     | `+0.05em`    | UPPERCASE |
+| `.btnMain`   | Manifold CF Extra Bold | 800               | `2rem` (20px)          | `5.0rem`     | `1.0`     | `0em`        | UPPERCASE |
 
 ---
 
@@ -185,6 +195,7 @@ Kolorystyka nie jest przypadkowa – bazuje na estetyce organiczno-technologiczn
 Pod maską strony kryje się zintegrowany, wysoce zoptymalizowany silnik czasu rzeczywistego oparty na **Three.js r102** i rozbudowany o autorski framework Resn.
 
 ### 5.1. Geometrie 3D i Wagi Zasobów (Modele glTF)
+
 Resn nie wgrywa ciężkich plików OBJ czy FBX. Wszystkie modele zostały zoptymalizowane do standardu glTF 2.0 z binarnymi buforami geometrii:
 
 * `cobb_test.gltf` (67.6 KB) + `cobb_test.bin` (46.8 KB) -> **Kolba kukurydzy (ok. 114 KB łącznie!)**
@@ -197,7 +208,9 @@ Resn nie wgrywa ciężkich plików OBJ czy FBX. Wszystkie modele zostały zoptym
 > **Kluczowy fakt inżynieryjny:** Łączna waga WSZYSTKICH modeli 3D w całym doświadczeniu wynosi **mniej niż 1 MB**! Resn osiąga fotorealizm nie przez miliony wielokątów, lecz przez mistrzowskie operowanie shaderami materiałów, mapami normalnych i postprocessingiem.
 
 ### 5.2. Tekstury kompresowane GPU (Format KTX / ASTC)
+
 Zamiast nieefektywnych plików PNG/JPEG dekompresowanych do surowego VRAM, strona wykorzystuje kompresję blokową tekstur wspieraną sprzętowo przez procesory graficzne:
+
 * Pliki `.ktx` w formacie **ASTC (Adaptive Scalable Texture Compression)**:
   * `TOP_L.ktx`, `BOTTOM_L.ktx`, `TOP_R.ktx`, `BOTTOM_R.ktx` (tekstury kolby z mipmapami)
   * `map_bump_kernel.ktx`, `map_matcap_mult.ktx`, `map_matcap_screen.ktx` (MatCap i bump dla ziarna)
@@ -207,9 +220,12 @@ Zamiast nieefektywnych plików PNG/JPEG dekompresowanych do surowego VRAM, stron
 Dzięki kompresji KTX tekstury trafiają bezpośrednio do pamięci GPU bez narzutu na garbage collector i bez spadków klatek podczas scrollowania.
 
 ### 5.3. Renderowanie tekstu 3D przez MSDF (Multi-channel Signed Distance Field)
+
 Zamiast umieszczać tekst w DOM HTML lub tworzyć ciężkie geometrie wektorowe 3D, Resn renderuje napisy bezpośrednio w scenie WebGL przy pomocy MSDF:
+
 * Tekstury źródłowe: `manifold-msdf.png` (59.7 KB) i `gilroy-msdf.png` (96.7 KB) wraz z deskryptorami glifów `manifold.json` i `gilroy.json`.
 * **Wyciągnięty shader fragmentów (GLSL):**
+
 ```glsl
 #define GLSLIFY 1
 uniform float uAlpha;
@@ -236,9 +252,11 @@ void main() {
     gl_FragColor = vec4(color, alpha);
 }
 ```
+
 Zaleta: Tekst może być dowolnie skalowany, transformowany w trójwymiarze, rzucany pod kątem kamery, a jego krawędzie pozostają ostre jak wektor w Illustratorze, kosztując zaledwie 1 draw call!
 
 ### 5.4. Technika przejść między scenami: WebGL Scissor Testing & Diagonal Slopes
+
 Większość programistów przy zmianie sekcji ukrywa jeden canvas i pokazuje drugi (fade out / fade in). Resn stosuje technologię cięcia bufora klatek (**WebGL Scissor Test**):
 
 ```javascript
@@ -248,11 +266,11 @@ Py.state.visibleSections.forEach(function(sectionIdx, order) {
     if (section.render) {
         var scissor = Py.state.scissors[order]; // [y, height]
         var edge = Py.state.edges[order];       // [d0, d1]
-        
+      
         target.scissorTest = true;
         // Obcięcie obszaru renderowania w pikselach ekranu
         target.scissor.set(0, scissor[0] * pixelRatio, width * pixelRatio, scissor[1] * pixelRatio);
-        
+      
         section.render({
             renderer: u.renderer.renderer,
             ortho: u.renderer.orthoCamera,
@@ -265,7 +283,9 @@ Py.state.visibleSections.forEach(function(sectionIdx, order) {
 Co więcej, postprocessing material (`FieldPostProcessingMaterial`) przyjmuje uniformy `slopeTop` i `slopeBottom`. Pozwala to na **ścinanie krawędzi pod kątem ostrym (diagonal shearing)** – jedna scena 3D zjeżdża ukośnie, odsłaniając kolejny świat pod kątem 30 stopni!
 
 ### 5.5. Kinowy potok postprocessingu (LUT + Grain + Vignette)
+
 Wyciągnięty z kodu shader postprocessingu `FieldPostProcessingMaterial`:
+
 1. **3D Color LUT (Lookup Table):** Przekształcanie palety barw całej sceny w oparciu o teksturę kalibracyjną `map-grade.png` (512x512, 64 klastry barwne).
 2. **Radial Focus Vignette:** Miękkie ściemnienie rogów i skupienie uwagi na obiekcie:
    `float stDarkened = 1. - smoothstep(0.2, 0.5, distance(uv, vec2(0.25, 0.45)));`
@@ -275,6 +295,7 @@ Wyciągnięty z kodu shader postprocessingu `FieldPostProcessingMaterial`:
    float rStr = 0.04; // 4% natężenia szumu
    color += mix(-rStr/2.0, rStr/2.0, r);
    ```
+
    Eliminuje to banding (paskowanie kolorów) w 8-bitowych gradientach i nadaje obrazowi organiczną, dokumentalną fakturę taśmy 35mm.
 
 ---
@@ -282,6 +303,7 @@ Wyciągnięty z kodu shader postprocessingu `FieldPostProcessingMaterial`:
 ## 6. KINETYKA, FIZYKA RUCHU I INTERAKCJA
 
 ### 6.1. Matematyka kontrolera scrolla (Resn Virtual Momentum Scroll)
+
 Strona przechwytuje zdarzenia kółka myszy (`wheel`) oraz dotyku (`touchstart`/`touchmove`) i przepuszcza je przez własny układ fizyczny ze sprężyną i tłumieniem (damping):
 
 ```javascript
@@ -307,6 +329,7 @@ if (Math.abs(this.currentSnap[1] - this.position) < 0.05) {
 ```
 
 ### 6.2. Kamery i wielowarstwowy Parallax
+
 1. **PerspectiveCamera:** Kąt widzenia (FOV) wynosi `45°` dla sceny Landing i `36.33°` dla sceny pola.
 2. **Reakcja na kursor i żyroskop:** Wartości `pointerPositionMapped` (znormalizowane od -1 do 1) oraz kąty żyroskopu telefonu (`alpha`, `beta`, `gamma`) są wygładzane funkcją LERP (`this.pointerEased`) i aplikowane do:
    * Rotacji kamery (delikatny kąt nachylenia sceny),
@@ -314,32 +337,35 @@ if (Math.abs(this.currentSnap[1] - this.position) < 0.05) {
    * Przesunięcia chmury 200 cząsteczek w tle (głębsze cząsteczki poruszają się wolniej, przednie szybciej, dając trójwymiarowy efekt wolumetryczny).
 
 ### 6.3. Interaktywność obiektów w Scenie 3 (Result)
+
 W sekcji nasiona (`kernelSection`), kursor zmienia się w `cursor="grab"` / `cursor="grabbing"`. Użytkownik może chwycić ziarno myszą lub palcem i obrócić je w pełnych 360 stopniach. Obrót ziarna płynnie odsłania ukryte punkty danych (hotspoty: Plon, Odporność, Genetyka), które otwierają się jako animowane pierścienie koncentryczne (Shader `createRing`).
 
 ---
 
 ## 7. BEZWZGLĘDNA ANALIZA PORÓWNAWCZA: CORNREVOLUTION VS TYPOWA POLSKA STRONA I LUKASZ.PORUSZEK.PL
 
-| Kryterium Analizy | Typowa polska strona firmowa / doradcza | Poprzedni / typowy szablon personal brand | Resn: Corn. Revolutionized |
-| :--- | :--- | :--- | :--- |
-| **Podejście do uwagi użytkownika** | „Zasypać go wszystkim”: 8 zakładek, 15 kafelków, popup newslettera, czatbot | Długie bloki tekstu, standardowe karty z ikonkami | **Rygorystyczny tunel uwagi**: 1 myśl na ekran, 1 obiekt wizualny, hipnotyczny pęd |
-| **Ekonomia słów** | 2000 słów lania wody o „dynamicznym rozwoju i pasji” | Długie opisy bez jasnego punktu skupienia | **Maksymalnie 30 słów na ekran**. Bezwzględna precyzja faktów i liczb |
-| **Medium wizualne** | Płaskie stocki z Unsplash, generyczne ikony SVG | Zdjęcia twarzy, statyczne boxy tekstowe | **Interaktywny obiekt 3D czasu rzeczywistego**, który reaguje na dotyk i ruch |
-| **Architektura ruchu** | Brak lub losowe animacje Fade-In z biblioteki AOS | Standardowy scroll przeglądarki, skokowe przejścia | **Fizyka bezwładnościowa (0.89 friction)**, snapping, ukośne cięcia WebGL |
-| **Integracja typografii** | Standardowy HTML renderowany na białym/czarnym tle | Zwykłe nagłówki webfont | **MSDF 3D Typography** osadzona w przestrzeni trójwymiarowej obok modelu |
-| **Faktura wizualna** | Cyfrowa, płaska, sterylna (tzw. „szablon z Envato”) | Czysty CSS bez głębi | **Kinowy postprocessing**: LUT Color Grading, organiczny Film Grain, winieta |
+| Kryterium Analizy                          | Typowa polska strona firmowa / doradcza                                          | Poprzedni / typowy szablon personal brand            | Resn: Corn. Revolutionized                                                                 |
+| :----------------------------------------- | :------------------------------------------------------------------------------- | :--------------------------------------------------- | :----------------------------------------------------------------------------------------- |
+| **Podejście do uwagi użytkownika** | „Zasypać go wszystkim”: 8 zakładek, 15 kafelków, popup newslettera, czatbot | Długie bloki tekstu, standardowe karty z ikonkami   | **Rygorystyczny tunel uwagi**: 1 myśl na ekran, 1 obiekt wizualny, hipnotyczny pęd |
+| **Ekonomia słów**                  | 2000 słów lania wody o „dynamicznym rozwoju i pasji”                         | Długie opisy bez jasnego punktu skupienia           | **Maksymalnie 30 słów na ekran**. Bezwzględna precyzja faktów i liczb            |
+| **Medium wizualne**                  | Płaskie stocki z Unsplash, generyczne ikony SVG                                 | Zdjęcia twarzy, statyczne boxy tekstowe             | **Interaktywny obiekt 3D czasu rzeczywistego**, który reaguje na dotyk i ruch       |
+| **Architektura ruchu**               | Brak lub losowe animacje Fade-In z biblioteki AOS                                | Standardowy scroll przeglądarki, skokowe przejścia | **Fizyka bezwładnościowa (0.89 friction)**, snapping, ukośne cięcia WebGL        |
+| **Integracja typografii**            | Standardowy HTML renderowany na białym/czarnym tle                              | Zwykłe nagłówki webfont                           | **MSDF 3D Typography** osadzona w przestrzeni trójwymiarowej obok modelu            |
+| **Faktura wizualna**                 | Cyfrowa, płaska, sterylna (tzw. „szablon z Envato”)                           | Czysty CSS bez głębi                               | **Kinowy postprocessing**: LUT Color Grading, organiczny Film Grain, winieta         |
 
 ---
 
 ## 8. TRANSFER WZORCÓW DO LUKASZ.PORUSZEK.PL – STRATEGIA WDROŻENIOWA
 
 Misja strony `lukasz.poruszek.pl` została zdefiniowana w dokumentach strategicznych:
-> **Główna idea:** Przekazywanie wiedzy jako najwyższa wartość cywilizacyjna i najprostsza ekonomia czasu.  
+
+> **Główna idea:** Przekazywanie wiedzy jako najwyższa wartość cywilizacyjna i najprostsza ekonomia czasu.
 > **Leitmotif:** *„Zamiast tracić miesiące na błądzenie po omacku – przejmij sprawdzoną wiedzę, zaoszczędź czas i rozwijaj ją u siebie.”*
 
 Oto jak filozofię i inżynierię Resn przekładamy 1:1 na stronę Łukasza:
 
 ### 8.1. Zastąpienie „Długiej Strony z Kafelkami” Narracyjnym Doświadczeniem 4 Aktów
+
 Zamiast tradycyjnego portfolio czy landing page’a, strona Łukasza powinna być zbudowana jako **sekwencja 4 precyzyjnych scen (Full-Screen Snap Experience)**:
 
 ```
@@ -403,9 +429,10 @@ Zamiast tradycyjnego portfolio czy landing page’a, strona Łukasza powinna by�
 
 ## 9. PODSUMOWANIE AUDYTU TECHNICZNEGO
 
-Doświadczenie `cornrevolution.resn.global` udowadnia, że najwyższy światowy poziom inżynierii webowej (Awwwards SOTD) nie polega na „przeładowaniu strony skryptami” czy generowaniu setek megabajtów wideo. 
+Doświadczenie `cornrevolution.resn.global` udowadnia, że najwyższy światowy poziom inżynierii webowej (Awwwards SOTD) nie polega na „przeładowaniu strony skryptami” czy generowaniu setek megabajtów wideo.
 
 **Twarde fakty audytu:**
+
 * Łączny rozmiar geometrii 3D: **< 600 KB**
 * Łączny kod JS (loader + main): **1.26 MB**
 * Całkowity brak osobnych plików CSS (wszystko wstrzykiwane modułowo)

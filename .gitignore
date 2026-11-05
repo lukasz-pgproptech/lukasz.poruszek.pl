@@ -22,8 +22,26 @@ Thumbs.db
 npm-debug.log*
 yarn-debug.log*
 pnpm-debug.log*
-
+server.log
 
 # QA Audit Artifacts
 .shots/
 *.orig
+
+# JS backups
+*.backup
+*.bak
+*.bak2
+*.bak_prism
+
+# 3D model zips (duże pliki, nie potrzebne w repo)
+*.zip
+
+# Dane lokalne (wrażliwe / nie commitujemy do publicznego repo)
+data/
+
+# Screenshoty i obrazy robocze
+images/
+
+# Tymczasowe
+temp_prism/
