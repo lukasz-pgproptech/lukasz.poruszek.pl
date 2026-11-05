@@ -1,0 +1,42 @@
+# Cloudflare Pages ignoruje te pliki podczas deployu
+# (analogicznie do .gitignore)
+
+# Duże pliki 3D/zip > 25MB (limit CF Pages)
+*.zip
+prism_stone_-_magical_energy_stone.zip
+neolithic_stone_axe.zip
+fireball__energy_sphere.zip
+fireball.zip
+replicated_hand_axe_1966a1-2.zip
+replicated_hand_axe_1966a1-3.zip
+acheulean_hand_axe_513a1.zip
+acheulean_hand_axe_518a2.zip
+
+# Backupy JS
+*.backup
+*.bak
+*.bak2
+*.bak_prism
+
+# Dane lokalne
+data/
+
+# Logi i tymczasowe
+server.log
+temp_prism/
+
+# Screenshoty robocze
+images/
+
+# Kod Workers (oddzielnie deployowany)
+workers/
+
+# Dokumenty wewnętrzne
+docs/
+
+# Skrypty serwera (nie potrzebne na Pages)
+server.mjs
+package.json
+mockup-widok-produkty.html
+PROJECT_STATUS.md
+test0.76ceb4644b28bd9c30b5.js
