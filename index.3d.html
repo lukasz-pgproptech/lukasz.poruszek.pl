@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible” content=”IE=edge" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui"
+        />
+
+        <base href="/" />
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <meta name="theme-color" content="#000" />
+
+        <title>ŁUKASZ PORUSZEK</title>
+        <meta name="description" content="From start to finish, it’s corn seed development that will change farming." />
+        <link rel="canonical" href="https://lukasz.poruszek.pl/" />
+
+        <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="/favicon/apple-touch-icon.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/favicon/favicon-32x32.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/favicon/favicon-16x16.png"
+        />
+        <link rel="manifest" href="/favicon/site.webmanifest" />
+        <link
+            rel="mask-icon"
+            href="/favicon/safari-pinned-tab.svg"
+            color="#2e5925"
+        />
+        <link rel="shortcut icon" href="/favicon/favicon.ico" />
+        <meta name="msapplication-TileColor" content="#ffffff" />
+        <meta name="msapplication-config" content="/favicon/browserconfig.xml" />
+        <meta name="theme-color" content="#ffffff" />
+
+        <meta property="og:title" content="ŁUKASZ PORUSZEK" />
+        <meta
+            property="og:description"
+            content="From start to finish, it’s corn seed development that will change farming."
+        />
+        <meta property="og:updated_time" content="1559639779" />
+        <meta property="og:image" content="/fb.jpg" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://lukasz.poruszek.pl/" />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="lukaszporuszek" />
+        <meta name="twitter:title" content="ŁUKASZ PORUSZEK" />
+        <meta
+            name="twitter:description"
+            content="From start to finish, it’s corn seed development that will change farming."
+        />
+        <meta name="twitter:image" content="/tw.jpg" />
+        <meta name="twitter:image:alt" content="ŁUKASZ PORUSZEK" />
+
+        <link rel="stylesheet" href="/products-view.css" />
+        <link rel="stylesheet" href="/booking-widget.css" />
+
+        <style>
+            html, body {
+                background-color: #000;
+            }
+
+            .unsupported {
+                z-index: 1;
+
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                position: absolute;
+            }
+
+            .unsupported a {
+                color: #fff;
+            }
+
+            .unsupported::before {
+                content: '';
+                display: inline-block;
+                vertical-align: middle;
+                width: 0;
+                height: 100%;
+                margin-right: -0.3em;
+            }
+
+            .unsupported__bg {
+                z-index: -1;
+
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                position: absolute;
+
+                background-color: #001d11;
+                background-image: linear-gradient(45deg, #00322e 0%, transparent 40%, transparent 60%, #013110);
+            }
+
+            .unsupported__inner {
+                width: 100%;
+                display: inline-block;
+                vertical-align: middle;
+                position: relative;
+
+                text-align: center;
+            }
+
+            .unsupported__logo {
+                top: 6rem;
+                left: 50%;
+                position: absolute;
+                margin-left: -10rem;
+
+                width: 20rem;
+                height: 4rem;
+
+                fill: white;
+            }
+
+            .unsupported__title {
+                margin-bottom: 5rem;
+            }
+
+            h2 {
+                font-family: Arial;
+                color: white;
+                font-size: 18px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div data-ui="scrollProxy"></div>
+        <div data-ui="root" class="root"></div>
+
+        <div id="unsupported" class="unsupported" style="display: none">
+            <div class="unsupported__bg"></div>
+
+            <svg class="unsupported__logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 377.81 70.4">
+                <title>lukasz-poruszek-logo</title>
+                <path fill="none" d="M0 0h377.81v70.4H0z"/>
+                <path d="M34.25 43.49Q34.79 43.49 34.79 44.03V47.18Q34.79 47.72 34.25 47.72H20.70Q20.16 47.72 20.16 47.18V42.43H17.08Q16.77 42.43 16.64 42.24Q16.50 42.06 16.71 41.78L20.16 37.99V23.21Q20.16 22.67 20.70 22.67H24.35Q24.89 22.67 24.87 23.21V32.73L25.99 31.51Q26.57 30.90 26.81 30.90H30.91Q31.23 30.90 31.34 31.08Q31.46 31.27 31.25 31.54L24.87 38.64V43.49Z" />
+                <path d="M47.94 47.89Q40.61 47.89 40.61 40.52V23.21Q40.61 22.67 41.15 22.67H44.80Q45.34 22.67 45.32 23.21V40.42Q45.32 42.20 46.07 42.94Q46.82 43.68 48.33 43.68H51.52Q53.02 43.68 53.77 42.95Q54.53 42.22 54.53 40.42V23.21Q54.53 22.67 55.05 22.67H58.70Q59.24 22.67 59.24 23.21V40.52Q59.24 47.89 51.91 47.89Z" />
+                <path d="M84.70 46.83Q84.81 46.97 84.84 47.19Q84.88 47.40 84.79 47.56Q84.70 47.72 84.49 47.72H80.34Q79.69 47.72 79.38 47.21L72.83 37.52L70.68 40.17V47.18Q70.68 47.72 70.16 47.72H66.50Q65.96 47.72 65.96 47.18V23.21Q65.96 22.67 66.50 22.67H70.16Q70.70 22.67 70.68 23.21V33.55L78.87 23.25Q79.34 22.67 79.88 22.67H83.95Q84.27 22.67 84.36 22.96Q84.46 23.25 84.18 23.62L75.87 33.80Z" />
+                <path d="M109.35 47.00Q109.42 47.28 109.29 47.50Q109.17 47.72 108.89 47.72H105.28Q104.74 47.72 104.56 47.00L103.70 43.68H95.11L94.26 47.00Q94.08 47.72 93.57 47.72H89.92Q89.64 47.72 89.52 47.50Q89.40 47.28 89.47 47.00L95.72 23.25Q95.90 22.67 96.40 22.67H102.45Q102.95 22.67 103.13 23.25ZM96.19 39.60H102.66L99.69 28.05H99.16Z" />
+                <path d="M121.80 47.89Q114.50 47.89 114.50 41.27Q114.50 40.52 115.21 40.52H118.44Q119.16 40.52 119.23 41.27Q119.47 43.67 122.44 43.68H124.66Q126.20 43.68 127.05 42.98Q127.91 42.29 127.91 40.45Q127.91 38.74 127.11 38.02Q126.30 37.31 124.45 37.06L122.58 36.80Q120.64 36.56 119.38 36.16Q118.11 35.77 116.97 34.97Q115.82 34.16 115.27 32.75Q114.72 31.34 114.72 29.26Q114.72 22.50 122.09 22.50H124.80Q128.31 22.50 130.17 24.24Q132.03 25.97 132.03 29.15Q132.03 29.90 131.32 29.90H128.10Q127.35 29.90 127.32 29.15Q127.18 27.86 126.47 27.29Q125.76 26.72 124.38 26.72H122.41Q119.44 26.72 119.44 29.48Q119.44 30.99 120.10 31.82Q120.77 32.66 122.58 32.87L124.42 33.12Q126.39 33.36 127.64 33.71Q128.89 34.06 130.15 34.81Q131.42 35.56 132.03 36.97Q132.64 38.37 132.64 40.45Q132.64 44.24 130.85 46.07Q129.06 47.89 125.27 47.89Z" />
+                <path d="M138.65 47.72Q138.11 47.72 138.11 47.18V44.00Q138.11 43.25 138.58 42.53L148.95 27.21V26.90H138.82Q138.25 26.90 138.25 26.36V23.21Q138.25 22.67 138.82 22.67H153.46Q154.00 22.67 153.98 23.21V26.39Q153.98 27.21 153.53 27.86L143.12 43.14V43.49H153.46Q154.00 43.49 153.98 44.03V47.18Q153.98 47.72 153.46 47.72Z" />
+                <path d="M186.53 22.67Q190.29 22.67 192.09 24.63Q193.90 26.58 193.90 30.08V33.95Q193.90 37.47 192.09 39.39Q190.29 41.31 186.53 41.31H180.80V47.18Q180.80 47.72 180.28 47.72H176.63Q176.09 47.72 176.09 47.18V23.21Q176.09 22.67 176.63 22.67ZM189.19 33.80V30.18Q189.19 26.90 186.15 26.90H180.80V37.10H186.15Q187.65 37.10 188.42 36.34Q189.19 35.58 189.19 33.80Z" />
+                <path d="M207.59 47.89Q200.26 47.89 200.26 40.52V29.87Q200.26 22.50 207.59 22.50H211.56Q218.89 22.50 218.89 29.87V40.52Q218.89 47.89 211.56 47.89ZM207.98 43.68H211.17Q212.67 43.68 213.43 42.95Q214.18 42.22 214.18 40.42V29.97Q214.18 28.23 213.43 27.48Q212.67 26.72 211.17 26.72H207.98Q206.47 26.72 205.72 27.48Q204.97 28.23 204.97 29.97V40.42Q204.97 42.20 205.72 42.94Q206.47 43.68 207.98 43.68Z" />
+                <path d="M243.43 33.95Q243.43 38.50 240.53 40.24L243.33 46.86Q243.67 47.72 242.71 47.72H239.43Q238.71 47.72 238.49 47.14L236.06 41.31H230.33V47.18Q230.33 47.72 229.81 47.72H226.16Q225.61 47.72 225.61 47.18V23.21Q225.61 22.67 226.16 22.67H236.06Q239.81 22.67 241.62 24.63Q243.43 26.58 243.43 30.08ZM230.33 26.90V37.10H235.68Q237.18 37.10 237.95 36.35Q238.71 35.60 238.71 33.80V30.18Q238.71 26.90 235.68 26.90Z" />
+                <path d="M257.16 47.89Q249.82 47.89 249.82 40.52V23.21Q249.82 22.67 250.36 22.67H254.01Q254.55 22.67 254.54 23.21V40.42Q254.54 42.20 255.29 42.94Q256.04 43.68 257.54 43.68H260.74Q262.24 43.68 262.99 42.95Q263.74 42.22 263.74 40.42V23.21Q263.74 22.67 264.26 22.67H267.91Q268.46 22.67 268.46 23.21V40.52Q268.46 47.89 261.12 47.89Z" />
+                <path d="M281.94 47.89Q274.64 47.89 274.64 41.27Q274.64 40.52 275.35 40.52H278.58Q279.30 40.52 279.37 41.27Q279.61 43.67 282.58 43.68H284.80Q286.34 43.68 287.19 42.98Q288.05 42.29 288.05 40.45Q288.05 38.74 287.25 38.02Q286.44 37.31 284.59 37.06L282.72 36.80Q280.78 36.56 279.52 36.16Q278.25 35.77 277.11 34.97Q275.96 34.16 275.41 32.75Q274.86 31.34 274.86 29.26Q274.86 22.50 282.23 22.50H284.94Q288.45 22.50 290.31 24.24Q292.17 25.97 292.17 29.15Q292.17 29.90 291.46 29.90H288.24Q287.49 29.90 287.46 29.15Q287.32 27.86 286.61 27.29Q285.90 26.72 284.52 26.72H282.55Q279.58 26.72 279.58 29.48Q279.58 30.99 280.24 31.82Q280.91 32.66 282.72 32.87L284.56 33.12Q286.53 33.36 287.78 33.71Q289.03 34.06 290.29 34.81Q291.56 35.56 292.17 36.97Q292.78 38.37 292.78 40.45Q292.78 44.24 290.99 46.07Q289.20 47.89 285.41 47.89Z" />
+                <path d="M298.79 47.72Q298.25 47.72 298.25 47.18V44.00Q298.25 43.25 298.72 42.53L309.09 27.21V26.90H298.96Q298.39 26.90 298.39 26.36V23.21Q298.39 22.67 298.96 22.67H313.60Q314.14 22.67 314.12 23.21V26.39Q314.12 27.21 313.67 27.86L303.26 43.14V43.49H313.60Q314.14 43.49 314.12 44.03V47.18Q314.12 47.72 313.60 47.72Z" />
+                <path d="M320.67 47.72Q320.13 47.72 320.13 47.18V23.21Q320.13 22.67 320.67 22.67H334.91Q335.45 22.67 335.45 23.21V26.36Q335.45 26.90 334.91 26.90H324.85V33.12H334.09Q334.63 33.12 334.63 33.69V36.70Q334.63 37.24 334.09 37.24H324.85V43.49H335.12Q335.66 43.49 335.66 44.03V47.18Q335.66 47.72 335.12 47.72Z" />
+                <path d="M360.04 46.83Q360.14 46.97 360.18 47.19Q360.21 47.40 360.13 47.56Q360.04 47.72 359.83 47.72H355.67Q355.03 47.72 354.71 47.21L348.16 37.52L346.01 40.17V47.18Q346.01 47.72 345.49 47.72H341.84Q341.30 47.72 341.30 47.18V23.21Q341.30 22.67 341.84 22.67H345.49Q346.03 22.67 346.01 23.21V33.55L354.20 23.25Q354.68 22.67 355.22 22.67H359.29Q359.60 22.67 359.70 22.96Q359.79 23.25 359.51 23.62L351.20 33.80Z" />
+            </svg>
+
+            <div class="unsupported__inner">
+                <h2 class="unsupported__title  title3">
+                    This experience does not <br>
+                    work on this browser.
+                </h2>
+                <h2 class="body">
+                    Try it out using
+                    <a href="https://www.google.com/chrome/browser/desktop/" target="_blank">Chrome</a>,
+                    <a href="http://www.mozilla.org/firefox/new/" target="_blank">Firefox</a>,
+                    <a href="http://www.apple.com/osx/" target="_blank">Safari</a> or
+                    <a href="https://www.microsoft.com/software-download/windows10" target="_blank">Edge</a>.
+                </h2>
+            </div>
+        </div>
+
+        <script>
+            function getIEVersion() {
+                var ua = window.navigator.userAgent;
+                var msie = ua.indexOf('MSIE ');
+                if (msie > 0) {
+                    // IE 10 or older => return version number
+                    return parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10);
+                }
+
+                var trident = ua.indexOf('Trident/');
+                if (trident > 0) {
+                    // IE 11 => return version number
+                    var rv = ua.indexOf('rv:');
+                    return parseInt(ua.substring(rv + 3, ua.indexOf('.', rv)), 10);
+                }
+
+                var edge = ua.indexOf('Edge/');
+                if (edge > 0) {
+                    // Edge (IE 12+) => return version number
+                    return parseInt(ua.substring(edge + 5, ua.indexOf('.', edge)), 10);
+                }
+
+                // other browser
+                return false;
+            }
+
+            function detectGL() {
+                try {
+                    var canvas = document.createElement('canvas');
+                    return !!(
+                        window.WebGLRenderingContext &&
+                        (canvas.getContext('webgl') || canvas.getContext('experimental-webgl'))
+                    );
+                } catch (e) {
+                    return false;
+                }
+            }
+
+            function notSupported() {
+                var IEVersion = getIEVersion();
+                // return true;
+                return !detectGL() || (IEVersion && IEVersion <= 11);
+            }
+
+            if (notSupported()) {
+                document.getElementById('unsupported').style.display = 'block';
+            } else {
+                var script = document.createElement('script');
+                script.src = '/loader.76ceb4644b28bd9c30b5.js';
+                document.body.appendChild(script);
+            }
+        </script>
+        
+        
+        
+        
+        
+        
+        
+
+        
+
+
+        <!-- Interaktywny widok 3 produktów (Sekcja 2 - "Przejmij klocki. Buduj swoje.") -->
+        <div id="products-view-container" class="products-view-container">
+            <div class="scene-container">
+                
+                <!-- LEWA STRONA: GŁÓWNY TYTUŁ + INTERAKTYWNY SELEKTOR W STYLU RESN -->
+                <section class="left-column">
+                    <h2 class="headline">
+                        PRZEJMIJ KLOCKI.<br>
+                        BUDUJ SWOJE.
+                    </h2>
+                    <p class="intro-text">
+                        Zamiast tracić miesiące na wyważanie otwartych drzwi, wybierz sprawdzoną dźwignię:
+                    </p>
+
+                    <div class="products-selector" role="tablist">
+                        <!-- POZYCJA: WARSZTATY AI (Domyślnie aktywna) -->
+                        <div class="product-item is-active" data-id="workshops" role="tab" aria-selected="true">
+                            <div class="item-text-group">
+                                <span class="item-title">Warsztaty AI</span>
+                                <span class="item-sep">—</span>
+                                <span class="item-desc">od promptu do orkiestracji multiagentów.</span>
+                            </div>
+                        </div>
+
+                        <!-- POZYCJA: MENTORING BIZNESOWY -->
+                        <div class="product-item" data-id="business" role="tab" aria-selected="false">
+                            <div class="item-text-group">
+                                <span class="item-title">Mentoring Biznesowy</span>
+                                <span class="item-sep">—</span>
+                                <span class="item-desc">weryfikacja założeń i koniec fiksacji.</span>
+                            </div>
+                        </div>
+
+                        <!-- POZYCJA: MENTORING KARIERY -->
+                        <div class="product-item" data-id="career" role="tab" aria-selected="false">
+                            <div class="item-text-group">
+                                <span class="item-title">Mentoring Kariery</span>
+                                <span class="item-sep">—</span>
+                                <span class="item-desc">bezbłędne CV i przejęcie kontroli nad rekrutacją.</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PRAWA STRONA: OPIS MERYTORYCZNY + KULTOWY OKRĄGŁY WIDŻET -->
+                <section class="right-column">
+                    
+                    <!-- Czysty blok tekstu (brak jakichkolwiek pudełek czy kafelków!) -->
+                    <div class="detail-editorial" id="detailEditorial">
+                        <h2 class="detail-title" id="detailTitle">ORKIESTRACJA SYSTEMÓW AI</h2>
+                        <div class="detail-metric" id="detailMetric">6 TYGODNI (6X 2H) · KAMERALNA GRUPA</div>
+                        <div class="detail-body" id="detailBody">
+                            <p>Kompleksowy proces wdrożeniowy: od precyzyjnego promptowania na czacie webowym, przez pracę agentową, po tworzenie własnych wieloagentowych systemów i integrację serwerów MCP/API.</p>
+                            <p>W cenie: spotkania online raz w tygodniu, nadzór nad zadaniami domowymi, pokoje wymiany wiedzy oraz indywidualne konsultacje 1:1 w razie trudniejszych zagadnień.</p>
+                        </div>
+                    </div>
+
+                    <!-- KULTOWY OKRĄGŁY WIDŻET ZAPISU -->
+                    <div class="circular-widget-wrap" id="circularWidget" title="Kliknij, aby przejść do zapisu">
+                        <div class="circle-orbit"></div>
+                        <div class="circle-inner-disc">
+                            <span class="circle-text" id="circleText">
+                                ZAPISZ SIĘ NA<br>WARSZTATY
+                            </span>
+                        </div>
+                    </div>
+
+                </section>
+
+            </div>
+        </div>
+
+        <script src="/products-view.js"></script>
+
+        <!-- =============================================================
+             MODAL SZKLANY: REZERWACJA MENTORINGU & WARSZTATY AI
+             Standard: Resn / Pioneer Monochromatic Glassmorphism
+             ============================================================= -->
+        <div id="booking-modal-overlay" class="booking-modal-overlay" role="dialog" aria-modal="true" aria-label="Rezerwacja spotkań i warsztatów">
+            
+            <!-- PRZYCISK ZAMKNIĘCIA W PRAWYM GÓRNYM ROGU -->
+            <button class="booking-close-btn" id="bookingCloseBtn" aria-label="Zamknij" onclick="closeBookingModal()">✕</button>
+
+            <!-- POJEDYNCZA SZKLANA TAFLA -->
+            <main class="glass-booking-surface" onclick="event.stopPropagation()">
+                
+                <!-- SELEKTOR 3 TYPÓW WYDARZEŃ (MONOCHROMATYCZNY) -->
+                <nav class="event-type-selector" aria-label="Wybór typu spotkania">
+                    
+                    <!-- OPCJA 1: MENTORING BIZNESOWY -->
+                    <button class="event-type-btn active" id="btn-opt1" type="button" onclick="switchBookingTab('biznes')">
+                        <span class="event-name">
+                            Mentoring biznesowy
+                            <span class="event-badge">OSOBA</span>
+                        </span>
+                        <span class="event-meta">90 min • Indywidualna sesja 1:1</span>
+                    </button>
+
+                    <!-- OPCJA 2: MENTORING KARIERY -->
+                    <button class="event-type-btn" id="btn-opt2" type="button" onclick="switchBookingTab('kariera')">
+                        <span class="event-name">
+                            Mentoring kariery
+                            <span class="event-badge">OSOBA</span>
+                        </span>
+                        <span class="event-meta">90 min • Indywidualna sesja 1:1</span>
+                    </button>
+
+                    <!-- OPCJA 3: WARSZTATY AI (CYKL) -->
+                    <button class="event-type-btn" id="btn-opt3" type="button" onclick="switchBookingTab('warsztaty')">
+                        <span class="event-name">
+                            Warsztaty AI
+                            <span class="event-badge">GRUPA</span>
+                        </span>
+                        <span class="event-meta">6 spotkań × 2h • Grupa warsztatowa</span>
+                    </button>
+
+                </nav>
+
+                <!-- WIDOK 1: MENTORING BIZNESOWY / KARIERY (LISTOPAD: WYKUPIONE / POZOSTAŁE: NIEOTWARTE) -->
+                <div class="mentoring-container" id="mentoring-view">
+                    
+                    <!-- Kolumna 1: Informacje o mentoringu i zapis na listę rezerwową -->
+                    <aside class="mentoring-info-col">
+                        <div class="host-profile">
+                            <img class="host-avatar" src="https://lh3.googleusercontent.com/a/ACg8ocJi13NWQJOphF0irHbIAa5eIxn2nw2iyxj07Pa0lbb8cOD_XsI=s96-c" alt="Łukasz Poruszek" />
+                            <div>
+                                <div class="host-name">Łukasz Poruszek</div>
+                                <div class="host-sub">Konsultacje strategiczne</div>
+                            </div>
+                        </div>
+
+                        <div class="mentoring-title-box">
+                            <h2 id="mentoring-active-title">Mentoring biznesowy</h2>
+                            <div class="mentoring-specs">
+                                <span>⏱ 90 min (1h 30m)</span>
+                                <span>•</span>
+                                <span>Spotkanie online 1:1</span>
+                            </div>
+                        </div>
+
+                        <div class="status-sold-banner" id="mentoring-status-banner">
+                            <div class="status-sold-title" id="mentoring-status-title">
+                                <span class="status-sold-dot"></span>
+                                Terminy wyprzedane
+                            </div>
+                            <p class="status-sold-desc" id="mentoring-status-desc">
+                                Wszystkie regularne sloty w listopadzie zostały zarezerwowane.
+                            </p>
+                        </div>
+
+                        <!-- Formularz listy rezerwowej z notatką -->
+                        <div class="waitlist-box">
+                            <span class="waitlist-label">Lista rezerwowa</span>
+                            <form id="waitlist-form" onsubmit="handleWaitlist(event)">
+                                <input class="waitlist-input" id="waitlist-email" type="email" placeholder="Wpisz swój e-mail..." required />
+                                <textarea class="waitlist-textarea" id="waitlist-note" placeholder="Notatka (opcjonalnie: preferowany dzień, godziny lub temat)..." rows="2" style="margin-top: 6px;"></textarea>
+                                <button class="waitlist-btn" id="waitlist-btn" type="submit" style="margin-top: 6px; width: 100%;">
+                                    Zapisz na listę rezerwową
+                                </button>
+                            </form>
+                            <div class="waitlist-success-msg" id="waitlist-success">
+                                ✓ Zapisano! Powiadomimy Cię e-mailem, gdy zwolni się termin. Twoja notatka została przekazana.
+                            </div>
+                        </div>
+                    </aside>
+
+                    <!-- Kolumna 2: Interaktywna siatka kalendarza miesięcznego -->
+                    <section class="mentoring-calendar-col">
+                        <div class="calendar-header">
+                            <span class="calendar-month-title" id="cal-month-display">Listopad 2026</span>
+                            <div class="calendar-nav-btns">
+                                <button class="cal-nav-btn" id="cal-prev-btn" type="button" onclick="changeBookingMonth(-1)">‹</button>
+                                <button class="cal-nav-btn" id="cal-next-btn" type="button" onclick="changeBookingMonth(1)">›</button>
+                            </div>
+                        </div>
+
+                        <div class="calendar-weekdays">
+                            <span>PON</span>
+                            <span>WT</span>
+                            <span>ŚR</span>
+                            <span>CZW</span>
+                            <span>PT</span>
+                            <span>SOB</span>
+                            <span>NIEDZ</span>
+                        </div>
+
+                        <div class="calendar-grid" id="calendar-days-grid">
+                            <!-- Dni generowane dynamicznie przez JS -->
+                        </div>
+                    </section>
+
+                    <!-- Kolumna 3: Sloty godzinowe (Listopad = WYKUPIONE / Grudzień+ = NIEOTWARTE) -->
+                    <section class="mentoring-slots-col">
+                        <div class="slots-col-header">
+                            <span class="slots-selected-date" id="selected-date-label">czw. 5 lis</span>
+                            <span class="slots-clock-format">24h</span>
+                        </div>
+
+                        <div class="slots-list" id="slots-container">
+                            <!-- Sloty lub komunikat nieotwartego miesiąca generowane przez JS -->
+                        </div>
+
+                        <p class="slots-note" id="slots-note-text">
+                            Terminy oznaczone jako wykupione nie są obecnie dostępne do bezpośredniej rezerwacji.
+                        </p>
+                    </section>
+
+                </div>
+
+                <!-- WIDOK 2: WARSZTATY AI (CYKL 6 SPOTKAŃ, ZAPISY OTWARTE, PRZYCISK "REZERWUJ") -->
+                <div class="workshop-container" id="workshop-view">
+                    
+                    <!-- Nagłówek wyboru grupy -->
+                    <header class="workshop-group-header">
+                        <div class="workshop-group-pills">
+                            <span class="workshop-section-title">Wybór grupy:</span>
+                            <div class="workshop-group-pill" role="button" tabindex="0">
+                                <span class="workshop-dot"></span>
+                                <span>Grupa grudniowa</span>
+                            </div>
+                        </div>
+                        <span class="workshop-status-tag">Status: Zapisy otwarte</span>
+                    </header>
+
+                    <!-- Główna siatka: Harmonogram + Formularz -->
+                    <div class="workshop-grid">
+                        
+                        <!-- Kolumna 1: Dokładny harmonogram 6 spotkań -->
+                        <div class="workshop-schedule-col">
+                            <h3 class="workshop-section-title">Harmonogram cyklu (wtorki 19:00 – 21:00)</h3>
+                            
+                            <div class="schedule-list">
+                                <div class="schedule-item">
+                                    <span class="schedule-date"><span class="schedule-num">01</span> 1 grudnia 2026</span>
+                                    <span class="schedule-time">19:00 – 21:00 (Start cyklu)</span>
+                                </div>
+                                <div class="schedule-item">
+                                    <span class="schedule-date"><span class="schedule-num">02</span> 8 grudnia 2026</span>
+                                    <span class="schedule-time">19:00 – 21:00</span>
+                                </div>
+                                <div class="schedule-item">
+                                    <span class="schedule-date"><span class="schedule-num">03</span> 15 grudnia 2026</span>
+                                    <span class="schedule-time">19:00 – 21:00</span>
+                                </div>
+                                <div class="schedule-item">
+                                    <span class="schedule-date"><span class="schedule-num">04</span> 22 grudnia 2026</span>
+                                    <span class="schedule-time">19:00 – 21:00</span>
+                                </div>
+                                <div class="schedule-item">
+                                    <span class="schedule-date"><span class="schedule-num">05</span> 29 grudnia 2026</span>
+                                    <span class="schedule-time">19:00 – 21:00</span>
+                                </div>
+                                <div class="schedule-item">
+                                    <span class="schedule-date"><span class="schedule-num">06</span> 5 stycznia 2027</span>
+                                    <span class="schedule-time">19:00 – 21:00 (Finał)</span>
+                                </div>
+                            </div>
+
+                            <p class="workshop-note">
+                                Spotkania odbywają się online na żywo (Google Meet / Cal Video). Wszystkie sesje są rejestrowane i przekazywane uczestnikom.
+                            </p>
+                        </div>
+
+                        <!-- Kolumna 2: Prosty formularz zapisu -->
+                        <div class="workshop-form-col">
+                            <h3 class="workshop-section-title">Rezerwacja miejsca w grupie</h3>
+                            
+                            <form class="workshop-form" id="workshop-form" onsubmit="handleWorkshopSubmit(event)">
+                                <div class="form-group">
+                                    <label class="form-label" for="ws-name">Imię i nazwisko</label>
+                                    <input class="form-input" id="ws-name" type="text" placeholder="np. Jan Kowalski" required />
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label" for="ws-email">Adres e-mail</label>
+                                    <input class="form-input" id="ws-email" type="email" placeholder="np. jan@firma.pl" required />
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label" for="ws-phone">Numer telefonu</label>
+                                    <input class="form-input" id="ws-phone" type="tel" placeholder="+48 000 000 000" required />
+                                </div>
+
+                                <!-- PRZYCISK: REZERWUJ -->
+                                <button type="submit" class="btn-submit-workshop" id="ws-submit-btn">
+                                    Rezerwuj
+                                </button>
+
+                                <!-- ZAKTUALIZOWANA TREŚĆ WYJAŚNIENIA -->
+                                <p class="form-disclaimer">
+                                    Cena oraz szczegóły wydarzenia zostaną wysłane na podany adres e-mail.
+                                </p>
+                            </form>
+
+                            <!-- Komunikat sukcesu po rezerwacji -->
+                            <div class="reservation-success-box" id="ws-success-box">
+                                <div class="success-icon">✓</div>
+                                <h4 class="success-title">Rezerwacja przyjęta</h4>
+                                <p class="success-desc" id="ws-success-desc">
+                                    Dziękujemy! Szczegóły wydarzenia oraz cena zostały wysłane na podany adres e-mail.
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </main>
+        </div>
+
+        <script src="/booking-widget.js"></script>
+
+
+    </body>
+</html>
