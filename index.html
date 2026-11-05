@@ -248,87 +248,73 @@
 
         <!-- Interaktywny widok 3 produktów (Sekcja 2 - "Przejmij klocki. Buduj swoje.") -->
         <div id="products-view-container" class="products-view-container">
-            <div class="products-view-inner">
-                <!-- Lewa kolumna: Selektor 3 produktów -->
-                <div class="products-selector-column">
-                    <div class="products-selector-label">WYBIERZ OBSZAR WSPARCIA:</div>
-                    <div class="products-selector-list" role="tablist">
-                        <button class="product-nav-card is-active" data-product="workshops" role="tab" aria-selected="true">
-                            <div class="nav-card-indicator"></div>
-                            <div class="nav-card-content">
-                                <div class="nav-card-header">
-                                    <span class="nav-card-index">01</span>
-                                    <span class="nav-card-title">Warsztaty AI</span>
-                                </div>
-                                <div class="nav-card-desc">od promptu do orkiestracji multiagentów.</div>
-                            </div>
-                            <div class="nav-card-arrow">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
-                            </div>
-                        </button>
+            <div class="scene-container">
+                
+                <!-- LEWA STRONA: GŁÓWNY TYTUŁ + INTERAKTYWNY SELEKTOR W STYLU RESN -->
+                <section class="left-column">
+                    <h2 class="headline">
+                        PRZEJMIJ KLOCKI.<br>
+                        BUDUJ SWOJE.
+                    </h2>
+                    <p class="intro-text">
+                        Zamiast tracić miesiące na wyważanie otwartych drzwi, wybierz sprawdzoną dźwignię:
+                    </p>
 
-                        <button class="product-nav-card" data-product="business" role="tab" aria-selected="false">
-                            <div class="nav-card-indicator"></div>
-                            <div class="nav-card-content">
-                                <div class="nav-card-header">
-                                    <span class="nav-card-index">02</span>
-                                    <span class="nav-card-title">Mentoring Biznesowy</span>
-                                </div>
-                                <div class="nav-card-desc">weryfikacja założeń i koniec fiksacji.</div>
+                    <div class="products-selector" role="tablist">
+                        <!-- POZYCJA: WARSZTATY AI (Domyślnie aktywna) -->
+                        <div class="product-item is-active" data-id="workshops" role="tab" aria-selected="true">
+                            <div class="item-text-group">
+                                <span class="item-title">Warsztaty AI</span>
+                                <span class="item-sep">—</span>
+                                <span class="item-desc">od promptu do orkiestracji multiagentów.</span>
                             </div>
-                            <div class="nav-card-arrow">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
-                            </div>
-                        </button>
+                        </div>
 
-                        <button class="product-nav-card" data-product="career" role="tab" aria-selected="false">
-                            <div class="nav-card-indicator"></div>
-                            <div class="nav-card-content">
-                                <div class="nav-card-header">
-                                    <span class="nav-card-index">03</span>
-                                    <span class="nav-card-title">Mentoring Kariery</span>
-                                </div>
-                                <div class="nav-card-desc">bezbłędne CV i przejęcie kontroli nad rekrutacją.</div>
+                        <!-- POZYCJA: MENTORING BIZNESOWY -->
+                        <div class="product-item" data-id="business" role="tab" aria-selected="false">
+                            <div class="item-text-group">
+                                <span class="item-title">Mentoring Biznesowy</span>
+                                <span class="item-sep">—</span>
+                                <span class="item-desc">weryfikacja założeń i koniec fiksacji.</span>
                             </div>
-                            <div class="nav-card-arrow">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
-                            </div>
-                        </button>
-                    </div>
-                </div>
+                        </div>
 
-                <!-- Prawa kolumna: Dynamiczny panel szczegółów i widżet CTA -->
-                <div class="products-detail-column">
-                    <div class="product-glass-panel">
-                        <div class="panel-content-wrap">
-                            <div class="panel-kicker" id="product-kicker">CYKL WARSZTATOWY • ONLINE</div>
-                            <h3 class="panel-title" id="product-title">ORKIESTRACJA SYSTEMÓW AI</h3>
-                            <div class="panel-badge-row">
-                                <span class="panel-badge" id="product-badge">1200 ZŁ • 6 TYGODNI (6x 2H) • KAMERALNA GRUPA</span>
-                            </div>
-                            <div class="panel-body-text" id="product-description">
-                                Kompleksowy proces wdrożeniowy: od precyzyjnego promptowania na czacie webowym, przez pracę agentową w IDE, po tworzenie własnych wieloagentowych systemów i integrację serwerów MCP/API.
-                            </div>
-                            <ul class="panel-bullet-list" id="product-bullets">
-                                <li class="panel-bullet-item">
-                                    <svg class="panel-bullet-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
-                                    <span>W cenie: spotkania na żywo raz w tygodniu, nadzór nad zadaniami domowymi, pokoje wymiany wiedzy oraz konsultacje 1:1 w razie trudniejszych zagadnień.</span>
-                                </li>
-                                <li class="panel-bullet-item">
-                                    <svg class="panel-bullet-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
-                                    <span>Wymaganie: subskrypcja Gemini Pro lub Ultra.</span>
-                                </li>
-                            </ul>
-                            <div class="panel-cta-wrap">
-                                <button class="panel-cta-button" id="product-cta-btn">
-                                    <span id="product-cta-text">ZAPISZ SIĘ NA WARSZTATY</span>
-                                    <svg class="panel-cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                                </button>
-                                <span class="panel-cta-note" id="product-cta-note">Dostępne kody rabatowe obniżające cenę do 0 zł</span>
+                        <!-- POZYCJA: MENTORING KARIERY -->
+                        <div class="product-item" data-id="career" role="tab" aria-selected="false">
+                            <div class="item-text-group">
+                                <span class="item-title">Mentoring Kariery</span>
+                                <span class="item-sep">—</span>
+                                <span class="item-desc">bezbłędne CV i przejęcie kontroli nad rekrutacją.</span>
                             </div>
                         </div>
                     </div>
-                </div>
+                </section>
+
+                <!-- PRAWA STRONA: OPIS MERYTORYCZNY + KULTOWY OKRĄGŁY WIDŻET -->
+                <section class="right-column">
+                    
+                    <!-- Czysty blok tekstu (brak jakichkolwiek pudełek czy kafelków!) -->
+                    <div class="detail-editorial" id="detailEditorial">
+                        <h2 class="detail-title" id="detailTitle">ORKIESTRACJA SYSTEMÓW AI</h2>
+                        <div class="detail-metric" id="detailMetric">1200 ZŁ · 6 TYGODNI (6X 2H) · KAMERALNA GRUPA</div>
+                        <div class="detail-body" id="detailBody">
+                            <p>Kompleksowy proces wdrożeniowy: od precyzyjnego promptowania na czacie webowym, przez pracę agentową, po tworzenie własnych wieloagentowych systemów i integrację serwerów MCP/API.</p>
+                            <p>W cenie: spotkania online raz w tygodniu, nadzór nad zadaniami domowymi, pokoje wymiany wiedzy oraz indywidualne konsultacje 1:1 w razie trudniejszych zagadnień.</p>
+                        </div>
+                    </div>
+
+                    <!-- KULTOWY OKRĄGŁY WIDŻET ZAPISU -->
+                    <div class="circular-widget-wrap" id="circularWidget" title="Kliknij, aby przejść do zapisu">
+                        <div class="circle-orbit"></div>
+                        <div class="circle-inner-disc">
+                            <span class="circle-text" id="circleText">
+                                ZAPISZ SIĘ NA<br>WARSZTATY
+                            </span>
+                        </div>
+                    </div>
+
+                </section>
+
             </div>
         </div>
 
@@ -338,16 +324,16 @@
                 <button id="product-modal-close" class="product-modal-close" aria-label="Zamknij">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
                 </button>
-                <div class="panel-kicker">INFORMACJA O ZAPISIE</div>
-                <h3 class="panel-title" id="modal-dyn-title">Zapisz się na warsztaty</h3>
-                <div class="panel-badge-row">
-                    <span class="panel-badge" id="modal-dyn-badge">1200 ZŁ • 6 TYGODNI</span>
+                <div class="modal-kicker">INFORMACJA O ZAPISIE</div>
+                <h3 class="modal-title" id="modal-dyn-title">Zapisz się na warsztaty</h3>
+                <div class="modal-badge-row">
+                    <span class="modal-badge" id="modal-dyn-badge">1200 ZŁ · 6 TYGODNI</span>
                 </div>
-                <div class="panel-body-text" id="modal-dyn-body">
+                <div class="modal-body-text" id="modal-dyn-body">
                     Szczegóły zapisu...
                 </div>
-                <div class="panel-cta-wrap" style="margin-top: 24px;">
-                    <button class="panel-cta-button" id="modal-dyn-btn">
+                <div class="modal-cta-wrap" style="margin-top: 24px;">
+                    <button class="modal-cta-button" id="modal-dyn-btn">
                         <span>PRZEJDŹ DO ZAPISU</span>
                     </button>
                 </div>

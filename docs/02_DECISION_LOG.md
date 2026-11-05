@@ -98,3 +98,14 @@ Ten plik rejestruje wszystkie kluczowe decyzje technologiczne, architektoniczne 
   3. **Dynamiczny Panel Glassmorphism (Prawa Kolumna):** Luksusowe okno ze szkła akrylowego (`backdrop-filter: blur(28px) saturate(180%)`), prezentujące kicker, tytuł, badge z ceną/czasem, punktorowany opis oraz dedykowany widżet CTA (`ZAPISZ SIĘ NA WARSZTATY` / `ZAREZERWUJ TERMIN SESJI`).
   4. **Synchronizacja i Modal:** Stan widoczności powiązany z silnikiem scrolla i hookami `onActive` / `offActive` Sceny 2 (`data`). Kliknięcie w CTA uruchamia dopasowany modal z podsumowaniem i opcją natychmiastowego przejścia.
 - **Konsekwencje:** Widok Sceny 2 stał się w pełni interaktywnym, konwertującym katalogiem usług o jakości Awwwards SOTD, płynnie zintegrowanym z trójwymiarową chmurą cząsteczek.
+
+### ADR-010: Redesign Sceny 2 wg Estetyki Pioneer/Resn z Kinetycznym Widżetem Orbitalnym
+- **Data:** 2026-11-05
+- **Status:** Zaakceptowane i Wdrożone
+- **Kontekst:** Poprzednia wersja panelu w Scenie 2 wprowadzała zbyt dużo elementów typu SaaS (karty, kafelki, ramki), co zaburzało spójność ze surowym, kinetycznym stylem Pioneer / Resn. Ponadto widżet zapisu znikał w Scenie 2 lub był umieszczony w nieoptymalnej relacji przestrzennej.
+- **Decyzja:** 
+  1. **Redukcja szumu wizualnego:** Usunięto sztuczne karty z gradientami, numerację 01/02/03, kickery i etykiety selektora. Zastosowano surową, edytorską typografię Manifold & Gilroy bezpośrednio wkomponowaną w przestrzeń 3D cząsteczek.
+  2. **Harmonia monumentalnych tytułów:** Tytuły formatów po prawej stronie (*„ORKIESTRACJA SYSTEMÓW AI”*, *„DIAGNOZA BIZNESOWA I WALIDACJA”*, *„STRATEGIA I NAWIGACJA REKRUTACYJNA”*) otrzymały dokładnie taką samą monumentalną skalę (`clamp(44px, 4.4vw, 80px)`) jak nagłówek po lewej (*„PRZEJMIJ KLOCKI. BUDUJ SWOJE.”*).
+  3. **Kinetyczny widżet orbitalny:** Zastosowano kultowy okrągły widżet orbitalny (1:1 jak w Scenie 1) z obracającym się pierścieniem i szklanym dyskiem, umieszczony pod tekstem po prawej stronie prawej sekcji (`align-self: flex-end; margin-top: 10px;`). Nie koliduje on ze wskaźnikiem rozdziału *SCIENCE*.
+  4. **Podwójna synchronizacja Three.js + Scroll:** Połączono aktywację bezpośrednio z hookami `onActive` / `offActive` sekcji `data` w `main.js` oraz zapasowym mechanizmem pozycji scrolla. Zdublowane obiekty tekstu 3D w WebGL są automatycznie ukrywane (`visible = false`).
+- **Konsekwencje:** Pełna spójność wizualna i kinetyczna ze standardem Awwwards SOTD / Resn, z zachowaniem konwertującego CTA na każdym z 3 produktów.

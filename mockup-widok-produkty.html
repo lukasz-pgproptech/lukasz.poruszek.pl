@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>MOCKUP WIDOKU 2: PRZEJMIJ KLOCKI. BUDUJ SWOJE. – ŁUKASZ PORUSZEK</title>
+
+    <style>
+        @font-face {
+            font-family: 'Manifold-CF-Extra-Bold';
+            src: url('/fonts/Manifold/manifold-cf-extra-bold.woff2') format('woff2'),
+                 url('/fonts/Manifold/manifold-cf-extra-bold.woff') format('woff');
+            font-weight: 800;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Gilroy';
+            src: url('/fonts/Gilroy/3714E1_B_0.woff2') format('woff2'),
+                 url('/fonts/Gilroy/3714E1_B_0.woff') format('woff');
+            font-weight: 400;
+            font-display: swap;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #030806;
+            color: #ffffff;
+            font-family: 'Gilroy', -apple-system, sans-serif;
+        }
+
+        /* -------------------------------------------------------------
+           TŁO SCENY 3D (Cząsteczki, sieć węzłów i głębia ostrości)
+           ------------------------------------------------------------- */
+        .stage-backdrop {
+            position: absolute;
+            inset: 0;
+            background-image: url('/images/clean_section2_bg.png');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            z-index: 1;
+        }
+
+        /* Delikatny film grain i winieta kinowa */
+        .stage-vignette {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 50% 50%, transparent 45%, rgba(0, 0, 0, 0.65) 100%);
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        /* -------------------------------------------------------------
+           GÓRNY PASEK MARKI (Brand Header w stylu Resn)
+           ------------------------------------------------------------- */
+        .top-nav {
+            position: absolute;
+            top: 40px;
+            left: clamp(24px, 5vw, 70px);
+            z-index: 20;
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .hamburger {
+            width: 22px;
+            height: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            cursor: pointer;
+        }
+
+        .hamburger-line {
+            width: 100%;
+            height: 1.5px;
+            background-color: #ffffff;
+            transition: transform 0.2s ease;
+        }
+
+        .brand-name {
+            font-family: 'Manifold-CF-Extra-Bold', sans-serif;
+            font-size: 11px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: #ffffff;
+        }
+
+        /* -------------------------------------------------------------
+           GŁÓWNY WIDOK: 2 CZYSTE KOLUMNY W STANDARDZIE PIONEER / RESN
+           (Zero kafelków, zero ramek, czysta typografia i okrągły widżet)
+           ------------------------------------------------------------- */
+        .scene-container {
+            position: absolute;
+            inset: 0;
+            z-index: 10;
+            padding: 0 clamp(24px, 5vw, 70px);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: clamp(40px, 5vw, 80px);
+        }
+
+        /* -------------------------------------------------------------
+           LEWA STRONA: TYPOGRAFIA + INTERAKTYWNA LISTA PRODUKTÓW
+           ------------------------------------------------------------- */
+        .left-column {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-top: 20px;
+            max-width: 620px;
+        }
+
+        /* Główny stenciled nagłówek Manifold */
+        .headline {
+            font-family: 'Manifold-CF-Extra-Bold', sans-serif;
+            font-size: clamp(44px, 4.4vw, 80px);
+            line-height: 0.95;
+            letter-spacing: -0.02em;
+            text-transform: uppercase;
+            color: #ffffff;
+            margin-bottom: 26px;
+        }
+
+        /* Tekst wprowadzający */
+        .intro-text {
+            font-family: 'Gilroy', sans-serif;
+            font-size: clamp(14px, 1vw, 17px);
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.75);
+            max-width: 580px;
+            margin-bottom: 40px;
+        }
+
+        /* Interaktywny selektor w stylu minimalizmu edytorskiego */
+        .products-selector {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            max-width: 560px;
+        }
+
+        .selector-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.35);
+            margin-bottom: 6px;
+        }
+
+        /* Wiersz pojedynczego produktu (Czysty, subtelny, kinetyczny) */
+        .product-item {
+            position: relative;
+            display: flex;
+            align-items: baseline;
+            padding: 14px 0 14px 0;
+            cursor: pointer;
+            opacity: 0.42;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .product-item:hover {
+            opacity: 0.8;
+            transform: translateX(6px);
+        }
+
+        .product-item.is-active {
+            opacity: 1;
+            transform: translateX(10px);
+            border-bottom-color: rgba(0, 229, 153, 0.4);
+        }
+
+        .item-text-group {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .item-title {
+            font-family: 'Manifold-CF-Extra-Bold', sans-serif;
+            font-size: clamp(15px, 1.1vw, 18px);
+            text-transform: uppercase;
+            letter-spacing: -0.01em;
+            color: #ffffff;
+        }
+
+        .item-sep {
+            color: rgba(255, 255, 255, 0.25);
+            font-size: 12px;
+        }
+
+        .item-desc {
+            font-family: 'Gilroy', sans-serif;
+            font-size: clamp(12.5px, 0.9vw, 14px);
+            color: rgba(255, 255, 255, 0.55);
+        }
+
+        .product-item.is-active .item-desc {
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        /* -------------------------------------------------------------
+           PRAWA STRONA: OPIS MERYTORYCZNY + KULTOWY OKRĄGŁY WIDŻET RESN
+        /* -------------------------------------------------------------
+           PRAWA STRONA: OPIS MERYTORYCZNY + KULTOWY OKRĄGŁY WIDŻET RESN
+           (Opis merytoryczny, a po prawej stronie pod tekstem widżet)
+           ------------------------------------------------------------- */
+        .right-column {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            max-width: 620px;
+            width: 100%;
+        }
+
+        /* Blok czystego tekstu edytorskiego po prawej (pływający w próżni) */
+        .detail-editorial {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            transition: opacity 0.25s ease, transform 0.25s ease;
+            margin-bottom: 24px;
+        }
+
+        .detail-editorial.is-fading {
+            opacity: 0;
+            transform: translateY(6px);
+        }
+
+        .detail-title {
+            font-family: 'Manifold-CF-Extra-Bold', sans-serif;
+            font-size: clamp(44px, 4.4vw, 80px);
+            line-height: 0.95;
+            letter-spacing: -0.02em;
+            text-transform: uppercase;
+            color: #ffffff;
+            margin-bottom: 12px;
+        }
+
+        .detail-metric {
+            font-family: 'Manifold-CF-Extra-Bold', sans-serif;
+            font-size: 12px;
+            letter-spacing: 0.12em;
+            color: rgba(255, 255, 255, 0.9);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .detail-body {
+            font-family: 'Gilroy', sans-serif;
+            font-size: clamp(14px, 0.95vw, 16px);
+            line-height: 1.65;
+            color: rgba(255, 255, 255, 0.72);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .detail-body p {
+            margin: 0;
+        }
+
+        /* -------------------------------------------------------------
+           KULTOWY OKRĄGŁY WIDŻET ZAPISU (1:1 JAK NA POPRZEDNIM WIDOKU)
+           (Umieszczony po prawej stronie pod tekstem w prawej sesji)
+           ------------------------------------------------------------- */
+        .circular-widget-wrap {
+            position: relative;
+            width: 170px;
+            height: 170px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            cursor: pointer;
+            align-self: flex-end;
+            margin-top: 10px;
+        }
+
+        /* Zewnętrzny, cienki okrąg orbitujący */
+        .circle-orbit {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            animation: rotateSlow 24s linear infinite;
+        }
+
+        @keyframes rotateSlow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Wewnętrzny dysk z subtelną transparentnością */
+        .circle-inner-disc {
+            position: absolute;
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            background: rgba(8, 20, 14, 0.55);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.55);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 16px;
+            box-sizing: border-box;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Etykieta tekstowa wewnątrz koła */
+        .circle-text {
+            font-family: 'Manifold-CF-Extra-Bold', sans-serif;
+            font-size: 11px;
+            line-height: 1.25;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #ffffff;
+            transition: color 0.2s ease, transform 0.2s ease;
+        }
+
+        /* Efekt hover w stylu Resn */
+        .circular-widget-wrap:hover .circle-orbit {
+            border-color: rgba(0, 229, 153, 0.6);
+            transform: scale(1.08);
+            box-shadow: 0 0 20px rgba(0, 229, 153, 0.25);
+        }
+
+        .circular-widget-wrap:hover .circle-inner-disc {
+            border-color: #00e599;
+            background: rgba(0, 229, 153, 0.12);
+            box-shadow: 0 0 24px rgba(0, 229, 153, 0.35);
+            transform: scale(0.96);
+        }
+
+        .circular-widget-wrap:hover .circle-text {
+            color: #00e599;
+        }
+
+        /* -------------------------------------------------------------
+           WSKAŹNIK ROZDZIAŁU PO PRAWEJ STRONIE (Pioneer Dots & Science)
+           ------------------------------------------------------------- */
+        .side-indicator {
+            position: absolute;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            z-index: 20;
+        }
+
+        .side-ring {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            position: relative;
+        }
+
+        .side-ring::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: 1px;
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            background: #fff;
+            transform: translateY(-50%);
+        }
+
+        .side-dot {
+            width: 2px;
+            height: 2px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* -------------------------------------------------------------
+           INFO BANNER DLA UŻYTKOWNIKA (Do oceny mockupu)
+           ------------------------------------------------------------- */
+        .mockup-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(4, 10, 7, 0.92);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 10px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 12px;
+            z-index: 999;
+        }
+
+        .mockup-status {
+            color: #00e599;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .mockup-tip {
+            color: rgba(255, 255, 255, 0.6);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TŁO SCENY 3D Z CZĄSTECZKAMI (Sekcja 2) -->
+    <div class="stage-backdrop"></div>
+    <div class="stage-vignette"></div>
+
+    <!-- GÓRNY PASEK MARKI -->
+    <header class="top-nav">
+        <div class="hamburger">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+        </div>
+        <div class="brand-name">ŁUKASZ PORUSZEK</div>
+    </header>
+
+    <!-- WIDOK SCENY 2 -->
+    <main class="scene-container">
+        
+        <!-- LEWA STRONA: GŁÓWNY TYTUŁ + INTERAKTYWNY SELEKTOR W STYLU RESN -->
+        <section class="left-column">
+            <h1 class="headline">
+                PRZEJMIJ KLOCKI.<br>
+                BUDUJ SWOJE.
+            </h1>
+            <p class="intro-text">
+                Zamiast tracić miesiące na wyważanie otwartych drzwi, wybierz sprawdzoną dźwignię:
+            </p>
+
+            <div class="products-selector" role="tablist">
+                <!-- POZYCJA: WARSZTATY AI (Domyślnie aktywna) -->
+                <div class="product-item is-active" data-id="workshops" role="tab" aria-selected="true">
+                    <div class="item-text-group">
+                        <span class="item-title">Warsztaty AI</span>
+                        <span class="item-sep">—</span>
+                        <span class="item-desc">od promptu do orkiestracji multiagentów.</span>
+                    </div>
+                </div>
+
+                <!-- POZYCJA: MENTORING BIZNESOWY -->
+                <div class="product-item" data-id="business" role="tab" aria-selected="false">
+                    <div class="item-text-group">
+                        <span class="item-title">Mentoring Biznesowy</span>
+                        <span class="item-sep">—</span>
+                        <span class="item-desc">weryfikacja założeń i koniec fiksacji.</span>
+                    </div>
+                </div>
+
+                <!-- POZYCJA: MENTORING KARIERY -->
+                <div class="product-item" data-id="career" role="tab" aria-selected="false">
+                    <div class="item-text-group">
+                        <span class="item-title">Mentoring Kariery</span>
+                        <span class="item-sep">—</span>
+                        <span class="item-desc">bezbłędne CV i przejęcie kontroli nad rekrutacją.</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRAWA STRONA: OPIS MERYTORYCZNY + KULTOWY OKRĄGŁY WIDŻET -->
+        <section class="right-column">
+            
+            <!-- Czysty blok tekstu (brak jakichkolwiek pudełek czy kafelków!) -->
+            <div class="detail-editorial" id="detailEditorial">
+                <h2 class="detail-title" id="detailTitle">ORKIESTRACJA SYSTEMÓW AI</h2>
+                <div class="detail-metric" id="detailMetric">1200 ZŁ · 6 TYGODNI (6x 2H) · KAMERALNA GRUPA</div>
+                <div class="detail-body" id="detailBody">
+                    <p>Kompleksowy proces wdrożeniowy: od precyzyjnego promptowania na czacie webowym, przez pracę agentową, po tworzenie własnych wieloagentowych systemów i integrację serwerów MCP/API.</p>
+                    <p>W cenie: spotkania online raz w tygodniu, nadzór nad zadaniami domowymi, pokoje wymiany wiedzy oraz indywidualne konsultacje 1:1 w razie trudniejszych zagadnień.</p>
+                </div>
+            </div>
+
+            <!-- KULTOWY OKRĄGŁY WIDŻET ZAPISU (Dokładnie jak na poprzednim widoku!) -->
+            <div class="circular-widget-wrap" id="circularWidget" title="Kliknij, aby przejść do zapisu">
+                <div class="circle-orbit"></div>
+                <div class="circle-inner-disc">
+                    <span class="circle-text" id="circleText">
+                        ZAPISZ SIĘ NA<br>WARSZTATY
+                    </span>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- WSKAŹNIK SEKCJI PO PRAWEJ STRONIE (ukryty w HTML, bo tło 3D zawiera natywny wskaźnik WebGL) -->
+    <aside class="side-indicator" style="display: none;">
+        <div class="side-ring"></div>
+        <div class="side-dot"></div>
+        <div class="side-dot"></div>
+        <div class="side-dot"></div>
+    </aside>
+
+    <!-- DOLNY PASEK INFORMACYJNY MOCKUPU -->
+    <footer class="mockup-bar">
+        <span class="mockup-status">MOCKUP AWWWARDS-TIER: PEŁNA SPÓJNOŚĆ Z POPRZEDNIM WIDOKIEM</span>
+        <span class="mockup-tip">Klikaj pozycje po lewej, aby zobaczyć płynną podmianę tekstu i okrągłego widżetu.</span>
+    </footer>
+
+    <script>
+        const PRODUCTS = {
+            workshops: {
+                title: 'ORKIESTRACJA SYSTEMÓW AI',
+                metric: '1200 ZŁ · 6 TYGODNI (6x 2H) · KAMERALNA GRUPA',
+                body: '<p>Kompleksowy proces wdrożeniowy: od precyzyjnego promptowania na czacie webowym, przez pracę agentową, po tworzenie własnych wieloagentowych systemów i integrację serwerów MCP/API.</p><p>W cenie: spotkania online raz w tygodniu, nadzór nad zadaniami domowymi, pokoje wymiany wiedzy oraz indywidualne konsultacje 1:1 w razie trudniejszych zagadnień.</p>',
+                widgetHtml: 'ZAPISZ SIĘ NA<br>WARSZTATY'
+            },
+            business: {
+                title: 'DIAGNOZA BIZNESOWA I WALIDACJA',
+                metric: '400 ZŁ · SESJA 90 MINUT · SPOTKANIE ONLINE',
+                body: '<p>Doraźna diagnoza i usunięcie blokad, które wstrzymują rozwój firmy lub start projektu. W 90 minut weryfikujemy model biznesowy, źródła finansowania (granty, bootstrap) oraz realne wąskie gardła, zamiast przez pół roku przepalać oszczędności na fiksacjach.</p><p>Konkretna praca na Twoich liczbach i materiałach, bez sztucznych pakietów i bez lania wody.</p>',
+                widgetHtml: 'ZAREZERWUJ<br>SESJĘ 90 MIN'
+            },
+            career: {
+                title: 'STRATEGIA I NAWIGACJA REKRUTACYJNA',
+                metric: '300 ZŁ · SESJA 90 MINUT · SPOTKANIE ONLINE',
+                body: '<p>Dla osób, które wysyłają dziesiątki CV w próżnię. Bez corporate bullshitu: audyt CV i profilu LinkedIn z perspektywy hiring managera oraz nauka sprowadzania rozmowy na własne, najmocniejsze tory.</p><p>Natychmiastowa eliminacja błędów dyskwalifikujących i przejęcie kontroli nad procesem rekrutacji.</p>',
+                widgetHtml: 'ZAREZERWUJ<br>SESJĘ 90 MIN'
+            }
+        };
+
+        const items = document.querySelectorAll('.product-item');
+        const detailBlock = document.getElementById('detailEditorial');
+        const titleEl = document.getElementById('detailTitle');
+        const metricEl = document.getElementById('detailMetric');
+        const bodyEl = document.getElementById('detailBody');
+        const circleTextEl = document.getElementById('circleText');
+        const widgetEl = document.getElementById('circularWidget');
+
+        items.forEach(item => {
+            item.addEventListener('click', () => {
+                const id = item.getAttribute('data-id');
+                const data = PRODUCTS[id];
+                if (!data) return;
+
+                items.forEach(i => i.classList.remove('is-active'));
+                item.classList.add('is-active');
+
+                // Crossfade
+                detailBlock.classList.add('is-fading');
+                setTimeout(() => {
+                    titleEl.textContent = data.title;
+                    metricEl.textContent = data.metric;
+                    bodyEl.innerHTML = data.body;
+                    circleTextEl.innerHTML = data.widgetHtml;
+                    detailBlock.classList.remove('is-fading');
+                }, 140);
+            });
+        });
+
+        widgetEl.addEventListener('click', () => {
+            alert('Przejście do modułu zapisu: ' + titleEl.textContent);
+        });
+    </script>
+</body>
+</html>
