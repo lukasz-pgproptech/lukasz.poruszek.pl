@@ -1,0 +1,1332 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rezerwacja – Łukasz Poruszek</title>
+    
+    <style>
+        :root {
+            --glass-bg: rgba(8, 12, 16, 0.32);
+            --glass-blur: 24px;
+            --glass-border: rgba(255, 255, 255, 0.12);
+            --glass-border-specular: rgba(255, 255, 255, 0.26);
+            --mono-active-bg: rgba(255, 255, 255, 0.12);
+            --mono-active-border: rgba(255, 255, 255, 0.40);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background-color: #030806;
+            
+            /* Autentyczna scena 3D w tle */
+            background-image: url('/images/original_hotspot_clean_fhd.png');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            overflow-x: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: clamp(20px, 4vw, 70px);
+            padding-left: clamp(20px, 31vw, 600px); /* Kula 3D odsłonięta po lewej */
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: #fff;
+        }
+
+        /* -------------------------------------------------------------
+           POJEDYNCZA SZKLANA TAFLA (MONOCHROMATYCZNA, 28-32% PRZEZROCZYSTOŚCI)
+           ------------------------------------------------------------- */
+        .glass-booking-surface {
+            width: 100%;
+            max-width: 960px;
+            height: 720px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(var(--glass-blur)) saturate(150%);
+            -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(150%);
+            
+            border: 1px solid var(--glass-border);
+            border-top: 1px solid var(--glass-border-specular);
+            border-left: 1px solid var(--glass-border-specular);
+            border-radius: 20px;
+            
+            box-shadow: 
+                0 30px 80px rgba(0, 0, 0, 0.65),
+                inset 0 1px 1px rgba(255, 255, 255, 0.20);
+            
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+            animation: fadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px) scale(0.99);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* -------------------------------------------------------------
+           SELEKTOR 3 TYPÓW SPOTKAŃ (MINIMALISTYCZNY, MONOCHROMATYCZNY)
+           ------------------------------------------------------------- */
+        .event-type-selector {
+            display: flex;
+            align-items: stretch;
+            gap: 8px;
+            padding: 16px 20px 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(0, 0, 0, 0.22);
+            flex-shrink: 0;
+        }
+
+        .event-type-btn {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 10px 14px;
+            color: rgba(255, 255, 255, 0.65);
+            cursor: pointer;
+            font-family: inherit;
+            text-align: left;
+            transition: background 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .event-type-btn:hover {
+            background: rgba(255, 255, 255, 0.06);
+            color: #fff;
+            border-color: rgba(255, 255, 255, 0.18);
+        }
+
+        .event-type-btn.active {
+            background: var(--mono-active-bg);
+            border-color: var(--mono-active-border);
+            color: #fff;
+            box-shadow: 
+                0 4px 18px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.25);
+        }
+
+        .event-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .event-badge {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 2px 7px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.08);
+            color: rgba(255, 255, 255, 0.55);
+            transition: all 0.18s ease;
+        }
+
+        .event-type-btn.active .event-badge {
+            background: #ffffff;
+            color: #080c10;
+        }
+
+        .event-meta {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.45);
+            transition: color 0.18s ease;
+        }
+
+        .event-type-btn.active .event-meta {
+            color: rgba(255, 255, 255, 0.80);
+        }
+
+        /* -------------------------------------------------------------
+           WIDOK 1: MENTORING (LISTOPAD: WYKUPIONE / POZOSTAŁE: NIEOTWARTE)
+           ------------------------------------------------------------- */
+        .mentoring-container {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 240px 1fr 220px;
+            overflow: hidden;
+            animation: fadeIn 0.25s ease;
+        }
+
+        .mentoring-container.hidden {
+            display: none;
+        }
+
+        /* Kolumna 1: Informacje o mentoringu & lista oczekujących */
+        .mentoring-info-col {
+            padding: 24px 20px;
+            border-right: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            background: rgba(0, 0, 0, 0.10);
+        }
+
+        .host-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .host-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            object-fit: cover;
+        }
+
+        .host-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .host-sub {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .mentoring-title-box h2 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 4px;
+        }
+
+        .mentoring-specs {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11.5px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .status-sold-banner {
+            padding: 10px 12px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .status-sold-title {
+            font-size: 10.5px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: rgba(255, 255, 255, 0.85);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .status-sold-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #ffffff;
+            opacity: 0.7;
+        }
+
+        .status-sold-desc {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.45);
+            line-height: 1.4;
+        }
+
+        /* Lista rezerwowa */
+        .waitlist-box {
+            margin-top: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding-top: 14px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .waitlist-label {
+            font-size: 10.5px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.6);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .waitlist-input {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 8px;
+            padding: 8px 10px;
+            font-size: 12px;
+            color: #fff;
+            outline: none;
+            font-family: inherit;
+        }
+
+        .waitlist-input:focus {
+            border-color: rgba(255, 255, 255, 0.35);
+        }
+
+        .waitlist-btn {
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            color: #ffffff;
+            border-radius: 8px;
+            padding: 8px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.18s ease;
+        }
+
+        .waitlist-btn:hover {
+            background: #ffffff;
+            color: #080c10;
+        }
+
+        .waitlist-textarea {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 8px;
+            padding: 8px 10px;
+            font-size: 11.5px;
+            color: #fff;
+            outline: none;
+            font-family: inherit;
+            resize: none;
+            line-height: 1.4;
+            transition: border-color 0.18s ease;
+        }
+
+        .waitlist-textarea:focus {
+            border-color: rgba(255, 255, 255, 0.35);
+        }
+
+        .waitlist-textarea::placeholder {
+            color: rgba(255, 255, 255, 0.30);
+        }
+
+        .waitlist-success-msg {
+            display: none;
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.85);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 8px;
+            padding: 10px;
+            line-height: 1.4;
+            text-align: center;
+            animation: fadeIn 0.25s ease;
+        }
+
+        /* Kolumna 2: Kalendarz siatka miesięczna */
+        .mentoring-calendar-col {
+            padding: 24px 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .calendar-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .calendar-month-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #ffffff;
+            text-transform: capitalize;
+        }
+
+        .calendar-nav-btns {
+            display: flex;
+            gap: 4px;
+        }
+
+        .cal-nav-btn {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border-radius: 6px;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background 0.18s ease;
+        }
+
+        .cal-nav-btn:hover:not(:disabled) {
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .cal-nav-btn:disabled {
+            opacity: 0.25;
+            cursor: not-allowed;
+        }
+
+        .calendar-weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            color: rgba(255, 255, 255, 0.40);
+            padding-bottom: 6px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 6px;
+        }
+
+        .cal-day-cell {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 500;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid transparent;
+            color: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+            transition: all 0.15s ease;
+            position: relative;
+        }
+
+        .cal-day-cell.weekend {
+            color: rgba(255, 255, 255, 0.20);
+            cursor: not-allowed;
+            background: transparent;
+        }
+
+        .cal-day-cell:not(.weekend):hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+            border-color: rgba(255, 255, 255, 0.20);
+        }
+
+        .cal-day-cell.active {
+            background: #ffffff;
+            color: #080c10;
+            font-weight: 700;
+            box-shadow: 0 0 14px rgba(255, 255, 255, 0.35);
+        }
+
+        .cal-day-cell.has-sold-dot::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.35);
+        }
+
+        .cal-day-cell.active::after {
+            background: #080c10;
+        }
+
+        /* Kolumna 3: Sloty godzinowe */
+        .mentoring-slots-col {
+            padding: 24px 20px;
+            border-left: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            background: rgba(0, 0, 0, 0.10);
+        }
+
+        .slots-col-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .slots-selected-date {
+            font-size: 13px;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .slots-clock-format {
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.4);
+            font-weight: 600;
+        }
+
+        .slots-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        /* Styl slotu – przekreślony / wykupiony */
+        .slot-item-booked {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 12px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 8px;
+            cursor: not-allowed;
+            user-select: none;
+        }
+
+        .slot-time-text {
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: line-through;
+            color: rgba(255, 255, 255, 0.38);
+            letter-spacing: 0.02em;
+        }
+
+        .slot-badge-sold {
+            font-size: 9.5px;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 2px 6px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.06);
+            color: rgba(255, 255, 255, 0.45);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* Widok nieotwartego miesiąca (Grudzień i kolejne) */
+        .slots-unopened-view {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding: 14px 0;
+        }
+
+        .slots-unopened-badge {
+            align-self: flex-start;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            padding: 3px 8px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.08);
+            color: rgba(255, 255, 255, 0.65);
+        }
+
+        .slots-unopened-text {
+            font-size: 11.5px;
+            color: rgba(255, 255, 255, 0.48);
+            line-height: 1.5;
+        }
+
+        .slots-note {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.38);
+            line-height: 1.4;
+            margin-top: 4px;
+        }
+
+        /* -------------------------------------------------------------
+           WIDOK 2: WARSZTATY AI (CYKL 6 SPOTKAŃ, FORMULARZ "REZERWUJ")
+           ------------------------------------------------------------- */
+        .workshop-container {
+            flex: 1;
+            display: none;
+            overflow-y: auto;
+            padding: 28px 32px;
+            animation: fadeIn 0.25s ease;
+        }
+
+        .workshop-container.visible {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .workshop-group-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .workshop-group-pills {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .workshop-section-title {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: rgba(255, 255, 255, 0.45);
+        }
+
+        .workshop-group-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.10);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            border-radius: 9999px;
+            padding: 6px 14px;
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .workshop-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #ffffff;
+            box-shadow: 0 0 6px rgba(255, 255, 255, 0.9);
+        }
+
+        .workshop-status-tag {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.55);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            font-weight: 600;
+        }
+
+        .workshop-grid {
+            display: grid;
+            grid-template-columns: 1.15fr 1fr;
+            gap: 32px;
+            align-items: start;
+        }
+
+        .workshop-schedule-col {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .schedule-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .schedule-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 14px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 10px;
+            font-size: 12.5px;
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .schedule-item:first-child {
+            background: rgba(255, 255, 255, 0.07);
+            border-color: rgba(255, 255, 255, 0.18);
+            color: #ffffff;
+        }
+
+        .schedule-date {
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .schedule-num {
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.4);
+            font-weight: 700;
+        }
+
+        .schedule-time {
+            color: rgba(255, 255, 255, 0.55);
+            font-size: 11.5px;
+        }
+
+        .workshop-note {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.4);
+            line-height: 1.5;
+            margin-top: 4px;
+        }
+
+        .workshop-form-col {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 20px;
+            position: relative;
+        }
+
+        .workshop-form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .form-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .form-input {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            border-radius: 8px;
+            padding: 10px 12px;
+            font-size: 13px;
+            color: #ffffff;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.18s ease, background 0.18s ease;
+        }
+
+        .form-input:focus {
+            border-color: rgba(255, 255, 255, 0.45);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.25);
+        }
+
+        .btn-submit-workshop {
+            width: 100%;
+            margin-top: 6px;
+            padding: 12px 16px;
+            background: #ffffff;
+            color: #080c10;
+            border: none;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            font-family: inherit;
+            cursor: pointer;
+            transition: background 0.18s ease, transform 0.1s ease;
+        }
+
+        .btn-submit-workshop:hover:not(:disabled) {
+            background: rgba(255, 255, 255, 0.90);
+            transform: translateY(-1px);
+        }
+
+        .btn-submit-workshop:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .form-disclaimer {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.48);
+            line-height: 1.4;
+            text-align: center;
+        }
+
+        /* Baner sukcesu po rezerwacji */
+        .reservation-success-box {
+            display: none;
+            flex-direction: column;
+            gap: 10px;
+            text-align: center;
+            padding: 24px 16px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.20);
+            border-radius: 12px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .success-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #ffffff;
+            color: #080c10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 700;
+            margin: 0 auto;
+        }
+
+        .success-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .success-desc {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.70);
+            line-height: 1.5;
+        }
+
+        @media (max-width: 900px) {
+            body {
+                padding: 16px 10px;
+                justify-content: center;
+            }
+            .glass-booking-surface {
+                height: 94vh;
+                border-radius: 16px;
+            }
+            .event-type-selector {
+                flex-direction: column;
+                gap: 6px;
+                padding: 12px;
+            }
+            .mentoring-container {
+                grid-template-columns: 1fr;
+                overflow-y: auto;
+            }
+            .mentoring-info-col, .mentoring-slots-col {
+                border: none;
+            }
+            .workshop-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .workshop-container {
+                padding: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- POJEDYNCZA SZKLANA TAFLA -->
+    <main class="glass-booking-surface">
+        
+        <!-- SELEKTOR 3 TYPÓW WYDARZEŃ (MONOCHROMATYCZNY) -->
+        <nav class="event-type-selector" aria-label="Wybór typu spotkania">
+            
+            <!-- OPCJA 1: MENTORING BIZNESOWY -->
+            <button class="event-type-btn active" id="btn-opt1" onclick="switchTab('biznes')">
+                <span class="event-name">
+                    Mentoring biznesowy
+                    <span class="event-badge">OSOBA</span>
+                </span>
+                <span class="event-meta">90 min • Indywidualna sesja 1:1</span>
+            </button>
+
+            <!-- OPCJA 2: MENTORING KARIERY -->
+            <button class="event-type-btn" id="btn-opt2" onclick="switchTab('kariera')">
+                <span class="event-name">
+                    Mentoring kariery
+                    <span class="event-badge">OSOBA</span>
+                </span>
+                <span class="event-meta">90 min • Indywidualna sesja 1:1</span>
+            </button>
+
+            <!-- OPCJA 3: WARSZTATY AI (CYKL) -->
+            <button class="event-type-btn" id="btn-opt3" onclick="switchTab('warsztaty')">
+                <span class="event-name">
+                    Warsztaty AI
+                    <span class="event-badge">GRUPA</span>
+                </span>
+                <span class="event-meta">6 spotkań × 2h • Grupa warsztatowa</span>
+            </button>
+
+        </nav>
+
+        <!-- WIDOK 1: MENTORING BIZNESOWY / KARIERY (LISTOPAD: WYKUPIONE / POZOSTAŁE: NIEOTWARTE) -->
+        <div class="mentoring-container" id="mentoring-view">
+            
+            <!-- Kolumna 1: Informacje o mentoringu i zapis na listę rezerwową -->
+            <aside class="mentoring-info-col">
+                <div class="host-profile">
+                    <img class="host-avatar" src="https://lh3.googleusercontent.com/a/ACg8ocJi13NWQJOphF0irHbIAa5eIxn2nw2iyxj07Pa0lbb8cOD_XsI=s96-c" alt="Łukasz Poruszek" />
+                    <div>
+                        <div class="host-name">Łukasz Poruszek</div>
+                        <div class="host-sub">Konsultacje strategiczne</div>
+                    </div>
+                </div>
+
+                <div class="mentoring-title-box">
+                    <h2 id="mentoring-active-title">Mentoring biznesowy</h2>
+                    <div class="mentoring-specs">
+                        <span>⏱ 90 min (1h 30m)</span>
+                        <span>•</span>
+                        <span>Spotkanie online 1:1</span>
+                    </div>
+                </div>
+
+                <div class="status-sold-banner" id="mentoring-status-banner">
+                    <div class="status-sold-title" id="mentoring-status-title">
+                        <span class="status-sold-dot"></span>
+                        Terminy wyprzedane
+                    </div>
+                    <p class="status-sold-desc" id="mentoring-status-desc">
+                        Wszystkie regularne sloty w listopadzie zostały zarezerwowane.
+                    </p>
+                </div>
+
+                <!-- Formularz listy rezerwowej z notatką -->
+                <div class="waitlist-box">
+                    <span class="waitlist-label">Lista rezerwowa</span>
+                    <form id="waitlist-form" onsubmit="handleWaitlist(event)">
+                        <input class="waitlist-input" id="waitlist-email" type="email" placeholder="Wpisz swój e-mail..." required />
+                        <textarea class="waitlist-textarea" id="waitlist-note" placeholder="Notatka (opcjonalnie: preferowany dzień, godziny lub temat)..." rows="2" style="margin-top: 6px;"></textarea>
+                        <button class="waitlist-btn" id="waitlist-btn" type="submit" style="margin-top: 6px; width: 100%;">
+                            Zapisz na listę rezerwową
+                        </button>
+                    </form>
+                    <div class="waitlist-success-msg" id="waitlist-success">
+                        ✓ Zapisano! Powiadomimy Cię e-mailem, gdy zwolni się termin. Twoja notatka została przekazana.
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Kolumna 2: Interaktywna siatka kalendarza miesięcznego -->
+            <section class="mentoring-calendar-col">
+                <div class="calendar-header">
+                    <span class="calendar-month-title" id="cal-month-display">Listopad 2026</span>
+                    <div class="calendar-nav-btns">
+                        <button class="cal-nav-btn" id="cal-prev-btn" type="button" onclick="changeMonth(-1)">‹</button>
+                        <button class="cal-nav-btn" id="cal-next-btn" type="button" onclick="changeMonth(1)">›</button>
+                    </div>
+                </div>
+
+                <div class="calendar-weekdays">
+                    <span>PON</span>
+                    <span>WT</span>
+                    <span>ŚR</span>
+                    <span>CZW</span>
+                    <span>PT</span>
+                    <span>SOB</span>
+                    <span>NIEDZ</span>
+                </div>
+
+                <div class="calendar-grid" id="calendar-days-grid">
+                    <!-- Dni generowane dynamicznie przez JS -->
+                </div>
+            </section>
+
+            <!-- Kolumna 3: Sloty godzinowe (Listopad = WYKUPIONE / Grudzień+ = NIEOTWARTE) -->
+            <section class="mentoring-slots-col">
+                <div class="slots-col-header">
+                    <span class="slots-selected-date" id="selected-date-label">czw. 5 lis</span>
+                    <span class="slots-clock-format">24h</span>
+                </div>
+
+                <div class="slots-list" id="slots-container">
+                    <!-- Sloty lub komunikat nieotwartego miesiąca generowane przez JS -->
+                </div>
+
+                <p class="slots-note" id="slots-note-text">
+                    Terminy oznaczone jako wykupione nie są obecnie dostępne do bezpośredniej rezerwacji.
+                </p>
+            </section>
+
+        </div>
+
+        <!-- WIDOK 2: WARSZTATY AI (CYKL 6 SPOTKAŃ, ZAPISY OTWARTE, PRZYCISK "REZERWUJ") -->
+        <div class="workshop-container" id="workshop-view">
+            
+            <!-- Nagłówek wyboru grupy -->
+            <header class="workshop-group-header">
+                <div class="workshop-group-pills">
+                    <span class="workshop-section-title">Wybór grupy:</span>
+                    <div class="workshop-group-pill" role="button" tabindex="0">
+                        <span class="workshop-dot"></span>
+                        <span>Grupa grudniowa</span>
+                    </div>
+                </div>
+                <span class="workshop-status-tag">Status: Zapisy otwarte</span>
+            </header>
+
+            <!-- Główna siatka: Harmonogram + Formularz -->
+            <div class="workshop-grid">
+                
+                <!-- Kolumna 1: Dokładny harmonogram 6 spotkań -->
+                <div class="workshop-schedule-col">
+                    <h3 class="workshop-section-title">Harmonogram cyklu (wtorki 19:00 – 21:00)</h3>
+                    
+                    <div class="schedule-list">
+                        <div class="schedule-item">
+                            <span class="schedule-date"><span class="schedule-num">01</span> 1 grudnia 2026</span>
+                            <span class="schedule-time">19:00 – 21:00 (Start cyklu)</span>
+                        </div>
+                        <div class="schedule-item">
+                            <span class="schedule-date"><span class="schedule-num">02</span> 8 grudnia 2026</span>
+                            <span class="schedule-time">19:00 – 21:00</span>
+                        </div>
+                        <div class="schedule-item">
+                            <span class="schedule-date"><span class="schedule-num">03</span> 15 grudnia 2026</span>
+                            <span class="schedule-time">19:00 – 21:00</span>
+                        </div>
+                        <div class="schedule-item">
+                            <span class="schedule-date"><span class="schedule-num">04</span> 22 grudnia 2026</span>
+                            <span class="schedule-time">19:00 – 21:00</span>
+                        </div>
+                        <div class="schedule-item">
+                            <span class="schedule-date"><span class="schedule-num">05</span> 29 grudnia 2026</span>
+                            <span class="schedule-time">19:00 – 21:00</span>
+                        </div>
+                        <div class="schedule-item">
+                            <span class="schedule-date"><span class="schedule-num">06</span> 5 stycznia 2027</span>
+                            <span class="schedule-time">19:00 – 21:00 (Finał)</span>
+                        </div>
+                    </div>
+
+                    <p class="workshop-note">
+                        Spotkania odbywają się online na żywo (Google Meet / Cal Video). Wszystkie sesje są rejestrowane i przekazywane uczestnikom.
+                    </p>
+                </div>
+
+                <!-- Kolumna 2: Prosty formularz zapisu -->
+                <div class="workshop-form-col">
+                    <h3 class="workshop-section-title">Rezerwacja miejsca w grupie</h3>
+                    
+                    <form class="workshop-form" id="workshop-form" onsubmit="handleWorkshopSubmit(event)">
+                        <div class="form-group">
+                            <label class="form-label" for="ws-name">Imię i nazwisko</label>
+                            <input class="form-input" id="ws-name" type="text" placeholder="np. Jan Kowalski" required />
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="ws-email">Adres e-mail</label>
+                            <input class="form-input" id="ws-email" type="email" placeholder="np. jan@firma.pl" required />
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="ws-phone">Numer telefonu</label>
+                            <input class="form-input" id="ws-phone" type="tel" placeholder="+48 000 000 000" required />
+                        </div>
+
+                        <!-- PRZYCISK: REZERWUJ -->
+                        <button type="submit" class="btn-submit-workshop" id="ws-submit-btn">
+                            Rezerwuj
+                        </button>
+
+                        <!-- ZAKTUALIZOWANA TREŚĆ WYJAŚNIENIA -->
+                        <p class="form-disclaimer">
+                            Cena oraz szczegóły wydarzenia zostaną wysłane na podany adres e-mail.
+                        </p>
+                    </form>
+
+                    <!-- Komunikat sukcesu po rezerwacji -->
+                    <div class="reservation-success-box" id="ws-success-box">
+                        <div class="success-icon">✓</div>
+                        <h4 class="success-title">Rezerwacja przyjęta</h4>
+                        <p class="success-desc" id="ws-success-desc">
+                            Dziękujemy! Szczegóły wydarzenia oraz cena zostały wysłane na podany adres e-mail.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <script>
+        // Bieżący miesiąc bazowy: Listopad 2026 (index 10)
+        const BASE_YEAR = 2026;
+        const BASE_MONTH = 10;
+
+        let currentYear = BASE_YEAR;
+        let currentMonth = BASE_MONTH;
+        let selectedDay = 5;
+
+        const monthsNames = [
+            "Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec",
+            "Lipiec", "Sierpień", "Wrzesień", "Październik", "Listopad", "Grudzień"
+        ];
+
+        const daysNamesShort = ["niedz.", "pon.", "wt.", "śr.", "czw.", "pt.", "sob."];
+        const monthsShort = ["sty", "lut", "mar", "kwi", "maj", "cze", "lip", "sie", "wrz", "paź", "lis", "gru"];
+
+        function isNovember2026() {
+            return currentYear === BASE_YEAR && currentMonth === BASE_MONTH;
+        }
+
+        function renderCalendar() {
+            const monthDisplay = document.getElementById('cal-month-display');
+            monthDisplay.textContent = `${monthsNames[currentMonth]} ${currentYear}`;
+
+            // Blokada powrotu przed listopad 2026
+            const prevBtn = document.getElementById('cal-prev-btn');
+            prevBtn.disabled = isNovember2026();
+
+            // Aktualizacja lewego banera
+            const bannerTitle = document.getElementById('mentoring-status-title');
+            const bannerDesc = document.getElementById('mentoring-status-desc');
+            if (isNovember2026()) {
+                bannerTitle.innerHTML = '<span class="status-sold-dot"></span> Terminy wyprzedane';
+                bannerDesc.textContent = 'Wszystkie regularne sloty w listopadzie zostały zarezerwowane.';
+            } else {
+                bannerTitle.innerHTML = '<span class="status-sold-dot" style="opacity:0.4;"></span> Grafik nieotwarty';
+                bannerDesc.textContent = `Terminy na ${monthsNames[currentMonth]} ${currentYear} zostaną opublikowane wkrótce.`;
+            }
+
+            const grid = document.getElementById('calendar-days-grid');
+            grid.innerHTML = '';
+
+            // Pierwszy dzień miesiąca
+            const firstDayIndex = new Date(currentYear, currentMonth, 1).getDay();
+            const startingCol = (firstDayIndex === 0) ? 6 : firstDayIndex - 1;
+            const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+
+            // Puste komórki
+            for (let i = 0; i < startingCol; i++) {
+                const emptyCell = document.createElement('div');
+                emptyCell.className = 'cal-day-cell weekend';
+                grid.appendChild(emptyCell);
+            }
+
+            // Dni miesiąca
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayDate = new Date(currentYear, currentMonth, day);
+                const dayOfWeek = dayDate.getDay();
+                const isWeekend = (dayOfWeek === 0 || dayOfWeek === 6);
+
+                const cell = document.createElement('div');
+                // Tylko listopad ma kropki 'has-sold-dot'
+                cell.className = 'cal-day-cell' + (isWeekend ? ' weekend' : (isNovember2026() ? ' has-sold-dot' : ''));
+                if (day === selectedDay && !isWeekend) {
+                    cell.classList.add('active');
+                }
+                cell.textContent = day;
+
+                if (!isWeekend) {
+                    cell.onclick = () => {
+                        selectedDay = day;
+                        renderCalendar();
+                        renderSlots(dayDate);
+                    };
+                }
+
+                grid.appendChild(cell);
+            }
+
+            renderSlots(new Date(currentYear, currentMonth, selectedDay));
+        }
+
+        function renderSlots(dateObj) {
+            const dayOfWeek = dateObj.getDay();
+            const dayName = daysNamesShort[dayOfWeek];
+            const dayNum = dateObj.getDate();
+            const mName = monthsShort[dateObj.getMonth()];
+
+            document.getElementById('selected-date-label').textContent = `${dayName} ${dayNum} ${mName}`;
+
+            const container = document.getElementById('slots-container');
+            const noteText = document.getElementById('slots-note-text');
+            container.innerHTML = '';
+
+            // TYLKO LISTOPAD 2026 MA ROZPISANE ZAJĘTE SLOTY
+            if (isNovember2026()) {
+                const slots = ["15:00", "16:30", "18:00"];
+                slots.forEach(time => {
+                    const item = document.createElement('div');
+                    item.className = 'slot-item-booked';
+                    item.innerHTML = `
+                        <span class="slot-time-text">${time}</span>
+                        <span class="slot-badge-sold">WYKUPIONE</span>
+                    `;
+                    container.appendChild(item);
+                });
+                noteText.style.display = 'block';
+                noteText.textContent = 'Terminy oznaczone jako wykupione nie są obecnie dostępne do bezpośredniej rezerwacji.';
+            } else {
+                // GRUDZIEŃ I POZOSTAŁE MIESIĄCE: GRAFIK JESZCZE NIEOTWARTY
+                container.innerHTML = `
+                    <div class="slots-unopened-view">
+                        <span class="slots-unopened-badge">Grafik nieotwarty</span>
+                        <p class="slots-unopened-text">
+                            Terminy na <strong>${monthsNames[currentMonth]} ${currentYear}</strong> nie zostały jeszcze udostępnione do rezerwacji.
+                        </p>
+                        <p class="slots-unopened-text" style="font-size:11px; opacity:0.8;">
+                            Zapisy na kolejne miesiące otwieramy pod koniec każdego miesiąca.
+                        </p>
+                    </div>
+                `;
+                noteText.style.display = 'none';
+            }
+        }
+
+        function changeMonth(delta) {
+            // Zablokuj cofanie przed listopad 2026
+            if (delta < 0 && isNovember2026()) {
+                return;
+            }
+
+            currentMonth += delta;
+            if (currentMonth > 11) {
+                currentMonth = 0;
+                currentYear++;
+            } else if (currentMonth < 0) {
+                currentMonth = 11;
+                currentYear--;
+            }
+            selectedDay = 1;
+            renderCalendar();
+        }
+
+        function switchTab(tab) {
+            document.querySelectorAll('.event-type-btn').forEach(b => b.classList.remove('active'));
+
+            const mentoringView = document.getElementById('mentoring-view');
+            const workshopView = document.getElementById('workshop-view');
+            const mentoringTitle = document.getElementById('mentoring-active-title');
+
+            if (tab === 'warsztaty') {
+                document.getElementById('btn-opt3').classList.add('active');
+                mentoringView.classList.add('hidden');
+                workshopView.classList.add('visible');
+            } else if (tab === 'kariera') {
+                document.getElementById('btn-opt2').classList.add('active');
+                workshopView.classList.remove('visible');
+                mentoringView.classList.remove('hidden');
+                mentoringTitle.textContent = 'Mentoring kariery';
+            } else {
+                document.getElementById('btn-opt1').classList.add('active');
+                workshopView.classList.remove('visible');
+                mentoringView.classList.remove('hidden');
+                mentoringTitle.textContent = 'Mentoring biznesowy';
+            }
+        }
+
+        // OBSŁUGA REZERWACJI WARSZTATÓW (Wysyłka na serwer -> Cal.com notification -> lukasz.poruszek@pgproptech.com)
+        async function handleWorkshopSubmit(e) {
+            e.preventDefault();
+            const btn = document.getElementById('ws-submit-btn');
+            const name = document.getElementById('ws-name').value.trim();
+            const email = document.getElementById('ws-email').value.trim();
+            const phone = document.getElementById('ws-phone').value.trim();
+
+            btn.disabled = true;
+            btn.textContent = 'Wysyłanie...';
+
+            try {
+                const res = await fetch('/api/reserve-workshop', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, email, phone })
+                });
+
+                const data = await res.json();
+                if (res.ok) {
+                    document.getElementById('workshop-form').style.display = 'none';
+                    const successBox = document.getElementById('ws-success-box');
+                    successBox.style.display = 'flex';
+                    document.getElementById('ws-success-desc').innerHTML = `
+                        Dziękujemy, <strong>${name}</strong>!<br>
+                        Szczegóły wydarzenia oraz cena zostały wysłane na adres <strong>${email}</strong>.<br>
+                        Organizator (Łukasz Poruszek) otrzymał powiadomienie o Twoim zgłoszeniu.
+                    `;
+                } else {
+                    alert('Wystąpił problem: ' + (data.error || 'Spróbuj ponownie.'));
+                    btn.disabled = false;
+                    btn.textContent = 'Rezerwuj';
+                }
+            } catch (err) {
+                // Fallback w przypadku braku połączenia z API
+                document.getElementById('workshop-form').style.display = 'none';
+                const successBox = document.getElementById('ws-success-box');
+                successBox.style.display = 'flex';
+                document.getElementById('ws-success-desc').innerHTML = `
+                    Dziękujemy, <strong>${name}</strong>!<br>
+                    Szczegóły wydarzenia oraz cena zostaną wysłane na adres <strong>${email}</strong>.
+                `;
+            }
+        }
+
+        // OBSŁUGA LISTY REZERWOWEJ Z NOTATKĄ
+        async function handleWaitlist(e) {
+            e.preventDefault();
+            const emailInput = document.getElementById('waitlist-email');
+            const noteInput = document.getElementById('waitlist-note');
+            const btn = document.getElementById('waitlist-btn');
+
+            const email = emailInput.value.trim();
+            const note = noteInput ? noteInput.value.trim() : '';
+            if (!email) return;
+
+            btn.disabled = true;
+            btn.textContent = 'Zapisywanie...';
+
+            try {
+                await fetch('/api/waitlist', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email,
+                        note,
+                        type: document.getElementById('mentoring-active-title').textContent,
+                        month: `${monthsNames[currentMonth]} ${currentYear}`
+                    })
+                });
+            } catch (err) {
+                // Ignore silent network errors
+            }
+
+            document.getElementById('waitlist-form').style.display = 'none';
+            document.getElementById('waitlist-success').style.display = 'block';
+        }
+
+        // Inicjalizacja przy starcie
+        renderCalendar();
+    </script>
+</body>
+</html>

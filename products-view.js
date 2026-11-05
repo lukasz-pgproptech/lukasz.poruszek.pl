@@ -42,6 +42,10 @@
   }
 
   function goToCalendarView() {
+    if (typeof window.openBookingModal === 'function') {
+      window.openBookingModal(currentProductId);
+      return;
+    }
     if (window.scrollHandler && window.getSnapPos) {
       const snapDna = window.getSnapPos('science', 'dna');
       window.scrollHandler.scrollTo(snapDna, { direct: true });
