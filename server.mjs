@@ -228,7 +228,7 @@ const server = http.createServer((req, res) => {
   // STATYCZNE SERWOWANIE PLIKÓW
   // -------------------------------------------------------------
   if (reqPath === '/' || reqPath === '') {
-    reqPath = '/index.html';
+    reqPath = fs.existsSync(path.join(__dirname, 'index.3d.html')) ? '/index.3d.html' : '/index.html';
   }
 
   const filePath = path.join(__dirname, reqPath);
