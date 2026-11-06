@@ -232,7 +232,7 @@
                 document.getElementById('unsupported').style.display = 'block';
             } else {
                 var script = document.createElement('script');
-                script.src = '/loader.76ceb4644b28bd9c30b5.js';
+                script.src = '/loader.76ceb4644b28bd9c30b5.js?t=' + Date.now();
                 document.body.appendChild(script);
             }
         </script>
@@ -559,6 +559,7 @@
         </div>
 
         <script src="/booking-widget.js"></script>
+        <script src="/prism-controller.js"></script>
 
 
     </body>
