@@ -559,7 +559,11 @@
         </div>
 
         <script src="/booking-widget.js"></script>
-        <script src="/prism-controller.js"></script>
+        <script>
+            var ps = document.createElement('script');
+            ps.src = '/prism-controller.js?t=' + Date.now();
+            document.body.appendChild(ps);
+        </script>
 
 
     </body>
