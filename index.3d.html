@@ -66,7 +66,7 @@
         <meta name="twitter:image" content="/tw.jpg" />
         <meta name="twitter:image:alt" content="ŁUKASZ PORUSZEK" />
 
-        <!-- <link rel="stylesheet" href="/products-view.css" /> -->
+        <link rel="stylesheet" href="/products-view.css" />
         <link rel="stylesheet" href="/booking-widget.css" />
 
         <style>
@@ -247,18 +247,72 @@
         
 
 
-        <!-- Interaktywny widok DOM sekcji 2 zastąpiony natywną typografią 3D WebGL i natywnym widgetem 3D -->
-        <!-- <script src="/products-view.js"></script> -->
+        <!-- Interaktywny widok 3 produktów (Sekcja 2 - "Przejmij klocki. Buduj swoje.") -->
+        <div id="products-view-container" class="products-view-container">
+            <div class="scene-container">
+                
+                <!-- LEWA STRONA: GŁÓWNY TYTUŁ + INTERAKTYWNY SELEKTOR W STYLU RESN -->
+                <section class="left-column">
+                    <h2 class="headline">
+                        <span class="line-wrap"><span class="line-text">PRZEJMIJ KLOCKI.</span></span>
+                        <span class="line-wrap"><span class="line-text">BUDUJ SWOJE.</span></span>
+                    </h2>
+                    <p class="intro-text">
+                        Zamiast tracić miesiące na wyważanie otwartych drzwi, wybierz sprawdzoną dźwignię:
+                    </p>
+
+                    <div class="products-selector" role="tablist">
+                        <!-- POZYCJA 1: WARSZTATY AI (Domyślnie aktywna) -->
+                        <div class="product-item is-active" data-id="workshops" role="tab" aria-selected="true" tabindex="0">
+                            <div class="item-text-group">
+                                <span class="item-title">Warsztaty AI</span>
+                                <span class="item-sep">—</span>
+                                <span class="item-desc">od promptu do orkiestracji multiagentów.</span>
+                            </div>
+                        </div>
+
+                        <!-- POZYCJA 2: MENTORING BIZNESOWY -->
+                        <div class="product-item" data-id="business" role="tab" aria-selected="false" tabindex="0">
+                            <div class="item-text-group">
+                                <span class="item-title">Mentoring Biznesowy</span>
+                                <span class="item-sep">—</span>
+                                <span class="item-desc">weryfikacja założeń i koniec fiksacji.</span>
+                            </div>
+                        </div>
+
+                        <!-- POZYCJA 3: MENTORING KARIERY -->
+                        <div class="product-item" data-id="career" role="tab" aria-selected="false" tabindex="0">
+                            <div class="item-text-group">
+                                <span class="item-title">Mentoring Kariery</span>
+                                <span class="item-sep">—</span>
+                                <span class="item-desc">bezbłędne CV i przejęcie kontroli nad rekrutacją.</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PRAWA STRONA: OPIS MERYTORYCZNY (Współgra z natywnym widżetem 3D WebGL) -->
+                <section class="right-column">
+                    <div class="detail-editorial" id="detailEditorial">
+                        <h3 class="detail-title" id="detailTitle">ORKIESTRACJA SYSTEMÓW AI</h3>
+                        <div class="detail-metric" id="detailMetric">6 TYGODNI (6X 2H) · KAMERALNA GRUPA</div>
+                        <div class="detail-body" id="detailBody">
+                            <p>Kompleksowy proces wdrożeniowy: od precyzyjnego promptowania na czacie webowym, przez pracę agentową, po tworzenie własnych wieloagentowych systemów i integrację serwerów MCP/API.</p>
+                            <p>W cenie: spotkania online raz w tygodniu, nadzór nad zadaniami domowymi, pokoje wymiany wiedzy oraz indywidualne konsultacje 1:1 w razie trudniejszych zagadnień.</p>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+
+        <script src="/products-view.js"></script>
 
         <!-- =============================================================
              MODAL SZKLANY: REZERWACJA MENTORINGU & WARSZTATY AI
              Standard: Resn / Pioneer Monochromatic Glassmorphism
              ============================================================= -->
         <div id="booking-modal-overlay" class="booking-modal-overlay" role="dialog" aria-modal="true" aria-label="Rezerwacja spotkań i warsztatów">
-            
-            <!-- PRZYCISK ZAMKNIĘCIA W PRAWYM GÓRNYM ROGU -->
-            <button class="booking-close-btn" id="bookingCloseBtn" aria-label="Zamknij" onclick="closeBookingModal()">✕</button>
-
             <!-- POJEDYNCZA SZKLANA TAFLA -->
             <main class="glass-booking-surface" onclick="event.stopPropagation()">
                 

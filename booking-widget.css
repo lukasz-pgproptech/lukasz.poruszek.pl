@@ -47,7 +47,7 @@
 }
 
 .booking-close-btn {
-    position: absolute;
+    display: none !important;
     top: 36px;
     right: clamp(24px, 4vw, 50px);
     width: 44px;
