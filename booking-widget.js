@@ -298,9 +298,27 @@
   };
 
   // OTWIERANIE I ZAMYKANIE MODALU
+  let originSceneSnap = null;
+
   window.openBookingModal = function (tab) {
     const overlay = document.getElementById('booking-modal-overlay');
     if (!overlay) return;
+
+    if (window.scrollHandler && window.getSnapPos) {
+      try {
+        const snapData = window.getSnapPos('science', 'data');
+        const curPos = (typeof window.scrollHandler.getScrollPosition === 'function')
+          ? window.scrollHandler.getScrollPosition()
+          : (window.scrollHandler.position !== undefined ? window.scrollHandler.position : (window.appStore && window.appStore.state && window.appStore.state.scroll ? window.appStore.state.scroll.position : 0));
+        if (Math.abs(curPos - snapData) < 480 || window.isSection2Active || window.isDetailViewOpen) {
+          originSceneSnap = snapData;
+        } else {
+          originSceneSnap = null;
+        }
+      } catch (e) {
+        originSceneSnap = null;
+      }
+    }
 
     if (tab) {
       window.switchBookingTab(tab);
@@ -334,6 +352,16 @@
 
     if (window.appStore && window.appStore.state && window.appStore.state.navigation) {
       window.appStore.state.navigation.hotspotDna = false;
+    }
+
+    if (originSceneSnap !== null && window.scrollHandler) {
+      const targetSnap = originSceneSnap;
+      originSceneSnap = null;
+      setTimeout(() => {
+        try {
+          window.scrollHandler.scrollTo(targetSnap, { direct: true });
+        } catch (e) {}
+      }, 200);
     }
   };
 

@@ -406,3 +406,384 @@ body.is-menu-open #products-view-container,
   pointer-events: none !important;
 }
 
+/* =============================================================
+   PEŁNOEKRANOWY WIDOK SZCZEGÓŁOWY PRODUKTU (DEEP DIVE / EDITORIAL)
+   Standard: Pioneer / Resn Editorial Brutalism & Glassmorphism
+   ============================================================= */
+
+/* Ukrycie standardowej sceny 2-kolumnowej po wejściu w Deep Dive */
+.products-view-container.is-detail-view .scene-container {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transform: scale(0.96) translate3d(0, 24px, 0) !important;
+  transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+/* Główny kontener Deep Dive */
+.product-deep-dive {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 55;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 45%, rgba(6, 10, 14, 0.72) 0%, rgba(2, 4, 6, 0.88) 100%);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.product-deep-dive.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* Przycisk X zamykający w prawym górnym rogu */
+.deep-dive-close-btn {
+  position: fixed;
+  top: 36px;
+  right: clamp(24px, 4.5vw, 60px);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  cursor: pointer;
+  z-index: 70;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  outline: none;
+  padding: 0;
+}
+
+.deep-dive-close-btn:hover {
+  background: rgba(0, 229, 153, 0.16);
+  border-color: rgba(0, 229, 153, 0.65);
+  color: var(--pv-accent);
+  transform: scale(1.08);
+  box-shadow: 0 0 20px rgba(0, 229, 153, 0.35);
+}
+
+.deep-dive-close-btn:active {
+  transform: scale(0.96);
+}
+
+.deep-dive-close-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+/* Kontener przewijania zawartości */
+.deep-dive-scroll-container {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: clamp(70px, 9vh, 100px) clamp(20px, 4vw, 60px) clamp(50px, 8vh, 80px);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 229, 153, 0.4) rgba(255, 255, 255, 0.04);
+}
+
+.deep-dive-scroll-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.deep-dive-scroll-container::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.deep-dive-scroll-container::-webkit-scrollbar-thumb {
+  background: rgba(0, 229, 153, 0.4);
+  border-radius: 3px;
+}
+
+/* Główna karta zawartości */
+.deep-dive-modal-card {
+  width: 100%;
+  max-width: 1180px;
+  background: rgba(10, 15, 20, 0.82);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  padding: clamp(32px, 4.5vw, 56px);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  box-shadow: 0 32px 100px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  transform: translateY(24px) scale(0.98);
+  opacity: 0;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.4s ease;
+}
+
+.product-deep-dive.is-open .deep-dive-modal-card {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+/* Nagłówek Deep Dive */
+.deep-dive-header {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+  padding-bottom: 28px;
+}
+
+.deep-dive-badges {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.deep-dive-badge-category {
+  font-family: var(--pv-font-display);
+  font-size: 11.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--pv-accent);
+  background: rgba(0, 229, 153, 0.09);
+  border: 1px solid rgba(0, 229, 153, 0.35);
+  padding: 5px 12px;
+  border-radius: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.deep-dive-badge-category::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--pv-accent);
+  box-shadow: 0 0 8px var(--pv-accent);
+}
+
+.deep-dive-badge-metric {
+  font-family: var(--pv-font-display);
+  font-size: 11.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.deep-dive-title {
+  font-family: var(--pv-font-display);
+  font-size: clamp(26px, 3.2vw, 46px);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin: 0;
+}
+
+.deep-dive-intro {
+  font-family: var(--pv-font-body);
+  font-size: clamp(14.5px, 1.05vw, 17px);
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.76);
+  margin: 0;
+  max-width: 980px;
+}
+
+/* Siatka 6 modułów / obszarów */
+.deep-dive-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.deep-dive-card {
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 22px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+.deep-dive-card:hover {
+  background: rgba(0, 229, 153, 0.035);
+  border-color: rgba(0, 229, 153, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.deep-dive-card-header {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.deep-dive-card-num {
+  font-family: var(--pv-font-display);
+  font-size: 13px;
+  color: var(--pv-accent);
+  letter-spacing: 0.12em;
+  opacity: 0.9;
+}
+
+.deep-dive-card-title {
+  font-family: var(--pv-font-display);
+  font-size: clamp(13.5px, 0.95vw, 15px);
+  line-height: 1.35;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  color: #ffffff;
+  margin: 0;
+}
+
+.deep-dive-card-bullets {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.deep-dive-card-bullets li {
+  font-family: var(--pv-font-body);
+  font-size: clamp(12.5px, 0.85vw, 13.5px);
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.65);
+  position: relative;
+  padding-left: 14px;
+}
+
+.deep-dive-card-bullets li::before {
+  content: '–';
+  position: absolute;
+  left: 0;
+  color: var(--pv-accent);
+  opacity: 0.8;
+}
+
+/* Stopka: format, warunki i przycisk CTA */
+.deep-dive-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.09);
+  flex-wrap: wrap;
+}
+
+.deep-dive-info-pills {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 680px;
+}
+
+.deep-dive-pill-item {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-family: var(--pv-font-body);
+  font-size: 13px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.deep-dive-pill-label {
+  font-family: var(--pv-font-display);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--pv-accent);
+  flex-shrink: 0;
+}
+
+.deep-dive-cta-btn {
+  background: var(--pv-accent);
+  color: #04080a;
+  font-family: var(--pv-font-display);
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 16px 32px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 0 24px var(--pv-accent-glow);
+  outline: none;
+  text-decoration: none;
+}
+
+.deep-dive-cta-btn:hover {
+  background: #33ffb5;
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 0 34px rgba(0, 229, 153, 0.65);
+}
+
+.deep-dive-cta-btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.deep-dive-cta-btn svg {
+  transition: transform 0.25s ease;
+}
+
+.deep-dive-cta-btn:hover svg {
+  transform: translateX(4px);
+}
+
+/* Responsywność Deep Dive */
+@media (max-width: 1024px) {
+  .deep-dive-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .deep-dive-modal-card {
+    padding: 32px 24px;
+    gap: 28px;
+  }
+}
+
+@media (max-width: 720px) {
+  .deep-dive-grid {
+    grid-template-columns: 1fr;
+  }
+  .deep-dive-footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .deep-dive-cta-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+
