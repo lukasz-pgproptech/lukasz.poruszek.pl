@@ -273,22 +273,55 @@
     }, 110);
   }
 
+  let hotspotAnimFrame = null;
+
+  function animateHotspotTo(targetX, targetY, duration = 380) {
+    try {
+      if (!window.view || !window.view.sections || !window.view.sections[1] || !window.view.sections[1].data) return;
+      const hs = window.view.sections[1].data.hotspot;
+      if (!hs || !hs.object) return;
+
+      if (hotspotAnimFrame) cancelAnimationFrame(hotspotAnimFrame);
+
+      const startX = hs.object.position.x;
+      const startY = hs.object.position.y;
+      const startTime = performance.now();
+
+      function step(now) {
+        const elapsed = now - startTime;
+        const t = Math.min(1, elapsed / duration);
+        const ease = 1 - Math.pow(1 - t, 3);
+        hs.object.position.x = startX + (targetX - startX) * ease;
+        hs.object.position.y = startY + (targetY - startY) * ease;
+        if (t < 1) {
+          hotspotAnimFrame = requestAnimationFrame(step);
+        }
+      }
+      hotspotAnimFrame = requestAnimationFrame(step);
+    } catch (e) {}
+  }
+
   function updateRoadmapActiveState(stepIndex, totalSteps) {
     const bar = document.getElementById('timelineRoadmapBar');
     if (!bar) return;
 
-    const progressEl = bar.querySelector('.roadmap-track-progress');
-    if (progressEl) {
-      const pct = totalSteps > 1 ? (stepIndex / (totalSteps - 1)) * 100 : 0;
-      progressEl.style.width = pct.toFixed(1) + '%';
-    }
-
     const nodes = bar.querySelectorAll('.roadmap-node');
+    let activeNode = null;
     nodes.forEach(function (n, idx) {
       const isActive = idx === stepIndex;
       n.classList.toggle('is-active', isActive);
       n.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      if (isActive) activeNode = n;
     });
+
+    const progressEl = bar.querySelector('.roadmap-track-progress');
+    const trackEl = bar.querySelector('.roadmap-track-container');
+    if (progressEl && trackEl && activeNode) {
+      const trackRect = trackEl.getBoundingClientRect();
+      const nodeRect = activeNode.getBoundingClientRect();
+      const targetWidth = Math.max(0, (nodeRect.left + nodeRect.width / 2) - trackRect.left);
+      progressEl.style.width = targetWidth + 'px';
+    }
   }
 
   function renderTimelineRoadmap(productId, initialStepIndex) {
@@ -297,9 +330,8 @@
     if (!bar) return;
 
     const steps = data.steps;
-    const pct = steps.length > 1 ? (initialStepIndex / (steps.length - 1)) * 100 : 0;
 
-    const nodesHtml = steps.map(function (s, idx) {
+    const makeNodeHtml = function (s, idx) {
       const activeClass = idx === initialStepIndex ? ' is-active' : '';
       return (
         '<button type="button" class="roadmap-node' + activeClass + '" data-step="' + idx + '" aria-selected="' + (idx === initialStepIndex) + '" aria-label="' + s.shortTitle + '">' +
@@ -310,7 +342,10 @@
           '</div>' +
         '</button>'
       );
-    }).join('');
+    };
+
+    const leftNodesHtml = steps.slice(0, 3).map((s, i) => makeNodeHtml(s, i)).join('');
+    const rightNodesHtml = steps.slice(3, 6).map((s, i) => makeNodeHtml(s, i + 3)).join('');
 
     bar.innerHTML = (
       '<div class="roadmap-hint">' +
@@ -322,9 +357,11 @@
       '</div>' +
       '<div class="roadmap-track-container">' +
         '<div class="roadmap-track-line"></div>' +
-        '<div class="roadmap-track-progress" style="width:' + pct.toFixed(1) + '%;"></div>' +
+        '<div class="roadmap-track-progress"></div>' +
         '<div class="roadmap-nodes-group">' +
-          nodesHtml +
+          '<div class="roadmap-nodes-left">' + leftNodesHtml + '</div>' +
+          '<div class="roadmap-center-slot"></div>' +
+          '<div class="roadmap-nodes-right">' + rightNodesHtml + '</div>' +
         '</div>' +
       '</div>'
     );
@@ -339,6 +376,10 @@
         }
       });
     });
+
+    setTimeout(() => {
+      updateRoadmapActiveState(initialStepIndex, steps.length);
+    }, 60);
   }
 
   function goToStep(newIndex) {
@@ -355,8 +396,7 @@
     if (headerEl) {
       headerEl.innerHTML = (
         '<div class="timeline-badge">' + data.badge + '</div>' +
-        '<h2 class="timeline-main-title">' + data.title + '</h2>' +
-        '<p class="timeline-main-intro">' + data.intro + '</p>'
+        '<h2 class="timeline-main-title">' + data.title + '</h2>'
       );
     }
     renderTimelineStage(productId, stepIndex);
@@ -407,13 +447,18 @@
       deepDive.setAttribute('aria-hidden', 'false');
     }
 
-    // W trybie osi narracyjnej ukrywamy tylko widżet "DOWIEDZ SIĘ WIĘCEJ",
-    // natomiast natywny widżet 3D WebGL (Zapisz się / Zarezerwuj) POZOSTAJE WIDOCZNY w prawym dolnym rogu!
+    const logoEl = document.querySelector('.logo');
+    if (logoEl) logoEl.classList.add('is-timeline-open');
+
     try {
       if (window.view && window.view.sections && window.view.sections[1] && window.view.sections[1].data) {
         const s2 = window.view.sections[1].data;
         if (s2.moreHotspot && s2.moreHotspot.hide) s2.moreHotspot.hide({ delay: 0 });
         if (s2.hotspot && s2.hotspot.show) s2.hotspot.show({ delay: 0.1 });
+
+        // Płynny ślizg widżetu 3D do centrum osi roadmapy
+        const targetY = -315;
+        animateHotspotTo(0, targetY, 400);
       }
     } catch (e) {}
 
@@ -431,12 +476,19 @@
       deepDive.setAttribute('aria-hidden', 'true');
     }
 
-    // Przywracamy oba widżety 3D w Scenie 2
+    const logoEl = document.querySelector('.logo');
+    if (logoEl) logoEl.classList.remove('is-timeline-open');
+
+    // Płynny powrót widżetu 3D do bazowej pozycji w Scenie 2
     try {
       if (window.view && window.view.sections && window.view.sections[1] && window.view.sections[1].data) {
         const s2 = window.view.sections[1].data;
+        const origX = 0.32 * (s2.hotspot.props.viewport ? s2.hotspot.props.viewport.width : 1440);
+        const origY = -0.27 * (s2.hotspot.props.viewport ? s2.hotspot.props.viewport.height : 900);
+        animateHotspotTo(origX, origY, 380);
+
         if (s2.hotspot && s2.hotspot.show) s2.hotspot.show({ delay: 0.1 });
-        if (s2.moreHotspot && s2.moreHotspot.show) s2.moreHotspot.show({ delay: 0.1 });
+        if (s2.moreHotspot && s2.moreHotspot.show) s2.moreHotspot.show({ delay: 0.15 });
       }
     } catch (e) {}
 
