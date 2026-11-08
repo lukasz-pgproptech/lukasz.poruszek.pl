@@ -38,6 +38,14 @@
   visibility: visible;
 }
 
+body.is-menu-open #products-view-container,
+.menu-active #products-view-container,
+#products-view-container.is-menu-open {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
 /* -------------------------------------------------------------
    3D PERSPEKTYWA I PARALAKSA KURSERA (SYNCHRONICZNA ZTrójwymiarem)
    ------------------------------------------------------------- */
@@ -56,7 +64,6 @@
   transform: translate3d(calc(var(--mouse-x) * -22px), calc(var(--mouse-y) * -16px), 0)
              rotateX(calc(var(--mouse-y) * 3.5deg))
              rotateY(calc(var(--mouse-x) * -3.5deg));
-  transition: transform 0.12s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 /* -------------------------------------------------------------
@@ -129,8 +136,9 @@
 .products-selector {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 6px;
   max-width: 560px;
+  pointer-events: auto;
 }
 
 /* Wiersz pojedynczego produktu */
@@ -138,17 +146,25 @@
   position: relative;
   display: flex;
   align-items: baseline;
-  padding: 14px 0;
+  padding: 14px 12px;
   cursor: pointer;
   opacity: 0;
   transform: translateX(-16px);
   transition: opacity 0.35s ease,
               transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-              border-color 0.35s ease;
+              border-color 0.35s ease,
+              background-color 0.25s ease;
   border-bottom: 1px solid rgba(255, 255, 255, 0.09);
   outline: none;
   background: transparent;
   user-select: none;
+  pointer-events: auto;
+  touch-action: pan-y;
+  border-radius: 4px;
+}
+
+.product-item * {
+  pointer-events: none;
 }
 
 .products-view-container.is-active .product-item:nth-child(1) {
@@ -172,18 +188,20 @@
 .product-item:hover {
   opacity: 0.85 !important;
   transform: translateX(6px) !important;
+  background: rgba(255, 255, 255, 0.03);
 }
 
 .product-item.is-active {
   opacity: 1 !important;
   transform: translateX(12px) !important;
   border-bottom-color: rgba(0, 229, 153, 0.65);
+  background: rgba(0, 229, 153, 0.04);
 }
 
 .product-item::before {
   content: '';
   position: absolute;
-  left: -12px;
+  left: -8px;
   top: 50%;
   transform: translateY(-50%) scaleX(0);
   width: 4px;
@@ -337,3 +355,54 @@
     padding-bottom: 40px;
   }
 }
+
+/* -------------------------------------------------------------
+   HAMBURGER MENU OVERHAUL & CENTERING
+   ------------------------------------------------------------- */
+.menu__left {
+  display: none !important;
+}
+
+.menu__right {
+  width: 100% !important;
+  max-width: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 0 auto !important;
+}
+
+.menu__buttons {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  max-width: 480px !important;
+  margin: 0 auto !important;
+  gap: 20px !important;
+}
+
+.menu__buttons [data-ui="btnSignup"],
+.menu__buttons [data-ui="btnContact"],
+.menu__buttons [data-ui="btnLegal"] {
+  width: 100% !important;
+  max-width: 480px !important;
+  text-align: center !important;
+  cursor: pointer !important;
+}
+
+.menu__buttons [data-ui="btnPodcast"] {
+  margin-top: 15px !important;
+  text-align: center !important;
+  cursor: pointer !important;
+}
+
+.menu__cortevaLogo,
+.menu__social {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
