@@ -27,201 +27,216 @@
     }
   };
 
-  const PRODUCT_DEEP_DIVE_DATA = {
+  const PRODUCT_TIMELINE_DATA = {
     workshops: {
-      badge: 'WARSZTATY PRAKTYCZNE',
-      metric: '6 TYGODNI (6X 2H) · KAMERALNA GRUPA',
+      id: 'workshops',
+      badge: 'WARSZTATY PRAKTYCZNE · 6 TYGODNI (6X 2H) · KAMERALNA GRUPA',
       title: 'ORKIESTRACJA SYSTEMÓW AI: OD PROMPTU DO CYFROWEGO ZESPOŁU',
-      intro: 'Dla każdego, kto na co dzień korzysta z czatu AI w przeglądarce i czuje, że to za mało. Nie musisz być programistą – krok po kroku przejdziemy drogę od pojedynczych rozmów z modelem do budowy zautomatyzowanych, współpracujących ze sobą asystentów, którzy wykonują realną pracę na Twoich plikach.',
-      modules: [
+      intro: 'Dla każdego, kto na co dzień korzysta z czatu AI w przeglądarce i czuje, że to za mało. Nie musisz być programistą – krok po kroku przejdziemy drogę od pojedynczych rozmów z modelem do budowy zautomatyzowanych, współpracujących asystentów, którzy wykonują realną pracę na Twoich plikach.',
+      steps: [
         {
           num: '01',
-          title: 'Jak naprawdę „myśli” model i jak pisać prompty, które nie zawodzą',
-          bullets: [
-            'Pod maską LLM: kontekst, tokenizacja i dlaczego model czasem zmyśla (halucynacje).',
-            'Techniki precyzyjnego sterowania odpowiedzią (few-shot, chain-of-thought).',
-            'Efektywny warsztat pracy z asystentem AI w przeglądarce (Gemini Web).'
+          shortTitle: 'PROMPTOWANIE',
+          tag: 'KROK 01 / 06 · FUNDAMENTY I PROMPTOWANIE',
+          heading: 'Jak naprawdę „myśli” model i jak pisać prompty, które nie zawodzą',
+          paragraphs: [
+            'Pod maską LLM: okno kontekstu, tokenizacja i mechanizm powstawania halucynacji.',
+            'Techniki precyzyjnego sterowania modelem oraz eliminacja losowości w powtarzalnych zadaniach biznesowych.',
+            'Efektywny warsztat codziennej pracy z asystentem AI bezpośrednio w przeglądarce (Gemini Web).'
           ]
         },
         {
           num: '02',
-          title: 'Wychodzimy z czatu — pierwsze kroki z agentami na Twoich plikach',
-          bullets: [
-            'Dlaczego okno czatu to wąskie gardło i czym różni się zwykły model od Agenta.',
-            'Pierwsze uruchomienie i konfiguracja środowiska pracy (IDE) bez strachu.',
-            'Bezpieczne czytanie, analiza i edycja Twoich lokalnych dokumentów i danych.'
+          shortTitle: 'PRACA NA PLIKACH',
+          tag: 'KROK 02 / 06 · WYJŚCIE Z CZATU DO IDE',
+          heading: 'Wychodzimy z czatu — pierwsze kroki z agentami na Twoich plikach',
+          paragraphs: [
+            'Dlaczego okno czatu to wąskie gardło i czym w praktyce różni się zwykły model od autonomicznego Agenta.',
+            'Pierwsze uruchomienie i bezstresowa konfiguracja profesjonalnego środowiska pracy (IDE).',
+            'Bezpieczne czytanie, analiza i automatyczna edycja lokalnych dokumentów, arkuszy oraz baz wiedzy.'
           ]
         },
         {
           num: '03',
-          title: 'Twój własny podręcznik dla AI (agents.md) — powtarzalny workflow',
-          bullets: [
-            'Koniec z powtarzaniem tych samych instrukcji przy każdej rozmowie.',
-            'Architektura pliku zasad (agents.md / context.md): jak uczyć model Twoich reguł.',
-            'Standaryzacja procesów: jak sprawić, by AI zawsze trzymało się Twojego schematu.'
+          shortTitle: 'AGENTS.MD',
+          tag: 'KROK 03 / 06 · REGUŁY I WORKFLOW',
+          heading: 'Twój własny podręcznik dla AI (agents.md) — powtarzalny workflow',
+          paragraphs: [
+            'Koniec z powtarzaniem tych samych instrukcji i kontekstu przy każdej nowej rozmowie.',
+            'Architektura pliku zasad (agents.md): jak skutecznie uczyć model Twoich reguł biznesowych.',
+            'Standaryzacja procesów i schematów, dzięki którym AI zawsze trzyma się wyznaczonych ram jakościowych.'
           ]
         },
         {
           num: '04',
-          title: 'Łączymy AI ze światem zewnętrznym — potęga narzędzi (MCP)',
-          bullets: [
-            'Czym jest Model Context Protocol (MCP) w prostych słowach.',
-            'Podłączanie narzędzi: odczyt baz danych, wyszukiwanie w sieci, integracja z API.',
-            'Jak dać agentowi „ręce” do wykonywania zadań w Twoim systemie.'
+          shortTitle: 'NARZĘDZIA MCP',
+          tag: 'KROK 04 / 06 · EKOSYSTEM NARZĘDZIOWY',
+          heading: 'Łączymy AI ze światem zewnętrznym — potęga narzędzi (MCP)',
+          paragraphs: [
+            'Czym jest Model Context Protocol (MCP) w prostych, zrozumiałych słowach.',
+            'Podłączanie narzędzi zewnętrznych: odczyt baz danych, wyszukiwanie na żywo w sieci oraz integracja z API.',
+            'Wyposażenie agenta w cyfrowe ręce do wykonywania realnych zadań operacyjnych w Twoim systemie.'
           ]
         },
         {
           num: '05',
-          title: 'Tworzenie własnych agentów-specjalistów do konkretnych zadań',
-          bullets: [
-            'Projektowanie wąskich ról: Analityk, Copywriter, Programista, Tester.',
-            'Pętle informacji zwrotnej (Feedback Loops) i samonaprawa błędów przez agenta.',
-            'Kiedy dać agentowi pełną autonomię, a kiedy wprowadzić nadzór człowieka (HITL).'
+          shortTitle: 'TWORZENIE AGENTÓW',
+          tag: 'KROK 05 / 06 · WĄSKIE ROLE',
+          heading: 'Tworzenie własnych agentów-specjalistów do konkretnych zadań',
+          paragraphs: [
+            'Projektowanie wąskich ról: dedykowany analityk, copywriter, audytor kodu czy automatyczny tester.',
+            'Pętle informacji zwrotnej (Feedback Loops) i techniki samonaprawy błędów przez agenta.',
+            'Wyznaczanie granic autonomii: kiedy agent decyduje sam, a kiedy wymagana jest autoryzacja człowieka (HITL).'
           ]
         },
         {
           num: '06',
-          title: 'Orkiestracja wieloagentowa — budujemy Twój cyfrowy zespół',
-          bullets: [
-            'Praca z platformą Antigravity app — łączenie wielu agentów w jeden zgrany ekosystem.',
+          shortTitle: 'ORKIESTRACJA',
+          tag: 'KROK 06 / 06 · CYFROWY ZESPÓŁ',
+          heading: 'Orkiestracja wieloagentowa — budujemy Twój cyfrowy zespół',
+          paragraphs: [
+            'Praca w środowisku Antigravity: łączenie wyspecjalizowanych agentów w jeden współpracujący ekosystem.',
             'Przenoszalność wiedzy: jak wdrożyć te same zasady w Cursorze, Claude Desktop i innych narzędziach.',
-            'Podsumowanie, prezentacja wdrożonych projektów uczestników i dalsza ścieżka rozwoju.'
+            'Wdrożenie gotowych projektów uczestników, sesja konsultacji oraz wyznaczenie ścieżki dalszego rozwoju.'
           ]
         }
-      ],
-      info: [
-        { label: 'Forma', text: 'Spotkania na żywo online raz w tygodniu (6x 120 min) + nagrania z dożywotnim dostępem.' },
-        { label: 'Wsparcie', text: 'Zamknięta społeczność, bieżący nadzór nad zadaniami domowymi oraz konsultacje 1:1 w razie trudności.' },
-        { label: 'Wymagania', text: 'Doświadczenie w codziennym korzystaniu z czatu AI. Brak wymogu wcześniejszego kodowania.' }
-      ],
-      ctaText: 'Zapisz się na warsztaty',
-      bookingTab: 'warsztaty'
+      ]
     },
     business: {
-      badge: 'KONSULTACJA 1:1',
-      metric: 'SESJA 90 MINUT · SPOTKANIE ONLINE',
+      id: 'business',
+      badge: 'KONSULTACJA 1:1 · SESJA 90 MINUT · SPOTKANIE ONLINE',
       title: 'DIAGNOZA BIZNESOWA I WALIDACJA PRZEDSIĘWZIĘCIA',
-      intro: '90-minutowe, intensywne zderzenie Twojej strategii z praktyką rynkową. Bez teorii i bez lania wody. Skupiamy się na wybranym przez Ciebie, kluczowym wyzwaniu lub wąskim gardle, które blokuje Twój rozwój lub generuje niepotrzebne koszty.',
-      modules: [
+      intro: '90-minutowe, intensywne zderzenie Twojej strategii z praktyką rynkową. Bez teorii i bez lania wody. Skupiamy się na wybranym przez Ciebie wyzwaniu lub wąskim gardle, które blokuje Twój rozwój lub generuje niepotrzebne koszty.',
+      steps: [
         {
           num: '01',
-          title: 'Audyt obecnej oferty i modelu monetyzacji',
-          bullets: [
-            'Analiza struktury przychodów, marżowości oraz dotychczasowego cennika.',
-            'Wskazanie miejsc, w których oddajesz marżę lub niepotrzebnie komplikujesz proces zakupu.'
+          shortTitle: 'MONETYZACJA',
+          tag: 'OBSZAR 01 / 06 · OFERTA I CENNIK',
+          heading: 'Audyt obecnej oferty i modelu monetyzacji',
+          paragraphs: [
+            'Szczegółowa analiza struktury przychodów, marżowości oraz dotychczasowego cennika.',
+            'Wskazanie miejsc, w których oddajesz marżę lub niepotrzebnie komplikujesz ścieżkę zakupu klientowi.'
           ]
         },
         {
           num: '02',
-          title: 'Reality-check nowego pomysłu lub produktu',
-          bullets: [
-            'Bezwzględna walidacja założeń biznesowych przed zainwestowaniem budżetu.',
-            'Projekt najprostszego i najtańszego testu rynkowego (MVP / Proof-of-Concept).'
+          shortTitle: 'WALIDACJA',
+          tag: 'OBSZAR 02 / 06 · REALITY-CHECK',
+          heading: 'Reality-check nowego pomysłu lub produktu',
+          paragraphs: [
+            'Bezwzględna walidacja założeń biznesowych przed zainwestowaniem oszczędności, budżetu i czasu.',
+            'Projekt najprostszego i najtańszego testu rynkowego (MVP / Proof-of-Concept) w realnych warunkach.'
           ]
         },
         {
           num: '03',
-          title: 'Diagnoza wąskich gardeł w operacjach i sprzedaży',
-          bullets: [
-            'Zidentyfikowanie głównej blokady hamującej skalowanie lub konwersję.',
-            'Plan natychmiastowych usprawnień procesowych do wdrożenia w 14 dni.'
+          shortTitle: 'WĄSKIE GARDŁA',
+          tag: 'OBSZAR 03 / 06 · BLOKADY ROZWOJU',
+          heading: 'Diagnoza wąskich gardeł w operacjach i sprzedaży',
+          paragraphs: [
+            'Zidentyfikowanie głównej blokady hamującej skalowanie biznesu lub konwersję w lejku sprzedażowym.',
+            'Konkretny plan natychmiastowych usprawnień procesowych do wdrożenia w Twojej firmie w 14 dni.'
           ]
         },
         {
           num: '04',
-          title: 'Wybór ścieżki finansowania: dotacje vs bootstrap',
-          bullets: [
-            'Dopasowanie realnych źródeł finansowania (granty, B+R, aniołowie biznesu).',
-            'Ocena ryzyk związanych z poszczególnymi formami pozyskania kapitału.'
+          shortTitle: 'FINANSOWANIE',
+          tag: 'OBSZAR 04 / 06 · KAPITAŁ',
+          heading: 'Wybór ścieżki finansowania: dotacje vs bootstrap',
+          paragraphs: [
+            'Dopasowanie realnych źródeł finansowania pod Twój model (granty, B+R, aniołowie biznesu).',
+            'Obiektywna ocena ryzyk prawnych i kosztów operacyjnych związanych z pozyskaniem kapitału zewnętrznego.'
           ]
         },
         {
           num: '05',
-          title: 'Quick-wins wdrożenia AI w procesach firmowych',
-          bullets: [
-            'Wskazanie 2–3 powtarzalnych procesów w firmie, które można zautomatyzować od zaraz.',
-            'Dobór gotowych narzędzi agentowych bez budowy drogich rozwiązań customowych.'
+          shortTitle: 'WDROŻENIE AI',
+          tag: 'OBSZAR 05 / 06 · QUICK-WINS AI',
+          heading: 'Quick-wins wdrożenia AI w procesach firmowych',
+          paragraphs: [
+            'Wskazanie 2–3 powtarzalnych procesów w firmie, które można zautomatyzować narzędziami AI od zaraz.',
+            'Dobór sprawdzonych narzędzi agentowych bez konieczności budowy drogich rozwiązań programistycznych.'
           ]
         },
         {
           num: '06',
-          title: 'Konsultacja trudnej decyzji strategicznej',
-          bullets: [
+          shortTitle: 'DECYZJA STRATEGICZNA',
+          tag: 'OBSZAR 06 / 06 · KONSULTACJA ROZDROŻA',
+          heading: 'Konsultacja trudnej decyzji strategicznej',
+          paragraphs: [
             'Zewnętrzny, bezstronny punkt widzenia przy rozdrożach (pivot, zamknięcie nierentownej linii, restrukturyzacja).',
-            'Analiza scenariuszowa ryzyk i zysków.'
+            'Analiza scenariuszowa ryzyk i zysków w horyzoncie kolejnych miesięcy działania firmy.'
           ]
         }
-      ],
-      info: [
-        { label: 'Forma', text: 'Indywidualne spotkanie online 1:1 (90 minut) na Google Meet.' },
-        { label: 'Przygotowanie', text: 'Przed sesją przesyłasz materiały i liczby do wglądu – spotkanie zaczynamy od konkretów.' },
-        { label: 'Rezultat', text: 'Zapis wideo sesji, notatka strategiczna z punktami decyzyjnymi oraz lista kroków Next Actions.' }
-      ],
-      ctaText: 'Zarezerwuj sesję 90 min',
-      bookingTab: 'business'
+      ]
     },
     career: {
-      badge: 'KONSULTACJA 1:1',
-      metric: 'SESJA 90 MINUT · SPOTKANIE ONLINE',
+      id: 'career',
+      badge: 'KONSULTACJA 1:1 · SESJA 90 MINUT · SPOTKANIE ONLINE',
       title: 'STRATEGIA I NAWIGACJA REKRUTACYJNA',
       intro: 'Dla specjalistów i menedżerów, którzy wysyłają aplikacje bez odzewu lub stoją przed kluczową rozmową kwalifikacyjną. 90 minut pracy z perspektywy hiring managera – przełamanie schematów, eliminacja czerwonych flag i nauka prowadzenia rekrutacji na własnych warunkach.',
-      modules: [
+      steps: [
         {
           num: '01',
-          title: 'Audyt CV i profilu LinkedIn z perspektywy Hiring Managera',
-          bullets: [
-            'Bezlitosna eliminacja „czerwonych flag”, lania wody i niewidocznych filtrów ATS.',
-            'Przepisanie kluczowych osiągnięć na język wymiernych rezultatów biznesowych.'
+          shortTitle: 'AUDYT CV & LINKEDIN',
+          tag: 'OBSZAR 01 / 06 · AUDYT DOKUMENTÓW',
+          heading: 'Audyt CV i profilu LinkedIn z perspektywy Hiring Managera',
+          paragraphs: [
+            'Bezlitosna eliminacja czerwonych flag, lania wody i niewidocznych filtrów automatycznych systemów ATS.',
+            'Przepisanie kluczowych osiągnięć zawodowych na twardy język wymiernych rezultatów biznesowych.'
           ]
         },
         {
           num: '02',
-          title: 'Diagnoza przyczyn braku odzewu na rynku',
-          bullets: [
-            'Analiza dotychczasowych wysyłek, dopasowania stanowisk oraz targetowania branż.',
-            'Korekta pozycjonowania zawodowego i odnalezienie Twojego unikalnego wyróżnika.'
+          shortTitle: 'DIAGNOZA RYNKOWA',
+          tag: 'OBSZAR 02 / 06 · POZYCJONOWANIE',
+          heading: 'Diagnoza przyczyn braku odzewu na rynku',
+          paragraphs: [
+            'Dokładna analiza dotychczasowych wysyłek, dopasowania stanowisk oraz targetowania branż.',
+            'Korekta pozycjonowania zawodowego i odnalezienie Twojego unikalnego wyróżnika kompetencyjnego.'
           ]
         },
         {
           num: '03',
-          title: 'Symulacja trudnej rozmowy kwalifikacyjnej (Mock Interview)',
-          bullets: [
-            'Przećwiczenie niewygodnych pytań (luki w CV, powody rozstań, trudne projekty).',
-            'Nauka techniki przejmowania kontroli nad agendą spotkania rekrutacyjnego.'
+          shortTitle: 'SYMULACJA ROZMOWY',
+          tag: 'OBSZAR 03 / 06 · MOCK INTERVIEW',
+          heading: 'Symulacja trudnej rozmowy kwalifikacyjnej (Mock Interview)',
+          paragraphs: [
+            'Przećwiczenie niewygodnych pytań rekruterów o luki w CV, powody rozstań i trudne projekty.',
+            'Nauka techniki przejmowania kontroli nad agendą i sprowadzania rozmowy na własne najmocniejsze tory.'
           ]
         },
         {
           num: '04',
-          title: 'Strategia negocjacji stawek i warunków zatrudnienia',
-          bullets: [
-            'Określenie realnego pułapu rynkowego i wyznaczenie progu minimalnego (Walk-Away Point).',
-            'Scenariusze rozmowy o podwyżce lub ofercie końcowej bez palenia mostów.'
+          shortTitle: 'NEGOCJACJE',
+          tag: 'OBSZAR 04 / 06 · WYNAGRODZENIE',
+          heading: 'Strategia negocjacji stawek i warunków zatrudnienia',
+          paragraphs: [
+            'Określenie realnego pułapu rynkowego dla Twoich umiejętności i wyznaczenie progu minimalnego (Walk-Away Point).',
+            'Scenariusze rozmowy o podwyżce lub ofercie końcowej bez ryzyka spalenia mostów.'
           ]
         },
         {
           num: '05',
-          title: 'Wplecenie kompetencji AI do profilu zawodowego',
-          bullets: [
-            'Jak pokazać znajomość narzędzi AI i pracy agentowej jako twardą przewagę rynkową.',
-            'Prezentacja projektów z wykorzystaniem AI w portfolio i na LinkedIn.'
+          shortTitle: 'KOMPETENCJE AI',
+          tag: 'OBSZAR 05 / 06 · TWARDY WYRÓŻNIK',
+          heading: 'Wplecenie kompetencji AI do profilu zawodowego',
+          paragraphs: [
+            'Jak pokazać znajomość narzędzi AI i pracy agentowej jako twardą przewagę rynkową w Twojej roli.',
+            'Przekonująca prezentacja projektów z wykorzystaniem AI w portfolio oraz w profilu LinkedIn.'
           ]
         },
         {
           num: '06',
-          title: 'Reality-check zmiany branży lub awansu na poziom C-Level',
-          bullets: [
-            'Obiektywna ocena szans i luk kompetencyjnych przy planowanym przebranżowieniu.',
-            'Plan minimalizacji ryzyka finansowego i czasowego w okresie przejścia.'
+          shortTitle: 'PRZEBRANŻOWIENIE',
+          tag: 'OBSZAR 06 / 06 · REALITY-CHECK ŚCIEŻKI',
+          heading: 'Reality-check zmiany branży lub awansu na poziom C-Level',
+          paragraphs: [
+            'Obiektywna ocena szans i luk kompetencyjnych przy planowanym przebranżowieniu lub awansie.',
+            'Plan minimalizacji ryzyka finansowego i czasowego w newralgicznym okresie przejścia.'
           ]
         }
-      ],
-      info: [
-        { label: 'Forma', text: 'Indywidualne spotkanie online 1:1 (90 minut) na Google Meet.' },
-        { label: 'Przygotowanie', text: 'Przesyłasz aktualne CV, link do profilu LinkedIn oraz 2–3 ogłoszenia na docelowe role.' },
-        { label: 'Rezultat', text: 'Zapis wideo sesji, naniesione korekty na dokumenty oraz skrypt odpowiedzi na trudne pytania.' }
-      ],
-      ctaText: 'Zarezerwuj sesję 90 min',
-      bookingTab: 'career'
+      ]
     }
   };
 
@@ -229,84 +244,159 @@
   window.currentScene2Product = 'workshops';
   window.isDetailViewOpen = false;
   let isSectionActive = false;
+  let currentStepIndex = 0;
+  let isWheelLocked = false;
 
   // -------------------------------------------------------------
-  // RENDERING PEŁNOEKRANOWEGO WIDOKU SZCZEGÓŁOWEGO (DEEP DIVE)
+  // RENDERING PEŁNOEKRANOWEJ OSI NARRACYJNEJ (TIMELINE ROADMAP)
   // -------------------------------------------------------------
-  function renderDeepDive(productId) {
-    const data = PRODUCT_DEEP_DIVE_DATA[productId] || PRODUCT_DEEP_DIVE_DATA.workshops;
-    const deepDiveBody = document.getElementById('deepDiveBody');
-    if (!deepDiveBody) return;
+  function renderTimelineStage(productId, stepIndex) {
+    const data = PRODUCT_TIMELINE_DATA[productId] || PRODUCT_TIMELINE_DATA.workshops;
+    const stageEl = document.getElementById('timelineStage');
+    if (!stageEl) return;
 
-    const modulesHtml = data.modules.map(function (m) {
-      const bulletsHtml = m.bullets.map(function (b) {
-        return '<li>' + b + '</li>';
-      }).join('');
-
-      return (
-        '<article class="deep-dive-card">' +
-          '<div class="deep-dive-card-header">' +
-            '<span class="deep-dive-card-num">' + m.num + '</span>' +
-            '<h4 class="deep-dive-card-title">' + m.title + '</h4>' +
-          '</div>' +
-          '<ul class="deep-dive-card-bullets">' +
-            bulletsHtml +
-          '</ul>' +
-        '</article>'
-      );
+    const step = data.steps[stepIndex] || data.steps[0];
+    const parasHtml = step.paragraphs.map(function (p) {
+      return '<p>' + p + '</p>';
     }).join('');
 
-    const infoHtml = data.info.map(function (item) {
-      return (
-        '<div class="deep-dive-pill-item">' +
-          '<span class="deep-dive-pill-label">' + item.label + ':</span>' +
-          '<span>' + item.text + '</span>' +
+    stageEl.classList.add('is-changing');
+    setTimeout(function () {
+      stageEl.innerHTML = (
+        '<div class="stage-step-tag">' + step.tag + '</div>' +
+        '<h3 class="stage-heading">' + step.heading + '</h3>' +
+        '<div class="stage-paragraphs">' +
+          parasHtml +
         '</div>'
       );
+      stageEl.classList.remove('is-changing');
+    }, 110);
+  }
+
+  function updateRoadmapActiveState(stepIndex, totalSteps) {
+    const bar = document.getElementById('timelineRoadmapBar');
+    if (!bar) return;
+
+    const progressEl = bar.querySelector('.roadmap-track-progress');
+    if (progressEl) {
+      const pct = totalSteps > 1 ? (stepIndex / (totalSteps - 1)) * 100 : 0;
+      progressEl.style.width = pct.toFixed(1) + '%';
+    }
+
+    const nodes = bar.querySelectorAll('.roadmap-node');
+    nodes.forEach(function (n, idx) {
+      const isActive = idx === stepIndex;
+      n.classList.toggle('is-active', isActive);
+      n.setAttribute('aria-selected', isActive ? 'true' : 'false');
+    });
+  }
+
+  function renderTimelineRoadmap(productId, initialStepIndex) {
+    const data = PRODUCT_TIMELINE_DATA[productId] || PRODUCT_TIMELINE_DATA.workshops;
+    const bar = document.getElementById('timelineRoadmapBar');
+    if (!bar) return;
+
+    const steps = data.steps;
+    const pct = steps.length > 1 ? (initialStepIndex / (steps.length - 1)) * 100 : 0;
+
+    const nodesHtml = steps.map(function (s, idx) {
+      const activeClass = idx === initialStepIndex ? ' is-active' : '';
+      return (
+        '<button type="button" class="roadmap-node' + activeClass + '" data-step="' + idx + '" aria-selected="' + (idx === initialStepIndex) + '" aria-label="' + s.shortTitle + '">' +
+          '<span class="roadmap-node-dot"></span>' +
+          '<div class="roadmap-node-label">' +
+            '<span class="roadmap-node-num">' + s.num + '</span>' +
+            '<span class="roadmap-node-title">' + s.shortTitle + '</span>' +
+          '</div>' +
+        '</button>'
+      );
     }).join('');
 
-    deepDiveBody.innerHTML = (
-      '<header class="deep-dive-header">' +
-        '<div class="deep-dive-badges">' +
-          '<span class="deep-dive-badge-category">' + data.badge + '</span>' +
-          '<span class="deep-dive-badge-metric">' + data.metric + '</span>' +
-        '</div>' +
-        '<h2 class="deep-dive-title">' + data.title + '</h2>' +
-        '<p class="deep-dive-intro">' + data.intro + '</p>' +
-      '</header>' +
-      '<div class="deep-dive-grid">' +
-        modulesHtml +
+    bar.innerHTML = (
+      '<div class="roadmap-hint">' +
+        '<svg width="12" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+          '<rect x="5" y="2" width="14" height="20" rx="7"></rect>' +
+          '<line x1="12" y1="6" x2="12" y2="10"></line>' +
+        '</svg>' +
+        '<span>PRZEWIJAJ KÓŁKIEM MYSZY LUB KLIKNIJ PUNKT ROADMAPY</span>' +
       '</div>' +
-      '<footer class="deep-dive-footer">' +
-        '<div class="deep-dive-info-pills">' +
-          infoHtml +
+      '<div class="roadmap-track-container">' +
+        '<div class="roadmap-track-line"></div>' +
+        '<div class="roadmap-track-progress" style="width:' + pct.toFixed(1) + '%;"></div>' +
+        '<div class="roadmap-nodes-group">' +
+          nodesHtml +
         '</div>' +
-        '<button type="button" class="deep-dive-cta-btn" id="deepDiveCtaBtn" data-tab="' + data.bookingTab + '">' +
-          '<span>' + data.ctaText + '</span>' +
-          '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">' +
-            '<line x1="5" y1="12" x2="19" y2="12"></line>' +
-            '<polyline points="12 5 19 12 12 19"></polyline>' +
-          '</svg>' +
-        '</button>' +
-      '</footer>'
+      '</div>'
     );
 
-    const ctaBtn = document.getElementById('deepDiveCtaBtn');
-    if (ctaBtn) {
-      ctaBtn.addEventListener('click', function () {
-        const tab = this.getAttribute('data-tab') || productId;
-        window.hideProductDetail();
-        if (typeof window.openBookingModal === 'function') {
-          window.openBookingModal(tab);
+    const nodeButtons = bar.querySelectorAll('.roadmap-node');
+    nodeButtons.forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetStep = parseInt(this.getAttribute('data-step'), 10);
+        if (!isNaN(targetStep)) {
+          goToStep(targetStep);
         }
       });
+    });
+  }
+
+  function goToStep(newIndex) {
+    const data = PRODUCT_TIMELINE_DATA[currentProductId] || PRODUCT_TIMELINE_DATA.workshops;
+    if (newIndex < 0 || newIndex >= data.steps.length) return;
+    currentStepIndex = newIndex;
+    renderTimelineStage(currentProductId, currentStepIndex);
+    updateRoadmapActiveState(currentStepIndex, data.steps.length);
+  }
+
+  function renderTimelineView(productId, stepIndex) {
+    const data = PRODUCT_TIMELINE_DATA[productId] || PRODUCT_TIMELINE_DATA.workshops;
+    const headerEl = document.getElementById('timelineHeader');
+    if (headerEl) {
+      headerEl.innerHTML = (
+        '<div class="timeline-badge">' + data.badge + '</div>' +
+        '<h2 class="timeline-main-title">' + data.title + '</h2>' +
+        '<p class="timeline-main-intro">' + data.intro + '</p>'
+      );
     }
+    renderTimelineStage(productId, stepIndex);
+    renderTimelineRoadmap(productId, stepIndex);
+  }
+
+  // -------------------------------------------------------------
+  // AKTUALIZACJA TEKSTU I IMPULSU NATYWNEGO WIDŻETU 3D WEBGL
+  // -------------------------------------------------------------
+  function update3DHotspotText(productId) {
+    try {
+      if (window.view && window.view.sections && window.view.sections[1] && window.view.sections[1].data) {
+        const hotspot = window.view.sections[1].data.hotspot;
+        if (hotspot && hotspot.text && hotspot.text.text && hotspot.text.text.geometry) {
+          let targetText = "ZAPISZ SIĘ NA WARSZTATY";
+          if (productId === 'business' || productId === 'career') {
+            targetText = "ZAREZERWUJ SESJĘ 90 MIN";
+          }
+          const oldGeom = hotspot.text.text.geometry;
+          if (oldGeom._opt && oldGeom._opt.text !== targetText) {
+            const newGeom = new oldGeom.constructor(Object.assign({}, oldGeom._opt, { text: targetText }));
+            hotspot.text.text.geometry.dispose();
+            hotspot.text.text.geometry = newGeom;
+            hotspot.text.updateText();
+          }
+          if (typeof hotspot.highlightHotspot === 'function') {
+            hotspot.highlightHotspot();
+          }
+        }
+      }
+    } catch (e) {}
   }
 
   window.showProductDetail = function (productId) {
     productId = productId || window.currentScene2Product || 'workshops';
+    currentProductId = productId;
+    window.currentScene2Product = productId;
     window.isDetailViewOpen = true;
-    renderDeepDive(productId);
+    currentStepIndex = 0;
+    renderTimelineView(productId, 0);
 
     const container = document.getElementById('products-view-container');
     const deepDive = document.getElementById('product-deep-dive');
@@ -317,14 +407,17 @@
       deepDive.setAttribute('aria-hidden', 'false');
     }
 
-    // Ukryj widżety 3D w scenie 2
-    if (typeof window.hideScene2Hotspots === 'function') {
-      window.hideScene2Hotspots();
-    } else if (window.view && window.view.sections && window.view.sections[1] && window.view.sections[1].data) {
-      const s2 = window.view.sections[1].data;
-      if (s2.hotspot && s2.hotspot.hide) s2.hotspot.hide({ delay: 0 });
-      if (s2.moreHotspot && s2.moreHotspot.hide) s2.moreHotspot.hide({ delay: 0 });
-    }
+    // W trybie osi narracyjnej ukrywamy tylko widżet "DOWIEDZ SIĘ WIĘCEJ",
+    // natomiast natywny widżet 3D WebGL (Zapisz się / Zarezerwuj) POZOSTAJE WIDOCZNY w prawym dolnym rogu!
+    try {
+      if (window.view && window.view.sections && window.view.sections[1] && window.view.sections[1].data) {
+        const s2 = window.view.sections[1].data;
+        if (s2.moreHotspot && s2.moreHotspot.hide) s2.moreHotspot.hide({ delay: 0 });
+        if (s2.hotspot && s2.hotspot.show) s2.hotspot.show({ delay: 0.1 });
+      }
+    } catch (e) {}
+
+    update3DHotspotText(productId);
   };
 
   window.hideProductDetail = function () {
@@ -338,14 +431,16 @@
       deepDive.setAttribute('aria-hidden', 'true');
     }
 
-    // Przywróć widżety 3D w scenie 2
-    if (typeof window.showScene2Hotspots === 'function') {
-      window.showScene2Hotspots();
-    } else if (window.view && window.view.sections && window.view.sections[1] && window.view.sections[1].data) {
-      const s2 = window.view.sections[1].data;
-      if (s2.hotspot && s2.hotspot.show) s2.hotspot.show({ delay: 0.1 });
-      if (s2.moreHotspot && s2.moreHotspot.show) s2.moreHotspot.show({ delay: 0.1 });
-    }
+    // Przywracamy oba widżety 3D w Scenie 2
+    try {
+      if (window.view && window.view.sections && window.view.sections[1] && window.view.sections[1].data) {
+        const s2 = window.view.sections[1].data;
+        if (s2.hotspot && s2.hotspot.show) s2.hotspot.show({ delay: 0.1 });
+        if (s2.moreHotspot && s2.moreHotspot.show) s2.moreHotspot.show({ delay: 0.1 });
+      }
+    } catch (e) {}
+
+    update3DHotspotText(currentProductId);
   };
 
   // -------------------------------------------------------------
@@ -424,31 +519,11 @@
       }
 
       if (window.isDetailViewOpen) {
-        renderDeepDive(productId);
+        renderTimelineView(productId, currentStepIndex);
       }
 
       // Dynamiczna aktualizacja tekstu natywnego widżetu 3D WebGL
-      try {
-        if (window.view && window.view.sections && window.view.sections[1] && window.view.sections[1].data) {
-          const hotspot = window.view.sections[1].data.hotspot;
-          if (hotspot && hotspot.text && hotspot.text.text && hotspot.text.text.geometry) {
-            let targetText = "ZAPISZ SIĘ NA WARSZTATY";
-            if (productId === 'business' || productId === 'career') {
-              targetText = "ZAREZERWUJ SESJĘ 90 MIN";
-            }
-            const oldGeom = hotspot.text.text.geometry;
-            if (oldGeom._opt && oldGeom._opt.text !== targetText) {
-              const newGeom = new oldGeom.constructor(Object.assign({}, oldGeom._opt, { text: targetText }));
-              hotspot.text.text.geometry.dispose();
-              hotspot.text.text.geometry = newGeom;
-              hotspot.text.updateText();
-            }
-            if (typeof hotspot.highlightHotspot === 'function') {
-              hotspot.highlightHotspot();
-            }
-          }
-        }
-      } catch (e) {}
+      update3DHotspotText(productId);
     }
 
     // Obsługa natychmiastowego hover na całej sekcji selektora z 3-warstwową detekcją
@@ -522,7 +597,7 @@
       });
     });
 
-    // Obsługa zamknięcia widoku Deep Dive
+    // Obsługa zamknięcia widoku osi narracyjnej
     const closeBtn = document.getElementById('deepDiveCloseBtn');
     if (closeBtn) {
       closeBtn.addEventListener('click', function (e) {
@@ -535,17 +610,154 @@
     const deepDiveOverlay = document.getElementById('product-deep-dive');
     if (deepDiveOverlay) {
       deepDiveOverlay.addEventListener('click', function (e) {
-        if (e.target === deepDiveOverlay || (e.target && e.target.classList && e.target.classList.contains('deep-dive-scroll-container'))) {
+        if (e.target === deepDiveOverlay) {
           window.hideProductDetail();
         }
       });
     }
 
-    window.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && window.isDetailViewOpen) {
-        window.hideProductDetail();
+    // Obsługa kliknięcia i najechania na natywny widżet 3D WebGL w trybie osi narracyjnej
+    const hotspotHitArea = document.getElementById('timelineHotspotHitArea');
+    if (hotspotHitArea) {
+      hotspotHitArea.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (typeof window.openBookingModal === 'function') {
+          window.openBookingModal(currentProductId || window.currentScene2Product || 'workshops');
+        }
+      });
+
+      const highlight3D = () => {
+        try {
+          if (window.view && window.view.sections && window.view.sections[1] && window.view.sections[1].data) {
+            const hs = window.view.sections[1].data.hotspot;
+            if (hs && typeof hs.highlightHotspot === 'function') {
+              hs.highlightHotspot();
+            }
+          }
+        } catch (err) {}
+      };
+
+      hotspotHitArea.addEventListener('mouseenter', highlight3D);
+      hotspotHitArea.addEventListener('pointerover', highlight3D);
+    }
+
+    // -------------------------------------------------------------
+    // PRZEWIJANIE KÓŁKIEM MYSZY WIDOKU OSI NARRACYJNEJ (KROK PO KROKU)
+    // -------------------------------------------------------------
+    let wheelCooldown = false;
+    let wheelDeltaAccum = 0;
+    let wheelResetTimer = null;
+
+    window.addEventListener('wheel', function (e) {
+      if (!window.isDetailViewOpen) return;
+
+      // Zatrzymujemy natychmiast przewijanie sceny 3D w Pioneerze
+      e.preventDefault();
+      e.stopImmediatePropagation();
+
+      if (wheelCooldown) return;
+
+      const dy = Math.abs(e.deltaY) > Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
+      wheelDeltaAccum += dy;
+
+      clearTimeout(wheelResetTimer);
+      wheelResetTimer = setTimeout(() => {
+        wheelDeltaAccum = 0;
+      }, 200);
+
+      const THRESHOLD = 35;
+      const data = PRODUCT_TIMELINE_DATA[currentProductId] || PRODUCT_TIMELINE_DATA.workshops;
+      const totalSteps = data.steps.length;
+
+      if (wheelDeltaAccum > THRESHOLD) {
+        wheelCooldown = true;
+        wheelDeltaAccum = 0;
+        if (currentStepIndex < totalSteps - 1) {
+          goToStep(currentStepIndex + 1);
+        }
+        setTimeout(() => { wheelCooldown = false; }, 360);
+      } else if (wheelDeltaAccum < -THRESHOLD) {
+        wheelCooldown = true;
+        wheelDeltaAccum = 0;
+        if (currentStepIndex > 0) {
+          goToStep(currentStepIndex - 1);
+        }
+        setTimeout(() => { wheelCooldown = false; }, 360);
       }
-    });
+    }, { passive: false, capture: true });
+
+    // -------------------------------------------------------------
+    // NAWIGACJA KLAWIATURĄ (STRZAŁKI, SPACJA, ESCAPE)
+    // -------------------------------------------------------------
+    window.addEventListener('keydown', function (e) {
+      if (!window.isDetailViewOpen) return;
+
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        window.hideProductDetail();
+        return;
+      }
+
+      const data = PRODUCT_TIMELINE_DATA[currentProductId] || PRODUCT_TIMELINE_DATA.workshops;
+      const totalSteps = data.steps.length;
+
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') {
+        e.preventDefault();
+        if (currentStepIndex < totalSteps - 1) {
+          goToStep(currentStepIndex + 1);
+        }
+      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp' || e.key === 'PageUp') {
+        e.preventDefault();
+        if (currentStepIndex > 0) {
+          goToStep(currentStepIndex - 1);
+        }
+      } else if (e.key === 'Home') {
+        e.preventDefault();
+        goToStep(0);
+      } else if (e.key === 'End') {
+        e.preventDefault();
+        goToStep(totalSteps - 1);
+      }
+    }, { capture: true });
+
+    // -------------------------------------------------------------
+    // GESTY PRZESUWANIA (TOUCH SWIPE) NA URZĄDZENIACH DOTYKOWYCH
+    // -------------------------------------------------------------
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+    window.addEventListener('touchstart', function (e) {
+      if (!window.isDetailViewOpen) return;
+      if (e.touches && e.touches.length > 0) {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+      }
+    }, { passive: true });
+
+    window.addEventListener('touchend', function (e) {
+      if (!window.isDetailViewOpen) return;
+      if (e.changedTouches && e.changedTouches.length > 0) {
+        const diffX = touchStartX - e.changedTouches[0].clientX;
+        const diffY = touchStartY - e.changedTouches[0].clientY;
+        const data = PRODUCT_TIMELINE_DATA[currentProductId] || PRODUCT_TIMELINE_DATA.workshops;
+        const totalSteps = data.steps.length;
+
+        if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY)) {
+          if (diffX > 0 && currentStepIndex < totalSteps - 1) {
+            goToStep(currentStepIndex + 1);
+          } else if (diffX < 0 && currentStepIndex > 0) {
+            goToStep(currentStepIndex - 1);
+          }
+        } else if (Math.abs(diffY) > 50 && Math.abs(diffY) > Math.abs(diffX)) {
+          if (diffY > 0 && currentStepIndex < totalSteps - 1) {
+            goToStep(currentStepIndex + 1);
+          } else if (diffY < 0 && currentStepIndex > 0) {
+            goToStep(currentStepIndex - 1);
+          }
+        }
+      }
+    }, { passive: true });
 
     selectProduct('workshops');
   }

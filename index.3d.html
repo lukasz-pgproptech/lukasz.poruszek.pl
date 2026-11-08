@@ -305,21 +305,30 @@
 
             </div>
 
-            <!-- PEŁNOEKRANOWY WIDOK SZCZEGÓŁOWY PRODUKTU (Deep Dive / Expanded Editorial) -->
-            <div id="product-deep-dive" class="product-deep-dive" aria-hidden="true">
-                <button class="deep-dive-close-btn" id="deepDiveCloseBtn" type="button" aria-label="Zamknij szczegóły">
-                    <span class="deep-dive-close-circle">
+            <!-- PEŁNOEKRANOWA HORYZONTALNA OŚ NARRACYJNA PRODUKTU (Pioneer Timeline Narrative) -->
+            <div id="product-deep-dive" class="product-timeline-view" aria-hidden="true">
+                <button class="timeline-close-btn" id="deepDiveCloseBtn" type="button" aria-label="Zamknij szczegóły">
+                    <span class="timeline-close-circle">
                         <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round">
                             <line x1="18" y1="6" x2="6" y2="18"></line>
                             <line x1="6" y1="6" x2="18" y2="18"></line>
                         </svg>
                     </span>
                 </button>
-                <div class="deep-dive-scroll-container">
-                    <div class="deep-dive-modal-card" id="deepDiveBody">
-                        <!-- Generowane dynamicznie przez products-view.js -->
-                    </div>
+                
+                <div class="timeline-viewport">
+                    <!-- GÓRA: TYTUŁ PRODUKTU I WPROWADZENIE -->
+                    <header class="timeline-header" id="timelineHeader"></header>
+
+                    <!-- CENTRUM: AKTYWNY PUNKT NARRACJI (BEZ KROPEK I MYŚLNIKÓW, CZYSTE AKAPITY) -->
+                    <main class="timeline-stage" id="timelineStage"></main>
+
+                    <!-- DÓŁ: INTERAKTYWNA OŚ ROADMAPY 01-06 (KLIK + SCROLL MYSZY) -->
+                    <footer class="timeline-roadmap-bar" id="timelineRoadmapBar"></footer>
                 </div>
+
+                <!-- RESPONSYWNA STREFA INTERAKCJI Z NATYWNYM WIDŻETEM 3D WEBGL W PRAWYM DOLNYM ROGU -->
+                <button type="button" class="timeline-3d-hotspot-hitarea" id="timelineHotspotHitArea" aria-label="Zarezerwuj / Zapisz się"></button>
             </div>
         </div>
 
