@@ -36,9 +36,9 @@
       steps: [
         {
           num: '01',
-          shortTitle: 'PROMPTOWANIE',
-          tag: 'KROK 01 / 06 · FUNDAMENTY I PROMPTOWANIE',
-          heading: 'Jak naprawdę „myśli” model i jak pisać prompty, które nie zawodzą',
+          shortTitle: 'PROMPTING',
+          tag: 'KROK 01 / 06 · FUNDAMENTY I PROMPTING',
+          heading: 'Fundamenty LLM i precyzyjny prompting',
           paragraphs: [
             'Pod maską LLM: okno kontekstu, tokenizacja i mechanizm powstawania halucynacji.',
             'Techniki precyzyjnego sterowania modelem oraz eliminacja losowości w powtarzalnych zadaniach biznesowych.',
@@ -47,9 +47,9 @@
         },
         {
           num: '02',
-          shortTitle: 'PRACA NA PLIKACH',
-          tag: 'KROK 02 / 06 · WYJŚCIE Z CZATU DO IDE',
-          heading: 'Wychodzimy z czatu — pierwsze kroki z agentami na Twoich plikach',
+          shortTitle: 'PLIKI W IDE',
+          tag: 'KROK 02 / 06 · PRACA NA PLIKACH',
+          heading: 'Praca z agentami na plikach w IDE',
           paragraphs: [
             'Dlaczego okno czatu to wąskie gardło i czym w praktyce różni się zwykły model od autonomicznego Agenta.',
             'Pierwsze uruchomienie i bezstresowa konfiguracja profesjonalnego środowiska pracy (IDE).',
@@ -59,8 +59,8 @@
         {
           num: '03',
           shortTitle: 'AGENTS.MD',
-          tag: 'KROK 03 / 06 · REGUŁY I WORKFLOW',
-          heading: 'Twój własny podręcznik dla AI (agents.md) — powtarzalny workflow',
+          tag: 'KROK 03 / 06 · BAZA REGUŁ',
+          heading: 'Baza reguł i workflow (agents.md)',
           paragraphs: [
             'Koniec z powtarzaniem tych samych instrukcji i kontekstu przy każdej nowej rozmowie.',
             'Architektura pliku zasad (agents.md): jak skutecznie uczyć model Twoich reguł biznesowych.',
@@ -70,8 +70,8 @@
         {
           num: '04',
           shortTitle: 'NARZĘDZIA MCP',
-          tag: 'KROK 04 / 06 · EKOSYSTEM NARZĘDZIOWY',
-          heading: 'Łączymy AI ze światem zewnętrznym — potęga narzędzi (MCP)',
+          tag: 'KROK 04 / 06 · NARZĘDZIA MCP',
+          heading: 'Narzędzia zewnętrzne i protokół MCP',
           paragraphs: [
             'Czym jest Model Context Protocol (MCP) w prostych, zrozumiałych słowach.',
             'Podłączanie narzędzi zewnętrznych: odczyt baz danych, wyszukiwanie na żywo w sieci oraz integracja z API.',
@@ -80,9 +80,9 @@
         },
         {
           num: '05',
-          shortTitle: 'TWORZENIE AGENTÓW',
-          tag: 'KROK 05 / 06 · WĄSKIE ROLE',
-          heading: 'Tworzenie własnych agentów-specjalistów do konkretnych zadań',
+          shortTitle: 'AGENCI',
+          tag: 'KROK 05 / 06 · TWORZENIE AGENTÓW',
+          heading: 'Tworzenie wyspecjalizowanych agentów',
           paragraphs: [
             'Projektowanie wąskich ról: dedykowany analityk, copywriter, audytor kodu czy automatyczny tester.',
             'Pętle informacji zwrotnej (Feedback Loops) i techniki samonaprawy błędów przez agenta.',
@@ -93,7 +93,7 @@
           num: '06',
           shortTitle: 'ORKIESTRACJA',
           tag: 'KROK 06 / 06 · CYFROWY ZESPÓŁ',
-          heading: 'Orkiestracja wieloagentowa — budujemy Twój cyfrowy zespół',
+          heading: 'Orkiestracja i cyfrowy zespół',
           paragraphs: [
             'Praca w środowisku Antigravity: łączenie wyspecjalizowanych agentów w jeden współpracujący ekosystem.',
             'Przenoszalność wiedzy: jak wdrożyć te same zasady w Cursorze, Claude Desktop i innych narzędziach.',
@@ -110,9 +110,9 @@
       steps: [
         {
           num: '01',
-          shortTitle: 'MONETYZACJA',
+          shortTitle: 'OFERTA',
           tag: 'OBSZAR 01 / 06 · OFERTA I CENNIK',
-          heading: 'Audyt obecnej oferty i modelu monetyzacji',
+          heading: 'Audyt oferty i monetyzacji',
           paragraphs: [
             'Szczegółowa analiza struktury przychodów, marżowości oraz dotychczasowego cennika.',
             'Wskazanie miejsc, w których oddajesz marżę lub niepotrzebnie komplikujesz ścieżkę zakupu klientowi.'
@@ -122,7 +122,7 @@
           num: '02',
           shortTitle: 'WALIDACJA',
           tag: 'OBSZAR 02 / 06 · REALITY-CHECK',
-          heading: 'Reality-check nowego pomysłu lub produktu',
+          heading: 'Walidacja i rynkowy reality-check',
           paragraphs: [
             'Bezwzględna walidacja założeń biznesowych przed zainwestowaniem oszczędności, budżetu i czasu.',
             'Projekt najprostszego i najtańszego testu rynkowego (MVP / Proof-of-Concept) w realnych warunkach.'
@@ -132,7 +132,7 @@
           num: '03',
           shortTitle: 'WĄSKIE GARDŁA',
           tag: 'OBSZAR 03 / 06 · BLOKADY ROZWOJU',
-          heading: 'Diagnoza wąskich gardeł w operacjach i sprzedaży',
+          heading: 'Diagnoza wąskich gardeł w sprzedaży',
           paragraphs: [
             'Zidentyfikowanie głównej blokady hamującej skalowanie biznesu lub konwersję w lejku sprzedażowym.',
             'Konkretny plan natychmiastowych usprawnień procesowych do wdrożenia w Twojej firmie w 14 dni.'
@@ -142,7 +142,7 @@
           num: '04',
           shortTitle: 'FINANSOWANIE',
           tag: 'OBSZAR 04 / 06 · KAPITAŁ',
-          heading: 'Wybór ścieżki finansowania: dotacje vs bootstrap',
+          heading: 'Ścieżka finansowania: dotacje vs bootstrap',
           paragraphs: [
             'Dopasowanie realnych źródeł finansowania pod Twój model (granty, B+R, aniołowie biznesu).',
             'Obiektywna ocena ryzyk prawnych i kosztów operacyjnych związanych z pozyskaniem kapitału zewnętrznego.'
@@ -151,8 +151,8 @@
         {
           num: '05',
           shortTitle: 'WDROŻENIE AI',
-          tag: 'OBSZAR 05 / 06 · QUICK-WINS AI',
-          heading: 'Quick-wins wdrożenia AI w procesach firmowych',
+          tag: 'OBSZAR 05 / 06 · AUTOMATYZACJA',
+          heading: 'Automatyzacja i quick-wins z AI',
           paragraphs: [
             'Wskazanie 2–3 powtarzalnych procesów w firmie, które można zautomatyzować narzędziami AI od zaraz.',
             'Dobór sprawdzonych narzędzi agentowych bez konieczności budowy drogich rozwiązań programistycznych.'
@@ -160,8 +160,8 @@
         },
         {
           num: '06',
-          shortTitle: 'DECYZJA STRATEGICZNA',
-          tag: 'OBSZAR 06 / 06 · KONSULTACJA ROZDROŻA',
+          shortTitle: 'STRATEGIA',
+          tag: 'OBSZAR 06 / 06 · KONSULTACJA DECYZJI',
           heading: 'Konsultacja trudnej decyzji strategicznej',
           paragraphs: [
             'Zewnętrzny, bezstronny punkt widzenia przy rozdrożach (pivot, zamknięcie nierentownej linii, restrukturyzacja).',
@@ -178,9 +178,9 @@
       steps: [
         {
           num: '01',
-          shortTitle: 'AUDYT CV & LINKEDIN',
+          shortTitle: 'AUDYT CV',
           tag: 'OBSZAR 01 / 06 · AUDYT DOKUMENTÓW',
-          heading: 'Audyt CV i profilu LinkedIn z perspektywy Hiring Managera',
+          heading: 'Audyt CV i profilu LinkedIn',
           paragraphs: [
             'Bezlitosna eliminacja czerwonych flag, lania wody i niewidocznych filtrów automatycznych systemów ATS.',
             'Przepisanie kluczowych osiągnięć zawodowych na twardy język wymiernych rezultatów biznesowych.'
@@ -188,9 +188,9 @@
         },
         {
           num: '02',
-          shortTitle: 'DIAGNOZA RYNKOWA',
+          shortTitle: 'POZYCJONOWANIE',
           tag: 'OBSZAR 02 / 06 · POZYCJONOWANIE',
-          heading: 'Diagnoza przyczyn braku odzewu na rynku',
+          heading: 'Diagnoza braku odzewu na rynku',
           paragraphs: [
             'Dokładna analiza dotychczasowych wysyłek, dopasowania stanowisk oraz targetowania branż.',
             'Korekta pozycjonowania zawodowego i odnalezienie Twojego unikalnego wyróżnika kompetencyjnego.'
@@ -198,9 +198,9 @@
         },
         {
           num: '03',
-          shortTitle: 'SYMULACJA ROZMOWY',
-          tag: 'OBSZAR 03 / 06 · MOCK INTERVIEW',
-          heading: 'Symulacja trudnej rozmowy kwalifikacyjnej (Mock Interview)',
+          shortTitle: 'MOCK INTERVIEW',
+          tag: 'OBSZAR 03 / 06 · SYMULACJA',
+          heading: 'Symulacja rozmowy kwalifikacyjnej',
           paragraphs: [
             'Przećwiczenie niewygodnych pytań rekruterów o luki w CV, powody rozstań i trudne projekty.',
             'Nauka techniki przejmowania kontroli nad agendą i sprowadzania rozmowy na własne najmocniejsze tory.'
@@ -210,7 +210,7 @@
           num: '04',
           shortTitle: 'NEGOCJACJE',
           tag: 'OBSZAR 04 / 06 · WYNAGRODZENIE',
-          heading: 'Strategia negocjacji stawek i warunków zatrudnienia',
+          heading: 'Negocjacje stawek i warunków oferty',
           paragraphs: [
             'Określenie realnego pułapu rynkowego dla Twoich umiejętności i wyznaczenie progu minimalnego (Walk-Away Point).',
             'Scenariusze rozmowy o podwyżce lub ofercie końcowej bez ryzyka spalenia mostów.'
@@ -219,8 +219,8 @@
         {
           num: '05',
           shortTitle: 'KOMPETENCJE AI',
-          tag: 'OBSZAR 05 / 06 · TWARDY WYRÓŻNIK',
-          heading: 'Wplecenie kompetencji AI do profilu zawodowego',
+          tag: 'OBSZAR 05 / 06 · WYRÓŻNIK',
+          heading: 'Kompetencje AI jako wyróżnik',
           paragraphs: [
             'Jak pokazać znajomość narzędzi AI i pracy agentowej jako twardą przewagę rynkową w Twojej roli.',
             'Przekonująca prezentacja projektów z wykorzystaniem AI w portfolio oraz w profilu LinkedIn.'
@@ -228,9 +228,9 @@
         },
         {
           num: '06',
-          shortTitle: 'PRZEBRANŻOWIENIE',
-          tag: 'OBSZAR 06 / 06 · REALITY-CHECK ŚCIEŻKI',
-          heading: 'Reality-check zmiany branży lub awansu na poziom C-Level',
+          shortTitle: 'AWANS / PIVOT',
+          tag: 'OBSZAR 06 / 06 · ŚCIEŻKA KARIERY',
+          heading: 'Reality-check przebranżowienia lub awansu',
           paragraphs: [
             'Obiektywna ocena szans i luk kompetencyjnych przy planowanym przebranżowieniu lub awansie.',
             'Plan minimalizacji ryzyka finansowego i czasowego w newralgicznym okresie przejścia.'
