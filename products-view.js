@@ -429,6 +429,10 @@
     currentStepIndex = 0;
     renderTimelineView(productId, 0);
 
+    if (typeof window.selectProduct === 'function') {
+      window.selectProduct(productId, true);
+    }
+
     const container = document.getElementById('products-view-container');
     const deepDive = document.getElementById('product-deep-dive');
 
@@ -472,6 +476,11 @@
 
   window.hideProductDetail = function () {
     window.isDetailViewOpen = false;
+
+    if (typeof window.selectProduct === 'function') {
+      window.selectProduct(currentProductId, true);
+    }
+
     const container = document.getElementById('products-view-container');
     const deepDive = document.getElementById('product-deep-dive');
 
@@ -510,6 +519,47 @@
     } catch (e) {}
 
     update3DHotspotText(currentProductId);
+  };
+
+  // -------------------------------------------------------------
+  // NAWIGACJA Z MENU HAMBURGERA DO OSI PRODUKTU / KALENDARZA
+  // -------------------------------------------------------------
+  window.navigateFromMenu = function (productId) {
+    // 1. Zamknij menu hamburgera
+    if (window.appStore && window.appStore.state && window.appStore.state.navigation) {
+      window.appStore.state.navigation.menu = false;
+      window.appStore.state.navigation.hotspotDna = false;
+      window.appStore.state.navigation.hotspotStalk = false;
+      window.appStore.state.navigation.hotspotKernel = false;
+    }
+
+    // 2. Natychmiastowy skok do Sceny 2 w silniku 3D WebGL
+    const snap = window.getSnapPos ? window.getSnapPos('science', 'data') : 3906;
+    if (window.scrollHandler) {
+      if (typeof window.scrollHandler.scrollTo === 'function') {
+        window.scrollHandler.scrollTo(snap);
+      } else if (window.scrollHandler.position !== undefined) {
+        window.scrollHandler.position = snap;
+      }
+    }
+    if (window.appStore && window.appStore.state && window.appStore.state.scroll) {
+      window.appStore.state.scroll.position = snap;
+    }
+    if (typeof window.onSection2Active === 'function') {
+      window.onSection2Active();
+    }
+
+    // 3. Otwórz widok osi narracyjnej dla wybranego produktu
+    window.showProductDetail(productId);
+  };
+
+  window.openCalendarFromMenu = function () {
+    if (window.appStore && window.appStore.state && window.appStore.state.navigation) {
+      window.appStore.state.navigation.menu = false;
+    }
+    if (typeof window.openBookingModal === 'function') {
+      window.openBookingModal('workshops');
+    }
   };
 
   // -------------------------------------------------------------
@@ -834,7 +884,44 @@
       }
     }, { passive: true });
 
+    window.selectProduct = selectProduct;
     selectProduct('workshops', true);
+
+    // Obsługa kliknięć przycisków w menu hamburgera z fazą przechwytywania (capture)
+    function setupHamburgerMenuButtons() {
+      document.addEventListener('click', function (e) {
+        const target = e.target;
+        if (!target || typeof target.closest !== 'function') return;
+
+        const btnSignup = target.closest('[data-ui="btnSignup"]');
+        const btnContact = target.closest('[data-ui="btnContact"]');
+        const btnLegal = target.closest('[data-ui="btnLegal"]');
+        const btnPodcast = target.closest('[data-ui="btnPodcast"]');
+
+        if (btnSignup) {
+          e.preventDefault();
+          e.stopPropagation();
+          e.stopImmediatePropagation();
+          window.navigateFromMenu('workshops');
+        } else if (btnContact) {
+          e.preventDefault();
+          e.stopPropagation();
+          e.stopImmediatePropagation();
+          window.navigateFromMenu('business');
+        } else if (btnLegal) {
+          e.preventDefault();
+          e.stopPropagation();
+          e.stopImmediatePropagation();
+          window.navigateFromMenu('career');
+        } else if (btnPodcast) {
+          e.preventDefault();
+          e.stopPropagation();
+          e.stopImmediatePropagation();
+          window.openCalendarFromMenu();
+        }
+      }, true);
+    }
+    setupHamburgerMenuButtons();
   }
 
   // -------------------------------------------------------------
