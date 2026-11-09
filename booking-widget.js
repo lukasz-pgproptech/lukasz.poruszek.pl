@@ -179,6 +179,7 @@
       if (b) b.classList.add('active');
       mentoringView.classList.add('hidden');
       workshopView.classList.add('visible');
+      updatePriceDisplay();
     } else if (tab === 'kariera' || tab === 'career') {
       const b = document.getElementById('btn-opt2');
       if (b) b.classList.add('active');
@@ -194,10 +195,174 @@
     }
   };
 
-  // OBSŁUGA REZERWACJI WARSZTATÓW (Wysyłka na serwer -> Cal.com notification -> lukasz.poruszek@pgproptech.com)
+  // -------------------------------------------------------------
+  // DANE WARSZTATÓW, GRUPY I KODY RABATOWE
+  // -------------------------------------------------------------
+  const WORKSHOP_BASE_PRICE = 1200;
+  let activeCoupon = null;
+  let activeGroup = 'december';
+
+  const WORKSHOP_GROUPS = {
+    december: {
+      name: 'Grupa grudniowa',
+      label: 'Grupa grudniowa (start 1.12.2026, 19:00)',
+      scheduleTitle: 'Harmonogram cyklu (wtorki 19:00 – 21:00)',
+      status: 'Status: Zapisy otwarte',
+      sessions: [
+        { num: '01', date: '1 grudnia 2026', time: '19:00 – 21:00 (Start cyklu)' },
+        { num: '02', date: '8 grudnia 2026', time: '19:00 – 21:00' },
+        { num: '03', date: '15 grudnia 2026', time: '19:00 – 21:00' },
+        { num: '04', date: '22 grudnia 2026', time: '19:00 – 21:00' },
+        { num: '05', date: '29 grudnia 2026', time: '19:00 – 21:00' },
+        { num: '06', date: '5 stycznia 2027', time: '19:00 – 21:00 (Finał)' }
+      ]
+    },
+    january: {
+      name: 'Grupa styczniowa',
+      label: 'Grupa styczniowa (start 5.01.2027, 19:00)',
+      scheduleTitle: 'Harmonogram cyklu (wtorki 19:00 – 21:00)',
+      status: 'Status: Zapisy otwarte',
+      sessions: [
+        { num: '01', date: '5 stycznia 2027', time: '19:00 – 21:00 (Start cyklu)' },
+        { num: '02', date: '12 stycznia 2027', time: '19:00 – 21:00' },
+        { num: '03', date: '19 stycznia 2027', time: '19:00 – 21:00' },
+        { num: '04', date: '26 stycznia 2027', time: '19:00 – 21:00' },
+        { num: '05', date: '2 lutego 2027', time: '19:00 – 21:00' },
+        { num: '06', date: '9 lutego 2027', time: '19:00 – 21:00 (Finał)' }
+      ]
+    }
+  };
+
+  const VALID_COUPONS = {
+    'CHORWACJA': { percent: 50, label: '-50% (Rabat partnerski)' },
+    'RESICRAFT': { percent: 50, label: '-50% (Rabat partnerski)' },
+    '432834145': { percent: 100, label: '-100% (Bezpłatny dostęp)' }
+  };
+
+  // PRZEŁĄCZANIE GRUPY WARSZTATOWEJ (GRUDZIEŃ / STYCZEŃ)
+  window.switchWorkshopGroup = function (groupId) {
+    if (!WORKSHOP_GROUPS[groupId]) return;
+    activeGroup = groupId;
+
+    const pillDec = document.getElementById('ws-pill-dec');
+    const pillJan = document.getElementById('ws-pill-jan');
+    if (pillDec) pillDec.classList.toggle('active', groupId === 'december');
+    if (pillJan) pillJan.classList.toggle('active', groupId === 'january');
+
+    const group = WORKSHOP_GROUPS[groupId];
+    const scheduleTitle = document.getElementById('ws-schedule-title');
+    if (scheduleTitle) scheduleTitle.textContent = group.scheduleTitle;
+
+    const scheduleList = document.getElementById('ws-schedule-list');
+    if (scheduleList) {
+      scheduleList.innerHTML = group.sessions.map((s, idx) => `
+        <div class="schedule-item"${idx === 0 ? ' style="background: rgba(255, 255, 255, 0.07); border-color: rgba(255, 255, 255, 0.18); color: #ffffff;"' : ''}>
+          <span class="schedule-date"><span class="schedule-num">${s.num}</span> ${s.date}</span>
+          <span class="schedule-time">${s.time}</span>
+        </div>
+      `).join('');
+    }
+
+    const statusTag = document.getElementById('ws-group-status');
+    if (statusTag) statusTag.textContent = group.status;
+  };
+
+  // ROZWIJANIE POLA KODU RABATOWEGO
+  window.toggleCouponBox = function () {
+    const box = document.getElementById('couponBox');
+    const btnText = document.getElementById('couponToggleText');
+    if (!box) return;
+    const isOpen = box.classList.toggle('is-open');
+    if (btnText) {
+      btnText.textContent = isOpen ? '✕ Zamknij kod rabatowy' : '+ Masz kod rabatowy?';
+    }
+    if (isOpen) {
+      const input = document.getElementById('ws-coupon-input');
+      if (input) input.focus();
+    }
+  };
+
+  // PRZELICZANIE KWOT I AKTUALIZACJA PODSUMOWANIA
+  function updatePriceDisplay() {
+    let discountAmount = 0;
+    let finalPrice = WORKSHOP_BASE_PRICE;
+
+    if (activeCoupon) {
+      discountAmount = Math.round(WORKSHOP_BASE_PRICE * (activeCoupon.percent / 100));
+      finalPrice = Math.max(0, WORKSHOP_BASE_PRICE - discountAmount);
+    }
+
+    const discountRow = document.getElementById('ws-discount-row');
+    const discountLabel = document.getElementById('ws-discount-label');
+    const discountAmountEl = document.getElementById('ws-discount-amount');
+    const totalAmountEl = document.getElementById('ws-total-amount');
+    const submitBtnText = document.getElementById('ws-submit-btn-text');
+    const paynowBadge = document.getElementById('ws-paynow-badge');
+
+    if (discountRow) {
+      discountRow.classList.toggle('visible', Boolean(activeCoupon));
+    }
+    if (discountLabel && activeCoupon) {
+      discountLabel.textContent = `Rabat (${activeCoupon.code}):`;
+    }
+    if (discountAmountEl && activeCoupon) {
+      discountAmountEl.textContent = `-${discountAmount.toLocaleString('pl-PL')} PLN (${activeCoupon.percent}%)`;
+    }
+    if (totalAmountEl) {
+      totalAmountEl.textContent = `${finalPrice.toLocaleString('pl-PL')} PLN`;
+    }
+
+    if (submitBtnText) {
+      if (finalPrice === 0) {
+        submitBtnText.textContent = 'Zatwierdź bezpłatną rezerwację (0 PLN)';
+      } else {
+        submitBtnText.textContent = `Przejdź do płatności Paynow (${finalPrice.toLocaleString('pl-PL')} PLN)`;
+      }
+    }
+
+    if (paynowBadge) {
+      paynowBadge.style.display = (finalPrice === 0) ? 'none' : 'flex';
+    }
+  }
+
+  // ZASTOSOWANIE KODU RABATOWEGO
+  window.applyCoupon = function () {
+    const input = document.getElementById('ws-coupon-input');
+    const feedback = document.getElementById('ws-coupon-feedback');
+    if (!input) return;
+    const code = input.value.trim().toUpperCase();
+
+    if (!code) {
+      activeCoupon = null;
+      if (feedback) {
+        feedback.className = 'coupon-feedback';
+        feedback.textContent = '';
+      }
+      updatePriceDisplay();
+      return;
+    }
+
+    if (VALID_COUPONS[code]) {
+      activeCoupon = { code, ...VALID_COUPONS[code] };
+      if (feedback) {
+        feedback.className = 'coupon-feedback success';
+        feedback.innerHTML = `✓ Naliczono zniżkę: <strong>${activeCoupon.label}</strong>`;
+      }
+    } else {
+      activeCoupon = null;
+      if (feedback) {
+        feedback.className = 'coupon-feedback error';
+        feedback.textContent = '✕ Nieprawidłowy kod rabatowy.';
+      }
+    }
+    updatePriceDisplay();
+  };
+
+  // OBSŁUGA REZERWACJI I PŁATNOŚCI PAYNOW
   window.handleWorkshopSubmit = async function (e) {
     if (e && e.preventDefault) e.preventDefault();
     const btn = document.getElementById('ws-submit-btn');
+    const btnText = document.getElementById('ws-submit-btn-text');
     const nameEl = document.getElementById('ws-name');
     const emailEl = document.getElementById('ws-email');
     const phoneEl = document.getElementById('ws-phone');
@@ -209,41 +374,71 @@
 
     if (!name || !email) return;
 
-    if (btn) {
-      btn.disabled = true;
-      btn.textContent = 'Wysyłanie...';
-    }
+    if (btn) btn.disabled = true;
+    if (btnText) btnText.textContent = 'Przetwarzanie...';
+
+    const selectedGroupData = WORKSHOP_GROUPS[activeGroup] || WORKSHOP_GROUPS.december;
 
     try {
       const res = await fetch('/api/reserve-workshop', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, phone })
+        body: JSON.stringify({
+          name,
+          email,
+          phone,
+          group: selectedGroupData.label,
+          groupId: activeGroup,
+          coupon: activeCoupon ? activeCoupon.code : null
+        })
       });
 
       const data = await res.json();
+
       if (res.ok) {
+        // SCENARIUSZ 1: Przekierowanie do bramki płatności Paynow
+        if (data.redirectUrl) {
+          if (btnText) btnText.textContent = 'Przekierowanie do Paynow...';
+          window.location.href = data.redirectUrl;
+          return;
+        }
+
+        // SCENARIUSZ 2: Rezerwacja ze 100% rabatem (kwota 0 PLN) lub potwierdzenie
         const formEl = document.getElementById('workshop-form');
         const successBox = document.getElementById('ws-success-box');
         const successDesc = document.getElementById('ws-success-desc');
         if (formEl) formEl.style.display = 'none';
         if (successBox) successBox.style.display = 'flex';
+
         if (successDesc) {
-          successDesc.innerHTML = `
-            Dziękujemy, <strong>${name}</strong>!<br>
-            Szczegóły wydarzenia oraz cena zostały wysłane na adres <strong>${email}</strong>.<br>
-            Organizator (Łukasz Poruszek) otrzymał powiadomienie o Twoim zgłoszeniu.
-          `;
+          if (data.isZeroPayment) {
+            successDesc.innerHTML = `
+              Dziękujemy, <strong>${name}</strong>!<br>
+              Twoje miejsce w grupie <strong>${selectedGroupData.name}</strong> zostało pomyślnie zarezerwowane ze 100% rabatem specjalnym.<br>
+              Potwierdzenie oraz linki do spotkań zostały wysłane na <strong>${email}</strong>.
+            `;
+          } else if (data.requiresConfig) {
+            successDesc.innerHTML = `
+              Rezerwacja przyjęta, <strong>${name}</strong>!<br>
+              Grupa: <strong>${selectedGroupData.name}</strong> • Kwota: <strong>${data.amountPln} PLN</strong>.<br>
+              <span style="display:inline-block; margin-top:8px; opacity:0.8; font-size:11px;">
+                (Tryb deweloperski: klucze PAYNOW_API_KEY i PAYNOW_SIGNATURE_KEY można skonfigurować w pliku .env).
+              </span>
+            `;
+          } else {
+            successDesc.innerHTML = `
+              Dziękujemy, <strong>${name}</strong>!<br>
+              Szczegóły warsztatów (<strong>${selectedGroupData.name}</strong>) zostały wysłane na adres <strong>${email}</strong>.
+            `;
+          }
         }
       } else {
         alert('Wystąpił problem: ' + (data.error || 'Spróbuj ponownie.'));
-        if (btn) {
-          btn.disabled = false;
-          btn.textContent = 'Rezerwuj';
-        }
+        if (btn) btn.disabled = false;
+        updatePriceDisplay();
       }
     } catch (err) {
-      // Fallback
+      console.error('Błąd rezerwacji warsztatów:', err);
       const formEl = document.getElementById('workshop-form');
       const successBox = document.getElementById('ws-success-box');
       const successDesc = document.getElementById('ws-success-desc');
@@ -252,7 +447,8 @@
       if (successDesc) {
         successDesc.innerHTML = `
           Dziękujemy, <strong>${name}</strong>!<br>
-          Szczegóły wydarzenia oraz cena zostaną wysłane na adres <strong>${email}</strong>.
+          Twoje zgłoszenie do <strong>${selectedGroupData.name}</strong> zostało zarejestrowane.<br>
+          Szczegóły zostaną przesłane na adres <strong>${email}</strong>.
         `;
       }
     }
@@ -384,6 +580,30 @@
     });
 
     renderCalendar();
+    updatePriceDisplay();
+
+    // Sprawdzenie powrotu z bramki płatności Paynow (?payment=success)
+    try {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('payment') === 'success') {
+        const orderId = params.get('order') || '';
+        setTimeout(() => {
+          window.openBookingModal('warsztaty');
+          const formEl = document.getElementById('workshop-form');
+          const successBox = document.getElementById('ws-success-box');
+          const successDesc = document.getElementById('ws-success-desc');
+          if (formEl) formEl.style.display = 'none';
+          if (successBox) successBox.style.display = 'flex';
+          if (successDesc) {
+            successDesc.innerHTML = `
+              Płatność przez Paynow zakończona pomyślnie!<br>
+              Twoje miejsce w warsztatach zostało opłacone i potwierdzone${orderId ? ` (Zamówienie: ${orderId})` : ''}.<br>
+              Szczegóły oraz harmonogram spotkań przesłaliśmy na Twój adres e-mail.
+            `;
+          }
+        }, 400);
+      }
+    } catch (e) {}
   }
 
   // PĘTLA SYNCHRONIZACYJNA ZE STANEM 3D (hotspotDna)

@@ -45,8 +45,12 @@
 
 ## 2. Rejestr Usług i Cen (Baza Wiedzy)
 1. **Warsztaty Orkiestracji AI:** 1200 zł | 6 tygodni (6x 2h) | małe grupy (8–15 os.)
+   - Grupa grudniowa: start 1 grudnia 2026, wtorki 19:00–21:00
+   - Grupa styczniowa: start 5 stycznia 2027, wtorki 19:00–21:00
+   - Płatności online: Paynow (mBank)
+   - Kody rabatowe: `CHORWACJA` (-50%), `RESICRAFT` (-50%), `432834145` (-100%)
 2. **Mentoring Biznesowy:** 400 zł | sesja 90 minut 1:1 | diagnoza i walidacja modeli
-3. **Mentoring Kariery:** 300 zł | sesja 90 minut 1:1 | audyt CV/LinkedIn i strategia rekrutacyjna
+3. **Mentoring Kariery:** 400 zł | sesja 90 minut 1:1 | audyt CV/LinkedIn i strategia rekrutacyjna
 
 ---
 

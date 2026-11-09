@@ -392,6 +392,8 @@
                             <div class="mentoring-specs">
                                 <span>⏱ 90 min (1h 30m)</span>
                                 <span>•</span>
+                                <span>400 PLN</span>
+                                <span>•</span>
                                 <span>Spotkanie online 1:1</span>
                             </div>
                         </div>
@@ -472,12 +474,16 @@
                     <header class="workshop-group-header">
                         <div class="workshop-group-pills">
                             <span class="workshop-section-title">Wybór grupy:</span>
-                            <div class="workshop-group-pill" role="button" tabindex="0">
+                            <div class="workshop-group-pill active" id="ws-pill-dec" role="button" tabindex="0" onclick="switchWorkshopGroup('december')">
                                 <span class="workshop-dot"></span>
-                                <span>Grupa grudniowa</span>
+                                <span>Grupa grudniowa (start 1.12)</span>
+                            </div>
+                            <div class="workshop-group-pill" id="ws-pill-jan" role="button" tabindex="0" onclick="switchWorkshopGroup('january')">
+                                <span class="workshop-dot"></span>
+                                <span>Grupa styczniowa (start 5.01)</span>
                             </div>
                         </div>
-                        <span class="workshop-status-tag">Status: Zapisy otwarte</span>
+                        <span class="workshop-status-tag" id="ws-group-status">Status: Zapisy otwarte</span>
                     </header>
 
                     <!-- Główna siatka: Harmonogram + Formularz -->
@@ -485,9 +491,9 @@
                         
                         <!-- Kolumna 1: Dokładny harmonogram 6 spotkań -->
                         <div class="workshop-schedule-col">
-                            <h3 class="workshop-section-title">Harmonogram cyklu (wtorki 19:00 – 21:00)</h3>
+                            <h3 class="workshop-section-title" id="ws-schedule-title">Harmonogram cyklu (wtorki 19:00 – 21:00)</h3>
                             
-                            <div class="schedule-list">
+                            <div class="schedule-list" id="ws-schedule-list">
                                 <div class="schedule-item">
                                     <span class="schedule-date"><span class="schedule-num">01</span> 1 grudnia 2026</span>
                                     <span class="schedule-time">19:00 – 21:00 (Start cyklu)</span>
@@ -521,7 +527,7 @@
 
                         <!-- Kolumna 2: Prosty formularz zapisu -->
                         <div class="workshop-form-col">
-                            <h3 class="workshop-section-title">Rezerwacja miejsca w grupie</h3>
+                            <h3 class="workshop-section-title">Rezerwacja miejsca i płatność</h3>
                             
                             <form class="workshop-form" id="workshop-form" onsubmit="handleWorkshopSubmit(event)">
                                 <div class="form-group">
@@ -539,14 +545,49 @@
                                     <input class="form-input" id="ws-phone" type="tel" placeholder="+48 000 000 000" required />
                                 </div>
 
-                                <!-- PRZYCISK: REZERWUJ -->
+                                <!-- KOD RABATOWY -->
+                                <div class="coupon-group">
+                                    <button type="button" class="coupon-toggle-btn" id="couponToggleBtn" onclick="toggleCouponBox()">
+                                        <span id="couponToggleText">+ Masz kod rabatowy?</span>
+                                    </button>
+                                    <div class="coupon-box" id="couponBox">
+                                        <div class="coupon-input-row">
+                                            <input type="text" class="coupon-input" id="ws-coupon-input" placeholder="WPISZ KOD" autocomplete="off" />
+                                            <button type="button" class="coupon-apply-btn" id="ws-coupon-btn" onclick="applyCoupon()">Zastosuj</button>
+                                        </div>
+                                        <div class="coupon-feedback" id="ws-coupon-feedback"></div>
+                                    </div>
+                                </div>
+
+                                <!-- PODSUMOWANIE KWOTY -->
+                                <div class="order-summary-box">
+                                    <div class="summary-row">
+                                        <span>Cena bazowa:</span>
+                                        <span id="ws-base-price">1 200 PLN</span>
+                                    </div>
+                                    <div class="summary-row discount-row" id="ws-discount-row">
+                                        <span id="ws-discount-label">Rabat:</span>
+                                        <span id="ws-discount-amount">-0 PLN</span>
+                                    </div>
+                                    <div class="summary-row total-row">
+                                        <span>Do zapłaty:</span>
+                                        <span class="total-amount" id="ws-total-amount">1 200 PLN</span>
+                                    </div>
+                                </div>
+
+                                <!-- PRZYCISK: PŁATNOŚĆ PAYNOW -->
                                 <button type="submit" class="btn-submit-workshop" id="ws-submit-btn">
-                                    Rezerwuj
+                                    <span id="ws-submit-btn-text">Przejdź do płatności Paynow (1 200 PLN)</span>
+                                    <span>→</span>
                                 </button>
 
-                                <!-- ZAKTUALIZOWANA TREŚĆ WYJAŚNIENIA -->
-                                <p class="form-disclaimer">
-                                    Cena oraz szczegóły wydarzenia zostaną wysłane na podany adres e-mail.
+                                <div class="paynow-badge" id="ws-paynow-badge">
+                                    <span class="paynow-badge-dot"></span>
+                                    <span>Bezpieczna płatność online przez Paynow (BLIK, szybki przelew, karta)</span>
+                                </div>
+
+                                <p class="form-disclaimer" id="ws-form-disclaimer">
+                                    Gwarancja rezerwacji miejsca natychmiast po zaksięgowaniu płatności.
                                 </p>
                             </form>
 
@@ -555,7 +596,7 @@
                                 <div class="success-icon">✓</div>
                                 <h4 class="success-title">Rezerwacja przyjęta</h4>
                                 <p class="success-desc" id="ws-success-desc">
-                                    Dziękujemy! Szczegóły wydarzenia oraz cena zostały wysłane na podany adres e-mail.
+                                    Dziękujemy! Szczegóły wydarzenia zostały wysłane na podany adres e-mail.
                                 </p>
                             </div>
                         </div>
