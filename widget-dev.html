@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sandbox: Widżet Rezerwacji & Płatności Paynow</title>
+    <link rel="stylesheet" href="/booking-widget.css" />
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background-color: #080c10;
+            background-image: 
+                radial-gradient(circle at 50% 20%, rgba(20, 35, 45, 0.4) 0%, transparent 60%),
+                radial-gradient(circle at 80% 80%, rgba(10, 25, 30, 0.3) 0%, transparent 50%);
+            color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 30px 20px 60px;
+        }
+
+        /* PASEK NARZĘDZIOWY DEWELOPERA (SZYBKIE TESTY) */
+        .dev-toolbar {
+            width: 100%;
+            max-width: 960px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 12px;
+            padding: 12px 18px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            font-size: 12px;
+        }
+
+        .dev-badge {
+            background: rgba(74, 222, 128, 0.15);
+            border: 1px solid rgba(74, 222, 128, 0.35);
+            color: #4ade80;
+            padding: 4px 10px;
+            border-radius: 9999px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-size: 10px;
+        }
+
+        .dev-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .dev-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            color: #ffffff;
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 11.5px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.15s ease;
+        }
+
+        .dev-btn:hover {
+            background: rgba(255, 255, 255, 0.18);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* KONTENER WIDŻETU W TRYBIE SAMODZIELNYM */
+        .widget-dev-stage {
+            width: 100%;
+            max-width: 960px;
+            position: relative;
+        }
+
+        /* Wymuszenie stałej widoczności modalu w sandboxie */
+        #booking-modal-overlay {
+            position: relative !important;
+            inset: auto !important;
+            width: 100% !important;
+            height: auto !important;
+            padding: 0 !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            pointer-events: auto !important;
+            display: flex !important;
+            justify-content: center !important;
+        }
+
+        #booking-modal-overlay .glass-booking-surface {
+            height: 720px;
+            width: 100%;
+            animation: none !important;
+        }
+
+        .booking-close-btn {
+            display: none !important;
+        }
+
+        .dev-footer-note {
+            margin-top: 20px;
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.4);
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PASEK SZYBKIEGO TESTOWANIA PŁATNOŚCI I KODÓW -->
+    <header class="dev-toolbar">
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <span class="dev-badge">⚡ Izolowany Sandbox</span>
+            <span style="color: rgba(255, 255, 255, 0.7); font-weight: 500;">Widżet rezerwacji i płatności Paynow</span>
+        </div>
+        <div class="dev-actions">
+            <span style="color: rgba(255,255,255,0.4); font-size:11px;">Kody testowe:</span>
+            <button class="dev-btn" onclick="quickApplyCoupon('CHORWACJA')">CHORWACJA (-50%)</button>
+            <button class="dev-btn" onclick="quickApplyCoupon('RESICRAFT')">RESICRAFT (-50%)</button>
+            <button class="dev-btn" onclick="quickApplyCoupon('432834145')">432834145 (-100%)</button>
+            <button class="dev-btn" onclick="quickClearCoupon()">✕ Wyczyść kod</button>
+        </div>
+    </header>
+
+    <!-- GŁÓWNY WIDŻET -->
+    <main class="widget-dev-stage">
+        <div id="booking-modal-overlay" class="booking-modal-overlay is-visible" role="dialog" aria-modal="true" aria-label="Rezerwacja spotkań i warsztatów">
+            <div class="glass-booking-surface" onclick="event.stopPropagation()">
+                
+                <!-- SELEKTOR 3 TYPÓW SPOTKAŃ -->
+                <nav class="event-type-selector" aria-label="Wybór typu spotkania">
+                    <button class="event-type-btn active" id="btn-opt1" type="button" onclick="switchBookingTab('biznes')">
+                        <span class="event-name">
+                            Mentoring biznesowy
+                            <span class="event-badge">OSOBA</span>
+                        </span>
+                        <span class="event-meta">90 min • Indywidualna sesja 1:1</span>
+                    </button>
+
+                    <button class="event-type-btn" id="btn-opt2" type="button" onclick="switchBookingTab('kariera')">
+                        <span class="event-name">
+                            Mentoring kariery
+                            <span class="event-badge">OSOBA</span>
+                        </span>
+                        <span class="event-meta">90 min • Indywidualna sesja 1:1</span>
+                    </button>
+
+                    <button class="event-type-btn" id="btn-opt3" type="button" onclick="switchBookingTab('warsztaty')">
+                        <span class="event-name">
+                            Warsztaty AI
+                            <span class="event-badge">GRUPA</span>
+                        </span>
+                        <span class="event-meta">6 spotkań × 2h • Grupa warsztatowa</span>
+                    </button>
+                </nav>
+
+                <!-- WIDOK 1: MENTORING BIZNESOWY / KARIERY -->
+                <div class="mentoring-container" id="mentoring-view">
+                    <aside class="mentoring-info-col">
+                        <div class="host-profile">
+                            <img class="host-avatar" src="https://lh3.googleusercontent.com/a/ACg8ocJi13NWQJOphF0irHbIAa5eIxn2nw2iyxj07Pa0lbb8cOD_XsI=s96-c" alt="Łukasz Poruszek" />
+                            <div>
+                                <div class="host-name">Łukasz Poruszek</div>
+                                <div class="host-sub">Konsultacje strategiczne</div>
+                            </div>
+                        </div>
+
+                        <div class="mentoring-title-box">
+                            <h2 id="mentoring-active-title">Mentoring biznesowy</h2>
+                            <div class="mentoring-specs">
+                                <span>⏱ 90 min (1h 30m)</span>
+                                <span>•</span>
+                                <span>400 PLN</span>
+                                <span>•</span>
+                                <span>Spotkanie online 1:1</span>
+                            </div>
+                        </div>
+
+                        <div class="status-sold-banner" id="mentoring-status-banner">
+                            <div class="status-sold-title" id="mentoring-status-title">
+                                <span class="status-sold-dot"></span>
+                                Terminy wyprzedane
+                            </div>
+                            <p class="status-sold-desc" id="mentoring-status-desc">
+                                Wszystkie regularne sloty w listopadzie zostały zarezerwowane.
+                            </p>
+                        </div>
+
+                        <div class="waitlist-box">
+                            <span class="waitlist-label">Lista rezerwowa</span>
+                            <form id="waitlist-form" onsubmit="handleWaitlist(event)">
+                                <input class="waitlist-input" id="waitlist-email" type="email" placeholder="Wpisz swój e-mail..." required />
+                                <textarea class="waitlist-textarea" id="waitlist-note" placeholder="Notatka (opcjonalnie: preferowany dzień, godziny lub temat)..." rows="2" style="margin-top: 6px;"></textarea>
+                                <button class="waitlist-btn" id="waitlist-btn" type="submit" style="margin-top: 6px; width: 100%;">
+                                    Zapisz na listę rezerwową
+                                </button>
+                            </form>
+                            <div class="waitlist-success-msg" id="waitlist-success">
+                                ✓ Zapisano! Powiadomimy Cię e-mailem, gdy zwolni się termin. Twoja notatka została przekazana.
+                            </div>
+                        </div>
+                    </aside>
+
+                    <section class="mentoring-calendar-col">
+                        <div class="calendar-header">
+                            <span class="calendar-month-title" id="cal-month-display">Listopad 2026</span>
+                            <div class="calendar-nav-btns">
+                                <button class="cal-nav-btn" id="cal-prev-btn" type="button" onclick="changeBookingMonth(-1)">‹</button>
+                                <button class="cal-nav-btn" id="cal-next-btn" type="button" onclick="changeBookingMonth(1)">›</button>
+                            </div>
+                        </div>
+
+                        <div class="calendar-weekdays">
+                            <span>PON</span>
+                            <span>WT</span>
+                            <span>ŚR</span>
+                            <span>CZW</span>
+                            <span>PT</span>
+                            <span>SOB</span>
+                            <span>NIEDZ</span>
+                        </div>
+
+                        <div class="calendar-grid" id="calendar-days-grid"></div>
+                    </section>
+
+                    <section class="mentoring-slots-col">
+                        <div class="slots-col-header">
+                            <span class="slots-selected-date" id="selected-date-label">czw. 5 lis</span>
+                            <span class="slots-clock-format">24h</span>
+                        </div>
+                        <div class="slots-list" id="slots-container"></div>
+                        <p class="slots-note" id="slots-note-text">
+                            Terminy oznaczone jako wykupione nie są obecnie dostępne do bezpośredniej rezerwacji.
+                        </p>
+                    </section>
+                </div>
+
+                <!-- WIDOK 2: WARSZTATY AI -->
+                <div class="workshop-container" id="workshop-view">
+                    <header class="workshop-group-header">
+                        <div class="workshop-group-pills">
+                            <span class="workshop-section-title">Wybór grupy:</span>
+                            <div class="workshop-group-pill active" id="ws-pill-dec" role="button" tabindex="0" onclick="switchWorkshopGroup('december')">
+                                <span class="workshop-dot"></span>
+                                <span>Grupa grudniowa (start 1.12)</span>
+                            </div>
+                            <div class="workshop-group-pill" id="ws-pill-jan" role="button" tabindex="0" onclick="switchWorkshopGroup('january')">
+                                <span class="workshop-dot"></span>
+                                <span>Grupa styczniowa (start 5.01)</span>
+                            </div>
+                        </div>
+                        <span class="workshop-status-tag" id="ws-group-status">Status: Zapisy otwarte</span>
+                    </header>
+
+                    <div class="workshop-grid">
+                        <div class="workshop-schedule-col">
+                            <h3 class="workshop-section-title" id="ws-schedule-title">Harmonogram cyklu (wtorki 19:00 – 21:00)</h3>
+                            <div class="schedule-list" id="ws-schedule-list">
+                                <div class="schedule-item">
+                                    <span class="schedule-date"><span class="schedule-num">01</span> 1 grudnia 2026</span>
+                                    <span class="schedule-time">19:00 – 21:00 (Start cyklu)</span>
+                                </div>
+                                <div class="schedule-item">
+                                    <span class="schedule-date"><span class="schedule-num">02</span> 8 grudnia 2026</span>
+                                    <span class="schedule-time">19:00 – 21:00</span>
+                                </div>
+                                <div class="schedule-item">
+                                    <span class="schedule-date"><span class="schedule-num">03</span> 15 grudnia 2026</span>
+                                    <span class="schedule-time">19:00 – 21:00</span>
+                                </div>
+                                <div class="schedule-item">
+                                    <span class="schedule-date"><span class="schedule-num">04</span> 22 grudnia 2026</span>
+                                    <span class="schedule-time">19:00 – 21:00</span>
+                                </div>
+                                <div class="schedule-item">
+                                    <span class="schedule-date"><span class="schedule-num">05</span> 29 grudnia 2026</span>
+                                    <span class="schedule-time">19:00 – 21:00</span>
+                                </div>
+                                <div class="schedule-item">
+                                    <span class="schedule-date"><span class="schedule-num">06</span> 5 stycznia 2027</span>
+                                    <span class="schedule-time">19:00 – 21:00 (Finał)</span>
+                                </div>
+                            </div>
+                            <p class="workshop-note">
+                                Spotkania odbywają się online na żywo (Google Meet / Cal Video). Wszystkie sesje są rejestrowane i przekazywane uczestnikom.
+                            </p>
+                        </div>
+
+                        <div class="workshop-form-col">
+                            <h3 class="workshop-section-title">Rezerwacja miejsca i płatność</h3>
+                            <form class="workshop-form" id="workshop-form" onsubmit="handleWorkshopSubmit(event)">
+                                <div class="form-group">
+                                    <label class="form-label" for="ws-name">Imię i nazwisko</label>
+                                    <input class="form-input" id="ws-name" type="text" placeholder="np. Jan Kowalski" required />
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label" for="ws-email">Adres e-mail</label>
+                                    <input class="form-input" id="ws-email" type="email" placeholder="np. jan@firma.pl" required />
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label" for="ws-phone">Numer telefonu</label>
+                                    <input class="form-input" id="ws-phone" type="tel" placeholder="+48 000 000 000" required />
+                                </div>
+
+                                <div class="coupon-group">
+                                    <button type="button" class="coupon-toggle-btn" id="couponToggleBtn" onclick="toggleCouponBox()">
+                                        <span id="couponToggleText">+ Masz kod rabatowy?</span>
+                                    </button>
+                                    <div class="coupon-box is-open" id="couponBox">
+                                        <div class="coupon-input-row">
+                                            <input type="text" class="coupon-input" id="ws-coupon-input" placeholder="WPISZ KOD" autocomplete="off" />
+                                            <button type="button" class="coupon-apply-btn" id="ws-coupon-btn" onclick="applyCoupon()">Zastosuj</button>
+                                        </div>
+                                        <div class="coupon-feedback" id="ws-coupon-feedback"></div>
+                                    </div>
+                                </div>
+
+                                <div class="order-summary-box">
+                                    <div class="summary-row">
+                                        <span>Cena bazowa:</span>
+                                        <span id="ws-base-price">1 200 PLN</span>
+                                    </div>
+                                    <div class="summary-row discount-row" id="ws-discount-row">
+                                        <span id="ws-discount-label">Rabat:</span>
+                                        <span id="ws-discount-amount">-0 PLN</span>
+                                    </div>
+                                    <div class="summary-row total-row">
+                                        <span>Do zapłaty:</span>
+                                        <span class="total-amount" id="ws-total-amount">1 200 PLN</span>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn-submit-workshop" id="ws-submit-btn">
+                                    <span id="ws-submit-btn-text">Przejdź do płatności Paynow (1 200 PLN)</span>
+                                    <span>→</span>
+                                </button>
+
+                                <div class="paynow-badge" id="ws-paynow-badge">
+                                    <span class="paynow-badge-dot"></span>
+                                    <span>Bezpieczna płatność online przez Paynow (BLIK, szybki przelew, karta)</span>
+                                </div>
+
+                                <p class="form-disclaimer" id="ws-form-disclaimer">
+                                    Gwarancja rezerwacji miejsca natychmiast po zaksięgowaniu płatności.
+                                </p>
+                            </form>
+
+                            <div class="reservation-success-box" id="ws-success-box">
+                                <div class="success-icon">✓</div>
+                                <h4 class="success-title">Rezerwacja przyjęta</h4>
+                                <p class="success-desc" id="ws-success-desc">
+                                    Dziękujemy! Szczegóły wydarzenia zostały wysłane na podany adres e-mail.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <footer class="dev-footer-note">
+        Wszystkie zmiany w stylach i logice zapisują się bezpośrednio w <code>booking-widget.css</code> i <code>booking-widget.js</code>.
+    </footer>
+
+    <script src="/booking-widget.js"></script>
+    <script>
+        // Pomocnicze funkcje paska dewelopera
+        function quickApplyCoupon(code) {
+            window.switchBookingTab('warsztaty');
+            const box = document.getElementById('couponBox');
+            if (box) box.classList.add('is-open');
+            const input = document.getElementById('ws-coupon-input');
+            if (input) {
+                input.value = code;
+                window.applyCoupon();
+            }
+        }
+
+        function quickClearCoupon() {
+            const input = document.getElementById('ws-coupon-input');
+            if (input) {
+                input.value = '';
+                window.applyCoupon();
+            }
+        }
+
+        // Domyślnie w sandboxie otwórz zakładkę warsztatów
+        document.addEventListener('DOMContentLoaded', () => {
+            window.switchBookingTab('warsztaty');
+        });
+    </script>
+</body>
+</html>

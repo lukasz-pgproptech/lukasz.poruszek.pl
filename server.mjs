@@ -384,7 +384,9 @@ const server = http.createServer((req, res) => {
   // -------------------------------------------------------------
   // STATYCZNE SERWOWANIE PLIKÓW
   // -------------------------------------------------------------
-  if (reqPath === '/' || reqPath === '') {
+  if (reqPath === '/widget' || reqPath === '/widget/' || reqPath === '/sandbox') {
+    reqPath = '/widget-dev.html';
+  } else if (reqPath === '/' || reqPath === '') {
     reqPath = fs.existsSync(path.join(__dirname, 'index.3d.html')) ? '/index.3d.html' : '/index.html';
   }
 
