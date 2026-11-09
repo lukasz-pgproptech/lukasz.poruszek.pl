@@ -969,6 +969,16 @@
         hideWebGLScene2FallbackText();
       }
 
+      // Trwałe wyłączenie bocznej nawigacji (kropki i kółka po prawej stronie)
+      if (window.view && window.view.sideNav) {
+        if (window.view.renderer && window.view.renderer.scene && window.view.sideNav.object) {
+          window.view.renderer.scene.remove(window.view.sideNav.object);
+        }
+        if (window.view.sideNav.object) window.view.sideNav.object.visible = false;
+        window.view.sideNav.props.v = false;
+        window.view.sideNav.props.active = false;
+      }
+
       if (window.scrollHandler && window.getSnapPos) {
         try {
           const snap = window.getSnapPos('science', 'data');
