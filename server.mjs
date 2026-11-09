@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
+import { createAndRegisterInvoice, getInvoiceById, generateInvoiceHtml, SELLER_DATA } from './ksef-client.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -112,7 +113,136 @@ const server = http.createServer((req, res) => {
   let reqPath = decodeURIComponent(req.url.split('?')[0]);
 
   // -------------------------------------------------------------
-  // API: REZERWACJA WARSZTATÓW AI + PŁATNOŚĆ PAYNOW + KODY RABATOWE
+  // API: WALIDACJA KODU RABATOWEGO (ZABEZPIECZONA PO STRONIE SERWERA)
+  // -------------------------------------------------------------
+  if (req.method === 'POST' && reqPath === '/api/validate-coupon') {
+    let body = '';
+    req.on('data', chunk => body += chunk);
+    req.on('end', () => {
+      try {
+        const payload = JSON.parse(body || '{}');
+        const rawCode = payload.code || payload.coupon || '';
+        const code = String(rawCode).trim().toUpperCase();
+
+        if (!code) {
+          res.writeHead(200, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ valid: false, message: 'Brak kodu.' }));
+          return;
+        }
+
+        if (COUPONS[code] !== undefined) {
+          const discountPercent = COUPONS[code];
+          const labels = {
+            'CHORWACJA': '-50% (Rabat partnerski)',
+            'RESICRAFT': '-50% (Rabat partnerski)',
+            '432834145': '-100% (Bezpłatny dostęp)'
+          };
+          res.writeHead(200, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({
+            valid: true,
+            code,
+            discountPercent,
+            label: labels[code] || `-${discountPercent}%`
+          }));
+        } else {
+          res.writeHead(200, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ valid: false, error: 'Nieprawidłowy lub wygasły kod rabatowy.' }));
+        }
+      } catch (e) {
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: 'Nieprawidłowe zapytanie.' }));
+      }
+    });
+    return;
+  }
+
+  // -------------------------------------------------------------
+  // API: WYSZUKIWANIE DANYCH FIRMY PO NIP (Biała Lista VAT MF)
+  // -------------------------------------------------------------
+  if (req.method === 'GET' && reqPath === '/api/nip-lookup') {
+    const urlObj = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
+    const rawNip = urlObj.searchParams.get('nip') || '';
+    const cleanNip = rawNip.replace(/\D/g, '');
+
+    if (cleanNip.length !== 10) {
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ error: 'NIP musi zawierać dokładnie 10 cyfr.' }));
+      return;
+    }
+
+    const today = new Date().toISOString().split('T')[0];
+    const mfUrl = `https://wl-api.mf.gov.pl/api/search/nip/${cleanNip}?date=${today}`;
+
+    (async () => {
+      try {
+        const mfRes = await fetch(mfUrl);
+        const mfData = await mfRes.json();
+
+        if (mfRes.ok && mfData.result && mfData.result.subject) {
+          const subj = mfData.result.subject;
+          const fullAddress = subj.residenceAddress || subj.workingAddress || '';
+          
+          let street = fullAddress;
+          let postalCode = '';
+          let city = '';
+          const postalMatch = fullAddress.match(/(\d{2}-\d{3})\s+([^,]+)/);
+          if (postalMatch) {
+            postalCode = postalMatch[1];
+            city = postalMatch[2].trim();
+            street = fullAddress.replace(/,?\s*\d{2}-\d{3}\s+[^,]+/, '').trim();
+          }
+
+          res.writeHead(200, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({
+            success: true,
+            name: subj.name,
+            nip: cleanNip,
+            regon: subj.regon || '',
+            krs: subj.krs || '',
+            statusVat: subj.statusVat,
+            fullAddress,
+            street,
+            postalCode,
+            city
+          }));
+        } else {
+          res.writeHead(404, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({
+            error: (mfData.message || 'Nie znaleziono firmy o podanym numerze NIP w rejestrze MF.')
+          }));
+        }
+      } catch (err) {
+        console.error('Błąd NIP lookup:', err);
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: 'Błąd połączenia z rejestrem MF.' }));
+      }
+    })();
+    return;
+  }
+
+  // -------------------------------------------------------------
+  // API: POBIERANIE WIZUALIZACJI FAKTURY KSEF (HTML / DRUK)
+  // -------------------------------------------------------------
+  if ((req.method === 'GET' || req.method === 'HEAD') && reqPath.startsWith('/api/invoices/')) {
+    const invId = reqPath.replace('/api/invoices/', '');
+    const invoice = getInvoiceById(invId);
+    if (!invoice) {
+      res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
+      res.end('Faktura nie została znaleziona.');
+      return;
+    }
+    const html = generateInvoiceHtml(invoice);
+    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+    if (req.method === 'HEAD') {
+      res.end();
+      return;
+    }
+    res.end(html);
+    return;
+  }
+
+  // -------------------------------------------------------------
+  // API: REZERWACJA WARSZTATÓW AI + PŁATNOŚĆ PAYNOW + KODY + KSEF
   // -------------------------------------------------------------
   if (req.method === 'POST' && reqPath === '/api/reserve-workshop') {
     let body = '';
@@ -120,7 +250,15 @@ const server = http.createServer((req, res) => {
     req.on('end', async () => {
       try {
         const payload = JSON.parse(body || '{}');
-        const { name, email, phone, group, groupId, coupon } = payload;
+        const {
+          name, email, phone, group, groupId, coupon,
+          buyerType = 'individual',
+          invoiceNip,
+          invoiceCompanyName,
+          invoiceStreet,
+          invoicePostalCode,
+          invoiceCity
+        } = payload;
 
         if (!email || !name) {
           res.writeHead(400, { 'Content-Type': 'application/json' });
@@ -131,7 +269,7 @@ const server = http.createServer((req, res) => {
         const selectedGroup = group || 'Grupa grudniowa (start 1.12.2026, 19:00)';
         const workshopDate = (groupId === 'january') ? '2027-01-05T18:00:00.000Z' : '2026-12-01T18:00:00.000Z';
 
-        // Obliczenie ceny z uwzględnieniem kodu rabatowego
+        // Obliczenie ceny z uwzględnieniem kodu rabatowego (walidacja serwera)
         let discountPercent = 0;
         const normalizedCoupon = coupon ? String(coupon).trim().toUpperCase() : null;
         if (normalizedCoupon && COUPONS[normalizedCoupon] !== undefined) {
@@ -142,8 +280,31 @@ const server = http.createServer((req, res) => {
         const finalPriceGrosze = finalPricePln * 100;
         const externalId = `ws-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
 
-        // SCENARIUSZ A: Kwota 0 PLN (np. kod 432834145) -> Natychmiastowa rezerwacja bez bramki płatności
+        const isCompany = buyerType === 'company';
+        const buyer = {
+          type: buyerType,
+          name: isCompany ? (invoiceCompanyName || name) : name,
+          email,
+          phone,
+          nip: isCompany ? (invoiceNip || '').replace(/\D/g, '') : null,
+          street: invoiceStreet || '',
+          postalCode: invoicePostalCode || '',
+          city: invoiceCity || ''
+        };
+
+        // SCENARIUSZ A: Kwota 0 PLN (kod 100% rabatu) -> Natychmiastowa e-Faktura KSeF i potwierdzenie
         if (finalPricePln === 0) {
+          const invoice = await createAndRegisterInvoice({
+            group: selectedGroup,
+            name,
+            email,
+            phone,
+            amountPln: 0,
+            coupon: normalizedCoupon,
+            buyer,
+            externalId
+          });
+
           saveJsonData('reservations.json', {
             event: 'Warsztaty AI',
             group: selectedGroup,
@@ -153,7 +314,11 @@ const server = http.createServer((req, res) => {
             coupon: normalizedCoupon,
             amountPln: 0,
             paymentStatus: 'free_100_percent_discount',
-            externalId
+            externalId,
+            buyer,
+            invoiceNumber: invoice.invoiceNumber,
+            ksefNumber: invoice.ksefNumber,
+            invoiceId: invoice.id
           });
 
           // Cal.com notification
@@ -177,7 +342,7 @@ const server = http.createServer((req, res) => {
                 },
                 metadata: {
                   source: 'lukasz.poruszek.pl',
-                  note: `Rezerwacja Warsztatów AI (${selectedGroup}) - Rabat 100% (Kod: ${normalizedCoupon})`
+                  note: `Rezerwacja Warsztatów AI (${selectedGroup}) - Rabat 100% (Kod: ${normalizedCoupon}) | Faktura KSeF: ${invoice.invoiceNumber}`
                 }
               })
             });
@@ -191,6 +356,9 @@ const server = http.createServer((req, res) => {
             success: true,
             isZeroPayment: true,
             message: 'Rezerwacja przyjęta bezpłatnie (kod 100%).',
+            invoiceNumber: invoice.invoiceNumber,
+            ksefNumber: invoice.ksefNumber,
+            invoiceUrl: `/api/invoices/${invoice.id}`,
             calSynced: Boolean(calBookingResult)
           }));
           return;
@@ -242,7 +410,8 @@ const server = http.createServer((req, res) => {
                 amountPln: finalPricePln,
                 externalId,
                 paymentId: paynowData.paymentId,
-                paymentStatus: 'pending_paynow'
+                paymentStatus: 'pending_paynow',
+                buyer
               });
 
               res.writeHead(200, { 'Content-Type': 'application/json' });
@@ -269,8 +438,19 @@ const server = http.createServer((req, res) => {
           }
         }
 
-        // SCENARIUSZ C: Brak skonfigurowanych kluczy PAYNOW w .env (Tryb deweloperski / oczekiwanie na klucze)
-        console.log(`[Paynow Mock/Dev] Rezerwacja przyjęta. Skonfiguruj PAYNOW_API_KEY i PAYNOW_SIGNATURE_KEY w pliku .env, aby aktywować bramkę mBank Paynow.`);
+        // SCENARIUSZ C: Brak kluczy w .env (Tryb deweloperski) -> Automatyczne wygenerowanie e-Faktury KSeF
+        const invoice = await createAndRegisterInvoice({
+          group: selectedGroup,
+          name,
+          email,
+          phone,
+          amountPln: finalPricePln,
+          coupon: normalizedCoupon,
+          buyer,
+          externalId
+        });
+
+        console.log(`[Paynow Mock/Dev] Rezerwacja przyjęta. Wygenerowano fakturę KSeF: ${invoice.invoiceNumber}`);
         saveJsonData('reservations.json', {
           event: 'Warsztaty AI',
           group: selectedGroup,
@@ -280,7 +460,11 @@ const server = http.createServer((req, res) => {
           coupon: normalizedCoupon || null,
           amountPln: finalPricePln,
           externalId,
-          paymentStatus: 'pending_paynow_config'
+          paymentStatus: 'pending_paynow_config',
+          buyer,
+          invoiceNumber: invoice.invoiceNumber,
+          ksefNumber: invoice.ksefNumber,
+          invoiceId: invoice.id
         });
 
         res.writeHead(200, { 'Content-Type': 'application/json' });
@@ -288,7 +472,10 @@ const server = http.createServer((req, res) => {
           success: true,
           requiresConfig: true,
           amountPln: finalPricePln,
-          message: 'Zgłoszenie zarejestrowane (Paynow czeka na klucze w .env).'
+          invoiceNumber: invoice.invoiceNumber,
+          ksefNumber: invoice.ksefNumber,
+          invoiceUrl: `/api/invoices/${invoice.id}`,
+          message: 'Zgłoszenie zarejestrowane. Wygenerowano fakturę KSeF.'
         }));
       } catch (err) {
         console.error('Error parsing reservation body:', err);

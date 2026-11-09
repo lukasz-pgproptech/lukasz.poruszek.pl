@@ -545,6 +545,58 @@
                                     <input class="form-input" id="ws-phone" type="tel" placeholder="+48 000 000 000" required />
                                 </div>
 
+                                <!-- DANE DO E-FAKTURY VAT (KSeF) -->
+                                <div class="invoice-section">
+                                    <label class="form-label">Dane do e-Faktury VAT (KSeF):</label>
+                                    <div class="buyer-type-toggle">
+                                        <button type="button" class="buyer-type-btn active" id="btn-buyer-ind" onclick="setBuyerType('individual')">
+                                            Osoba prywatna
+                                        </button>
+                                        <button type="button" class="buyer-type-btn" id="btn-buyer-comp" onclick="setBuyerType('company')">
+                                            Firma (B2B / NIP)
+                                        </button>
+                                    </div>
+
+                                    <!-- ADRES OSOBY PRYWATNEJ -->
+                                    <div id="fieldsIndividual" style="margin-top: 10px; display: flex; flex-direction: column; gap: 8px;">
+                                        <div class="form-group" style="margin-bottom: 0;">
+                                            <input class="form-input" id="ws-buyer-street" type="text" placeholder="Ulica i numer domu / lokalu" />
+                                        </div>
+                                        <div class="form-row-2col">
+                                            <input class="form-input" id="ws-buyer-zip" type="text" placeholder="Kod pocztowy (np. 00-001)" />
+                                            <input class="form-input" id="ws-buyer-city" type="text" placeholder="Miejscowość" />
+                                        </div>
+                                    </div>
+
+                                    <!-- POBIERANIE DANYCH FIRMY Z BIAŁEJ LISTY MF -->
+                                    <div id="fieldsCompany" style="margin-top: 10px; display: none; flex-direction: column; gap: 8px;">
+                                        <div class="form-group" style="margin-bottom: 0;">
+                                            <div class="nip-input-wrap">
+                                                <input class="form-input" id="ws-nip" type="text" placeholder="Wpisz NIP firmy (pobierze dane z MF)..." maxlength="13" oninput="handleNipInput(this.value)" />
+                                                <span class="nip-lookup-spinner" id="nipSpinner">Szukam w MF...</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="company-verified-card" id="companyVerifiedCard" style="display: none;">
+                                            <div class="company-card-header">
+                                                <span class="company-badge-vat" id="companyVatBadge">✓ Czynny podatnik VAT</span>
+                                                <button type="button" class="btn-edit-company" onclick="toggleManualCompanyEdit()">Zmień / edytuj</button>
+                                            </div>
+                                            <div class="company-verified-name" id="companyVerifiedName"></div>
+                                            <div class="company-verified-addr" id="companyVerifiedAddr"></div>
+                                        </div>
+
+                                        <div id="companyManualFields" style="display: none; flex-direction: column; gap: 8px; margin-top: 4px;">
+                                            <input class="form-input" id="ws-company-name" type="text" placeholder="Pełna nazwa firmy" />
+                                            <input class="form-input" id="ws-company-street" type="text" placeholder="Ulica i numer" />
+                                            <div class="form-row-2col">
+                                                <input class="form-input" id="ws-company-zip" type="text" placeholder="Kod (np. 00-001)" />
+                                                <input class="form-input" id="ws-company-city" type="text" placeholder="Miejscowość" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <!-- KOD RABATOWY -->
                                 <div class="coupon-group">
                                     <button type="button" class="coupon-toggle-btn" id="couponToggleBtn" onclick="toggleCouponBox()">

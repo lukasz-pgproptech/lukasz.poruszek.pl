@@ -325,10 +325,11 @@
     }
   }
 
-  // ZASTOSOWANIE KODU RABATOWEGO
-  window.applyCoupon = function () {
+  // ZASTOSOWANIE KODU RABATOWEGO (BEZPIECZNA WALIDACJA PO STRONIE SERWERA)
+  window.applyCoupon = async function () {
     const input = document.getElementById('ws-coupon-input');
     const feedback = document.getElementById('ws-coupon-feedback');
+    const applyBtn = document.getElementById('ws-coupon-btn');
     if (!input) return;
     const code = input.value.trim().toUpperCase();
 
@@ -342,20 +343,145 @@
       return;
     }
 
-    if (VALID_COUPONS[code]) {
-      activeCoupon = { code, ...VALID_COUPONS[code] };
-      if (feedback) {
-        feedback.className = 'coupon-feedback success';
-        feedback.innerHTML = `✓ Naliczono zniżkę: <strong>${activeCoupon.label}</strong>`;
+    if (feedback) {
+      feedback.className = 'coupon-feedback';
+      feedback.textContent = 'Sprawdzam kod...';
+    }
+    if (applyBtn) applyBtn.disabled = true;
+
+    try {
+      const res = await fetch('/api/validate-coupon', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code })
+      });
+      const data = await res.json();
+
+      if (res.ok && data.valid) {
+        activeCoupon = {
+          code: data.code,
+          percent: data.discountPercent,
+          label: `-${data.discountPercent}% (${data.discountPercent === 100 ? 'Bezpłatny dostęp' : 'Rabat partnerski'})`
+        };
+        if (feedback) {
+          feedback.className = 'coupon-feedback success';
+          feedback.innerHTML = `✓ Naliczono zniżkę: <strong>${activeCoupon.label}</strong>`;
+        }
+      } else {
+        activeCoupon = null;
+        if (feedback) {
+          feedback.className = 'coupon-feedback error';
+          feedback.textContent = `✕ ${data.error || 'Nieprawidłowy kod rabatowy.'}`;
+        }
       }
-    } else {
+    } catch (err) {
+      console.error('Błąd walidacji kodu rabatowego:', err);
       activeCoupon = null;
       if (feedback) {
         feedback.className = 'coupon-feedback error';
-        feedback.textContent = '✕ Nieprawidłowy kod rabatowy.';
+        feedback.textContent = '✕ Błąd połączenia przy sprawdzaniu kodu.';
       }
+    } finally {
+      if (applyBtn) applyBtn.disabled = false;
+      updatePriceDisplay();
     }
-    updatePriceDisplay();
+  };
+
+  // -------------------------------------------------------------
+  // DANE NABYWCY I FAKTURA VAT (KSeF)
+  // -------------------------------------------------------------
+  let buyerType = 'individual'; // 'individual' | 'company'
+  let verifiedCompanyData = null;
+  let nipDebounceTimer = null;
+
+  window.setBuyerType = function (type) {
+    buyerType = type;
+    const btnInd = document.getElementById('btn-buyer-ind');
+    const btnComp = document.getElementById('btn-buyer-comp');
+    const fieldsInd = document.getElementById('fieldsIndividual');
+    const fieldsComp = document.getElementById('fieldsCompany');
+
+    if (btnInd) btnInd.classList.toggle('active', type === 'individual');
+    if (btnComp) btnComp.classList.toggle('active', type === 'company');
+
+    if (fieldsInd) fieldsInd.style.display = (type === 'individual') ? 'flex' : 'none';
+    if (fieldsComp) fieldsComp.style.display = (type === 'company') ? 'flex' : 'none';
+  };
+
+  window.handleNipInput = function (rawVal) {
+    const cleanNip = String(rawVal || '').replace(/\D/g, '');
+    const spinner = document.getElementById('nipSpinner');
+    const card = document.getElementById('companyVerifiedCard');
+    const manualFields = document.getElementById('companyManualFields');
+
+    clearTimeout(nipDebounceTimer);
+
+    if (cleanNip.length < 10) {
+      if (spinner) spinner.style.display = 'none';
+      if (card) card.style.display = 'none';
+      verifiedCompanyData = null;
+      return;
+    }
+
+    if (cleanNip.length === 10) {
+      if (spinner) {
+        spinner.style.display = 'inline';
+        spinner.textContent = 'Szukam w MF...';
+      }
+
+      nipDebounceTimer = setTimeout(async () => {
+        try {
+          const res = await fetch(`/api/nip-lookup?nip=${encodeURIComponent(cleanNip)}`);
+          const data = await res.json();
+
+          if (spinner) spinner.style.display = 'none';
+
+          if (res.ok && (data.success || data.found) && data.name) {
+            verifiedCompanyData = data;
+            if (card) {
+              card.style.display = 'flex';
+              const nameEl = document.getElementById('companyVerifiedName');
+              const addrEl = document.getElementById('companyVerifiedAddr');
+              const vatEl = document.getElementById('companyVatBadge');
+
+              if (nameEl) nameEl.textContent = data.name;
+              if (addrEl) addrEl.textContent = `${data.street ? data.street + ', ' : ''}${data.postalCode} ${data.city}`;
+              if (vatEl) vatEl.textContent = `✓ ${data.statusVat || 'Czynny podatnik VAT'}`;
+            }
+            if (manualFields) manualFields.style.display = 'none';
+          } else {
+            // Brak w MF lub błąd – umożliwienie wpisania ręcznego
+            verifiedCompanyData = null;
+            if (card) card.style.display = 'none';
+            if (manualFields) manualFields.style.display = 'flex';
+          }
+        } catch (err) {
+          console.error('Błąd zapytania NIP:', err);
+          if (spinner) spinner.style.display = 'none';
+          verifiedCompanyData = null;
+          if (card) card.style.display = 'none';
+          if (manualFields) manualFields.style.display = 'flex';
+        }
+      }, 350);
+    }
+  };
+
+  window.toggleManualCompanyEdit = function () {
+    const manualFields = document.getElementById('companyManualFields');
+    if (!manualFields) return;
+    const isShown = manualFields.style.display === 'flex';
+    manualFields.style.display = isShown ? 'none' : 'flex';
+
+    if (!isShown && verifiedCompanyData) {
+      const nameInput = document.getElementById('ws-company-name');
+      const streetInput = document.getElementById('ws-company-street');
+      const zipInput = document.getElementById('ws-company-zip');
+      const cityInput = document.getElementById('ws-company-city');
+      if (nameInput) nameInput.value = verifiedCompanyData.name || '';
+      if (streetInput) streetInput.value = verifiedCompanyData.street || '';
+      if (zipInput) zipInput.value = verifiedCompanyData.postalCode || '';
+      if (cityInput) cityInput.value = verifiedCompanyData.city || '';
+    }
   };
 
   // OBSŁUGA REZERWACJI I PŁATNOŚCI PAYNOW
@@ -374,6 +500,40 @@
 
     if (!name || !email) return;
 
+    // Pobranie danych do faktury VAT
+    let invoiceStreet = '';
+    let invoicePostalCode = '';
+    let invoiceCity = '';
+    let invoiceNip = '';
+    let invoiceCompanyName = '';
+
+    if (buyerType === 'individual') {
+      const streetEl = document.getElementById('ws-buyer-street');
+      const zipEl = document.getElementById('ws-buyer-zip');
+      const cityEl = document.getElementById('ws-buyer-city');
+      invoiceStreet = streetEl ? streetEl.value.trim() : '';
+      invoicePostalCode = zipEl ? zipEl.value.trim() : '';
+      invoiceCity = cityEl ? cityEl.value.trim() : '';
+    } else {
+      const nipEl = document.getElementById('ws-nip');
+      const nameElManual = document.getElementById('ws-company-name');
+      const streetElManual = document.getElementById('ws-company-street');
+      const zipElManual = document.getElementById('ws-company-zip');
+      const cityElManual = document.getElementById('ws-company-city');
+
+      invoiceNip = nipEl ? nipEl.value.trim().replace(/\D/g, '') : '';
+      if (verifiedCompanyData) {
+        invoiceCompanyName = verifiedCompanyData.name || '';
+        invoiceStreet = verifiedCompanyData.street || '';
+        invoicePostalCode = verifiedCompanyData.postalCode || '';
+        invoiceCity = verifiedCompanyData.city || '';
+      }
+      if (nameElManual && nameElManual.value.trim()) invoiceCompanyName = nameElManual.value.trim();
+      if (streetElManual && streetElManual.value.trim()) invoiceStreet = streetElManual.value.trim();
+      if (zipElManual && zipElManual.value.trim()) invoicePostalCode = zipElManual.value.trim();
+      if (cityElManual && cityElManual.value.trim()) invoiceCity = cityElManual.value.trim();
+    }
+
     if (btn) btn.disabled = true;
     if (btnText) btnText.textContent = 'Przetwarzanie...';
 
@@ -389,7 +549,13 @@
           phone,
           group: selectedGroupData.label,
           groupId: activeGroup,
-          coupon: activeCoupon ? activeCoupon.code : null
+          coupon: activeCoupon ? activeCoupon.code : null,
+          buyerType,
+          invoiceNip,
+          invoiceCompanyName,
+          invoiceStreet,
+          invoicePostalCode,
+          invoiceCity
         })
       });
 
@@ -411,16 +577,32 @@
         if (successBox) successBox.style.display = 'flex';
 
         if (successDesc) {
+          let invoiceHtml = '';
+          if (data.invoiceUrl) {
+            invoiceHtml = `
+              <div style="margin-top: 14px;">
+                <a href="${data.invoiceUrl}" target="_blank" class="invoice-download-btn">
+                  📄 Pobierz e-Fakturę KSeF (${data.invoiceNumber || 'Faktura VAT'})
+                </a>
+                <div style="font-size: 10px; color: rgba(255,255,255,0.45); margin-top: 5px;">
+                  Nr KSeF: <code>${data.ksefNumber || 'Zarejestrowano w KSeF MF'}</code>
+                </div>
+              </div>
+            `;
+          }
+
           if (data.isZeroPayment) {
             successDesc.innerHTML = `
               Dziękujemy, <strong>${name}</strong>!<br>
               Twoje miejsce w grupie <strong>${selectedGroupData.name}</strong> zostało pomyślnie zarezerwowane ze 100% rabatem specjalnym.<br>
               Potwierdzenie oraz linki do spotkań zostały wysłane na <strong>${email}</strong>.
+              ${invoiceHtml}
             `;
           } else if (data.requiresConfig) {
             successDesc.innerHTML = `
               Rezerwacja przyjęta, <strong>${name}</strong>!<br>
               Grupa: <strong>${selectedGroupData.name}</strong> • Kwota: <strong>${data.amountPln} PLN</strong>.<br>
+              ${invoiceHtml}
               <span style="display:inline-block; margin-top:8px; opacity:0.8; font-size:11px;">
                 (Tryb deweloperski: klucze PAYNOW_API_KEY i PAYNOW_SIGNATURE_KEY można skonfigurować w pliku .env).
               </span>
@@ -429,6 +611,7 @@
             successDesc.innerHTML = `
               Dziękujemy, <strong>${name}</strong>!<br>
               Szczegóły warsztatów (<strong>${selectedGroupData.name}</strong>) zostały wysłane na adres <strong>${email}</strong>.
+              ${invoiceHtml}
             `;
           }
         }
