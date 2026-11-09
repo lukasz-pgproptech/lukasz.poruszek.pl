@@ -263,7 +263,6 @@
     stageEl.classList.add('is-changing');
     setTimeout(function () {
       stageEl.innerHTML = (
-        '<div class="stage-step-tag">' + step.tag + '</div>' +
         '<h3 class="stage-heading">' + step.heading + '</h3>' +
         '<div class="stage-paragraphs">' +
           parasHtml +
@@ -348,13 +347,6 @@
     const rightNodesHtml = steps.slice(3, 6).map((s, i) => makeNodeHtml(s, i + 3)).join('');
 
     bar.innerHTML = (
-      '<div class="roadmap-hint">' +
-        '<svg width="12" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
-          '<rect x="5" y="2" width="14" height="20" rx="7"></rect>' +
-          '<line x1="12" y1="6" x2="12" y2="10"></line>' +
-        '</svg>' +
-        '<span>PRZEWIJAJ KÓŁKIEM MYSZY LUB KLIKNIJ PUNKT ROADMAPY</span>' +
-      '</div>' +
       '<div class="roadmap-track-container">' +
         '<div class="roadmap-track-line"></div>' +
         '<div class="roadmap-track-progress"></div>' +
@@ -395,7 +387,6 @@
     const headerEl = document.getElementById('timelineHeader');
     if (headerEl) {
       headerEl.innerHTML = (
-        '<div class="timeline-badge">' + data.badge + '</div>' +
         '<h2 class="timeline-main-title">' + data.title + '</h2>'
       );
     }
@@ -450,15 +441,29 @@
     const logoEl = document.querySelector('.logo');
     if (logoEl) logoEl.classList.add('is-timeline-open');
 
+    const menuBtnEl = document.querySelector('.menuBtn');
+    if (menuBtnEl) {
+      menuBtnEl.style.display = 'none';
+      menuBtnEl.classList.add('is-timeline-open');
+    }
+    if (window.view && window.view.menuBtn && window.view.menuBtn.object) {
+      window.view.menuBtn.object.visible = false;
+    }
+
     try {
       if (window.view && window.view.sections && window.view.sections[1] && window.view.sections[1].data) {
         const s2 = window.view.sections[1].data;
         if (s2.moreHotspot && s2.moreHotspot.hide) s2.moreHotspot.hide({ delay: 0 });
         if (s2.hotspot && s2.hotspot.show) s2.hotspot.show({ delay: 0.1 });
 
-        // Płynny ślizg widżetu 3D do centrum osi roadmapy
-        const targetY = -315;
-        animateHotspotTo(0, targetY, 400);
+        // Wypchnięcie i powiększenie widżetu 3D (pełna czytelność i wyeksponowanie)
+        if (s2.hotspot && s2.hotspot.object) {
+          s2.hotspot.object.scale.set(1.25, 1.25, 1.25);
+        }
+
+        // Płynny ślizg widżetu 3D do wycentrowanego gniazda osi roadmapy
+        const targetY = -245;
+        animateHotspotTo(0, targetY, 380);
       }
     } catch (e) {}
 
@@ -479,10 +484,22 @@
     const logoEl = document.querySelector('.logo');
     if (logoEl) logoEl.classList.remove('is-timeline-open');
 
+    const menuBtnEl = document.querySelector('.menuBtn');
+    if (menuBtnEl) {
+      menuBtnEl.style.display = '';
+      menuBtnEl.classList.remove('is-timeline-open');
+    }
+    if (window.view && window.view.menuBtn && window.view.menuBtn.object) {
+      window.view.menuBtn.object.visible = true;
+    }
+
     // Płynny powrót widżetu 3D do bazowej pozycji w Scenie 2
     try {
       if (window.view && window.view.sections && window.view.sections[1] && window.view.sections[1].data) {
         const s2 = window.view.sections[1].data;
+        if (s2.hotspot && s2.hotspot.object) {
+          s2.hotspot.object.scale.set(1, 1, 1);
+        }
         const origX = 0.32 * (s2.hotspot.props.viewport ? s2.hotspot.props.viewport.width : 1440);
         const origY = -0.27 * (s2.hotspot.props.viewport ? s2.hotspot.props.viewport.height : 900);
         animateHotspotTo(origX, origY, 380);
@@ -546,7 +563,8 @@
     const metricEl = document.getElementById('detailMetric');
     const bodyEl = document.getElementById('detailBody');
 
-    function selectProduct(productId) {
+    function selectProduct(productId, force) {
+      if (window.isDetailViewOpen && !force) return;
       if (!PRODUCTS_DATA[productId]) return;
       currentProductId = productId;
       window.currentScene2Product = productId;
@@ -580,6 +598,7 @@
 
     // Obsługa natychmiastowego hover na całej sekcji selektora z 3-warstwową detekcją
     function detectHoveredItem(e) {
+      if (window.isDetailViewOpen) return null;
       // 1. Bezpośredni closest
       let item = e.target && typeof e.target.closest === 'function' ? e.target.closest('.product-item') : null;
       // 2. elementsFromPoint (Chromium stacking fallback)
@@ -605,6 +624,7 @@
     }
 
     const handleHover = (e) => {
+      if (window.isDetailViewOpen) return;
       const item = detectHoveredItem(e);
       if (item) {
         const pId = item.getAttribute('data-id');
@@ -631,17 +651,20 @@
     // Bezpośrednia obsługa kliknięć oraz mouseenter na pozycjach
     items.forEach((item) => {
       item.addEventListener('click', (e) => {
+        if (window.isDetailViewOpen) return;
         e.preventDefault();
         const pId = item.getAttribute('data-id');
         selectProduct(pId);
       });
       item.addEventListener('mouseenter', () => {
+        if (window.isDetailViewOpen) return;
         const pId = item.getAttribute('data-id');
         if (pId && pId !== currentProductId) {
           selectProduct(pId);
         }
       });
       item.addEventListener('mouseover', () => {
+        if (window.isDetailViewOpen) return;
         const pId = item.getAttribute('data-id');
         if (pId && pId !== currentProductId) {
           selectProduct(pId);
@@ -811,7 +834,7 @@
       }
     }, { passive: true });
 
-    selectProduct('workshops');
+    selectProduct('workshops', true);
   }
 
   // -------------------------------------------------------------
