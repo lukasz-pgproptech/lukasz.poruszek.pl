@@ -22,7 +22,7 @@ export const SELLER_DATA = {
   countryCode: 'PL',
   krs: '0001147224',
   regon: '540528562',
-  bankAccount: '42114020040000390286076901'
+  bankAccount: '46 1140 2004 0000 3902 8547 5429'
 };
 
 const KSEF_URLS = {
@@ -216,7 +216,10 @@ export async function createAndRegisterInvoice(orderData) {
     items,
     totals,
     coupon: orderData.coupon || null,
-    paymentMethod: brutto === 0 ? 'Rabat 100% (Bezpłatnie)' : 'Paynow online',
+    isProforma: Boolean(orderData.isProforma),
+    paymentMethod: orderData.isProforma
+      ? 'Przelew bankowy'
+      : (brutto === 0 ? 'Rabat 100% (Bezpłatnie)' : 'Paynow online'),
     externalId: orderData.externalId || null
   };
 
@@ -299,11 +302,16 @@ export function getInvoiceById(idOrNumber) {
 // Generowanie eleganckiej wizualizacji HTML faktury z kodem QR KSeF
 export function generateInvoiceHtml(inv) {
   const isB2B = Boolean(inv.buyer.nip);
+  const isProforma = Boolean(inv.isProforma);
+  const docTitle = isProforma ? 'FAKTURA PROFORMA' : 'FAKTURA VAT';
+  const statusLabel = isProforma ? 'DO ZAPŁATY (Termin: 24h)' : 'OPŁACONO';
+  const statusColor = isProforma ? '#ea580c' : '#16a34a';
+
   return `<!DOCTYPE html>
 <html lang="pl">
 <head>
   <meta charset="UTF-8">
-  <title>Faktura VAT ${inv.invoiceNumber} (KSeF)</title>
+  <title>${docTitle} ${inv.invoiceNumber}</title>
   <style>
     body { font-family: 'Helvetica Neue', Arial, sans-serif; color: #1a1a1a; background: #f9fafb; margin: 0; padding: 40px 20px; font-size: 13px; line-height: 1.5; }
     .invoice-card { max-width: 800px; margin: 0 auto; background: #ffffff; padding: 48px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); border: 1px solid #e5e7eb; }
@@ -311,7 +319,9 @@ export function generateInvoiceHtml(inv) {
     .inv-title { font-size: 26px; font-weight: 800; color: #111827; margin: 0; letter-spacing: -0.02em; }
     .inv-number { font-size: 14px; color: #4b5563; margin-top: 4px; }
     .ksef-badge-box { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 6px; padding: 12px 16px; margin-bottom: 28px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .ksef-badge-box.proforma { background: #fffbeb; border-color: #fde68a; }
     .ksef-badge-title { font-size: 12px; font-weight: 700; color: #166534; text-transform: uppercase; letter-spacing: 0.05em; display: flex; align-items: center; gap: 6px; }
+    .ksef-badge-title.proforma { color: #b45309; }
     .ksef-id { font-family: monospace; font-size: 13px; font-weight: 700; color: #14532d; word-break: break-all; }
     .parties-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 32px; }
     .party-title { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: #6b7280; font-weight: 700; margin-bottom: 8px; }
@@ -330,17 +340,29 @@ export function generateInvoiceHtml(inv) {
   <div class="invoice-card">
     <div class="inv-header">
       <div>
-        <h1 class="inv-title">FAKTURA VAT</h1>
+        <h1 class="inv-title">${docTitle}</h1>
         <div class="inv-number">Nr: <strong>${inv.invoiceNumber}</strong></div>
       </div>
       <div style="text-align: right; font-size: 12px; color: #4b5563;">
         <div>Data wystawienia: <strong>${inv.issueDate}</strong></div>
         <div>Data wykonania usługi: <strong>${inv.saleDate}</strong></div>
-        <div>Status: <strong style="color: #16a34a;">OPŁACONO</strong></div>
+        <div>Status: <strong style="color: ${statusColor};">${statusLabel}</strong></div>
       </div>
     </div>
 
-    <!-- KSEF BADGE -->
+    <!-- KSEF BADGE / PROFORMA INFO -->
+    ${isProforma ? `
+    <div class="ksef-badge-box proforma">
+      <div>
+        <div class="ksef-badge-title proforma">ℹ Dokument Proforma (Płatność przelewem bankowym)</div>
+        <div style="font-size: 11.5px; color: #78350f; margin-top: 3px;">
+          Po zaksięgowaniu wpłaty dokument zostanie przekształcony w e-Fakturę VAT i zarejestrowany w KSeF Ministerstwa Finansów.
+        </div>
+      </div>
+      <div style="font-size: 11px; text-align: right; color: #b45309;">
+        Konto bankowe:<br><strong>${inv.seller.bankAccount}</strong>
+      </div>
+    </div>` : `
     <div class="ksef-badge-box">
       <div>
         <div class="ksef-badge-title">✓ Zarejestrowano w KSeF (Krajowy System e-Faktur)</div>
@@ -350,7 +372,7 @@ export function generateInvoiceHtml(inv) {
         MF e-Faktura FA(2)<br>
         <a href="${inv.verifyUrl}" target="_blank" style="color: #15803d; text-decoration: underline;">Weryfikuj w KSeF MF</a>
       </div>
-    </div>
+    </div>`}
 
     <!-- STRONY TRANSAKCJI -->
     <div class="parties-grid">

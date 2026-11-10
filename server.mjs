@@ -242,6 +242,20 @@ const server = http.createServer((req, res) => {
   }
 
   // -------------------------------------------------------------
+  // API: KONFIGURACJA METODY PŁATNOŚCI (PAYNOW VS PRZELEW BANKOWY)
+  // -------------------------------------------------------------
+  if (req.method === 'GET' && reqPath === '/api/payment-config') {
+    const isPaynowActive = Boolean(PAYNOW_API_KEY && PAYNOW_SIGNATURE_KEY && (process.env.PAYMENT_MODE !== 'bank_transfer'));
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({
+      mode: isPaynowActive ? 'paynow' : 'bank_transfer',
+      accountNumber: '46 1140 2004 0000 3902 8547 5429',
+      recipient: 'POLSKA GRUPA PROPTECH SP. Z O.O.'
+    }));
+    return;
+  }
+
+  // -------------------------------------------------------------
   // API: REZERWACJA WARSZTATÓW AI + PŁATNOŚĆ PAYNOW + KODY + KSEF
   // -------------------------------------------------------------
   if (req.method === 'POST' && reqPath === '/api/reserve-workshop') {
@@ -364,8 +378,9 @@ const server = http.createServer((req, res) => {
           return;
         }
 
-        // SCENARIUSZ B: Płatność online przez Paynow
-        if (PAYNOW_API_KEY && PAYNOW_SIGNATURE_KEY) {
+        // SCENARIUSZ B: Płatność online przez Paynow (jeśli skonfigurowano klucze i nie wymuszono bank_transfer)
+        const isPaynowActive = Boolean(PAYNOW_API_KEY && PAYNOW_SIGNATURE_KEY && (process.env.PAYMENT_MODE !== 'bank_transfer'));
+        if (isPaynowActive) {
           try {
             const origin = req.headers.origin || `http://${req.headers.host || 'localhost:4321'}`;
             const idempotencyKey = crypto.randomUUID ? crypto.randomUUID() : `idem-${Date.now()}-${Math.random().toString(36).slice(2)}`;
@@ -410,6 +425,7 @@ const server = http.createServer((req, res) => {
                 amountPln: finalPricePln,
                 externalId,
                 paymentId: paynowData.paymentId,
+                paymentMode: 'paynow',
                 paymentStatus: 'pending_paynow',
                 buyer
               });
@@ -417,6 +433,7 @@ const server = http.createServer((req, res) => {
               res.writeHead(200, { 'Content-Type': 'application/json' });
               res.end(JSON.stringify({
                 success: true,
+                paymentMode: 'paynow',
                 redirectUrl: paynowData.redirectUrl,
                 paymentId: paynowData.paymentId,
                 amountPln: finalPricePln
@@ -438,7 +455,7 @@ const server = http.createServer((req, res) => {
           }
         }
 
-        // SCENARIUSZ C: Brak kluczy w .env (Tryb deweloperski) -> Automatyczne wygenerowanie e-Faktury KSeF
+        // SCENARIUSZ C: Płatność bezpośrednim przelewem bankowym + kod QR (Propozycja 1 na czas oczekiwania na akceptację Paynow)
         const invoice = await createAndRegisterInvoice({
           group: selectedGroup,
           name,
@@ -447,10 +464,20 @@ const server = http.createServer((req, res) => {
           amountPln: finalPricePln,
           coupon: normalizedCoupon,
           buyer,
-          externalId
+          externalId,
+          isProforma: true
         });
 
-        console.log(`[Paynow Mock/Dev] Rezerwacja przyjęta. Wygenerowano fakturę KSeF: ${invoice.invoiceNumber}`);
+        const rawAccount = '46114020040000390285475429';
+        const formattedAccount = '46 1140 2004 0000 3902 8547 5429';
+        const transferTitle = `Warsztaty AI ${invoice.invoiceNumber}`;
+        const recipientName = 'POLSKA GRUPA PROPTECH SP. Z O.O.';
+        const recipientShort = 'Polska Grupa Proptech';
+
+        // Rekomendowany standard ZBP 2D QR do przelewów bankowych (mBank, PKO, ING, Santander, Millennium)
+        const qrPayload = `${rawAccount}\n${finalPricePln.toFixed(2)}\n${recipientShort}\n${transferTitle}\n7963033913`;
+
+        console.log(`[Bank Transfer] Rezerwacja przyjęta. Wygenerowano Proformę: ${invoice.invoiceNumber}. Kwota: ${finalPricePln} PLN`);
         saveJsonData('reservations.json', {
           event: 'Warsztaty AI',
           group: selectedGroup,
@@ -460,22 +487,34 @@ const server = http.createServer((req, res) => {
           coupon: normalizedCoupon || null,
           amountPln: finalPricePln,
           externalId,
-          paymentStatus: 'pending_paynow_config',
+          paymentMode: 'bank_transfer',
+          paymentStatus: 'pending_bank_transfer',
           buyer,
           invoiceNumber: invoice.invoiceNumber,
-          ksefNumber: invoice.ksefNumber,
+          isProforma: true,
           invoiceId: invoice.id
         });
 
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({
           success: true,
-          requiresConfig: true,
+          paymentMode: 'bank_transfer',
           amountPln: finalPricePln,
           invoiceNumber: invoice.invoiceNumber,
-          ksefNumber: invoice.ksefNumber,
           invoiceUrl: `/api/invoices/${invoice.id}`,
-          message: 'Zgłoszenie zarejestrowane. Wygenerowano fakturę KSeF.'
+          isProforma: true,
+          transfer: {
+            recipient: recipientName,
+            recipientShort: recipientShort,
+            accountFormatted: formattedAccount,
+            accountRaw: rawAccount,
+            title: transferTitle,
+            amountPln: finalPricePln,
+            amountFormatted: `${finalPricePln.toLocaleString('pl-PL')} PLN`,
+            nip: '7963033913',
+            qrPayload: qrPayload
+          },
+          message: 'Rezerwacja wstępna przyjęta. Miejsce zablokowane na 24h.'
         }));
       } catch (err) {
         console.error('Error parsing reservation body:', err);

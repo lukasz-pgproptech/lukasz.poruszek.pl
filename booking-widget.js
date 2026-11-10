@@ -282,6 +282,55 @@
     }
   };
 
+  let activePaymentMode = 'bank_transfer';
+
+  // Pobierz aktywny tryb płatności z serwera (Paynow vs Przelew bankowy)
+  try {
+    fetch('/api/payment-config')
+      .then(res => res.json())
+      .then(cfg => {
+        if (cfg && cfg.mode) {
+          activePaymentMode = cfg.mode;
+          updatePriceDisplay();
+        }
+      })
+      .catch(() => {});
+  } catch (e) {}
+
+  // Pomocnicza funkcja kopiowania do schowka
+  window.copyTransferText = function (btn, text) {
+    if (!text) return;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(() => {
+        const orig = btn.textContent;
+        btn.textContent = '✓ Skopiowano';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = orig;
+          btn.classList.remove('copied');
+        }, 2000);
+      }).catch(() => fallbackCopy(btn, text));
+    } else {
+      fallbackCopy(btn, text);
+    }
+  };
+
+  function fallbackCopy(btn, text) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    const orig = btn.textContent;
+    btn.textContent = '✓ Skopiowano';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = orig;
+      btn.classList.remove('copied');
+    }, 2000);
+  }
+
   // PRZELICZANIE KWOT I AKTUALIZACJA PODSUMOWANIA
   function updatePriceDisplay() {
     let discountAmount = 0;
@@ -315,13 +364,27 @@
     if (submitBtnText) {
       if (finalPrice === 0) {
         submitBtnText.textContent = 'Zatwierdź bezpłatną rezerwację (0 PLN)';
-      } else {
+      } else if (activePaymentMode === 'paynow') {
         submitBtnText.textContent = `Przejdź do płatności Paynow (${finalPrice.toLocaleString('pl-PL')} PLN)`;
+      } else {
+        submitBtnText.textContent = `Zarezerwuj i przejdź do płatności (${finalPrice.toLocaleString('pl-PL')} PLN)`;
       }
     }
 
     if (paynowBadge) {
-      paynowBadge.style.display = (finalPrice === 0) ? 'none' : 'flex';
+      if (finalPrice === 0) {
+        paynowBadge.style.display = 'none';
+      } else {
+        paynowBadge.style.display = 'flex';
+        const badgeSpan = paynowBadge.querySelector('span:last-child');
+        if (badgeSpan) {
+          if (activePaymentMode === 'paynow') {
+            badgeSpan.textContent = 'Bezpieczna płatność online przez Paynow (BLIK, szybki przelew, karta)';
+          } else {
+            badgeSpan.textContent = 'Płatność przelewem / kodem QR dla aplikacji bankowych (BLIK / mBank)';
+          }
+        }
+      }
     }
   }
 
@@ -577,41 +640,111 @@
         if (successBox) successBox.style.display = 'flex';
 
         if (successDesc) {
-          let invoiceHtml = '';
-          if (data.invoiceUrl) {
-            invoiceHtml = `
-              <div style="margin-top: 14px;">
-                <a href="${data.invoiceUrl}" target="_blank" class="invoice-download-btn">
-                  📄 Pobierz e-Fakturę KSeF (${data.invoiceNumber || 'Faktura VAT'})
-                </a>
-                <div style="font-size: 10px; color: rgba(255,255,255,0.45); margin-top: 5px;">
-                  Nr KSeF: <code>${data.ksefNumber || 'Zarejestrowano w KSeF MF'}</code>
-                </div>
-              </div>
-            `;
-          }
-
           if (data.isZeroPayment) {
+            let invoiceHtml = '';
+            if (data.invoiceUrl) {
+              invoiceHtml = `
+                <div style="margin-top: 14px;">
+                  <a href="${data.invoiceUrl}" target="_blank" class="invoice-download-btn">
+                    📄 Pobierz e-Fakturę KSeF (${data.invoiceNumber || 'Faktura VAT'})
+                  </a>
+                  <div style="font-size: 10px; color: rgba(255,255,255,0.45); margin-top: 5px;">
+                    Nr KSeF: <code>${data.ksefNumber || 'Zarejestrowano w KSeF MF'}</code>
+                  </div>
+                </div>
+              `;
+            }
+
             successDesc.innerHTML = `
               Dziękujemy, <strong>${name}</strong>!<br>
               Twoje miejsce w grupie <strong>${selectedGroupData.name}</strong> zostało pomyślnie zarezerwowane ze 100% rabatem specjalnym.<br>
               Potwierdzenie oraz linki do spotkań zostały wysłane na <strong>${email}</strong>.
               ${invoiceHtml}
             `;
-          } else if (data.requiresConfig) {
+          } else if (data.transfer) {
+            let qrHtml = '';
+            if (window.qrcode && data.transfer.qrPayload) {
+              try {
+                const qr = window.qrcode(0, 'M');
+                qr.addData(data.transfer.qrPayload);
+                qr.make();
+                const svgTag = qr.createSvgTag({ cellSize: 3, margin: 2 });
+                qrHtml = `
+                  <div class="transfer-qr-section">
+                    <div class="transfer-qr-box">
+                      ${svgTag}
+                    </div>
+                    <div class="transfer-qr-info">
+                      <div class="transfer-qr-title">📱 Szybki przelew w aplikacji banku</div>
+                      <div class="transfer-qr-desc">
+                        Otwórz aplikację swojego banku (mBank, PKO IKO, ING, Santander itp.) i wybierz <strong>„Skanuj kod QR”</strong>. Dane przelewu zostaną uzupełnione automatycznie.
+                      </div>
+                    </div>
+                  </div>
+                `;
+              } catch (qrErr) {
+                console.warn('QR generation error:', qrErr);
+              }
+            }
+
             successDesc.innerHTML = `
-              Rezerwacja przyjęta, <strong>${name}</strong>!<br>
-              Grupa: <strong>${selectedGroupData.name}</strong> • Kwota: <strong>${data.amountPln} PLN</strong>.<br>
-              ${invoiceHtml}
-              <span style="display:inline-block; margin-top:8px; opacity:0.8; font-size:11px;">
-                (Tryb deweloperski: klucze PAYNOW_API_KEY i PAYNOW_SIGNATURE_KEY można skonfigurować w pliku .env).
-              </span>
+              <div class="transfer-status-pill">✓ Miejsce wstępnie zablokowane na 24h</div>
+              <div style="margin-top: 6px; font-size: 12.5px; color: #ffffff; line-height: 1.45;">
+                Dziękujemy, <strong>${name}</strong>!<br>
+                Rezerwacja w grupie <strong>${selectedGroupData.name}</strong> została zarejestrowana.
+              </div>
+
+              <div class="bank-transfer-card">
+                <div class="transfer-amount-row">
+                  <span class="transfer-amount-label">Kwota do zapłaty:</span>
+                  <span class="transfer-amount-val">${data.transfer.amountFormatted}</span>
+                </div>
+
+                <div class="transfer-fields-list">
+                  <div class="transfer-field-item">
+                    <span class="transfer-field-label">Numer rachunku bankowego:</span>
+                    <div class="transfer-field-val-row">
+                      <span class="transfer-field-val">${data.transfer.accountFormatted}</span>
+                      <button type="button" class="btn-copy-transfer" onclick="copyTransferText(this, '${data.transfer.accountRaw}')">Kopiuj</button>
+                    </div>
+                  </div>
+
+                  <div class="transfer-field-item">
+                    <span class="transfer-field-label">Odbiorca:</span>
+                    <div class="transfer-field-val-row">
+                      <span class="transfer-field-val" style="font-family: inherit; font-size: 11px;">${data.transfer.recipient}</span>
+                      <button type="button" class="btn-copy-transfer" onclick="copyTransferText(this, '${data.transfer.recipient}')">Kopiuj</button>
+                    </div>
+                  </div>
+
+                  <div class="transfer-field-item">
+                    <span class="transfer-field-label">Tytuł przelewu:</span>
+                    <div class="transfer-field-val-row">
+                      <span class="transfer-field-val">${data.transfer.title}</span>
+                      <button type="button" class="btn-copy-transfer" onclick="copyTransferText(this, '${data.transfer.title}')">Kopiuj</button>
+                    </div>
+                  </div>
+                </div>
+
+                ${qrHtml}
+              </div>
+
+              <div style="margin-top: 10px; display: flex; flex-direction: column; gap: 6px;">
+                ${data.invoiceUrl ? `
+                  <a href="${data.invoiceUrl}" target="_blank" class="invoice-download-btn">
+                    📄 Pobierz Fakturę Proforma (${data.invoiceNumber || 'Proforma'})
+                  </a>
+                ` : ''}
+                <div style="font-size: 10.5px; color: rgba(255, 255, 255, 0.45); text-align: center; margin-top: 2px;">
+                  Potwierdzenie rezerwacji zostało wysłane na <strong>${email}</strong>.<br>
+                  Po zaksięgowaniu wpłaty dokument zostanie przekształcony w e-Fakturę VAT KSeF.
+                </div>
+              </div>
             `;
           } else {
             successDesc.innerHTML = `
               Dziękujemy, <strong>${name}</strong>!<br>
               Szczegóły warsztatów (<strong>${selectedGroupData.name}</strong>) zostały wysłane na adres <strong>${email}</strong>.
-              ${invoiceHtml}
             `;
           }
         }
