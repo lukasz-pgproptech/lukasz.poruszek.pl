@@ -486,9 +486,18 @@
 
   window.goToStep2 = function () {
     currentStep = 2;
+    const emailInput = document.getElementById('ws-email');
+    if (emailInput && emailInput.value && !currentReservationEmail) {
+      currentReservationEmail = emailInput.value.trim();
+    }
     const step1El = document.getElementById('workshop-step-1');
     const step2El = document.getElementById('workshop-step-2');
     const container = document.getElementById('workshop-view') || document.querySelector('.workshop-container');
+    const selector = document.querySelector('.event-type-selector');
+    const groupHeader = document.querySelector('.workshop-group-header');
+
+    if (selector) selector.style.display = 'none';
+    if (groupHeader) groupHeader.style.display = 'none';
 
     if (step1El) step1El.style.display = 'none';
     if (step2El) step2El.style.display = 'flex';
@@ -502,6 +511,11 @@
     const step1El = document.getElementById('workshop-step-1');
     const step2El = document.getElementById('workshop-step-2');
     const container = document.getElementById('workshop-view') || document.querySelector('.workshop-container');
+    const selector = document.querySelector('.event-type-selector');
+    const groupHeader = document.querySelector('.workshop-group-header');
+
+    if (selector) selector.style.display = '';
+    if (groupHeader) groupHeader.style.display = '';
 
     if (step2El) step2El.style.display = 'none';
     if (step1El) step1El.style.display = 'grid';
@@ -532,7 +546,6 @@
     const finVat = document.getElementById('ws2-fin-vat');
     const finTotal = document.getElementById('ws2-fin-total');
     const submitBtnText = document.getElementById('ws2-submit-btn-text');
-    const securityBadgeText = document.getElementById('ws2-security-badge-text');
 
     if (summaryGroup) {
       const firstDate = (selectedGroupData.sessions && selectedGroupData.sessions[0]) ? selectedGroupData.sessions[0].date : '1 grudnia 2026';
@@ -559,12 +572,6 @@
       } else {
         submitBtnText.textContent = `Zatwierdź dane i przejdź do płatności (${finalPrice.toLocaleString('pl-PL')} PLN)`;
       }
-    }
-
-    if (securityBadgeText) {
-      securityBadgeText.textContent = (activePaymentMode === 'paynow')
-        ? 'Bezpieczna płatność online przez Paynow (BLIK, szybki przelew, karta)'
-        : 'Płatność przelewem / kodem QR dla aplikacji bankowych (BLIK / mBank)';
     }
   }
 
@@ -702,18 +709,16 @@
     const streetInput = document.getElementById('ws2-street');
     const zipInput = document.getElementById('ws2-zip');
     const cityInput = document.getElementById('ws2-city');
-    const phoneInput = document.getElementById('ws2-phone');
     const nipInput = document.getElementById('ws2-nip');
     const btn = document.getElementById('ws2-submit-btn');
     const btnText = document.getElementById('ws2-submit-btn-text');
 
-    if (!nameInput || !streetInput || !zipInput || !cityInput || !phoneInput) return;
+    if (!nameInput || !streetInput || !zipInput || !cityInput) return;
 
     const name = nameInput.value.trim();
     const street = streetInput.value.trim();
     const zip = zipInput.value.trim();
     const city = cityInput.value.trim();
-    const phone = phoneInput.value.trim();
     const nip = (step2BuyerType === 'company' && nipInput) ? nipInput.value.trim().replace(/\D/g, '') : '';
 
     if (!name) { nameInput.focus(); return; }
@@ -725,12 +730,19 @@
     if (!street) { streetInput.focus(); return; }
     if (!zip) { zipInput.focus(); return; }
     if (!city) { cityInput.focus(); return; }
-    if (!phone) { phoneInput.focus(); return; }
 
     if (btn) btn.disabled = true;
     if (btnText) btnText.textContent = 'Rezerwacja w toku...';
 
     const selectedGroupData = WORKSHOP_GROUPS[activeGroup] || WORKSHOP_GROUPS.december;
+
+    const finalEmail = currentReservationEmail || (document.getElementById('ws-email') ? document.getElementById('ws-email').value.trim() : '');
+    if (!finalEmail) {
+      alert('Brak adresu e-mail. Wróć do kroku 1 i podaj adres e-mail.');
+      if (btn) btn.disabled = false;
+      if (btnText) btnText.textContent = 'Zatwierdź dane i przejdź do płatności';
+      return;
+    }
 
     try {
       const res = await fetch('/api/reserve-workshop', {
@@ -738,8 +750,8 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           name,
-          email: currentReservationEmail,
-          phone,
+          email: finalEmail,
+          phone: '',
           group: selectedGroupData.label,
           groupId: activeGroup,
           coupon: activeCoupon ? activeCoupon.code : null,
