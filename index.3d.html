@@ -339,13 +339,10 @@
              Standard: Resn / Pioneer Monochromatic Glassmorphism
              ============================================================= -->
         <div id="booking-modal-overlay" class="booking-modal-overlay" role="dialog" aria-modal="true" aria-label="Rezerwacja spotkań i warsztatów">
-            <!-- POJEDYNCZA SZKLANA TAFLA -->
-            <main class="glass-booking-surface" onclick="event.stopPropagation()">
+            <div class="glass-booking-surface" onclick="event.stopPropagation()">
                 
-                <!-- SELEKTOR 3 TYPÓW WYDARZEŃ (MONOCHROMATYCZNY) -->
+                <!-- SELEKTOR 3 TYPÓW SPOTKAŃ -->
                 <nav class="event-type-selector" aria-label="Wybór typu spotkania">
-                    
-                    <!-- OPCJA 1: MENTORING BIZNESOWY -->
                     <button class="event-type-btn active" id="btn-opt1" type="button" onclick="switchBookingTab('biznes')">
                         <span class="event-name">
                             Mentoring biznesowy
@@ -354,7 +351,6 @@
                         <span class="event-meta">90 min • Indywidualna sesja 1:1</span>
                     </button>
 
-                    <!-- OPCJA 2: MENTORING KARIERY -->
                     <button class="event-type-btn" id="btn-opt2" type="button" onclick="switchBookingTab('kariera')">
                         <span class="event-name">
                             Mentoring kariery
@@ -363,7 +359,6 @@
                         <span class="event-meta">90 min • Indywidualna sesja 1:1</span>
                     </button>
 
-                    <!-- OPCJA 3: WARSZTATY AI (CYKL) -->
                     <button class="event-type-btn" id="btn-opt3" type="button" onclick="switchBookingTab('warsztaty')">
                         <span class="event-name">
                             Warsztaty AI
@@ -371,13 +366,10 @@
                         </span>
                         <span class="event-meta">6 spotkań × 2h • Grupa warsztatowa</span>
                     </button>
-
                 </nav>
 
-                <!-- WIDOK 1: MENTORING BIZNESOWY / KARIERY (LISTOPAD: WYKUPIONE / POZOSTAŁE: NIEOTWARTE) -->
+                <!-- WIDOK 1: MENTORING BIZNESOWY / KARIERY -->
                 <div class="mentoring-container" id="mentoring-view">
-                    
-                    <!-- Kolumna 1: Informacje o mentoringu i zapis na listę rezerwową -->
                     <aside class="mentoring-info-col">
                         <div class="host-profile">
                             <img class="host-avatar" src="https://lh3.googleusercontent.com/a/ACg8ocJi13NWQJOphF0irHbIAa5eIxn2nw2iyxj07Pa0lbb8cOD_XsI=s96-c" alt="Łukasz Poruszek" />
@@ -408,7 +400,6 @@
                             </p>
                         </div>
 
-                        <!-- Formularz listy rezerwowej z notatką -->
                         <div class="waitlist-box">
                             <span class="waitlist-label">Lista rezerwowa</span>
                             <form id="waitlist-form" onsubmit="handleWaitlist(event)">
@@ -424,7 +415,6 @@
                         </div>
                     </aside>
 
-                    <!-- Kolumna 2: Interaktywna siatka kalendarza miesięcznego -->
                     <section class="mentoring-calendar-col">
                         <div class="calendar-header">
                             <span class="calendar-month-title" id="cal-month-display">Listopad 2026</span>
@@ -444,33 +434,23 @@
                             <span>NIEDZ</span>
                         </div>
 
-                        <div class="calendar-grid" id="calendar-days-grid">
-                            <!-- Dni generowane dynamicznie przez JS -->
-                        </div>
+                        <div class="calendar-grid" id="calendar-days-grid"></div>
                     </section>
 
-                    <!-- Kolumna 3: Sloty godzinowe (Listopad = WYKUPIONE / Grudzień+ = NIEOTWARTE) -->
                     <section class="mentoring-slots-col">
                         <div class="slots-col-header">
                             <span class="slots-selected-date" id="selected-date-label">czw. 5 lis</span>
                             <span class="slots-clock-format">24h</span>
                         </div>
-
-                        <div class="slots-list" id="slots-container">
-                            <!-- Sloty lub komunikat nieotwartego miesiąca generowane przez JS -->
-                        </div>
-
+                        <div class="slots-list" id="slots-container"></div>
                         <p class="slots-note" id="slots-note-text">
                             Terminy oznaczone jako wykupione nie są obecnie dostępne do bezpośredniej rezerwacji.
                         </p>
                     </section>
-
                 </div>
 
-                <!-- WIDOK 2: WARSZTATY AI (CYKL 6 SPOTKAŃ, ZAPISY OTWARTE, PRZYCISK "REZERWUJ") -->
+                <!-- WIDOK 2: WARSZTATY AI -->
                 <div class="workshop-container" id="workshop-view">
-                    
-                    <!-- Nagłówek wyboru grupy -->
                     <header class="workshop-group-header">
                         <div class="workshop-group-pills">
                             <span class="workshop-section-title">Wybór grupy:</span>
@@ -486,7 +466,6 @@
                         <span class="workshop-status-tag" id="ws-group-status">Status: Zapisy otwarte</span>
                     </header>
 
-                    <!-- Główna siatka: Harmonogram + Formularz -->
                     <!-- KROK 1: HARMONOGRAM + SZYBKI START (E-MAIL, KOD, CENA) -->
                     <div class="workshop-grid" id="workshop-step-1">
                         <div class="workshop-schedule-col">
@@ -713,12 +692,9 @@
                             </div>
                         </div>
                     </div>
-
-                    </div>
-
                 </div>
 
-            </main>
+            </div>
         </div>
 
         <script src="/qrcode.min.js"></script>
