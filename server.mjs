@@ -4,6 +4,7 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { createAndRegisterInvoice, getInvoiceById, generateInvoiceHtml, SELLER_DATA } from './ksef-client.mjs';
+import { sendReservationEmail } from './email-service.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -365,6 +366,24 @@ const server = http.createServer((req, res) => {
             console.error('Cal.com API error:', calErr);
           }
 
+          // Automatyczna wysyłka e-mail z potwierdzeniem (Resend)
+          try {
+            const invoiceHtml = generateInvoiceHtml(invoice);
+            sendReservationEmail({
+              to: email,
+              name,
+              group: selectedGroup,
+              amountPln: 0,
+              invoiceNumber: invoice.invoiceNumber,
+              invoiceId: invoice.id,
+              invoiceHtml,
+              isZeroPayment: true,
+              buyer
+            }).catch(mailErr => console.error('[Server] Błąd asynchronicznej wysyłki e-mail (free):', mailErr));
+          } catch (e) {
+            console.warn('[Server] Błąd przygotowania maila:', e.message);
+          }
+
           res.writeHead(200, { 'Content-Type': 'application/json' });
           res.end(JSON.stringify({
             success: true,
@@ -494,6 +513,30 @@ const server = http.createServer((req, res) => {
           isProforma: true,
           invoiceId: invoice.id
         });
+
+        // Automatyczna wysyłka e-mail z fakturą proforma w PDF (Resend)
+        try {
+          const invoiceHtml = generateInvoiceHtml(invoice);
+          sendReservationEmail({
+            to: email,
+            name,
+            group: selectedGroup,
+            amountPln: finalPricePln,
+            invoiceNumber: invoice.invoiceNumber,
+            invoiceId: invoice.id,
+            invoiceHtml,
+            transfer: {
+              recipient: recipientName,
+              accountFormatted: formattedAccount,
+              title: transferTitle,
+              amountFormatted: `${finalPricePln.toLocaleString('pl-PL')} PLN`
+            },
+            isZeroPayment: false,
+            buyer
+          }).catch(mailErr => console.error('[Server] Błąd asynchronicznej wysyłki e-mail (proforma):', mailErr));
+        } catch (mailPrepErr) {
+          console.warn('[Server] Błąd przygotowania e-maila z proformą:', mailPrepErr.message);
+        }
 
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({
