@@ -226,3 +226,79 @@ export async function sendReservationEmail({
     return { success: false, error: err.message };
   }
 }
+
+/**
+ * Wysyła natychmiastowe powiadomienie do Łukasza o nowym zgłoszeniu na listę rezerwową lub propozycji terminu
+ */
+export async function sendWaitlistNotificationEmail({ email, note, type, month, isProposal = false }) {
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) return { success: false, error: 'Brak klucza API' };
+
+  const fromAddress = process.env.RESEND_FROM || 'Łukasz Poruszek <kontakt@poruszek.pl>';
+  const adminEmail = process.env.ADMIN_EMAIL || 'lukasz.main@gmail.com';
+
+  const actionTitle = isProposal ? 'Własna propozycja terminu mentoringu' : 'Zgłoszenie na listę rezerwową';
+  const subject = `[${actionTitle}] ${type} • ${email}`;
+
+  const html = `
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"></head>
+<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #0f172a; padding: 24px; background: #f8fafc;">
+  <div style="max-width: 540px; margin: 0 auto; background: #ffffff; border-radius: 12px; border: 1px solid #e2e8f0; padding: 28px;">
+    <h2 style="margin: 0 0 12px; font-size: 18px; color: #0f172a;">${actionTitle}</h2>
+    <p style="color: #64748b; font-size: 13px; margin: 0 0 20px;">Nowe zgłoszenie z formularza na stronie lukasz.poruszek.pl</p>
+    
+    <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+      <tr>
+        <td style="padding: 8px 0; color: #64748b; width: 35%; font-size: 13px;">Adres e-mail:</td>
+        <td style="padding: 8px 0; font-weight: 700; color: #0f172a; font-size: 13px;"><a href="mailto:${email}">${email}</a></td>
+      </tr>
+      <tr>
+        <td style="padding: 8px 0; color: #64748b; font-size: 13px;">Typ konsultacji:</td>
+        <td style="padding: 8px 0; font-weight: 700; color: #0f172a; font-size: 13px;">${type}</td>
+      </tr>
+      <tr>
+        <td style="padding: 8px 0; color: #64748b; font-size: 13px;">Miesiąc:</td>
+        <td style="padding: 8px 0; font-weight: 700; color: #0f172a; font-size: 13px;">${month}</td>
+      </tr>
+      <tr>
+        <td style="padding: 8px 0; color: #64748b; vertical-align: top; font-size: 13px;">Wiadomość / Propozycja:</td>
+        <td style="padding: 8px 0; color: #0f172a; font-size: 13px; line-height: 1.5;">${note ? String(note).replace(/\n/g, '<br>') : '<em>Brak dodatkowej notatki</em>'}</td>
+      </tr>
+    </table>
+
+    <div style="border-top: 1px solid #e2e8f0; padding-top: 14px; font-size: 11.5px; color: #94a3b8;">
+      Wiadomość wygenerowana automatycznie przez system rezerwacji lukasz.poruszek.pl
+    </div>
+  </div>
+</body>
+</html>
+  `.trim();
+
+  try {
+    const res = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${apiKey}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        from: fromAddress,
+        to: [adminEmail],
+        reply_to: email,
+        subject,
+        html
+      })
+    });
+    const data = await res.json();
+    if (res.ok && data.id) {
+      console.log(`[EmailService] Wysłano powiadomienie waitlist/propozycji do ${adminEmail}. Resend ID: ${data.id}`);
+      return { success: true, id: data.id };
+    }
+    return { success: false, error: data };
+  } catch (err) {
+    console.error('[EmailService] Błąd powiadomienia waitlist:', err);
+    return { success: false, error: err.message };
+  }
+}

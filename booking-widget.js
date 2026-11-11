@@ -10,11 +10,16 @@
   // Bieżący miesiąc bazowy: Listopad 2026 (index 10)
   const BASE_YEAR = 2026;
   const BASE_MONTH = 10;
+  const DECEMBER_HOLIDAYS = [24, 25, 26, 31];
 
   let currentYear = BASE_YEAR;
   let currentMonth = BASE_MONTH;
   let selectedDay = 5;
   let isModalOpen = false;
+
+  let mentoringSlotsCache = null;
+  let bookingContext = 'workshop'; // 'workshop' | 'mentoring'
+  let selectedMentoringSlot = null; // { slotId, dateStr, time, title, basePrice }
 
   const monthsNames = [
     "Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec",
@@ -25,7 +30,69 @@
   const monthsShort = ["sty", "lut", "mar", "kwi", "maj", "cze", "lip", "sie", "wrz", "paź", "lis", "gru"];
 
   function isNovember2026() {
-    return currentYear === BASE_YEAR && currentMonth === BASE_MONTH;
+    return currentYear === BASE_YEAR && currentMonth === 10;
+  }
+
+  function isDecember2026() {
+    return currentYear === BASE_YEAR && currentMonth === 11;
+  }
+
+  const monthsNamesGenitive = [
+    "stycznia", "lutego", "marca", "kwietnia", "maja", "czerwca",
+    "lipca", "sierpnia", "września", "października", "listopada", "grudnia"
+  ];
+
+  function formatPolishDate(dateStr) {
+    if (!dateStr) return '';
+    const parts = dateStr.split('-');
+    const year = parseInt(parts[0], 10);
+    const month = parseInt(parts[1], 10) - 1;
+    const day = parseInt(parts[2], 10);
+    const d = new Date(year, month, day);
+    const dayName = ["niedziela", "poniedziałek", "wtorek", "środa", "czwartek", "piątek", "sobota"][d.getDay()];
+    return `${dayName}, ${day} ${monthsNamesGenitive[month]} ${year}`;
+  }
+
+  async function loadMentoringSlots(force = false) {
+    if (mentoringSlotsCache && !force) return mentoringSlotsCache;
+    try {
+      const res = await fetch('/api/mentoring-slots');
+      const data = await res.json();
+      if (data && data.success) {
+        mentoringSlotsCache = data;
+        if (isDecember2026() && !selectedMentoringSlot) {
+          renderCalendar();
+        }
+        return data;
+      }
+    } catch (err) {
+      console.warn('Błąd ładowania slotów mentoringu:', err);
+    }
+    return null;
+  }
+
+  function updateWaitlistSidebar(isProposal) {
+    const label = document.querySelector('.waitlist-label');
+    const textarea = document.getElementById('waitlist-note');
+    const btn = document.getElementById('waitlist-btn');
+    const successMsg = document.getElementById('waitlist-success');
+
+    if (label) {
+      label.textContent = isProposal ? 'Własna propozycja terminu' : 'Lista rezerwowa';
+    }
+    if (textarea) {
+      textarea.placeholder = isProposal
+        ? 'Napisz, jaki dzień i godzina najbardziej Ci odpowiada...'
+        : 'Notatka (opcjonalnie: preferowany dzień, godziny lub temat)...';
+    }
+    if (btn) {
+      btn.textContent = isProposal ? 'Wyślij propozycję terminu' : 'Zapisz na listę rezerwową';
+    }
+    if (successMsg) {
+      successMsg.textContent = isProposal
+        ? '✓ Dziękujemy! Otrzymaliśmy Twoją propozycję terminu. Skontaktujemy się z Tobą mailowo.'
+        : '✓ Zapisano! Powiadomimy Cię e-mailem, gdy zwolni się termin. Twoja notatka została przekazana.';
+    }
   }
 
   function renderCalendar() {
@@ -39,16 +106,22 @@
       prevBtn.disabled = isNovember2026();
     }
 
-    // Aktualizacja lewego banera
+    // Aktualizacja lewego banera oraz bocznego formularza (Lista rezerwowa vs Propozycja terminu)
     const bannerTitle = document.getElementById('mentoring-status-title');
     const bannerDesc = document.getElementById('mentoring-status-desc');
     if (bannerTitle && bannerDesc) {
       if (isNovember2026()) {
         bannerTitle.innerHTML = '<span class="status-sold-dot"></span> Terminy wyprzedane';
         bannerDesc.textContent = 'Wszystkie regularne sloty w listopadzie zostały zarezerwowane.';
+        updateWaitlistSidebar(false);
+      } else if (isDecember2026()) {
+        bannerTitle.innerHTML = '<span class="status-sold-dot" style="background:#059669;box-shadow:0 0 8px rgba(5,150,105,0.5);"></span> Zapisy otwarte (Grudzień)';
+        bannerDesc.textContent = 'Dostępne wolne sloty na grudzień 2026. Wybierz dogodny termin w kalendarzu lub złóż propozycję.';
+        updateWaitlistSidebar(true);
       } else {
         bannerTitle.innerHTML = '<span class="status-sold-dot" style="opacity:0.4;"></span> Grafik nieotwarty';
         bannerDesc.textContent = `Terminy na ${monthsNames[currentMonth]} ${currentYear} zostaną opublikowane wkrótce.`;
+        updateWaitlistSidebar(false);
       }
     }
 
@@ -73,13 +146,37 @@
       const dayDate = new Date(currentYear, currentMonth, day);
       const dayOfWeek = dayDate.getDay();
       const isWeekend = (dayOfWeek === 0 || dayOfWeek === 6);
+      const isHoliday = (isDecember2026() && DECEMBER_HOLIDAYS.includes(day));
 
       const cell = document.createElement('div');
-      // Tylko listopad ma kropki 'has-sold-dot'
-      cell.className = 'cal-day-cell' + (isWeekend ? ' weekend' : (isNovember2026() ? ' has-sold-dot' : ''));
-      if (day === selectedDay && !isWeekend) {
-        cell.classList.add('active');
+      let cellClasses = ['cal-day-cell'];
+
+      if (isHoliday) {
+        cellClasses.push('holiday');
+        cell.title = 'Przerwa świąteczna';
+      } else if (isWeekend) {
+        cellClasses.push('weekend');
+      } else if (isNovember2026()) {
+        cellClasses.push('has-sold-dot');
+      } else if (isDecember2026()) {
+        // Sprawdzamy czy w tym dniu są wolne sloty
+        const dayStr = String(day).padStart(2, '0');
+        const hasAvailable = mentoringSlotsCache && mentoringSlotsCache.slots && ['15:00', '16:30', '18:00'].some(time => {
+          const id = `2026-12-${dayStr}_${time}`;
+          return mentoringSlotsCache.slots[id] && mentoringSlotsCache.slots[id].status === 'available';
+        });
+        if (hasAvailable) {
+          cellClasses.push('has-available-dot');
+        } else {
+          cellClasses.push('has-sold-dot');
+        }
       }
+
+      if (day === selectedDay && !isWeekend) {
+        cellClasses.push('active');
+      }
+
+      cell.className = cellClasses.join(' ');
       cell.textContent = day;
 
       if (!isWeekend) {
@@ -128,8 +225,68 @@
         noteText.style.display = 'block';
         noteText.textContent = 'Terminy oznaczone jako wykupione nie są obecnie dostępne do bezpośredniej rezerwacji.';
       }
+    } else if (isDecember2026()) {
+      const isHoliday = DECEMBER_HOLIDAYS.includes(dayNum);
+
+      if (isHoliday) {
+        container.innerHTML = `
+          <div class="slots-unopened-view">
+            <span class="slots-unopened-badge" style="background: rgba(234, 88, 12, 0.1); color: #ea580c; border: 1px solid rgba(234, 88, 12, 0.25);">Przerwa świąteczna</span>
+            <p class="slots-unopened-text">
+              W dniach <strong>24–26 oraz 31 grudnia</strong> nie prowadzimy sesji konsultacyjnych.
+            </p>
+            <p class="slots-unopened-text" style="font-size:11px; opacity:0.8;">
+              Zapraszamy do wyboru innego dostępnego terminu w grudniu lub złożenia własnej propozycji.
+            </p>
+          </div>
+        `;
+        if (noteText) noteText.style.display = 'none';
+        return;
+      }
+
+      const dayStr = String(dayNum).padStart(2, '0');
+      const hours = ['15:00', '16:30', '18:00'];
+      let availableCount = 0;
+
+      hours.forEach(time => {
+        const slotId = `2026-12-${dayStr}_${time}`;
+        const slotData = (mentoringSlotsCache && mentoringSlotsCache.slots) ? mentoringSlotsCache.slots[slotId] : null;
+        const isAvailable = Boolean(slotData && slotData.status === 'available');
+
+        if (isAvailable) {
+          availableCount++;
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'slot-item-available';
+          btn.innerHTML = `
+            <span class="slot-time-text">${time}</span>
+            <span class="slot-badge-available">Zarezerwuj →</span>
+          `;
+          btn.onclick = () => {
+            window.startMentoringReservation(slotId, `2026-12-${dayStr}`, time);
+          };
+          container.appendChild(btn);
+        } else {
+          const item = document.createElement('div');
+          item.className = 'slot-item-booked';
+          item.innerHTML = `
+            <span class="slot-time-text">${time}</span>
+            <span class="slot-badge-sold">WYKUPIONE</span>
+          `;
+          container.appendChild(item);
+        }
+      });
+
+      if (noteText) {
+        noteText.style.display = 'block';
+        if (availableCount > 0) {
+          noteText.textContent = `Dostępne terminy w tym dniu: ${availableCount}. Kliknij „Zarezerwuj →”, aby przejść do płatności.`;
+        } else {
+          noteText.textContent = 'Wszystkie godziny w tym dniu są wykupione. Możesz wybrać inny dzień lub złożyć własną propozycję.';
+        }
+      }
     } else {
-      // GRUDZIEŃ I POZOSTAŁE MIESIĄCE: GRAFIK JESZCZE NIEOTWARTY
+      // POZOSTAŁE MIESIĄCE: GRAFIK JESZCZE NIEOTWARTY
       container.innerHTML = `
         <div class="slots-unopened-view">
           <span class="slots-unopened-badge">Grafik nieotwarty</span>
@@ -171,28 +328,142 @@
     const mentoringView = document.getElementById('mentoring-view');
     const workshopView = document.getElementById('workshop-view');
     const mentoringTitle = document.getElementById('mentoring-active-title');
+    const groupHeader = document.querySelector('.workshop-group-header');
+    const selector = document.querySelector('.event-type-selector');
 
     if (!mentoringView || !workshopView) return;
 
     if (tab === 'warsztaty' || tab === 'workshops') {
+      bookingContext = 'workshop';
+      selectedMentoringSlot = null;
       const b = document.getElementById('btn-opt3');
       if (b) b.classList.add('active');
       mentoringView.classList.add('hidden');
       workshopView.classList.add('visible');
+      if (groupHeader) groupHeader.style.display = '';
+      if (selector) selector.style.display = '';
+
+      // Przywróć harmonogram warsztatów
+      const group = WORKSHOP_GROUPS[activeGroup] || WORKSHOP_GROUPS.december;
+      const scheduleTitle = document.getElementById('ws-schedule-title');
+      if (scheduleTitle) scheduleTitle.textContent = group.scheduleTitle;
+      const scheduleList = document.getElementById('ws-schedule-list');
+      if (scheduleList) {
+        scheduleList.innerHTML = group.sessions.map((s, idx) => `
+          <div class="schedule-item"${idx === 0 ? ' style="background: rgba(255, 255, 255, 0.07); border-color: rgba(255, 255, 255, 0.18); color: #ffffff;"' : ''}>
+            <span class="schedule-date"><span class="schedule-num">${s.num}</span> ${s.date}</span>
+            <span class="schedule-time">${s.time}</span>
+          </div>
+        `).join('');
+      }
+
+      goToStep1();
       updatePriceDisplay();
     } else if (tab === 'kariera' || tab === 'career') {
+      bookingContext = 'workshop';
+      selectedMentoringSlot = null;
       const b = document.getElementById('btn-opt2');
       if (b) b.classList.add('active');
       workshopView.classList.remove('visible');
       mentoringView.classList.remove('hidden');
+      if (selector) selector.style.display = '';
       if (mentoringTitle) mentoringTitle.textContent = 'Mentoring kariery';
+      renderCalendar();
     } else {
+      bookingContext = 'workshop';
+      selectedMentoringSlot = null;
       const b = document.getElementById('btn-opt1');
       if (b) b.classList.add('active');
       workshopView.classList.remove('visible');
       mentoringView.classList.remove('hidden');
+      if (selector) selector.style.display = '';
       if (mentoringTitle) mentoringTitle.textContent = 'Mentoring biznesowy';
+      renderCalendar();
     }
+  };
+
+  // Rozpoczęcie rezerwacji mentoringu 1:1 (wspólne 2-krokowe flow z warsztatami)
+  window.startMentoringReservation = function (slotId, dateStr, time) {
+    bookingContext = 'mentoring';
+    const activeTitle = document.getElementById('mentoring-active-title')?.textContent || 'Mentoring biznesowy';
+
+    selectedMentoringSlot = {
+      slotId,
+      dateStr,
+      time,
+      title: activeTitle,
+      basePrice: 400
+    };
+
+    activeCoupon = null;
+    const couponInput = document.getElementById('ws-coupon-input');
+    const couponFeedback = document.getElementById('ws-coupon-feedback');
+    if (couponInput) couponInput.value = '';
+    if (couponFeedback) {
+      couponFeedback.className = 'coupon-feedback';
+      couponFeedback.textContent = '';
+    }
+
+    const mentoringView = document.getElementById('mentoring-view');
+    const workshopView = document.getElementById('workshop-view');
+    const groupHeader = document.querySelector('.workshop-group-header');
+    const selector = document.querySelector('.event-type-selector');
+
+    if (mentoringView) mentoringView.classList.add('hidden');
+    if (workshopView) workshopView.classList.add('visible');
+    if (groupHeader) groupHeader.style.display = 'none';
+    if (selector) selector.style.display = 'none';
+
+    // Aktualizacja lewej kolumny Kroku 1
+    const scheduleTitle = document.getElementById('ws-schedule-title');
+    const scheduleList = document.getElementById('ws-schedule-list');
+    if (scheduleTitle) scheduleTitle.textContent = 'Wybrany termin sesji 1:1';
+
+    const formattedDate = formatPolishDate(dateStr);
+
+    if (scheduleList) {
+      scheduleList.innerHTML = `
+        <div style="margin-bottom: 14px;">
+          <button type="button" class="btn-back-step1" style="visibility: visible; margin-bottom: 12px; padding: 0;" onclick="cancelMentoringToCalendar()">
+            <span>←</span>
+            <span>Wróć do kalendarza</span>
+          </button>
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+            <span class="step2-badge-event" style="background: rgba(15, 23, 42, 0.08); color: #0f172a; border: 1px solid rgba(15, 23, 42, 0.15); padding: 3px 8px; border-radius: 4px; font-size: 10px; font-weight: 700; text-transform: uppercase;">Sesja 1:1</span>
+            <h4 style="font-size: 15px; font-weight: 700; color: #0f172a; margin: 0;">${selectedMentoringSlot.title}</h4>
+          </div>
+          <div style="font-size: 12px; color: #475569; display: flex; flex-direction: column; gap: 6px; line-height: 1.5;">
+            <div>📅 <strong>${formattedDate}, godz. ${time}</strong></div>
+            <div>⏱ Czas trwania: <strong>90 minut (1h 30m)</strong></div>
+            <div>💻 Format: <strong>Spotkanie online 1:1 (Google Meet / Cal Video)</strong></div>
+            <div>👤 Prowadzący: <strong>Łukasz Poruszek</strong> (Konsultacje strategiczne)</div>
+          </div>
+        </div>
+        <p class="workshop-note">
+          Konsultacja strategiczna 1:1. Po opłaceniu rezerwacji otrzymasz bezpośredni link do pokoju wideo oraz możliwość przesłania materiałów do analizy przed spotkaniem.
+        </p>
+      `;
+    }
+
+    goToStep1();
+    updatePriceDisplay();
+  };
+
+  window.cancelMentoringToCalendar = function () {
+    bookingContext = 'workshop';
+    selectedMentoringSlot = null;
+
+    const mentoringView = document.getElementById('mentoring-view');
+    const workshopView = document.getElementById('workshop-view');
+    const groupHeader = document.querySelector('.workshop-group-header');
+    const selector = document.querySelector('.event-type-selector');
+
+    if (workshopView) workshopView.classList.remove('visible');
+    if (mentoringView) mentoringView.classList.remove('hidden');
+    if (groupHeader) groupHeader.style.display = '';
+    if (selector) selector.style.display = '';
+
+    renderCalendar();
   };
 
   // -------------------------------------------------------------
@@ -337,14 +608,17 @@
 
   // PRZELICZANIE KWOT I AKTUALIZACJA PODSUMOWANIA
   function updatePriceDisplay() {
+    const isMentoring = (bookingContext === 'mentoring');
+    const currentBasePrice = isMentoring ? 400 : WORKSHOP_BASE_PRICE;
     let discountAmount = 0;
-    let finalPrice = WORKSHOP_BASE_PRICE;
+    let finalPrice = currentBasePrice;
 
     if (activeCoupon) {
-      discountAmount = Math.round(WORKSHOP_BASE_PRICE * (activeCoupon.percent / 100));
-      finalPrice = Math.max(0, WORKSHOP_BASE_PRICE - discountAmount);
+      discountAmount = Math.round(currentBasePrice * (activeCoupon.percent / 100));
+      finalPrice = Math.max(0, currentBasePrice - discountAmount);
     }
 
+    const basePriceEl = document.getElementById('ws-base-price');
     const discountRow = document.getElementById('ws-discount-row');
     const discountLabel = document.getElementById('ws-discount-label');
     const discountAmountEl = document.getElementById('ws-discount-amount');
@@ -352,6 +626,9 @@
     const submitBtnText = document.getElementById('ws-submit-btn-text');
     const paynowBadge = document.getElementById('ws-paynow-badge');
 
+    if (basePriceEl) {
+      basePriceEl.textContent = `${currentBasePrice.toLocaleString('pl-PL')} PLN`;
+    }
     if (discountRow) {
       discountRow.classList.toggle('visible', Boolean(activeCoupon));
     }
@@ -528,8 +805,14 @@
     const navPill = document.querySelector('.step2-nav-pill');
     const backBtn = document.querySelector('.btn-back-step1');
 
-    if (selector) selector.style.display = '';
-    if (groupHeader) groupHeader.style.display = '';
+    if (bookingContext === 'workshop') {
+      if (selector) selector.style.display = '';
+      if (groupHeader) groupHeader.style.display = '';
+    } else {
+      if (selector) selector.style.display = 'none';
+      if (groupHeader) groupHeader.style.display = 'none';
+    }
+
     if (navPill) navPill.textContent = 'Krok 2 z 2 • Dane do faktury i płatność';
     if (backBtn) backBtn.style.visibility = 'visible';
     if (formView) formView.style.display = '';
@@ -542,18 +825,21 @@
   };
 
   function updateStep2Summary() {
-    const selectedGroupData = WORKSHOP_GROUPS[activeGroup] || WORKSHOP_GROUPS.december;
+    const isMentoring = (bookingContext === 'mentoring');
+    const currentBasePrice = isMentoring ? 400 : WORKSHOP_BASE_PRICE;
     let discountAmount = 0;
-    let finalPrice = WORKSHOP_BASE_PRICE;
+    let finalPrice = currentBasePrice;
 
     if (activeCoupon) {
-      discountAmount = Math.round(WORKSHOP_BASE_PRICE * (activeCoupon.percent / 100));
-      finalPrice = Math.max(0, WORKSHOP_BASE_PRICE - discountAmount);
+      discountAmount = Math.round(currentBasePrice * (activeCoupon.percent / 100));
+      finalPrice = Math.max(0, currentBasePrice - discountAmount);
     }
 
     const netPrice = (finalPrice / 1.23).toFixed(2);
     const vatPrice = (finalPrice - parseFloat(netPrice)).toFixed(2);
 
+    const badgeEvent = document.querySelector('.step2-summary-col .step2-badge-event');
+    const eventTitle = document.querySelector('.step2-summary-col .step2-event-title');
     const summaryGroup = document.getElementById('ws2-summary-group');
     const summaryEmail = document.getElementById('ws2-summary-email');
     const finBase = document.getElementById('ws2-fin-base');
@@ -565,12 +851,32 @@
     const finTotal = document.getElementById('ws2-fin-total');
     const submitBtnText = document.getElementById('ws2-submit-btn-text');
 
-    if (summaryGroup) {
-      const firstDate = (selectedGroupData.sessions && selectedGroupData.sessions[0]) ? selectedGroupData.sessions[0].date : '1 grudnia 2026';
-      summaryGroup.textContent = `${selectedGroupData.name} (start ${firstDate}, 19:00)`;
+    const guaranteeItems = document.querySelectorAll('.step2-guarantee-item span:last-child');
+
+    if (isMentoring && selectedMentoringSlot) {
+      if (badgeEvent) badgeEvent.textContent = 'Mentoring 1:1';
+      if (eventTitle) eventTitle.textContent = selectedMentoringSlot.title;
+      if (summaryGroup) {
+        summaryGroup.textContent = `${formatPolishDate(selectedMentoringSlot.dateStr)}, godz. ${selectedMentoringSlot.time} (90 min)`;
+      }
+      if (guaranteeItems && guaranteeItems.length >= 3) {
+        guaranteeItems[2].textContent = 'Indywidualna sesja 1:1 dopasowana do Twoich celów';
+      }
+    } else {
+      const selectedGroupData = WORKSHOP_GROUPS[activeGroup] || WORKSHOP_GROUPS.december;
+      if (badgeEvent) badgeEvent.textContent = 'Warsztaty AI';
+      if (eventTitle) eventTitle.textContent = 'Cykl 6 spotkań online na żywo';
+      if (summaryGroup) {
+        const firstDate = (selectedGroupData.sessions && selectedGroupData.sessions[0]) ? selectedGroupData.sessions[0].date : '1 grudnia 2026';
+        summaryGroup.textContent = `${selectedGroupData.name} (start ${firstDate}, 19:00)`;
+      }
+      if (guaranteeItems && guaranteeItems.length >= 3) {
+        guaranteeItems[2].textContent = 'Dostęp do nagrań i materiałów warsztatowych';
+      }
     }
+
     if (summaryEmail) summaryEmail.textContent = currentReservationEmail || '—';
-    if (finBase) finBase.textContent = `${WORKSHOP_BASE_PRICE.toLocaleString('pl-PL')},00 PLN`;
+    if (finBase) finBase.textContent = `${currentBasePrice.toLocaleString('pl-PL')},00 PLN`;
 
     if (finDiscountRow) {
       finDiscountRow.style.display = activeCoupon ? 'flex' : 'none';
@@ -752,6 +1058,7 @@
     if (btn) btn.disabled = true;
     if (btnText) btnText.textContent = 'Rezerwacja w toku...';
 
+    const isMentoring = (bookingContext === 'mentoring');
     const selectedGroupData = WORKSHOP_GROUPS[activeGroup] || WORKSHOP_GROUPS.december;
 
     const finalEmail = currentReservationEmail || (document.getElementById('ws-email') ? document.getElementById('ws-email').value.trim() : '');
@@ -762,24 +1069,42 @@
       return;
     }
 
+    const endpoint = isMentoring ? '/api/reserve-mentoring' : '/api/reserve-workshop';
+    const payload = isMentoring ? {
+      name,
+      email: finalEmail,
+      phone: '',
+      slotId: selectedMentoringSlot.slotId,
+      type: selectedMentoringSlot.title,
+      date: selectedMentoringSlot.dateStr,
+      time: selectedMentoringSlot.time,
+      coupon: activeCoupon ? activeCoupon.code : null,
+      buyerType: step2BuyerType,
+      invoiceNip: nip,
+      invoiceCompanyName: (step2BuyerType === 'company') ? name : '',
+      invoiceStreet: street,
+      invoicePostalCode: zip,
+      invoiceCity: city
+    } : {
+      name,
+      email: finalEmail,
+      phone: '',
+      group: selectedGroupData.label,
+      groupId: activeGroup,
+      coupon: activeCoupon ? activeCoupon.code : null,
+      buyerType: step2BuyerType,
+      invoiceNip: nip,
+      invoiceCompanyName: (step2BuyerType === 'company') ? name : '',
+      invoiceStreet: street,
+      invoicePostalCode: zip,
+      invoiceCity: city
+    };
+
     try {
-      const res = await fetch('/api/reserve-workshop', {
+      const res = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name,
-          email: finalEmail,
-          phone: '',
-          group: selectedGroupData.label,
-          groupId: activeGroup,
-          coupon: activeCoupon ? activeCoupon.code : null,
-          buyerType: step2BuyerType,
-          invoiceNip: nip,
-          invoiceCompanyName: (step2BuyerType === 'company') ? name : '',
-          invoiceStreet: street,
-          invoicePostalCode: zip,
-          invoiceCity: city
-        })
+        body: JSON.stringify(payload)
       });
 
       const data = await res.json();
@@ -790,6 +1115,11 @@
           if (btnText) btnText.textContent = 'Przekierowanie do Paynow...';
           window.location.href = data.redirectUrl;
           return;
+        }
+
+        if (isMentoring) {
+          // Natychmiastowe odświeżenie danych o slotach (nowy wolny termin z puli fake_booked)
+          loadMentoringSlots(true);
         }
 
         // SCENARIUSZ 2: Wyświetlenie Karty Płatności w prawej kolumnie Kroku 2
@@ -804,6 +1134,10 @@
           if (navPill) navPill.textContent = 'Potwierdzenie • Dane do przelewu';
           if (backBtn) backBtn.style.visibility = 'hidden';
 
+          const itemTitle = isMentoring
+            ? `sesji <strong>${selectedMentoringSlot.title}</strong> (${formatPolishDate(selectedMentoringSlot.dateStr)}, godz. ${selectedMentoringSlot.time})`
+            : `w grupie <strong>${selectedGroupData.name}</strong>`;
+
           if (data.isZeroPayment) {
             paymentBox.innerHTML = `
               <div class="reservation-success-box" style="display: flex;">
@@ -811,8 +1145,8 @@
                 <h4 class="success-title">Rezerwacja bezpłatna potwierdzona</h4>
                 <p class="success-desc">
                   Dziękujemy, <strong>${name}</strong>!<br>
-                  Twoje miejsce w grupie <strong>${selectedGroupData.name}</strong> zostało pomyślnie zarezerwowane ze 100% rabatem specjalnym.<br>
-                  Potwierdzenie oraz linki do spotkań zostały wysłane na <strong>${currentReservationEmail}</strong>.
+                  Twoje miejsce ${itemTitle} zostało pomyślnie zarezerwowane ze 100% rabatem specjalnym.<br>
+                  Potwierdzenie oraz linki do spotkań zostały wysłane na <strong>${finalEmail}</strong>.
                   ${data.invoiceUrl ? `
                     <div style="margin-top: 14px;">
                       <a href="${data.invoiceUrl}" target="_blank" class="invoice-download-btn">
@@ -853,7 +1187,7 @@
               <div class="transfer-status-pill">✓ Miejsce wstępnie zablokowane na 24h</div>
               <div class="transfer-greeting-text">
                 Dziękujemy, <strong>${name}</strong>!<br>
-                Rezerwacja w grupie <strong>${selectedGroupData.name}</strong> została zarejestrowana (nr <strong>${data.invoiceNumber}</strong>).
+                Rezerwacja ${itemTitle} została zarejestrowana (nr <strong>${data.invoiceNumber}</strong>).
               </div>
 
               <div class="bank-transfer-card">
@@ -911,7 +1245,7 @@
         updateStep2Summary();
       }
     } catch (err) {
-      console.error('Błąd rezerwacji warsztatów:', err);
+      console.error('Błąd rezerwacji:', err);
       alert('Wystąpił błąd połączenia. Spróbuj ponownie.');
       if (btn) btn.disabled = false;
       updateStep2Summary();
@@ -922,7 +1256,7 @@
   window.setBuyerType = window.setStep2BuyerType;
   window.handleNipInput = window.handleStep2NipInput;
 
-  // OBSŁUGA LISTY REZERWOWEJ Z NOTATKĄ
+  // OBSŁUGA LISTY REZERWOWEJ I PROPOZYCJI TERMINU Z NOTATKĄ
   window.handleWaitlist = async function (e) {
     if (e && e.preventDefault) e.preventDefault();
     const emailInput = document.getElementById('waitlist-email');
@@ -939,6 +1273,8 @@
       btn.textContent = 'Zapisywanie...';
     }
 
+    const isProposal = isDecember2026();
+
     try {
       const titleEl = document.getElementById('mentoring-active-title');
       await fetch('/api/waitlist', {
@@ -948,7 +1284,8 @@
           email,
           note,
           type: titleEl ? titleEl.textContent : 'Mentoring biznesowy',
-          month: `${monthsNames[currentMonth]} ${currentYear}`
+          month: `${monthsNames[currentMonth]} ${currentYear}`,
+          isProposal
         })
       });
     } catch (err) {
@@ -958,7 +1295,12 @@
     const formEl = document.getElementById('waitlist-form');
     const successEl = document.getElementById('waitlist-success');
     if (formEl) formEl.style.display = 'none';
-    if (successEl) successEl.style.display = 'block';
+    if (successEl) {
+      successEl.style.display = 'block';
+      successEl.textContent = isProposal
+        ? '✓ Dziękujemy! Otrzymaliśmy Twoją propozycję terminu. Skontaktujemy się z Tobą mailowo.'
+        : '✓ Zapisano! Powiadomimy Cię e-mailem, gdy zwolni się termin. Twoja notatka została przekazana.';
+    }
   };
 
   // OTWIERANIE I ZAMYKANIE MODALU
@@ -1047,6 +1389,7 @@
       }
     });
 
+    loadMentoringSlots();
     renderCalendar();
     updatePriceDisplay();
 

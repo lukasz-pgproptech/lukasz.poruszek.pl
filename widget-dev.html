@@ -123,7 +123,11 @@
             <span style="color: rgba(255, 255, 255, 0.7); font-weight: 500;">Widżet rezerwacji i płatności Paynow</span>
         </div>
         <div class="dev-actions">
-            <span style="color: rgba(255,255,255,0.4); font-size:11px;">Kody testowe:</span>
+            <span style="color: rgba(255,255,255,0.4); font-size:11px;">Zakładki:</span>
+            <button class="dev-btn" onclick="window.switchBookingTab('biznes')">Mentoring biznesowy</button>
+            <button class="dev-btn" onclick="window.switchBookingTab('kariera')">Mentoring kariery</button>
+            <button class="dev-btn" onclick="window.switchBookingTab('warsztaty')">Warsztaty AI</button>
+            <span style="color: rgba(255,255,255,0.4); font-size:11px; margin-left: 6px;">Kody rabatowe:</span>
             <button class="dev-btn" onclick="quickApplyCoupon('CHORWACJA')">CHORWACJA (-50%)</button>
             <button class="dev-btn" onclick="quickApplyCoupon('RESICRAFT')">RESICRAFT (-50%)</button>
             <button class="dev-btn" onclick="quickApplyCoupon('432834145')">432834145 (-100%)</button>
@@ -520,9 +524,9 @@
             }
         }
 
-        // Domyślnie w sandboxie otwórz zakładkę warsztatów
+        // Domyślnie w sandboxie otwórz zakładkę mentoringu
         document.addEventListener('DOMContentLoaded', () => {
-            window.switchBookingTab('warsztaty');
+            window.switchBookingTab('biznes');
         });
     </script>
 </body>

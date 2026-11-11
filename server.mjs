@@ -4,7 +4,8 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { createAndRegisterInvoice, getInvoiceById, generateInvoiceHtml, SELLER_DATA } from './ksef-client.mjs';
-import { sendReservationEmail } from './email-service.mjs';
+import { sendReservationEmail, sendWaitlistNotificationEmail } from './email-service.mjs';
+import { getPublicDecemberSlots, bookMentoringSlot, DECEMBER_HOLIDAYS } from './mentoring-slots.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -569,7 +570,182 @@ const server = http.createServer((req, res) => {
   }
 
   // -------------------------------------------------------------
-  // API: LISTA REZERWOWA (MENTORING) -> ZAPIS + POWIADOMIENIE CAL.COM Z NOTATKĄ
+  // API: GRAFIK MENTORINGU (GRUDZIEŃ 2026)
+  // -------------------------------------------------------------
+  if (req.method === 'GET' && reqPath === '/api/mentoring-slots') {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({
+      success: true,
+      month: '2026-12',
+      holidays: DECEMBER_HOLIDAYS,
+      slots: getPublicDecemberSlots()
+    }));
+    return;
+  }
+
+  // -------------------------------------------------------------
+  // API: REZERWACJA MENTORINGU 1:1 + PROFORMA + BUFFER REPLENISHMENT
+  // -------------------------------------------------------------
+  if (req.method === 'POST' && reqPath === '/api/reserve-mentoring') {
+    let body = '';
+    req.on('data', chunk => body += chunk);
+    req.on('end', async () => {
+      try {
+        const payload = JSON.parse(body || '{}');
+        const {
+          name, email, phone, slotId, mentoringType = 'Mentoring biznesowy',
+          coupon,
+          buyerType = 'individual',
+          invoiceNip,
+          invoiceCompanyName,
+          invoiceStreet,
+          invoicePostalCode,
+          invoiceCity
+        } = payload;
+
+        if (!email || !name || !slotId) {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ error: 'Brak wymaganych danych rezerwacji (imię, e-mail lub termin).' }));
+          return;
+        }
+
+        const externalId = `ment-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
+
+        // 1. Rezerwacja w silniku mentoringu (sprawdza dostępność i uzupełnia pulę fake_booked)
+        const bookResult = bookMentoringSlot({
+          slotId,
+          name,
+          email,
+          phone,
+          reservationId: externalId
+        });
+
+        if (!bookResult.success) {
+          res.writeHead(409, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ error: bookResult.error }));
+          return;
+        }
+
+        // 2. Kalkulacja kwoty z kodem rabatowym (400 PLN bazowo)
+        let discountPercent = 0;
+        const normalizedCoupon = coupon ? String(coupon).trim().toUpperCase() : null;
+        if (normalizedCoupon && COUPONS[normalizedCoupon] !== undefined) {
+          discountPercent = COUPONS[normalizedCoupon];
+        }
+
+        const finalPricePln = Math.max(0, Math.round(BASE_MENTORING_PRICE * (1 - discountPercent / 100)));
+        const isCompany = buyerType === 'company';
+        const buyer = {
+          type: buyerType,
+          name: isCompany ? (invoiceCompanyName || name) : name,
+          email,
+          phone,
+          nip: isCompany ? (invoiceNip || '').replace(/\D/g, '') : null,
+          street: invoiceStreet || '',
+          postalCode: invoicePostalCode || '',
+          city: invoiceCity || ''
+        };
+
+        const eventDescription = `${mentoringType} (${bookResult.slot.date}, godz. ${bookResult.slot.time})`;
+
+        // 3. Generowanie Proformy KSeF
+        const invoice = await createAndRegisterInvoice({
+          group: eventDescription,
+          name,
+          email,
+          phone,
+          amountPln: finalPricePln,
+          coupon: normalizedCoupon,
+          buyer,
+          externalId,
+          isProforma: true
+        });
+
+        const rawAccount = '46114020040000390285475429';
+        const formattedAccount = '46 1140 2004 0000 3902 8547 5429';
+        const transferTitle = `Mentoring ${invoice.invoiceNumber}`;
+        const recipientName = 'POLSKA GRUPA PROPTECH SP. Z O.O.';
+        const recipientShort = 'Polska Grupa Proptech';
+        const qrPayload = `${rawAccount}\n${finalPricePln.toFixed(2)}\n${recipientShort}\n${transferTitle}\n7963033913`;
+
+        // 4. Zapis w reservations.json
+        saveJsonData('reservations.json', {
+          event: mentoringType,
+          slotId,
+          date: bookResult.slot.date,
+          time: bookResult.slot.time,
+          group: eventDescription,
+          name,
+          email,
+          phone: phone || '',
+          coupon: normalizedCoupon || null,
+          amountPln: finalPricePln,
+          externalId,
+          paymentMode: 'bank_transfer',
+          paymentStatus: 'pending_bank_transfer',
+          buyer,
+          invoiceNumber: invoice.invoiceNumber,
+          isProforma: true,
+          invoiceId: invoice.id
+        });
+
+        // 5. Automatyczna wysyłka e-mail z fakturą proforma PDF przez Resend (do klienta + BCC do Łukasza)
+        try {
+          const invoiceHtml = generateInvoiceHtml(invoice);
+          sendReservationEmail({
+            to: email,
+            name,
+            group: eventDescription,
+            amountPln: finalPricePln,
+            invoiceNumber: invoice.invoiceNumber,
+            invoiceId: invoice.id,
+            invoiceHtml,
+            transfer: {
+              recipient: recipientName,
+              accountFormatted: formattedAccount,
+              title: transferTitle,
+              amountFormatted: `${finalPricePln.toLocaleString('pl-PL')} PLN`
+            },
+            isZeroPayment: finalPricePln === 0,
+            buyer
+          }).catch(mailErr => console.error('[Server] Błąd asynchronicznej wysyłki e-mail mentoringu:', mailErr));
+        } catch (mailPrepErr) {
+          console.warn('[Server] Błąd przygotowania e-maila mentoringu:', mailPrepErr.message);
+        }
+
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({
+          success: true,
+          paymentMode: 'bank_transfer',
+          amountPln: finalPricePln,
+          invoiceNumber: invoice.invoiceNumber,
+          invoiceUrl: `/api/invoices/${invoice.id}`,
+          isProforma: true,
+          slot: bookResult.slot,
+          transfer: {
+            recipient: recipientName,
+            recipientShort: recipientShort,
+            accountFormatted: formattedAccount,
+            accountRaw: rawAccount,
+            title: transferTitle,
+            amountPln: finalPricePln,
+            amountFormatted: `${finalPricePln.toLocaleString('pl-PL')} PLN`,
+            nip: '7963033913',
+            qrPayload: qrPayload
+          },
+          message: 'Rezerwacja terminu konsultacji przyjęta. Miejsce zablokowane na 24h.'
+        }));
+      } catch (err) {
+        console.error('Błąd rezerwacji mentoringu:', err);
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: 'Błąd serwera podczas rezerwacji.' }));
+      }
+    });
+    return;
+  }
+
+  // -------------------------------------------------------------
+  // API: LISTA REZERWOWA / WŁASNA PROPOZYCJA TERMINU -> ZAPIS + RESEND EMAIL
   // -------------------------------------------------------------
   if (req.method === 'POST' && reqPath === '/api/waitlist') {
     let body = '';
@@ -577,7 +753,7 @@ const server = http.createServer((req, res) => {
     req.on('end', async () => {
       try {
         const payload = JSON.parse(body || '{}');
-        const { email, note, type, month } = payload;
+        const { email, note, type, month, isProposal } = payload;
 
         if (!email) {
           res.writeHead(400, { 'Content-Type': 'application/json' });
@@ -585,15 +761,31 @@ const server = http.createServer((req, res) => {
           return;
         }
 
+        const isCustomProposal = Boolean(isProposal || (month && month.toLowerCase().includes('grudzień')));
+
         // 1. Zapis lokalny do pliku JSON
         saveJsonData('waitlist.json', {
           email,
           note: note || '',
           type: type || 'Mentoring biznesowy',
-          month: month || 'Listopad 2026'
+          month: month || 'Listopad 2026',
+          isProposal: isCustomProposal
         });
 
-        // 2. Utworzenie wpisu w Cal.com -> wysyła powiadomienie e-mail z notatką na lukasz.poruszek@pgproptech.com
+        // 2. Natychmiastowe powiadomienie e-mail przez Resend do Łukasza
+        try {
+          sendWaitlistNotificationEmail({
+            email,
+            note,
+            type: type || 'Mentoring biznesowy',
+            month: month || 'Listopad 2026',
+            isProposal: isCustomProposal
+          }).catch(err => console.error('[Server] Błąd wysyłki e-mail waitlist:', err));
+        } catch (e) {
+          console.warn('[Server] Błąd przygotowania maila waitlist:', e.message);
+        }
+
+        // 3. Utworzenie wpisu w Cal.com
         let calWaitlistResult = null;
         try {
           const slotDate = new Date();
@@ -611,7 +803,7 @@ const server = http.createServer((req, res) => {
               eventTypeId: WAITLIST_EVENT_TYPE_ID,
               start: slotDate.toISOString(),
               attendee: {
-                name: `Lista Rezerwowa (${type || 'Mentoring'})`,
+                name: `${isCustomProposal ? 'Propozycja Terminu' : 'Lista Rezerwowa'} (${type || 'Mentoring'})`,
                 email: email,
                 timeZone: 'Europe/Warsaw'
               },
@@ -619,17 +811,13 @@ const server = http.createServer((req, res) => {
                 notatka: note || 'Brak notatki',
                 typ_mentoringu: type || 'Mentoring',
                 miesiac: month || 'Bieżący',
-                source: 'Lista rezerwowa lukasz.poruszek.pl'
+                rodzaj: isCustomProposal ? 'Własna propozycja terminu' : 'Lista rezerwowa'
               }
             })
           });
 
           if (calRes.ok) {
             calWaitlistResult = await calRes.json();
-            console.log('Cal.com waitlist entry created successfully -> email notification sent to lukasz.poruszek@pgproptech.com');
-          } else {
-            const errTxt = await calRes.text();
-            console.warn('Cal.com waitlist API warning:', calRes.status, errTxt);
           }
         } catch (calErr) {
           console.error('Cal.com waitlist API error:', calErr);
@@ -638,7 +826,7 @@ const server = http.createServer((req, res) => {
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ 
           success: true, 
-          message: 'Zapisano na listę rezerwową.',
+          message: isCustomProposal ? 'Dziękujemy! Twoja propozycja terminu została przekazana.' : 'Zapisano na listę rezerwową.',
           calSynced: Boolean(calWaitlistResult)
         }));
       } catch (err) {
