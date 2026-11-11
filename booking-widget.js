@@ -828,7 +828,7 @@
 
             paymentBox.innerHTML = `
               <div class="transfer-status-pill">✓ Miejsce wstępnie zablokowane na 24h</div>
-              <div style="margin-top: 6px; font-size: 12.5px; color: #ffffff; line-height: 1.45;">
+              <div class="transfer-greeting-text">
                 Dziękujemy, <strong>${name}</strong>!<br>
                 Rezerwacja w grupie <strong>${selectedGroupData.name}</strong> została zarejestrowana (nr <strong>${data.invoiceNumber}</strong>).
               </div>
@@ -874,8 +874,8 @@
                     📄 Pobierz Fakturę Proforma (${data.invoiceNumber || 'Proforma'})
                   </a>
                 ` : ''}
-                <div style="font-size: 10.5px; color: rgba(255, 255, 255, 0.45); text-align: center; margin-top: 2px;">
-                  Potwierdzenie rezerwacji zostało wysłane na <strong>${currentReservationEmail}</strong>.<br>
+                <div class="transfer-subnote-text">
+                  Potwierdzenie rezerwacji zostało wysłane na <strong>${finalEmail}</strong>.<br>
                   Po zaksięgowaniu wpłaty dokument zostanie przekształcony w e-Fakturę VAT KSeF.
                 </div>
               </div>

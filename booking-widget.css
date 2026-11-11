@@ -1417,6 +1417,12 @@
         }
 
         /* Lewa kolumna: Podsumowanie zakupów */
+        /* -------------------------------------------------------------
+           WARIANT A: JASNY ARKUSZ (FROSTED TITANIUM & FINANCIAL SLIP)
+           KROK 2 I 3: Prestiżowy, czytelny dokument księgowo-transakcyjny
+           ------------------------------------------------------------- */
+
+        /* Lewa kolumna: Podsumowanie zakupów */
         .step2-summary-col {
             display: flex;
             flex-direction: column;
@@ -1424,21 +1430,23 @@
         }
 
         .step2-summary-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.10);
-            border-radius: 14px;
-            padding: 16px 18px;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 18px 20px;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 14px;
+            box-shadow: 0 12px 30px -6px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1);
+            color: #0f172a;
         }
 
         .step2-summary-item-header {
             display: flex;
             flex-direction: column;
-            gap: 4px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            gap: 5px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #e2e8f0;
         }
 
         .step2-badge-event {
@@ -1447,25 +1455,26 @@
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.06em;
-            color: #4ade80;
-            background: rgba(74, 222, 128, 0.10);
-            border: 1px solid rgba(74, 222, 128, 0.25);
-            padding: 2px 7px;
+            color: #047857;
+            background: #ecfdf5;
+            border: 1px solid #a7f3d0;
+            padding: 2.5px 8px;
             border-radius: 9999px;
         }
 
         .step2-event-title {
-            font-size: 14px;
-            font-weight: 700;
-            color: #ffffff;
+            font-size: 14.5px;
+            font-weight: 800;
+            color: #0f172a;
             margin: 0;
+            letter-spacing: -0.01em;
         }
 
         .step2-detail-list {
             display: flex;
             flex-direction: column;
-            gap: 6px;
-            font-size: 11.5px;
+            gap: 7px;
+            font-size: 12px;
         }
 
         .step2-detail-row {
@@ -1475,13 +1484,13 @@
         }
 
         .step2-detail-label {
-            color: rgba(255, 255, 255, 0.45);
+            color: #64748b;
             font-weight: 600;
         }
 
         .step2-detail-val {
-            color: rgba(255, 255, 255, 0.90);
-            font-weight: 600;
+            color: #0f172a;
+            font-weight: 700;
             text-align: right;
             word-break: break-all;
         }
@@ -1489,72 +1498,83 @@
         .step2-fin-breakdown {
             display: flex;
             flex-direction: column;
-            gap: 6px;
-            padding: 10px 12px;
-            background: rgba(0, 0, 0, 0.25);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 10px;
-            font-size: 11.5px;
+            gap: 7px;
+            padding: 12px 14px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 12px;
         }
 
         .step2-fin-row {
             display: flex;
             justify-content: space-between;
-            color: rgba(255, 255, 255, 0.65);
+            color: #475569;
         }
 
         .step2-fin-row.discount {
-            color: #4ade80;
-            font-weight: 600;
+            color: #16a34a;
+            font-weight: 700;
         }
 
         .step2-fin-row.total {
-            border-top: 1px solid rgba(255, 255, 255, 0.12);
-            padding-top: 8px;
+            border-top: 1px solid #cbd5e1;
+            padding-top: 10px;
             margin-top: 4px;
-            font-size: 13.5px;
-            font-weight: 700;
-            color: #ffffff;
+            font-size: 14px;
+            font-weight: 800;
+            color: #0f172a;
             align-items: baseline;
         }
 
         .step2-fin-total-val {
-            font-size: 18px;
-            font-weight: 800;
-            color: #4ade80;
-            letter-spacing: -0.01em;
+            font-size: 21px;
+            font-weight: 900;
+            color: #0f172a;
+            letter-spacing: -0.02em;
         }
 
         .step2-guarantees {
             display: flex;
             flex-direction: column;
-            gap: 6px;
-            font-size: 10.5px;
-            color: rgba(255, 255, 255, 0.45);
-            line-height: 1.4;
+            gap: 7px;
+            font-size: 11px;
+            color: #64748b;
+            line-height: 1.45;
             padding-top: 4px;
         }
 
         .step2-guarantee-item {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 7px;
         }
 
         .step2-check {
-            color: #4ade80;
-            font-weight: 700;
+            color: #16a34a;
+            font-weight: 800;
         }
 
         /* Prawa kolumna: Formularz faktury / Płatność */
         .step2-action-col {
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            gap: 12px;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
             border-radius: 16px;
-            padding: 16px 18px;
+            padding: 18px 20px;
+            box-shadow: 0 12px 30px -6px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1);
+            color: #0f172a;
+        }
+
+        .step2-action-col .workshop-section-title {
+            color: #475569;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 2px;
         }
 
         .step2-form {
@@ -1575,23 +1595,291 @@
             justify-content: space-between;
         }
 
-        .nip-badge-optional {
+        .step2-action-col .form-label {
+            color: #334155;
+            font-size: 11.5px;
+            font-weight: 600;
+        }
+
+        /* Przełącznik Osoba prywatna / Firma */
+        .step2-action-col .buyer-type-toggle {
+            display: flex;
+            gap: 4px;
+            background: #f1f5f9;
+            border: 1px solid #e2e8f0;
+            border-radius: 9px;
+            padding: 3px;
+        }
+
+        .step2-action-col .buyer-type-btn {
+            flex: 1;
+            padding: 7px 12px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #64748b;
+            background: transparent;
+            border: 1px solid transparent;
+            border-radius: 7px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.16s ease;
+            text-align: center;
+        }
+
+        .step2-action-col .buyer-type-btn:hover {
+            color: #0f172a;
+        }
+
+        .step2-action-col .buyer-type-btn.active {
+            background: #ffffff;
+            color: #0f172a;
+            font-weight: 700;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.06);
+        }
+
+        /* Inputy w jasnym arkuszu */
+        .step2-action-col .form-input {
+            background: #ffffff;
+            border: 1.5px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 9px 12px;
+            font-size: 12.5px;
+            color: #0f172a;
+            font-family: inherit;
+            transition: all 0.18s ease;
+        }
+
+        .step2-action-col .form-input::placeholder {
+            color: #94a3b8;
+        }
+
+        .step2-action-col .form-input:focus {
+            outline: none;
+            border-color: #0f172a;
+            box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.08);
+        }
+
+        .step2-action-col .form-input:disabled {
+            opacity: 1;
+            cursor: not-allowed;
+            background: #f8fafc;
+            border-color: #e2e8f0;
+            color: #94a3b8;
+        }
+
+        .step2-action-col .nip-badge-optional {
             font-size: 9.5px;
-            padding: 1px 6px;
+            padding: 2px 7px;
             border-radius: 4px;
-            background: rgba(255, 255, 255, 0.06);
-            color: rgba(255, 255, 255, 0.40);
+            background: #f1f5f9;
+            border: 1px solid #e2e8f0;
+            color: #64748b;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.04em;
         }
 
-        .form-input:disabled {
-            opacity: 0.45;
-            cursor: not-allowed;
-            background: rgba(255, 255, 255, 0.02);
-            border-color: rgba(255, 255, 255, 0.05);
-            color: rgba(255, 255, 255, 0.35);
+        /* Karta firmy zweryfikowanej z MF */
+        .step2-action-col .company-verified-card {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 9px;
+            padding: 10px 12px;
+            color: #166534;
+        }
+
+        .step2-action-col .company-badge-vat {
+            background: #dcfce7;
+            border: 1px solid #86efac;
+            color: #15803d;
+            font-weight: 700;
+        }
+
+        .step2-action-col .company-verified-name {
+            color: #14532d;
+            font-weight: 700;
+            font-size: 12px;
+        }
+
+        .step2-action-col .company-verified-addr {
+            color: #166534;
+            font-size: 11px;
+        }
+
+        .step2-action-col .company-verified-edit,
+        .step2-action-col .btn-edit-company {
+            color: #15803d;
+            font-size: 11px;
+            font-weight: 600;
+            text-decoration: underline;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            font-family: inherit;
+        }
+
+        .step2-action-col .btn-edit-company:hover {
+            color: #14532d;
+        }
+
+        /* Przycisk wysyłki (Ciemny, elegancki obsidian / wysoki kontrast) */
+        .step2-action-col .btn-submit-workshop {
+            background: #0f172a;
+            color: #ffffff;
+            border: 1px solid #0f172a;
+            border-radius: 9px;
+            padding: 12px 18px;
+            font-size: 13.5px;
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.18);
+            transition: all 0.18s ease;
+        }
+
+        .step2-action-col .btn-submit-workshop:hover {
+            background: #1e293b;
+            border-color: #1e293b;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(15, 23, 42, 0.24);
+        }
+
+        /* -------------------------------------------------------------
+           KROK 3: PŁATNOŚĆ I PROFORMA W JASNYM ARKUSZU
+           ------------------------------------------------------------- */
+        .step2-action-col .transfer-greeting-text {
+            font-size: 13px;
+            color: #0f172a;
+            line-height: 1.45;
+            margin-top: 4px;
+        }
+
+        .step2-action-col .transfer-greeting-text strong {
+            color: #0f172a;
+            font-weight: 700;
+        }
+
+        .step2-action-col .bank-transfer-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 14px 16px;
+            margin-top: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+        }
+
+        .step2-action-col .transfer-status-pill {
+            background: #ecfdf5;
+            border: 1px solid #a7f3d0;
+            color: #047857;
+            font-weight: 700;
+        }
+
+        .step2-action-col .transfer-amount-row {
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .step2-action-col .transfer-amount-label {
+            color: #64748b;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .step2-action-col .transfer-amount-val {
+            color: #0f172a;
+            font-size: 22px;
+            font-weight: 900;
+        }
+
+        .step2-action-col .transfer-field-label {
+            color: #64748b;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .step2-action-col .transfer-field-val-row {
+            background: #ffffff;
+            border: 1.5px solid #cbd5e1;
+            border-radius: 7px;
+            padding: 7px 10px;
+        }
+
+        .step2-action-col .transfer-field-val {
+            color: #0f172a;
+            font-size: 12.5px;
+            font-weight: 700;
+        }
+
+        .step2-action-col .btn-copy-transfer {
+            background: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            color: #334155;
+            font-weight: 700;
+        }
+
+        .step2-action-col .btn-copy-transfer:hover {
+            background: #e2e8f0;
+            color: #0f172a;
+        }
+
+        .step2-action-col .btn-copy-transfer.copied {
+            background: #ecfdf5;
+            border-color: #86efac;
+            color: #15803d;
+        }
+
+        .step2-action-col .transfer-qr-section {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 9px;
+            padding: 10px 12px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+        }
+
+        .step2-action-col .transfer-qr-box {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+        }
+
+        .step2-action-col .transfer-qr-title {
+            color: #0f172a;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .step2-action-col .transfer-qr-desc {
+            color: #64748b;
+            font-size: 10.5px;
+        }
+
+        .step2-action-col .invoice-download-btn {
+            background: #0f172a;
+            color: #ffffff;
+            border: 1px solid #0f172a;
+            box-shadow: 0 3px 10px rgba(15, 23, 42, 0.15);
+            font-weight: 700;
+            font-size: 12.5px;
+            border-radius: 8px;
+            padding: 10px 14px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+            transition: all 0.16s ease;
+        }
+
+        .step2-action-col .invoice-download-btn:hover {
+            background: #1e293b;
+            transform: translateY(-1px);
+        }
+
+        .step2-action-col .transfer-subnote-text {
+            font-size: 11px;
+            color: #64748b;
+            text-align: center;
+            line-height: 1.45;
         }
 
         @media (max-width: 900px) {
