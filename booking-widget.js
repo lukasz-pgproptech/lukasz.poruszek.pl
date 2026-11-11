@@ -265,6 +265,10 @@
 
     const statusTag = document.getElementById('ws-group-status');
     if (statusTag) statusTag.textContent = group.status;
+
+    if (typeof updateStep2Summary === 'function' && currentStep === 2) {
+      updateStep2Summary();
+    }
   };
 
   // ROZWIJANIE POLA KODU RABATOWEGO
@@ -364,8 +368,6 @@
     if (submitBtnText) {
       if (finalPrice === 0) {
         submitBtnText.textContent = 'Zatwierdź bezpłatną rezerwację (0 PLN)';
-      } else if (activePaymentMode === 'paynow') {
-        submitBtnText.textContent = `Przejdź do płatności Paynow (${finalPrice.toLocaleString('pl-PL')} PLN)`;
       } else {
         submitBtnText.textContent = `Zarezerwuj i przejdź do płatności (${finalPrice.toLocaleString('pl-PL')} PLN)`;
       }
@@ -385,6 +387,10 @@
           }
         }
       }
+    }
+
+    if (typeof updateStep2Summary === 'function' && currentStep === 2) {
+      updateStep2Summary();
     }
   }
 
@@ -451,31 +457,173 @@
   };
 
   // -------------------------------------------------------------
-  // DANE NABYWCY I FAKTURA VAT (KSeF)
+  // ZARZĄDZANIE KROKAMI: KROK 1 (SZYBKI START) -> KROK 2 (FAKTURA & PŁATNOŚĆ)
   // -------------------------------------------------------------
-  let buyerType = 'individual'; // 'individual' | 'company'
+  let currentStep = 1;
+  let currentReservationEmail = '';
+  let step2BuyerType = 'individual'; // 'individual' | 'company'
   let verifiedCompanyData = null;
   let nipDebounceTimer = null;
 
-  window.setBuyerType = function (type) {
-    buyerType = type;
-    const btnInd = document.getElementById('btn-buyer-ind');
-    const btnComp = document.getElementById('btn-buyer-comp');
-    const fieldsInd = document.getElementById('fieldsIndividual');
-    const fieldsComp = document.getElementById('fieldsCompany');
+  window.handleStep1Submit = function (e) {
+    if (e && e.preventDefault) e.preventDefault();
+    const emailInput = document.getElementById('ws-email');
+    if (!emailInput) return;
+    const email = emailInput.value.trim();
+    if (!email || !email.includes('@')) {
+      emailInput.focus();
+      return;
+    }
+
+    currentReservationEmail = email;
+    goToStep2();
+  };
+
+  // Kompatybilność wsteczna
+  window.handleWorkshopSubmit = function (e) {
+    window.handleStep1Submit(e);
+  };
+
+  window.goToStep2 = function () {
+    currentStep = 2;
+    const step1El = document.getElementById('workshop-step-1');
+    const step2El = document.getElementById('workshop-step-2');
+    const container = document.getElementById('workshop-view') || document.querySelector('.workshop-container');
+
+    if (step1El) step1El.style.display = 'none';
+    if (step2El) step2El.style.display = 'flex';
+
+    updateStep2Summary();
+    if (container) container.scrollTop = 0;
+  };
+
+  window.goToStep1 = function () {
+    currentStep = 1;
+    const step1El = document.getElementById('workshop-step-1');
+    const step2El = document.getElementById('workshop-step-2');
+    const container = document.getElementById('workshop-view') || document.querySelector('.workshop-container');
+
+    if (step2El) step2El.style.display = 'none';
+    if (step1El) step1El.style.display = 'grid';
+
+    if (container) container.scrollTop = 0;
+  };
+
+  function updateStep2Summary() {
+    const selectedGroupData = WORKSHOP_GROUPS[activeGroup] || WORKSHOP_GROUPS.december;
+    let discountAmount = 0;
+    let finalPrice = WORKSHOP_BASE_PRICE;
+
+    if (activeCoupon) {
+      discountAmount = Math.round(WORKSHOP_BASE_PRICE * (activeCoupon.percent / 100));
+      finalPrice = Math.max(0, WORKSHOP_BASE_PRICE - discountAmount);
+    }
+
+    const netPrice = (finalPrice / 1.23).toFixed(2);
+    const vatPrice = (finalPrice - parseFloat(netPrice)).toFixed(2);
+
+    const summaryGroup = document.getElementById('ws2-summary-group');
+    const summaryEmail = document.getElementById('ws2-summary-email');
+    const finBase = document.getElementById('ws2-fin-base');
+    const finDiscountRow = document.getElementById('ws2-fin-discount-row');
+    const finDiscountLabel = document.getElementById('ws2-fin-discount-label');
+    const finDiscountVal = document.getElementById('ws2-fin-discount-val');
+    const finNet = document.getElementById('ws2-fin-net');
+    const finVat = document.getElementById('ws2-fin-vat');
+    const finTotal = document.getElementById('ws2-fin-total');
+    const submitBtnText = document.getElementById('ws2-submit-btn-text');
+    const securityBadgeText = document.getElementById('ws2-security-badge-text');
+
+    if (summaryGroup) {
+      const firstDate = (selectedGroupData.sessions && selectedGroupData.sessions[0]) ? selectedGroupData.sessions[0].date : '1 grudnia 2026';
+      summaryGroup.textContent = `${selectedGroupData.name} (start ${firstDate}, 19:00)`;
+    }
+    if (summaryEmail) summaryEmail.textContent = currentReservationEmail || '—';
+    if (finBase) finBase.textContent = `${WORKSHOP_BASE_PRICE.toLocaleString('pl-PL')},00 PLN`;
+
+    if (finDiscountRow) {
+      finDiscountRow.style.display = activeCoupon ? 'flex' : 'none';
+      if (activeCoupon && finDiscountLabel) finDiscountLabel.textContent = `Rabat (${activeCoupon.code}):`;
+      if (activeCoupon && finDiscountVal) finDiscountVal.textContent = `-${discountAmount.toLocaleString('pl-PL')},00 PLN (${activeCoupon.percent}%)`;
+    }
+
+    if (finNet) finNet.textContent = `${parseFloat(netPrice).toLocaleString('pl-PL', { minimumFractionDigits: 2 })} PLN`;
+    if (finVat) finVat.textContent = `${parseFloat(vatPrice).toLocaleString('pl-PL', { minimumFractionDigits: 2 })} PLN`;
+    if (finTotal) finTotal.textContent = `${finalPrice.toLocaleString('pl-PL')},00 PLN`;
+
+    if (submitBtnText) {
+      if (finalPrice === 0) {
+        submitBtnText.textContent = 'Zatwierdź bezpłatną rezerwację (0 PLN)';
+      } else if (activePaymentMode === 'paynow') {
+        submitBtnText.textContent = `Zatwierdź i przejdź do Paynow (${finalPrice.toLocaleString('pl-PL')} PLN)`;
+      } else {
+        submitBtnText.textContent = `Zatwierdź dane i przejdź do płatności (${finalPrice.toLocaleString('pl-PL')} PLN)`;
+      }
+    }
+
+    if (securityBadgeText) {
+      securityBadgeText.textContent = (activePaymentMode === 'paynow')
+        ? 'Bezpieczna płatność online przez Paynow (BLIK, szybki przelew, karta)'
+        : 'Płatność przelewem / kodem QR dla aplikacji bankowych (BLIK / mBank)';
+    }
+  }
+
+  // PRZEŁĄCZANIE OSOBA PRYWATNA / FIRMA W KROKU 2 (JEDNOLITA SIATKA)
+  window.setStep2BuyerType = function (type) {
+    step2BuyerType = type;
+    const btnInd = document.getElementById('ws2-type-ind');
+    const btnComp = document.getElementById('ws2-type-comp');
+    const nipInput = document.getElementById('ws2-nip');
+    const nipHint = document.getElementById('ws2-nip-hint');
+    const labelNip = document.getElementById('ws2-label-nip');
+    const labelName = document.getElementById('ws2-label-name');
+    const inputName = document.getElementById('ws2-name');
+    const labelStreet = document.getElementById('ws2-label-street');
+    const card = document.getElementById('ws2-company-card');
 
     if (btnInd) btnInd.classList.toggle('active', type === 'individual');
     if (btnComp) btnComp.classList.toggle('active', type === 'company');
 
-    if (fieldsInd) fieldsInd.style.display = (type === 'individual') ? 'flex' : 'none';
-    if (fieldsComp) fieldsComp.style.display = (type === 'company') ? 'flex' : 'none';
+    if (type === 'individual') {
+      if (nipInput) {
+        nipInput.disabled = true;
+        nipInput.value = '';
+        nipInput.placeholder = 'Nie dotyczy (osoba prywatna)';
+      }
+      if (nipHint) {
+        nipHint.textContent = 'Nie dotyczy';
+        nipHint.style.color = 'rgba(255,255,255,0.4)';
+      }
+      if (labelName) labelName.textContent = 'Imię i nazwisko';
+      if (inputName) inputName.placeholder = 'np. Jan Kowalski';
+      if (labelStreet) labelStreet.textContent = 'Ulica i numer zamieszkania';
+      if (card) card.style.display = 'none';
+    } else {
+      if (nipInput) {
+        nipInput.disabled = false;
+        nipInput.placeholder = 'Wpisz 10 cyfr NIP firmy (pobierze dane z MF)...';
+        if (!nipInput.value && verifiedCompanyData && verifiedCompanyData.nip) {
+          nipInput.value = verifiedCompanyData.nip;
+        }
+      }
+      if (nipHint) {
+        nipHint.textContent = 'Wymagany do faktury';
+        nipHint.style.color = '#4ade80';
+      }
+      if (labelName) labelName.textContent = 'Pełna nazwa firmy';
+      if (inputName) inputName.placeholder = 'np. Acme Sp. z o.o.';
+      if (labelStreet) labelStreet.textContent = 'Ulica i numer siedziby';
+      if (verifiedCompanyData && card) {
+        card.style.display = 'flex';
+      }
+    }
   };
 
-  window.handleNipInput = function (rawVal) {
+  // OBSŁUGA NIP W KROKU 2 (BIAŁA LISTA MF)
+  window.handleStep2NipInput = function (rawVal) {
     const cleanNip = String(rawVal || '').replace(/\D/g, '');
-    const spinner = document.getElementById('nipSpinner');
-    const card = document.getElementById('companyVerifiedCard');
-    const manualFields = document.getElementById('companyManualFields');
+    const spinner = document.getElementById('ws2-nip-spinner');
+    const card = document.getElementById('ws2-company-card');
 
     clearTimeout(nipDebounceTimer);
 
@@ -496,109 +644,91 @@
         try {
           const res = await fetch(`/api/nip-lookup?nip=${encodeURIComponent(cleanNip)}`);
           const data = await res.json();
-
           if (spinner) spinner.style.display = 'none';
 
           if (res.ok && (data.success || data.found) && data.name) {
             verifiedCompanyData = data;
             if (card) {
               card.style.display = 'flex';
-              const nameEl = document.getElementById('companyVerifiedName');
-              const addrEl = document.getElementById('companyVerifiedAddr');
-              const vatEl = document.getElementById('companyVatBadge');
+              const nameEl = document.getElementById('ws2-company-name-val');
+              const addrEl = document.getElementById('ws2-company-addr-val');
+              const vatEl = document.getElementById('ws2-company-vat-badge');
 
               if (nameEl) nameEl.textContent = data.name;
               if (addrEl) addrEl.textContent = `${data.street ? data.street + ', ' : ''}${data.postalCode} ${data.city}`;
               if (vatEl) vatEl.textContent = `✓ ${data.statusVat || 'Czynny podatnik VAT'}`;
             }
-            if (manualFields) manualFields.style.display = 'none';
+
+            // Auto-uzupełnienie pól formularza
+            const nameInput = document.getElementById('ws2-name');
+            const streetInput = document.getElementById('ws2-street');
+            const zipInput = document.getElementById('ws2-zip');
+            const cityInput = document.getElementById('ws2-city');
+
+            if (nameInput) nameInput.value = data.name;
+            if (streetInput) streetInput.value = data.street || '';
+            if (zipInput) zipInput.value = data.postalCode || '';
+            if (cityInput) cityInput.value = data.city || '';
           } else {
-            // Brak w MF lub błąd – umożliwienie wpisania ręcznego
             verifiedCompanyData = null;
             if (card) card.style.display = 'none';
-            if (manualFields) manualFields.style.display = 'flex';
           }
         } catch (err) {
           console.error('Błąd zapytania NIP:', err);
           if (spinner) spinner.style.display = 'none';
           verifiedCompanyData = null;
           if (card) card.style.display = 'none';
-          if (manualFields) manualFields.style.display = 'flex';
         }
       }, 350);
     }
   };
 
-  window.toggleManualCompanyEdit = function () {
-    const manualFields = document.getElementById('companyManualFields');
-    if (!manualFields) return;
-    const isShown = manualFields.style.display === 'flex';
-    manualFields.style.display = isShown ? 'none' : 'flex';
-
-    if (!isShown && verifiedCompanyData) {
-      const nameInput = document.getElementById('ws-company-name');
-      const streetInput = document.getElementById('ws-company-street');
-      const zipInput = document.getElementById('ws-company-zip');
-      const cityInput = document.getElementById('ws-company-city');
-      if (nameInput) nameInput.value = verifiedCompanyData.name || '';
-      if (streetInput) streetInput.value = verifiedCompanyData.street || '';
-      if (zipInput) zipInput.value = verifiedCompanyData.postalCode || '';
-      if (cityInput) cityInput.value = verifiedCompanyData.city || '';
+  window.resetStep2CompanyData = function () {
+    verifiedCompanyData = null;
+    const nipInput = document.getElementById('ws2-nip');
+    const card = document.getElementById('ws2-company-card');
+    if (nipInput) {
+      nipInput.value = '';
+      nipInput.focus();
     }
+    if (card) card.style.display = 'none';
   };
 
-  // OBSŁUGA REZERWACJI I PŁATNOŚCI PAYNOW
-  window.handleWorkshopSubmit = async function (e) {
+  // OBSŁUGA WYSYŁKI FORMULARZA FAKTURY I PŁATNOŚCI (KROK 2)
+  window.submitStep2InvoiceForm = async function (e) {
     if (e && e.preventDefault) e.preventDefault();
-    const btn = document.getElementById('ws-submit-btn');
-    const btnText = document.getElementById('ws-submit-btn-text');
-    const nameEl = document.getElementById('ws-name');
-    const emailEl = document.getElementById('ws-email');
-    const phoneEl = document.getElementById('ws-phone');
 
-    if (!nameEl || !emailEl) return;
-    const name = nameEl.value.trim();
-    const email = emailEl.value.trim();
-    const phone = phoneEl ? phoneEl.value.trim() : '';
+    const nameInput = document.getElementById('ws2-name');
+    const streetInput = document.getElementById('ws2-street');
+    const zipInput = document.getElementById('ws2-zip');
+    const cityInput = document.getElementById('ws2-city');
+    const phoneInput = document.getElementById('ws2-phone');
+    const nipInput = document.getElementById('ws2-nip');
+    const btn = document.getElementById('ws2-submit-btn');
+    const btnText = document.getElementById('ws2-submit-btn-text');
 
-    if (!name || !email) return;
+    if (!nameInput || !streetInput || !zipInput || !cityInput || !phoneInput) return;
 
-    // Pobranie danych do faktury VAT
-    let invoiceStreet = '';
-    let invoicePostalCode = '';
-    let invoiceCity = '';
-    let invoiceNip = '';
-    let invoiceCompanyName = '';
+    const name = nameInput.value.trim();
+    const street = streetInput.value.trim();
+    const zip = zipInput.value.trim();
+    const city = cityInput.value.trim();
+    const phone = phoneInput.value.trim();
+    const nip = (step2BuyerType === 'company' && nipInput) ? nipInput.value.trim().replace(/\D/g, '') : '';
 
-    if (buyerType === 'individual') {
-      const streetEl = document.getElementById('ws-buyer-street');
-      const zipEl = document.getElementById('ws-buyer-zip');
-      const cityEl = document.getElementById('ws-buyer-city');
-      invoiceStreet = streetEl ? streetEl.value.trim() : '';
-      invoicePostalCode = zipEl ? zipEl.value.trim() : '';
-      invoiceCity = cityEl ? cityEl.value.trim() : '';
-    } else {
-      const nipEl = document.getElementById('ws-nip');
-      const nameElManual = document.getElementById('ws-company-name');
-      const streetElManual = document.getElementById('ws-company-street');
-      const zipElManual = document.getElementById('ws-company-zip');
-      const cityElManual = document.getElementById('ws-company-city');
-
-      invoiceNip = nipEl ? nipEl.value.trim().replace(/\D/g, '') : '';
-      if (verifiedCompanyData) {
-        invoiceCompanyName = verifiedCompanyData.name || '';
-        invoiceStreet = verifiedCompanyData.street || '';
-        invoicePostalCode = verifiedCompanyData.postalCode || '';
-        invoiceCity = verifiedCompanyData.city || '';
-      }
-      if (nameElManual && nameElManual.value.trim()) invoiceCompanyName = nameElManual.value.trim();
-      if (streetElManual && streetElManual.value.trim()) invoiceStreet = streetElManual.value.trim();
-      if (zipElManual && zipElManual.value.trim()) invoicePostalCode = zipElManual.value.trim();
-      if (cityElManual && cityElManual.value.trim()) invoiceCity = cityElManual.value.trim();
+    if (!name) { nameInput.focus(); return; }
+    if (step2BuyerType === 'company' && (!nip || nip.length !== 10)) {
+      if (nipInput) nipInput.focus();
+      alert('Proszę podać poprawny, 10-cyfrowy NIP firmy.');
+      return;
     }
+    if (!street) { streetInput.focus(); return; }
+    if (!zip) { zipInput.focus(); return; }
+    if (!city) { cityInput.focus(); return; }
+    if (!phone) { phoneInput.focus(); return; }
 
     if (btn) btn.disabled = true;
-    if (btnText) btnText.textContent = 'Przetwarzanie...';
+    if (btnText) btnText.textContent = 'Rezerwacja w toku...';
 
     const selectedGroupData = WORKSHOP_GROUPS[activeGroup] || WORKSHOP_GROUPS.december;
 
@@ -608,58 +738,55 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           name,
-          email,
+          email: currentReservationEmail,
           phone,
           group: selectedGroupData.label,
           groupId: activeGroup,
           coupon: activeCoupon ? activeCoupon.code : null,
-          buyerType,
-          invoiceNip,
-          invoiceCompanyName,
-          invoiceStreet,
-          invoicePostalCode,
-          invoiceCity
+          buyerType: step2BuyerType,
+          invoiceNip: nip,
+          invoiceCompanyName: (step2BuyerType === 'company') ? name : '',
+          invoiceStreet: street,
+          invoicePostalCode: zip,
+          invoiceCity: city
         })
       });
 
       const data = await res.json();
 
       if (res.ok) {
-        // SCENARIUSZ 1: Przekierowanie do bramki płatności Paynow
+        // SCENARIUSZ 1: Przekierowanie do bramki Paynow (docelowo)
         if (data.redirectUrl) {
           if (btnText) btnText.textContent = 'Przekierowanie do Paynow...';
           window.location.href = data.redirectUrl;
           return;
         }
 
-        // SCENARIUSZ 2: Rezerwacja ze 100% rabatem (kwota 0 PLN) lub potwierdzenie
-        const formEl = document.getElementById('workshop-form');
-        const successBox = document.getElementById('ws-success-box');
-        const successDesc = document.getElementById('ws-success-desc');
-        if (formEl) formEl.style.display = 'none';
-        if (successBox) successBox.style.display = 'flex';
+        // SCENARIUSZ 2: Wyświetlenie Karty Płatności w prawej kolumnie Kroku 2
+        const formView = document.getElementById('ws2-invoice-form-view');
+        const paymentBox = document.getElementById('ws2-payment-box');
+        if (formView) formView.style.display = 'none';
+        if (paymentBox) {
+          paymentBox.style.display = 'block';
 
-        if (successDesc) {
           if (data.isZeroPayment) {
-            let invoiceHtml = '';
-            if (data.invoiceUrl) {
-              invoiceHtml = `
-                <div style="margin-top: 14px;">
-                  <a href="${data.invoiceUrl}" target="_blank" class="invoice-download-btn">
-                    📄 Pobierz e-Fakturę KSeF (${data.invoiceNumber || 'Faktura VAT'})
-                  </a>
-                  <div style="font-size: 10px; color: rgba(255,255,255,0.45); margin-top: 5px;">
-                    Nr KSeF: <code>${data.ksefNumber || 'Zarejestrowano w KSeF MF'}</code>
-                  </div>
-                </div>
-              `;
-            }
-
-            successDesc.innerHTML = `
-              Dziękujemy, <strong>${name}</strong>!<br>
-              Twoje miejsce w grupie <strong>${selectedGroupData.name}</strong> zostało pomyślnie zarezerwowane ze 100% rabatem specjalnym.<br>
-              Potwierdzenie oraz linki do spotkań zostały wysłane na <strong>${email}</strong>.
-              ${invoiceHtml}
+            paymentBox.innerHTML = `
+              <div class="reservation-success-box" style="display: flex;">
+                <div class="success-icon">✓</div>
+                <h4 class="success-title">Rezerwacja bezpłatna potwierdzona</h4>
+                <p class="success-desc">
+                  Dziękujemy, <strong>${name}</strong>!<br>
+                  Twoje miejsce w grupie <strong>${selectedGroupData.name}</strong> zostało pomyślnie zarezerwowane ze 100% rabatem specjalnym.<br>
+                  Potwierdzenie oraz linki do spotkań zostały wysłane na <strong>${currentReservationEmail}</strong>.
+                  ${data.invoiceUrl ? `
+                    <div style="margin-top: 14px;">
+                      <a href="${data.invoiceUrl}" target="_blank" class="invoice-download-btn">
+                        📄 Pobierz e-Fakturę KSeF (${data.invoiceNumber || 'Faktura VAT'})
+                      </a>
+                    </div>
+                  ` : ''}
+                </p>
+              </div>
             `;
           } else if (data.transfer) {
             let qrHtml = '';
@@ -677,21 +804,21 @@
                     <div class="transfer-qr-info">
                       <div class="transfer-qr-title">📱 Szybki przelew w aplikacji banku</div>
                       <div class="transfer-qr-desc">
-                        Otwórz aplikację swojego banku (mBank, PKO IKO, ING, Santander itp.) i wybierz <strong>„Skanuj kod QR”</strong>. Dane przelewu zostaną uzupełnione automatycznie.
+                        Otwórz aplikację swojego banku (mBank, PKO IKO, ING, Santander itp.) i wybierz <strong>„Skanuj kod QR”</strong>. Dane zostaną uzupełnione automatycznie.
                       </div>
                     </div>
                   </div>
                 `;
               } catch (qrErr) {
-                console.warn('QR generation error:', qrErr);
+                console.warn('QR error:', qrErr);
               }
             }
 
-            successDesc.innerHTML = `
+            paymentBox.innerHTML = `
               <div class="transfer-status-pill">✓ Miejsce wstępnie zablokowane na 24h</div>
               <div style="margin-top: 6px; font-size: 12.5px; color: #ffffff; line-height: 1.45;">
                 Dziękujemy, <strong>${name}</strong>!<br>
-                Rezerwacja w grupie <strong>${selectedGroupData.name}</strong> została zarejestrowana.
+                Rezerwacja w grupie <strong>${selectedGroupData.name}</strong> została zarejestrowana (nr <strong>${data.invoiceNumber}</strong>).
               </div>
 
               <div class="bank-transfer-card">
@@ -736,39 +863,29 @@
                   </a>
                 ` : ''}
                 <div style="font-size: 10.5px; color: rgba(255, 255, 255, 0.45); text-align: center; margin-top: 2px;">
-                  Potwierdzenie rezerwacji zostało wysłane na <strong>${email}</strong>.<br>
+                  Potwierdzenie rezerwacji zostało wysłane na <strong>${currentReservationEmail}</strong>.<br>
                   Po zaksięgowaniu wpłaty dokument zostanie przekształcony w e-Fakturę VAT KSeF.
                 </div>
               </div>
-            `;
-          } else {
-            successDesc.innerHTML = `
-              Dziękujemy, <strong>${name}</strong>!<br>
-              Szczegóły warsztatów (<strong>${selectedGroupData.name}</strong>) zostały wysłane na adres <strong>${email}</strong>.
             `;
           }
         }
       } else {
         alert('Wystąpił problem: ' + (data.error || 'Spróbuj ponownie.'));
         if (btn) btn.disabled = false;
-        updatePriceDisplay();
+        updateStep2Summary();
       }
     } catch (err) {
       console.error('Błąd rezerwacji warsztatów:', err);
-      const formEl = document.getElementById('workshop-form');
-      const successBox = document.getElementById('ws-success-box');
-      const successDesc = document.getElementById('ws-success-desc');
-      if (formEl) formEl.style.display = 'none';
-      if (successBox) successBox.style.display = 'flex';
-      if (successDesc) {
-        successDesc.innerHTML = `
-          Dziękujemy, <strong>${name}</strong>!<br>
-          Twoje zgłoszenie do <strong>${selectedGroupData.name}</strong> zostało zarejestrowane.<br>
-          Szczegóły zostaną przesłane na adres <strong>${email}</strong>.
-        `;
-      }
+      alert('Wystąpił błąd połączenia. Spróbuj ponownie.');
+      if (btn) btn.disabled = false;
+      updateStep2Summary();
     }
   };
+
+  // Kompatybilność wsteczna dla starych metod
+  window.setBuyerType = window.setStep2BuyerType;
+  window.handleNipInput = window.handleStep2NipInput;
 
   // OBSŁUGA LISTY REZERWOWEJ Z NOTATKĄ
   window.handleWaitlist = async function (e) {

@@ -1357,6 +1357,243 @@
             line-height: 1.35;
         }
 
+        /* -------------------------------------------------------------
+           KROK 2: DANE DO FAKTURY I PŁATNOŚĆ (PEŁNA SZEROKOŚĆ TAFLI)
+           ------------------------------------------------------------- */
+        .workshop-step-2 {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            animation: fadeIn 0.25s ease;
+            width: 100%;
+        }
+
+        .step2-nav-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .btn-back-step1 {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            border-radius: 8px;
+            color: rgba(255, 255, 255, 0.75);
+            padding: 6px 12px;
+            font-size: 11.5px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.18s ease;
+        }
+
+        .btn-back-step1:hover {
+            background: rgba(255, 255, 255, 0.10);
+            border-color: rgba(255, 255, 255, 0.28);
+            color: #ffffff;
+            transform: translateX(-2px);
+        }
+
+        .step2-nav-pill {
+            font-size: 10.5px;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.45);
+        }
+
+        .step2-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.15fr;
+            gap: 24px;
+            align-items: start;
+        }
+
+        /* Lewa kolumna: Podsumowanie zakupów */
+        .step2-summary-col {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .step2-summary-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.10);
+            border-radius: 14px;
+            padding: 16px 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .step2-summary-item-header {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .step2-badge-event {
+            align-self: flex-start;
+            font-size: 9.5px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: #4ade80;
+            background: rgba(74, 222, 128, 0.10);
+            border: 1px solid rgba(74, 222, 128, 0.25);
+            padding: 2px 7px;
+            border-radius: 9999px;
+        }
+
+        .step2-event-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #ffffff;
+            margin: 0;
+        }
+
+        .step2-detail-list {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            font-size: 11.5px;
+        }
+
+        .step2-detail-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .step2-detail-label {
+            color: rgba(255, 255, 255, 0.45);
+            font-weight: 600;
+        }
+
+        .step2-detail-val {
+            color: rgba(255, 255, 255, 0.90);
+            font-weight: 600;
+            text-align: right;
+            word-break: break-all;
+        }
+
+        .step2-fin-breakdown {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            padding: 10px 12px;
+            background: rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 10px;
+            font-size: 11.5px;
+        }
+
+        .step2-fin-row {
+            display: flex;
+            justify-content: space-between;
+            color: rgba(255, 255, 255, 0.65);
+        }
+
+        .step2-fin-row.discount {
+            color: #4ade80;
+            font-weight: 600;
+        }
+
+        .step2-fin-row.total {
+            border-top: 1px solid rgba(255, 255, 255, 0.12);
+            padding-top: 8px;
+            margin-top: 4px;
+            font-size: 13.5px;
+            font-weight: 700;
+            color: #ffffff;
+            align-items: baseline;
+        }
+
+        .step2-fin-total-val {
+            font-size: 18px;
+            font-weight: 800;
+            color: #4ade80;
+            letter-spacing: -0.01em;
+        }
+
+        .step2-guarantees {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            font-size: 10.5px;
+            color: rgba(255, 255, 255, 0.45);
+            line-height: 1.4;
+            padding-top: 4px;
+        }
+
+        .step2-guarantee-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .step2-check {
+            color: #4ade80;
+            font-weight: 700;
+        }
+
+        /* Prawa kolumna: Formularz faktury / Płatność */
+        .step2-action-col {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 16px 18px;
+        }
+
+        .step2-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .step2-fields-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-label-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nip-badge-optional {
+            font-size: 9.5px;
+            padding: 1px 6px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.06);
+            color: rgba(255, 255, 255, 0.40);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .form-input:disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+            background: rgba(255, 255, 255, 0.02);
+            border-color: rgba(255, 255, 255, 0.05);
+            color: rgba(255, 255, 255, 0.35);
+        }
+
         @media (max-width: 900px) {
             .booking-modal-overlay {
                 padding: 16px 10px;
@@ -1385,5 +1622,9 @@
             }
             .workshop-container {
                 padding: 16px;
+            }
+            .step2-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
             }
         }

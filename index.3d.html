@@ -487,12 +487,10 @@
                     </header>
 
                     <!-- Główna siatka: Harmonogram + Formularz -->
-                    <div class="workshop-grid">
-                        
-                        <!-- Kolumna 1: Dokładny harmonogram 6 spotkań -->
+                    <!-- KROK 1: HARMONOGRAM + SZYBKI START (E-MAIL, KOD, CENA) -->
+                    <div class="workshop-grid" id="workshop-step-1">
                         <div class="workshop-schedule-col">
                             <h3 class="workshop-section-title" id="ws-schedule-title">Harmonogram cyklu (wtorki 19:00 – 21:00)</h3>
-                            
                             <div class="schedule-list" id="ws-schedule-list">
                                 <div class="schedule-item">
                                     <span class="schedule-date"><span class="schedule-num">01</span> 1 grudnia 2026</span>
@@ -519,90 +517,27 @@
                                     <span class="schedule-time">19:00 – 21:00 (Finał)</span>
                                 </div>
                             </div>
-
                             <p class="workshop-note">
                                 Spotkania odbywają się online na żywo (Google Meet / Cal Video). Wszystkie sesje są rejestrowane i przekazywane uczestnikom.
                             </p>
                         </div>
 
-                        <!-- Kolumna 2: Prosty formularz zapisu -->
-                        <div class="workshop-form-col">
-                            <h3 class="workshop-section-title">Rezerwacja miejsca i płatność</h3>
-                            
-                            <form class="workshop-form" id="workshop-form" onsubmit="handleWorkshopSubmit(event)">
+                        <div class="workshop-form-col" id="ws-step1-col">
+                            <h3 class="workshop-section-title">Rezerwacja miejsca</h3>
+                            <form class="workshop-form" id="workshop-form" onsubmit="handleStep1Submit(event)">
                                 <div class="form-group">
-                                    <label class="form-label" for="ws-name">Imię i nazwisko</label>
-                                    <input class="form-input" id="ws-name" type="text" placeholder="np. Jan Kowalski" required />
+                                    <label class="form-label" for="ws-email">Twój adres e-mail</label>
+                                    <input class="form-input" id="ws-email" type="email" placeholder="np. jan@firma.pl" required autocomplete="email" />
+                                    <span style="font-size: 10px; color: rgba(255, 255, 255, 0.4); margin-top: 2px;">
+                                        Na ten adres prześlemy potwierdzenie rezerwacji i materiały.
+                                    </span>
                                 </div>
 
-                                <div class="form-group">
-                                    <label class="form-label" for="ws-email">Adres e-mail</label>
-                                    <input class="form-input" id="ws-email" type="email" placeholder="np. jan@firma.pl" required />
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="form-label" for="ws-phone">Numer telefonu</label>
-                                    <input class="form-input" id="ws-phone" type="tel" placeholder="+48 000 000 000" required />
-                                </div>
-
-                                <!-- DANE DO E-FAKTURY VAT (KSeF) -->
-                                <div class="invoice-section">
-                                    <label class="form-label">Dane do e-Faktury VAT (KSeF):</label>
-                                    <div class="buyer-type-toggle">
-                                        <button type="button" class="buyer-type-btn active" id="btn-buyer-ind" onclick="setBuyerType('individual')">
-                                            Osoba prywatna
-                                        </button>
-                                        <button type="button" class="buyer-type-btn" id="btn-buyer-comp" onclick="setBuyerType('company')">
-                                            Firma (B2B / NIP)
-                                        </button>
-                                    </div>
-
-                                    <!-- ADRES OSOBY PRYWATNEJ -->
-                                    <div id="fieldsIndividual" style="margin-top: 10px; display: flex; flex-direction: column; gap: 8px;">
-                                        <div class="form-group" style="margin-bottom: 0;">
-                                            <input class="form-input" id="ws-buyer-street" type="text" placeholder="Ulica i numer domu / lokalu" />
-                                        </div>
-                                        <div class="form-row-2col">
-                                            <input class="form-input" id="ws-buyer-zip" type="text" placeholder="Kod pocztowy (np. 00-001)" />
-                                            <input class="form-input" id="ws-buyer-city" type="text" placeholder="Miejscowość" />
-                                        </div>
-                                    </div>
-
-                                    <!-- POBIERANIE DANYCH FIRMY Z BIAŁEJ LISTY MF -->
-                                    <div id="fieldsCompany" style="margin-top: 10px; display: none; flex-direction: column; gap: 8px;">
-                                        <div class="form-group" style="margin-bottom: 0;">
-                                            <div class="nip-input-wrap">
-                                                <input class="form-input" id="ws-nip" type="text" placeholder="Wpisz NIP firmy (pobierze dane z MF)..." maxlength="13" oninput="handleNipInput(this.value)" />
-                                                <span class="nip-lookup-spinner" id="nipSpinner">Szukam w MF...</span>
-                                            </div>
-                                        </div>
-
-                                        <div class="company-verified-card" id="companyVerifiedCard" style="display: none;">
-                                            <div class="company-card-header">
-                                                <span class="company-badge-vat" id="companyVatBadge">✓ Czynny podatnik VAT</span>
-                                                <button type="button" class="btn-edit-company" onclick="toggleManualCompanyEdit()">Zmień / edytuj</button>
-                                            </div>
-                                            <div class="company-verified-name" id="companyVerifiedName"></div>
-                                            <div class="company-verified-addr" id="companyVerifiedAddr"></div>
-                                        </div>
-
-                                        <div id="companyManualFields" style="display: none; flex-direction: column; gap: 8px; margin-top: 4px;">
-                                            <input class="form-input" id="ws-company-name" type="text" placeholder="Pełna nazwa firmy" />
-                                            <input class="form-input" id="ws-company-street" type="text" placeholder="Ulica i numer" />
-                                            <div class="form-row-2col">
-                                                <input class="form-input" id="ws-company-zip" type="text" placeholder="Kod (np. 00-001)" />
-                                                <input class="form-input" id="ws-company-city" type="text" placeholder="Miejscowość" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- KOD RABATOWY -->
                                 <div class="coupon-group">
                                     <button type="button" class="coupon-toggle-btn" id="couponToggleBtn" onclick="toggleCouponBox()">
                                         <span id="couponToggleText">+ Masz kod rabatowy?</span>
                                     </button>
-                                    <div class="coupon-box" id="couponBox">
+                                    <div class="coupon-box is-open" id="couponBox">
                                         <div class="coupon-input-row">
                                             <input type="text" class="coupon-input" id="ws-coupon-input" placeholder="WPISZ KOD" autocomplete="off" />
                                             <button type="button" class="coupon-apply-btn" id="ws-coupon-btn" onclick="applyCoupon()">Zastosuj</button>
@@ -611,7 +546,6 @@
                                     </div>
                                 </div>
 
-                                <!-- PODSUMOWANIE KWOTY -->
                                 <div class="order-summary-box">
                                     <div class="summary-row">
                                         <span>Cena bazowa:</span>
@@ -627,31 +561,182 @@
                                     </div>
                                 </div>
 
-                                <!-- PRZYCISK: PŁATNOŚĆ PAYNOW -->
                                 <button type="submit" class="btn-submit-workshop" id="ws-submit-btn">
-                                    <span id="ws-submit-btn-text">Przejdź do płatności Paynow (1 200 PLN)</span>
+                                    <span id="ws-submit-btn-text">Zarezerwuj i przejdź do płatności (1 200 PLN)</span>
                                     <span>→</span>
                                 </button>
 
                                 <div class="paynow-badge" id="ws-paynow-badge">
                                     <span class="paynow-badge-dot"></span>
-                                    <span>Bezpieczna płatność online przez Paynow (BLIK, szybki przelew, karta)</span>
+                                    <span>Płatność przelewem / kodem QR dla aplikacji bankowych (BLIK / mBank)</span>
                                 </div>
 
                                 <p class="form-disclaimer" id="ws-form-disclaimer">
-                                    Gwarancja rezerwacji miejsca natychmiast po zaksięgowaniu płatności.
+                                    Krok 1 z 2 • Dane do faktury uzupełnisz w kolejnym kroku.
                                 </p>
                             </form>
+                        </div>
+                    </div>
 
-                            <!-- Komunikat sukcesu po rezerwacji -->
-                            <div class="reservation-success-box" id="ws-success-box">
-                                <div class="success-icon">✓</div>
-                                <h4 class="success-title">Rezerwacja przyjęta</h4>
-                                <p class="success-desc" id="ws-success-desc">
-                                    Dziękujemy! Szczegóły wydarzenia zostały wysłane na podany adres e-mail.
-                                </p>
+                    <!-- KROK 2: DANE DO FAKTURY I PŁATNOŚĆ (PEŁNA SZEROKOŚĆ TAFLI) -->
+                    <div class="workshop-step-2" id="workshop-step-2" style="display: none;">
+                        <div class="step2-nav-header">
+                            <button type="button" class="btn-back-step1" onclick="goToStep1()">
+                                <span>←</span>
+                                <span>Wróć do wyboru terminu i kodu</span>
+                            </button>
+                            <span class="step2-nav-pill">Krok 2 z 2 • Dane do faktury i płatność</span>
+                        </div>
+
+                        <div class="step2-grid">
+                            <!-- Lewa kolumna: Podsumowanie zakupów -->
+                            <div class="step2-summary-col">
+                                <h3 class="workshop-section-title">Podsumowanie zakupów</h3>
+                                <div class="step2-summary-card">
+                                    <div class="step2-summary-item-header">
+                                        <span class="step2-badge-event">Warsztaty AI</span>
+                                        <h4 class="step2-event-title">Cykl 6 spotkań online na żywo</h4>
+                                    </div>
+
+                                    <div class="step2-detail-list">
+                                        <div class="step2-detail-row">
+                                            <span class="step2-detail-label">Termin:</span>
+                                            <span class="step2-detail-val" id="ws2-summary-group">Grupa grudniowa (start 1.12.2026, 19:00)</span>
+                                        </div>
+                                        <div class="step2-detail-row">
+                                            <span class="step2-detail-label">Uczestnik:</span>
+                                            <span class="step2-detail-val" id="ws2-summary-email">jan@firma.pl</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="step2-fin-breakdown">
+                                        <div class="step2-fin-row">
+                                            <span>Cena bazowa:</span>
+                                            <span id="ws2-fin-base">1 200,00 PLN</span>
+                                        </div>
+                                        <div class="step2-fin-row discount" id="ws2-fin-discount-row" style="display: none;">
+                                            <span id="ws2-fin-discount-label">Rabat:</span>
+                                            <span id="ws2-fin-discount-val">-0,00 PLN</span>
+                                        </div>
+                                        <div class="step2-fin-row">
+                                            <span>Kwota netto:</span>
+                                            <span id="ws2-fin-net">975,61 PLN</span>
+                                        </div>
+                                        <div class="step2-fin-row">
+                                            <span>Podatek VAT (23%):</span>
+                                            <span id="ws2-fin-vat">224,39 PLN</span>
+                                        </div>
+                                        <div class="step2-fin-row total">
+                                            <span>Razem brutto:</span>
+                                            <span class="step2-fin-total-val" id="ws2-fin-total">1 200,00 PLN</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="step2-guarantees">
+                                        <div class="step2-guarantee-item">
+                                            <span class="step2-check">✓</span>
+                                            <span>E-Faktura VAT generowana automatycznie (standard KSeF)</span>
+                                        </div>
+                                        <div class="step2-guarantee-item">
+                                            <span class="step2-check">✓</span>
+                                            <span>Gwarancja rezerwacji miejsca na 24h</span>
+                                        </div>
+                                        <div class="step2-guarantee-item">
+                                            <span class="step2-check">✓</span>
+                                            <span>Dostęp do nagrań i materiałów warsztatowych</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Prawa kolumna: Formularz faktury / Po zatwierdzeniu: Karta płatności -->
+                            <div class="step2-action-col">
+                                <!-- STAN A: JEDNOLITY FORMULARZ FAKTURY -->
+                                <div id="ws2-invoice-form-view">
+                                    <h3 class="workshop-section-title">Dane do faktury VAT</h3>
+                                    <form class="step2-form" id="step2-invoice-form" onsubmit="submitStep2InvoiceForm(event)">
+                                        <div class="buyer-type-toggle">
+                                            <button type="button" class="buyer-type-btn active" id="ws2-type-ind" onclick="setStep2BuyerType('individual')">
+                                                Osoba prywatna
+                                            </button>
+                                            <button type="button" class="buyer-type-btn" id="ws2-type-comp" onclick="setStep2BuyerType('company')">
+                                                Firma (Faktura VAT / B2B)
+                                            </button>
+                                        </div>
+
+                                        <div class="step2-fields-grid">
+                                            <!-- Pole 1: NIP (zablokowany dla osoby, aktywny z MF dla firmy) -->
+                                            <div class="form-group" id="ws2-group-nip">
+                                                <div class="form-label-row">
+                                                    <label class="form-label" id="ws2-label-nip" for="ws2-nip">NIP (Identyfikator podatkowy)</label>
+                                                    <span class="nip-badge-optional" id="ws2-nip-hint">Nie dotyczy</span>
+                                                </div>
+                                                <div class="nip-input-wrap">
+                                                    <input class="form-input" id="ws2-nip" type="text" placeholder="Nie dotyczy (osoba prywatna)" maxlength="13" oninput="handleStep2NipInput(this.value)" disabled />
+                                                    <span class="nip-lookup-spinner" id="ws2-nip-spinner">Szukam w MF...</span>
+                                                </div>
+                                                <div class="company-verified-card" id="ws2-company-card" style="display: none;">
+                                                    <div class="company-card-header">
+                                                        <span class="company-badge-vat" id="ws2-company-vat-badge">✓ Czynny podatnik VAT</span>
+                                                        <button type="button" class="btn-edit-company" onclick="resetStep2CompanyData()">Zmień NIP</button>
+                                                    </div>
+                                                    <div class="company-verified-name" id="ws2-company-name-val"></div>
+                                                    <div class="company-verified-addr" id="ws2-company-addr-val"></div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Pole 2: Nazwa / Imię i nazwisko -->
+                                            <div class="form-group" id="ws2-group-name">
+                                                <label class="form-label" id="ws2-label-name" for="ws2-name">Imię i nazwisko</label>
+                                                <input class="form-input" id="ws2-name" type="text" placeholder="np. Jan Kowalski" required />
+                                            </div>
+
+                                            <!-- Pole 3: Ulica i numer -->
+                                            <div class="form-group" id="ws2-group-street">
+                                                <label class="form-label" id="ws2-label-street" for="ws2-street">Ulica i numer lokalu</label>
+                                                <input class="form-input" id="ws2-street" type="text" placeholder="np. ul. Marszałkowska 10/5" required />
+                                            </div>
+
+                                            <!-- Pole 4: Kod pocztowy i Miejscowość -->
+                                            <div class="form-row-2col">
+                                                <div class="form-group" style="margin-bottom: 0;">
+                                                    <label class="form-label" id="ws2-label-zip" for="ws2-zip">Kod pocztowy</label>
+                                                    <input class="form-input" id="ws2-zip" type="text" placeholder="00-000" maxlength="6" required />
+                                                </div>
+                                                <div class="form-group" style="margin-bottom: 0;">
+                                                    <label class="form-label" id="ws2-label-city" for="ws2-city">Miejscowość</label>
+                                                    <input class="form-input" id="ws2-city" type="text" placeholder="np. Warszawa" required />
+                                                </div>
+                                            </div>
+
+                                            <!-- Pole 5: Numer telefonu -->
+                                            <div class="form-group" id="ws2-group-phone">
+                                                <label class="form-label" id="ws2-label-phone" for="ws2-phone">Numer telefonu kontaktowego</label>
+                                                <input class="form-input" id="ws2-phone" type="tel" placeholder="+48 000 000 000" required />
+                                            </div>
+                                        </div>
+
+                                        <button type="submit" class="btn-submit-workshop" id="ws2-submit-btn">
+                                            <span id="ws2-submit-btn-text">Zatwierdź dane i przejdź do płatności (1 200 PLN)</span>
+                                            <span>→</span>
+                                        </button>
+
+                                        <div class="paynow-badge" id="ws2-security-badge" style="margin-top: 8px;">
+                                            <span class="paynow-badge-dot"></span>
+                                            <span id="ws2-security-badge-text">Płatność przelewem / kodem QR dla aplikacji bankowych (BLIK / mBank)</span>
+                                        </div>
+
+                                        <p class="form-disclaimer">
+                                            Po zatwierdzeniu formularza otrzymasz unikalne dane przelewu powiązane z Twoją fakturą proforma.
+                                        </p>
+                                    </form>
+                                </div>
+
+                                <!-- STAN B: KARTA PŁATNOŚCI (DOPIERO PO REJESTRACJI FORMULARZA) -->
+                                <div id="ws2-payment-box" style="display: none;"></div>
                             </div>
                         </div>
+                    </div>
 
                     </div>
 
