@@ -753,11 +753,11 @@
         .workshop-form-col {
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
-            padding: 16px 18px;
+            gap: 12px;
+            background: transparent;
+            border: none;
+            border-radius: 0;
+            padding: 0;
             position: relative;
         }
 
@@ -1416,37 +1416,44 @@
             align-items: start;
         }
 
-        /* Lewa kolumna: Podsumowanie zakupów */
         /* -------------------------------------------------------------
-           WARIANT A: JASNY ARKUSZ (FROSTED TITANIUM & FINANCIAL SLIP)
-           KROK 2 I 3: Prestiżowy, czytelny dokument księgowo-transakcyjny
+           KROK 2 I 3: JEDNOLITY LAYOUT BEZ ZBĘDNYCH RAMEK (ZERO CARD-IN-CARD)
+           Jedyna ramka to zewnętrzna tafla widżetu.
+           Wewnątrz elementy oddzielone są wyłącznie przestrzenią i typografią.
            ------------------------------------------------------------- */
 
-        /* Lewa kolumna: Podsumowanie zakupów */
+        .step2-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.15fr;
+            gap: 36px;
+            align-items: start;
+        }
+
+        /* Lewa kolumna: Podsumowanie rezerwacji */
         .step2-summary-col {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 14px;
         }
 
         .step2-summary-card {
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
-            border-radius: 16px;
-            padding: 18px 20px;
+            background: transparent;
+            border: none;
+            border-radius: 0;
+            box-shadow: none;
+            padding: 0;
             display: flex;
             flex-direction: column;
             gap: 14px;
-            box-shadow: 0 12px 30px -6px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1);
-            color: #0f172a;
+            color: #ffffff;
         }
 
         .step2-summary-item-header {
             display: flex;
             flex-direction: column;
-            gap: 5px;
+            gap: 6px;
             padding-bottom: 12px;
-            border-bottom: 1px solid #e2e8f0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         .step2-badge-event {
@@ -1455,17 +1462,17 @@
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.06em;
-            color: #047857;
-            background: #ecfdf5;
-            border: 1px solid #a7f3d0;
+            color: #4ade80;
+            background: rgba(74, 222, 128, 0.12);
+            border: 1px solid rgba(74, 222, 128, 0.28);
             padding: 2.5px 8px;
             border-radius: 9999px;
         }
 
         .step2-event-title {
-            font-size: 14.5px;
-            font-weight: 800;
-            color: #0f172a;
+            font-size: 15px;
+            font-weight: 700;
+            color: #ffffff;
             margin: 0;
             letter-spacing: -0.01em;
         }
@@ -1473,7 +1480,7 @@
         .step2-detail-list {
             display: flex;
             flex-direction: column;
-            gap: 7px;
+            gap: 8px;
             font-size: 12px;
         }
 
@@ -1484,13 +1491,13 @@
         }
 
         .step2-detail-label {
-            color: #64748b;
+            color: rgba(255, 255, 255, 0.45);
             font-weight: 600;
         }
 
         .step2-detail-val {
-            color: #0f172a;
-            font-weight: 700;
+            color: rgba(255, 255, 255, 0.92);
+            font-weight: 600;
             text-align: right;
             word-break: break-all;
         }
@@ -1498,40 +1505,41 @@
         .step2-fin-breakdown {
             display: flex;
             flex-direction: column;
-            gap: 7px;
-            padding: 12px 14px;
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
+            gap: 8px;
+            padding: 14px 0 0 0;
+            background: transparent;
+            border: none;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 0;
             font-size: 12px;
         }
 
         .step2-fin-row {
             display: flex;
             justify-content: space-between;
-            color: #475569;
+            color: rgba(255, 255, 255, 0.65);
         }
 
         .step2-fin-row.discount {
-            color: #16a34a;
-            font-weight: 700;
+            color: #4ade80;
+            font-weight: 600;
         }
 
         .step2-fin-row.total {
-            border-top: 1px solid #cbd5e1;
+            border-top: 1px solid rgba(255, 255, 255, 0.12);
             padding-top: 10px;
             margin-top: 4px;
             font-size: 14px;
-            font-weight: 800;
-            color: #0f172a;
+            font-weight: 700;
+            color: #ffffff;
             align-items: baseline;
         }
 
         .step2-fin-total-val {
             font-size: 21px;
-            font-weight: 900;
-            color: #0f172a;
-            letter-spacing: -0.02em;
+            font-weight: 800;
+            color: #4ade80;
+            letter-spacing: -0.01em;
         }
 
         .step2-guarantees {
@@ -1539,9 +1547,9 @@
             flex-direction: column;
             gap: 7px;
             font-size: 11px;
-            color: #64748b;
+            color: rgba(255, 255, 255, 0.45);
             line-height: 1.45;
-            padding-top: 4px;
+            padding-top: 6px;
         }
 
         .step2-guarantee-item {
@@ -1551,8 +1559,8 @@
         }
 
         .step2-check {
-            color: #16a34a;
-            font-weight: 800;
+            color: #4ade80;
+            font-weight: 700;
         }
 
         /* Prawa kolumna: Formularz faktury / Płatność */
@@ -1560,20 +1568,20 @@
             display: flex;
             flex-direction: column;
             gap: 12px;
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
-            border-radius: 16px;
-            padding: 18px 20px;
-            box-shadow: 0 12px 30px -6px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1);
-            color: #0f172a;
+            background: transparent;
+            border: none;
+            border-radius: 0;
+            box-shadow: none;
+            padding: 0;
+            color: #ffffff;
         }
 
         .step2-action-col .workshop-section-title {
-            color: #475569;
+            color: rgba(255, 255, 255, 0.55);
             font-size: 11px;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.06em;
+            letter-spacing: 0.08em;
             margin-bottom: 2px;
         }
 
@@ -1596,18 +1604,18 @@
         }
 
         .step2-action-col .form-label {
-            color: #334155;
-            font-size: 11.5px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 11px;
             font-weight: 600;
         }
 
         /* Przełącznik Osoba prywatna / Firma */
         .step2-action-col .buyer-type-toggle {
             display: flex;
-            gap: 4px;
-            background: #f1f5f9;
-            border: 1px solid #e2e8f0;
-            border-radius: 9px;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.10);
+            border-radius: 8px;
             padding: 3px;
         }
 
@@ -1616,10 +1624,10 @@
             padding: 7px 12px;
             font-size: 12px;
             font-weight: 600;
-            color: #64748b;
+            color: rgba(255, 255, 255, 0.6);
             background: transparent;
             border: 1px solid transparent;
-            border-radius: 7px;
+            border-radius: 6px;
             cursor: pointer;
             font-family: inherit;
             transition: all 0.16s ease;
@@ -1627,89 +1635,92 @@
         }
 
         .step2-action-col .buyer-type-btn:hover {
-            color: #0f172a;
+            color: #ffffff;
         }
 
         .step2-action-col .buyer-type-btn.active {
-            background: #ffffff;
-            color: #0f172a;
+            background: rgba(255, 255, 255, 0.12);
+            color: #ffffff;
             font-weight: 700;
-            border: 1px solid rgba(0, 0, 0, 0.06);
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.06);
+            border-color: rgba(255, 255, 255, 0.22);
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
         }
 
-        /* Inputy w jasnym arkuszu */
+        /* Inputy bezpośrednio na szkle */
         .step2-action-col .form-input {
-            background: #ffffff;
-            border: 1.5px solid #cbd5e1;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.12);
             border-radius: 8px;
-            padding: 9px 12px;
+            padding: 10px 12px;
             font-size: 12.5px;
-            color: #0f172a;
+            color: #ffffff;
             font-family: inherit;
             transition: all 0.18s ease;
         }
 
         .step2-action-col .form-input::placeholder {
-            color: #94a3b8;
+            color: rgba(255, 255, 255, 0.3);
         }
 
         .step2-action-col .form-input:focus {
             outline: none;
-            border-color: #0f172a;
-            box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.08);
+            border-color: rgba(255, 255, 255, 0.45);
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.06);
+            background: rgba(255, 255, 255, 0.06);
         }
 
         .step2-action-col .form-input:disabled {
-            opacity: 1;
+            opacity: 0.45;
             cursor: not-allowed;
-            background: #f8fafc;
-            border-color: #e2e8f0;
-            color: #94a3b8;
+            background: rgba(255, 255, 255, 0.02);
+            border-color: rgba(255, 255, 255, 0.05);
+            color: rgba(255, 255, 255, 0.35);
         }
 
         .step2-action-col .nip-badge-optional {
             font-size: 9.5px;
             padding: 2px 7px;
             border-radius: 4px;
-            background: #f1f5f9;
-            border: 1px solid #e2e8f0;
-            color: #64748b;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: rgba(255, 255, 255, 0.45);
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.04em;
         }
 
-        /* Karta firmy zweryfikowanej z MF */
+        /* Karta firmy zweryfikowanej z MF (prosta plakietka bez zbędnych ramek) */
         .step2-action-col .company-verified-card {
-            background: #f0fdf4;
-            border: 1px solid #bbf7d0;
-            border-radius: 9px;
+            background: rgba(74, 222, 128, 0.06);
+            border: 1px solid rgba(74, 222, 128, 0.22);
+            border-radius: 8px;
             padding: 10px 12px;
-            color: #166534;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
         }
 
         .step2-action-col .company-badge-vat {
-            background: #dcfce7;
-            border: 1px solid #86efac;
-            color: #15803d;
+            background: rgba(74, 222, 128, 0.15);
+            border: 1px solid rgba(74, 222, 128, 0.35);
+            color: #4ade80;
             font-weight: 700;
         }
 
         .step2-action-col .company-verified-name {
-            color: #14532d;
+            color: #ffffff;
             font-weight: 700;
             font-size: 12px;
         }
 
         .step2-action-col .company-verified-addr {
-            color: #166534;
+            color: rgba(255, 255, 255, 0.65);
             font-size: 11px;
         }
 
         .step2-action-col .company-verified-edit,
         .step2-action-col .btn-edit-company {
-            color: #15803d;
+            color: #4ade80;
             font-size: 11px;
             font-weight: 600;
             text-decoration: underline;
@@ -1721,163 +1732,181 @@
         }
 
         .step2-action-col .btn-edit-company:hover {
-            color: #14532d;
+            color: #86efac;
         }
 
-        /* Przycisk wysyłki (Ciemny, elegancki obsidian / wysoki kontrast) */
+        /* Przycisk wysyłki (Czysty, nowoczesny, jak w Kroku 1) */
         .step2-action-col .btn-submit-workshop {
-            background: #0f172a;
-            color: #ffffff;
-            border: 1px solid #0f172a;
-            border-radius: 9px;
+            width: 100%;
+            margin-top: 4px;
             padding: 12px 18px;
-            font-size: 13.5px;
+            background: #ffffff;
+            color: #080c10;
+            border: none;
+            border-radius: 8px;
+            font-size: 13px;
             font-weight: 700;
-            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.18);
-            transition: all 0.18s ease;
+            font-family: inherit;
+            cursor: pointer;
+            transition: background 0.18s ease, transform 0.1s ease, box-shadow 0.18s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
 
-        .step2-action-col .btn-submit-workshop:hover {
-            background: #1e293b;
-            border-color: #1e293b;
+        .step2-action-col .btn-submit-workshop:hover:not(:disabled) {
+            background: rgba(255, 255, 255, 0.92);
             transform: translateY(-1px);
-            box-shadow: 0 6px 16px rgba(15, 23, 42, 0.24);
+            box-shadow: 0 4px 20px rgba(255, 255, 255, 0.2);
         }
 
         /* -------------------------------------------------------------
-           KROK 3: PŁATNOŚĆ I PROFORMA W JASNYM ARKUSZU
+           KROK 3: PŁATNOŚĆ I PROFORMA (BEZ ZBĘDNYCH RAMEK)
            ------------------------------------------------------------- */
         .step2-action-col .transfer-greeting-text {
             font-size: 13px;
-            color: #0f172a;
-            line-height: 1.45;
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.5;
             margin-top: 4px;
         }
 
         .step2-action-col .transfer-greeting-text strong {
-            color: #0f172a;
+            color: #ffffff;
             font-weight: 700;
         }
 
         .step2-action-col .bank-transfer-card {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 14px 16px;
+            background: transparent;
+            border: none;
+            border-radius: 0;
+            padding: 14px 0 0 0;
             margin-top: 8px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: none;
         }
 
         .step2-action-col .transfer-status-pill {
-            background: #ecfdf5;
-            border: 1px solid #a7f3d0;
-            color: #047857;
+            background: rgba(74, 222, 128, 0.12);
+            border: 1px solid rgba(74, 222, 128, 0.35);
+            color: #4ade80;
             font-weight: 700;
         }
 
         .step2-action-col .transfer-amount-row {
-            border-bottom: 1px solid #e2e8f0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 8px;
+            margin-bottom: 12px;
         }
 
         .step2-action-col .transfer-amount-label {
-            color: #64748b;
+            color: rgba(255, 255, 255, 0.5);
             font-size: 11px;
             font-weight: 700;
         }
 
         .step2-action-col .transfer-amount-val {
-            color: #0f172a;
+            color: #4ade80;
             font-size: 22px;
-            font-weight: 900;
+            font-weight: 800;
         }
 
         .step2-action-col .transfer-field-label {
-            color: #64748b;
+            color: rgba(255, 255, 255, 0.45);
             font-size: 10px;
-            font-weight: 700;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
         }
 
         .step2-action-col .transfer-field-val-row {
-            background: #ffffff;
-            border: 1.5px solid #cbd5e1;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 7px;
             padding: 7px 10px;
         }
 
         .step2-action-col .transfer-field-val {
-            color: #0f172a;
+            color: #ffffff;
             font-size: 12.5px;
-            font-weight: 700;
+            font-weight: 600;
         }
 
         .step2-action-col .btn-copy-transfer {
-            background: #f1f5f9;
-            border: 1px solid #cbd5e1;
-            color: #334155;
-            font-weight: 700;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            color: rgba(255, 255, 255, 0.75);
+            font-weight: 600;
+            border-radius: 5px;
+            padding: 3px 8px;
+            font-size: 10.5px;
+            cursor: pointer;
         }
 
         .step2-action-col .btn-copy-transfer:hover {
-            background: #e2e8f0;
-            color: #0f172a;
+            background: rgba(255, 255, 255, 0.12);
+            color: #ffffff;
         }
 
         .step2-action-col .btn-copy-transfer.copied {
-            background: #ecfdf5;
-            border-color: #86efac;
-            color: #15803d;
+            background: rgba(74, 222, 128, 0.2);
+            border-color: rgba(74, 222, 128, 0.5);
+            color: #4ade80;
         }
 
         .step2-action-col .transfer-qr-section {
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
-            border-radius: 9px;
-            padding: 10px 12px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+            background: transparent;
+            border: none;
+            padding: 12px 0;
+            display: flex;
+            align-items: center;
+            gap: 14px;
         }
 
         .step2-action-col .transfer-qr-box {
             background: #ffffff;
-            border: 1px solid #e2e8f0;
-            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+            border-radius: 6px;
+            padding: 4px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
         }
 
         .step2-action-col .transfer-qr-title {
-            color: #0f172a;
+            color: #ffffff;
             font-size: 12px;
             font-weight: 700;
         }
 
         .step2-action-col .transfer-qr-desc {
-            color: #64748b;
+            color: rgba(255, 255, 255, 0.5);
             font-size: 10.5px;
+            line-height: 1.4;
         }
 
         .step2-action-col .invoice-download-btn {
-            background: #0f172a;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             color: #ffffff;
-            border: 1px solid #0f172a;
-            box-shadow: 0 3px 10px rgba(15, 23, 42, 0.15);
-            font-weight: 700;
+            font-weight: 600;
             font-size: 12.5px;
             border-radius: 8px;
-            padding: 10px 14px;
+            padding: 11px 16px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
             text-decoration: none;
-            transition: all 0.16s ease;
+            transition: all 0.18s ease;
         }
 
         .step2-action-col .invoice-download-btn:hover {
-            background: #1e293b;
+            background: rgba(255, 255, 255, 0.16);
+            border-color: rgba(255, 255, 255, 0.35);
             transform: translateY(-1px);
         }
 
         .step2-action-col .transfer-subnote-text {
             font-size: 11px;
-            color: #64748b;
+            color: rgba(255, 255, 255, 0.4);
             text-align: center;
             line-height: 1.45;
         }
