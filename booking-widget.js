@@ -617,7 +617,7 @@
       }
       if (nipHint) {
         nipHint.textContent = 'Nie dotyczy';
-        nipHint.style.color = 'rgba(255,255,255,0.4)';
+        nipHint.style.color = '#94a3b8';
       }
       if (labelName) labelName.textContent = 'Imię i nazwisko';
       if (inputName) inputName.placeholder = 'np. Jan Kowalski';
@@ -633,7 +633,7 @@
       }
       if (nipHint) {
         nipHint.textContent = 'Wymagany do faktury';
-        nipHint.style.color = '#4ade80';
+        nipHint.style.color = '#059669';
       }
       if (labelName) labelName.textContent = 'Pełna nazwa firmy';
       if (inputName) inputName.placeholder = 'np. Acme Sp. z o.o.';
