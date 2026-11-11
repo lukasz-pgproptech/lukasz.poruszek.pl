@@ -60,6 +60,53 @@ function calculatePaynowSignature(apiKey, signatureKey, idempotencyKey, bodyObj)
     .digest('base64');
 }
 
+/**
+ * Generuje string przelewu QR zgodny w 100% ze standardem Rekomendacji ZBP 2D
+ * dla polskich aplikacji bankowości mobilnej (mBank, PKO IKO, Santander, ING, Millennium, Alior itd.)
+ *
+ * Format pól oddzielonych znakiem '|':
+ * 1. NIP odbiorcy (10 cyfr)
+ * 2. Kod kraju ('PL')
+ * 3. Numer rachunku NRB (26 cyfr bez spacji)
+ * 4. Kwota w groszach (liczba całkowita, min. 6 cyfr z wiodącymi zerami, np. '020000' dla 200 PLN)
+ * 5. Nazwa odbiorcy (max 20 znaków!)
+ * 6. Tytuł przelewu (max 32 znaki!)
+ * 7. Pole zarezerwowane 1 (puste '')
+ * 8. Pole zarezerwowane 2 (puste '')
+ * 9. Pole zarezerwowane 3 (puste '')
+ */
+export function generateZbpBankQrPayload({ nip = '7963033913', accountRaw, amountPln, recipientShort = 'PG Proptech Sp z oo', title }) {
+  const cleanAccount = String(accountRaw || '').replace(/\D/g, '');
+  const cleanNip = String(nip || '').replace(/\D/g, '');
+  const amountGrosze = Math.round(Number(amountPln || 0) * 100);
+  const formattedAmount = String(amountGrosze).padStart(6, '0');
+
+  // Rekomendacja ZBP 2D: Nazwa odbiorcy max 20 znaków, tytuł max 32 znaki
+  const cleanRecipient = String(recipientShort || 'PG Proptech Sp z oo')
+    .replace(/\|/g, '')
+    .trim()
+    .slice(0, 20);
+
+  const cleanTitle = String(title || 'Przelew')
+    .replace(/\|/g, '')
+    .trim()
+    .slice(0, 32);
+
+  const fields = [
+    cleanNip,          // 1: NIP
+    'PL',              // 2: Kod kraju
+    cleanAccount,      // 3: 26-cyfrowy rachunek NRB
+    formattedAmount,   // 4: Kwota w groszach (np. 020000 dla 200 PLN)
+    cleanRecipient,    // 5: Nazwa odbiorcy (max 20 znaków)
+    cleanTitle,        // 6: Tytuł przelewu (max 32 znaki)
+    '',                // 7: Reserved 1
+    '',                // 8: Reserved 2
+    ''                 // 9: Reserved 3
+  ];
+
+  return fields.join('|');
+}
+
 // Upewnij się, że katalog na dane istnieje
 const DATA_DIR = path.join(__dirname, 'data');
 if (!fs.existsSync(DATA_DIR)) {
@@ -492,10 +539,16 @@ const server = http.createServer((req, res) => {
         const formattedAccount = '46 1140 2004 0000 3902 8547 5429';
         const transferTitle = `Warsztaty AI ${invoice.invoiceNumber}`;
         const recipientName = 'POLSKA GRUPA PROPTECH SP. Z O.O.';
-        const recipientShort = 'Polska Grupa Proptech';
+        const recipientShort = 'PG Proptech Sp z oo';
 
-        // Rekomendowany standard ZBP 2D QR do przelewów bankowych (mBank, PKO, ING, Santander, Millennium)
-        const qrPayload = `${rawAccount}\n${finalPricePln.toFixed(2)}\n${recipientShort}\n${transferTitle}\n7963033913`;
+        // 100% oficjalny standard Rekomendacji ZBP 2D do przelewów bankowych (mBank, PKO, ING, Santander, Millennium)
+        const qrPayload = generateZbpBankQrPayload({
+          nip: '7963033913',
+          accountRaw: rawAccount,
+          amountPln: finalPricePln,
+          recipientShort,
+          title: transferTitle
+        });
 
         console.log(`[Bank Transfer] Rezerwacja przyjęta. Wygenerowano Proformę: ${invoice.invoiceNumber}. Kwota: ${finalPricePln} PLN`);
         saveJsonData('reservations.json', {
@@ -665,8 +718,16 @@ const server = http.createServer((req, res) => {
         const formattedAccount = '46 1140 2004 0000 3902 8547 5429';
         const transferTitle = `Mentoring ${invoice.invoiceNumber}`;
         const recipientName = 'POLSKA GRUPA PROPTECH SP. Z O.O.';
-        const recipientShort = 'Polska Grupa Proptech';
-        const qrPayload = `${rawAccount}\n${finalPricePln.toFixed(2)}\n${recipientShort}\n${transferTitle}\n7963033913`;
+        const recipientShort = 'PG Proptech Sp z oo';
+
+        // 100% oficjalny standard Rekomendacji ZBP 2D do przelewów bankowych (mBank, PKO, ING, Santander, Millennium)
+        const qrPayload = generateZbpBankQrPayload({
+          nip: '7963033913',
+          accountRaw: rawAccount,
+          amountPln: finalPricePln,
+          recipientShort,
+          title: transferTitle
+        });
 
         // 4. Zapis w reservations.json
         saveJsonData('reservations.json', {

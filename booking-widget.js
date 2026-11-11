@@ -1164,7 +1164,7 @@
                 const qr = window.qrcode(0, 'M');
                 qr.addData(data.transfer.qrPayload);
                 qr.make();
-                const svgTag = qr.createSvgTag({ cellSize: 3, margin: 2 });
+                const svgTag = qr.createSvgTag({ cellSize: 3, margin: 4 });
                 qrHtml = `
                   <div class="transfer-qr-section">
                     <div class="transfer-qr-box">

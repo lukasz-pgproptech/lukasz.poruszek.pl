@@ -1766,8 +1766,17 @@
             background: #ffffff;
             border: 1px solid rgba(15, 23, 42, 0.1);
             border-radius: 8px;
-            padding: 4px;
+            padding: 8px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .step2-action-col .transfer-qr-box svg {
+            display: block;
+            width: 140px;
+            height: 140px;
         }
 
         .step2-action-col .transfer-qr-title {
