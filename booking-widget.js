@@ -499,6 +499,16 @@
     if (selector) selector.style.display = 'none';
     if (groupHeader) groupHeader.style.display = 'none';
 
+    const formView = document.getElementById('ws2-invoice-form-view');
+    const paymentBox = document.getElementById('ws2-payment-box');
+    const navPill = document.querySelector('.step2-nav-pill');
+    const backBtn = document.querySelector('.btn-back-step1');
+
+    if (navPill) navPill.textContent = 'Krok 2 z 2 • Dane do faktury i płatność';
+    if (backBtn) backBtn.style.visibility = 'visible';
+    if (formView) formView.style.display = '';
+    if (paymentBox) paymentBox.style.display = 'none';
+
     if (step1El) step1El.style.display = 'none';
     if (step2El) step2El.style.display = 'flex';
 
@@ -513,9 +523,17 @@
     const container = document.getElementById('workshop-view') || document.querySelector('.workshop-container');
     const selector = document.querySelector('.event-type-selector');
     const groupHeader = document.querySelector('.workshop-group-header');
+    const formView = document.getElementById('ws2-invoice-form-view');
+    const paymentBox = document.getElementById('ws2-payment-box');
+    const navPill = document.querySelector('.step2-nav-pill');
+    const backBtn = document.querySelector('.btn-back-step1');
 
     if (selector) selector.style.display = '';
     if (groupHeader) groupHeader.style.display = '';
+    if (navPill) navPill.textContent = 'Krok 2 z 2 • Dane do faktury i płatność';
+    if (backBtn) backBtn.style.visibility = 'visible';
+    if (formView) formView.style.display = '';
+    if (paymentBox) paymentBox.style.display = 'none';
 
     if (step2El) step2El.style.display = 'none';
     if (step1El) step1El.style.display = 'grid';
@@ -780,6 +798,11 @@
         if (formView) formView.style.display = 'none';
         if (paymentBox) {
           paymentBox.style.display = 'block';
+
+          const navPill = document.querySelector('.step2-nav-pill');
+          const backBtn = document.querySelector('.btn-back-step1');
+          if (navPill) navPill.textContent = 'Potwierdzenie • Dane do przelewu';
+          if (backBtn) backBtn.style.visibility = 'hidden';
 
           if (data.isZeroPayment) {
             paymentBox.innerHTML = `

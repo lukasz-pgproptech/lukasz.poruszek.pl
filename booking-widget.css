@@ -3,12 +3,12 @@
    ========================================================================== */
 
 :root {
-            --glass-bg: rgba(8, 12, 16, 0.32);
-            --glass-blur: 24px;
-            --glass-border: rgba(255, 255, 255, 0.12);
-            --glass-border-specular: rgba(255, 255, 255, 0.26);
-            --mono-active-bg: rgba(255, 255, 255, 0.12);
-            --mono-active-border: rgba(255, 255, 255, 0.40);
+            --glass-bg: rgba(255, 255, 255, 0.88);
+            --glass-blur: 32px;
+            --glass-border: rgba(255, 255, 255, 0.7);
+            --glass-border-specular: #ffffff;
+            --mono-active-bg: transparent;
+            --mono-active-border: #0f172a;
         }
 
         .booking-modal-overlay, .booking-modal-overlay * {
@@ -27,16 +27,16 @@
     justify-content: flex-end;
     padding-right: clamp(20px, 4vw, 70px);
     padding-left: clamp(20px, 31vw, 600px);
-    background: transparent;
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
+    background: rgba(15, 23, 42, 0.25);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
     transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
                 visibility 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    color: #fff;
+    color: #0f172a;
     box-sizing: border-box;
 }
 
@@ -53,11 +53,11 @@
     width: 44px;
     height: 44px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.22);
-    color: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    color: #0f172a;
     font-size: 18px;
     line-height: 1;
     display: flex;
@@ -69,21 +69,20 @@
 }
 
 .booking-close-btn:hover {
-    background: rgba(255, 255, 255, 0.2);
-    border-color: rgba(255, 255, 255, 0.5);
+    background: #ffffff;
     transform: scale(1.08);
 }
 
         /* -------------------------------------------------------------
-           POJEDYNCZA SZKLANA TAFLA (MONOCHROMATYCZNA, 28-32% PRZEZROCZYSTOŚCI)
+           POJEDYNCZA SZKLANA TAFLA (JASNA, PRZEZROCZYSTA, MLEKO-TYTAN)
            ------------------------------------------------------------- */
         .glass-booking-surface {
             width: 100%;
             max-width: 960px;
             height: 720px;
             background: var(--glass-bg);
-            backdrop-filter: blur(var(--glass-blur)) saturate(150%);
-            -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(150%);
+            backdrop-filter: blur(var(--glass-blur)) saturate(160%);
+            -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(160%);
             
             border: 1px solid var(--glass-border);
             border-top: 1px solid var(--glass-border-specular);
@@ -91,13 +90,14 @@
             border-radius: 20px;
             
             box-shadow: 
-                0 30px 80px rgba(0, 0, 0, 0.65),
-                inset 0 1px 1px rgba(255, 255, 255, 0.20);
+                0 30px 80px -15px rgba(0, 0, 0, 0.35),
+                0 0 0 1px rgba(255, 255, 255, 0.6);
             
             display: flex;
             flex-direction: column;
             overflow: hidden;
             position: relative;
+            color: #0f172a;
             animation: fadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
@@ -118,78 +118,77 @@
         .event-type-selector {
             display: flex;
             align-items: stretch;
-            gap: 8px;
-            padding: 16px 20px 12px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            background: rgba(0, 0, 0, 0.22);
+            gap: 28px;
+            padding: 16px 28px 0;
+            border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+            background: transparent;
             flex-shrink: 0;
         }
 
         .event-type-btn {
-            flex: 1;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 12px;
-            padding: 10px 14px;
-            color: rgba(255, 255, 255, 0.65);
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid transparent;
+            border-radius: 0;
+            padding: 8px 0 14px;
+            color: #64748b;
             cursor: pointer;
             font-family: inherit;
             text-align: left;
-            transition: background 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+            transition: all 0.18s ease;
             display: flex;
             flex-direction: column;
             gap: 3px;
         }
 
         .event-type-btn:hover {
-            background: rgba(255, 255, 255, 0.06);
-            color: #fff;
-            border-color: rgba(255, 255, 255, 0.18);
+            background: transparent;
+            color: #0f172a;
+            border-bottom-color: rgba(15, 23, 42, 0.2);
         }
 
         .event-type-btn.active {
-            background: var(--mono-active-bg);
-            border-color: var(--mono-active-border);
-            color: #fff;
-            box-shadow: 
-                0 4px 18px rgba(0, 0, 0, 0.4),
-                inset 0 1px 0 rgba(255, 255, 255, 0.25);
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid #0f172a;
+            color: #0f172a;
+            box-shadow: none;
         }
 
         .event-name {
-            font-size: 13px;
-            font-weight: 600;
-            color: #ffffff;
+            font-size: 13.5px;
+            font-weight: 700;
+            color: #0f172a;
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            gap: 8px;
         }
 
         .event-badge {
-            font-size: 10px;
+            font-size: 9.5px;
             font-weight: 700;
             letter-spacing: 0.06em;
             text-transform: uppercase;
-            padding: 2px 7px;
-            border-radius: 4px;
-            background: rgba(255, 255, 255, 0.08);
-            color: rgba(255, 255, 255, 0.55);
-            transition: all 0.18s ease;
+            padding: 0;
+            background: transparent;
+            color: #94a3b8;
+            transition: color 0.18s ease;
         }
 
         .event-type-btn.active .event-badge {
-            background: #ffffff;
-            color: #080c10;
+            background: transparent;
+            color: #059669;
         }
 
         .event-meta {
             font-size: 11px;
-            color: rgba(255, 255, 255, 0.45);
+            color: #64748b;
             transition: color 0.18s ease;
         }
 
         .event-type-btn.active .event-meta {
-            color: rgba(255, 255, 255, 0.80);
+            color: #334155;
+            font-weight: 500;
         }
 
         /* -------------------------------------------------------------
@@ -618,15 +617,15 @@
             align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
-            gap: 12px;
+            gap: 16px;
             padding-bottom: 12px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            border-bottom: 1px solid rgba(15, 23, 42, 0.08);
         }
 
         .workshop-group-pills {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 20px;
         }
 
         .workshop-section-title {
@@ -634,120 +633,123 @@
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.08em;
-            color: rgba(255, 255, 255, 0.45);
+            color: #64748b;
         }
 
         .workshop-group-pill {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 9999px;
-            padding: 5px 12px;
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 11.5px;
+            gap: 6px;
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid transparent;
+            border-radius: 0;
+            padding: 4px 0;
+            color: #64748b;
+            font-size: 12px;
             font-weight: 600;
             cursor: pointer;
             user-select: none;
-            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.18s ease;
         }
 
         .workshop-group-pill:hover {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(255, 255, 255, 0.25);
-            color: #ffffff;
+            color: #0f172a;
         }
 
         .workshop-group-pill.active {
-            background: rgba(255, 255, 255, 0.14);
-            border-color: rgba(255, 255, 255, 0.45);
-            color: #ffffff;
-            box-shadow: 0 0 16px rgba(255, 255, 255, 0.12);
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid #0f172a;
+            color: #0f172a;
+            font-weight: 700;
+            box-shadow: none;
         }
 
         .workshop-dot {
             width: 6px;
             height: 6px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.4);
-            transition: background 0.2s ease, box-shadow 0.2s ease;
+            background: #cbd5e1;
+            transition: background 0.2s ease;
         }
 
         .workshop-group-pill.active .workshop-dot {
-            background: #ffffff;
-            box-shadow: 0 0 6px rgba(255, 255, 255, 0.9);
+            background: #059669;
         }
 
         .workshop-status-tag {
             font-size: 11px;
-            color: rgba(255, 255, 255, 0.55);
+            color: #059669;
             text-transform: uppercase;
             letter-spacing: 0.06em;
-            font-weight: 600;
+            font-weight: 700;
         }
 
         .workshop-grid {
             display: grid;
             grid-template-columns: 1.15fr 1fr;
-            gap: 28px;
+            gap: 36px;
             align-items: start;
         }
 
         .workshop-schedule-col {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px;
         }
 
         .schedule-list {
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 0;
         }
 
         .schedule-item {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 8px 12px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 10px;
-            font-size: 12px;
-            color: rgba(255, 255, 255, 0.85);
-            transition: border-color 0.2s ease, background 0.2s ease;
+            padding: 10px 0;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+            border-radius: 0;
+            font-size: 12.5px;
+            color: #0f172a;
+            transition: border-color 0.2s ease;
         }
 
         .schedule-item:first-child {
-            background: rgba(255, 255, 255, 0.07);
-            border-color: rgba(255, 255, 255, 0.18);
-            color: #ffffff;
+            background: transparent;
+            border-color: rgba(15, 23, 42, 0.14);
+            color: #0f172a;
+            font-weight: 700;
         }
 
         .schedule-date {
             font-weight: 600;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
+            color: #0f172a;
         }
 
         .schedule-num {
-            font-size: 10px;
-            color: rgba(255, 255, 255, 0.4);
+            font-size: 11px;
+            color: #94a3b8;
             font-weight: 700;
         }
 
         .schedule-time {
-            color: rgba(255, 255, 255, 0.55);
-            font-size: 11px;
+            color: #64748b;
+            font-size: 11.5px;
         }
 
         .workshop-note {
-            font-size: 10.5px;
-            color: rgba(255, 255, 255, 0.4);
+            font-size: 11px;
+            color: #64748b;
             line-height: 1.45;
-            margin-top: 2px;
+            margin-top: 6px;
         }
 
         .workshop-form-col {
@@ -770,35 +772,44 @@
         .form-group {
             display: flex;
             flex-direction: column;
-            gap: 3px;
+            gap: 4px;
         }
 
         .form-label {
-            font-size: 10.5px;
+            font-size: 11px;
             font-weight: 600;
-            color: rgba(255, 255, 255, 0.7);
+            color: #475569;
         }
 
         .form-input {
             width: 100%;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.14);
-            border-radius: 8px;
-            padding: 8px 10px;
-            font-size: 12.5px;
-            color: #ffffff;
+            background: transparent;
+            border: none;
+            border-bottom: 1.5px solid rgba(15, 23, 42, 0.2);
+            border-radius: 0;
+            padding: 8px 0;
+            font-size: 13px;
+            color: #0f172a;
             font-family: inherit;
             outline: none;
-            transition: border-color 0.18s ease, background 0.18s ease;
+            transition: border-color 0.2s ease;
         }
 
         .form-input:focus {
-            border-color: rgba(255, 255, 255, 0.45);
-            background: rgba(255, 255, 255, 0.08);
+            border-bottom-color: #0f172a;
+            background: transparent;
         }
 
         .form-input::placeholder {
-            color: rgba(255, 255, 255, 0.25);
+            color: #94a3b8;
+        }
+
+        .form-input:disabled {
+            border-bottom-color: rgba(15, 23, 42, 0.08);
+            color: #94a3b8;
+            cursor: not-allowed;
+            background: transparent;
+            opacity: 1;
         }
 
         /* Sekcja Kodu Rabatowego */
@@ -806,14 +817,15 @@
             display: flex;
             flex-direction: column;
             gap: 6px;
-            margin-top: 2px;
+            margin-top: 4px;
         }
 
         .coupon-toggle-btn {
             background: none;
             border: none;
-            color: rgba(255, 255, 255, 0.6);
+            color: #059669;
             font-size: 11.5px;
+            font-weight: 600;
             text-align: left;
             cursor: pointer;
             padding: 0;
@@ -825,7 +837,8 @@
         }
 
         .coupon-toggle-btn:hover {
-            color: #ffffff;
+            color: #047857;
+            text-decoration: underline;
         }
 
         .coupon-box {
@@ -841,17 +854,19 @@
 
         .coupon-input-row {
             display: flex;
-            gap: 8px;
+            align-items: baseline;
+            gap: 12px;
         }
 
         .coupon-input {
             flex: 1;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.14);
-            border-radius: 8px;
-            padding: 8px 12px;
+            background: transparent;
+            border: none;
+            border-bottom: 1.5px solid rgba(15, 23, 42, 0.2);
+            border-radius: 0;
+            padding: 6px 0;
             font-size: 12px;
-            color: #ffffff;
+            color: #0f172a;
             font-family: inherit;
             text-transform: uppercase;
             letter-spacing: 0.06em;
@@ -859,17 +874,18 @@
         }
 
         .coupon-input:focus {
-            border-color: rgba(255, 255, 255, 0.4);
+            border-bottom-color: #0f172a;
         }
 
         .coupon-apply-btn {
-            padding: 8px 14px;
-            background: rgba(255, 255, 255, 0.12);
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            border-radius: 8px;
-            color: #ffffff;
+            padding: 4px 8px;
+            background: transparent;
+            border: none;
+            border-bottom: 1.5px solid #0f172a;
+            border-radius: 0;
+            color: #0f172a;
             font-size: 11.5px;
-            font-weight: 600;
+            font-weight: 700;
             font-family: inherit;
             cursor: pointer;
             transition: all 0.18s ease;
@@ -877,8 +893,8 @@
         }
 
         .coupon-apply-btn:hover {
-            background: rgba(255, 255, 255, 0.22);
-            border-color: rgba(255, 255, 255, 0.4);
+            color: #059669;
+            border-bottom-color: #059669;
         }
 
         .coupon-feedback {
@@ -890,36 +906,40 @@
 
         .coupon-feedback.success {
             display: flex;
-            color: #4ade80;
+            color: #059669;
+            font-weight: 600;
         }
 
         .coupon-feedback.error {
             display: flex;
-            color: #f87171;
+            color: #dc2626;
+            font-weight: 600;
         }
 
         /* Podsumowanie Kwoty (Order Summary) */
         .order-summary-box {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 10px;
-            padding: 8px 12px;
+            background: transparent;
+            border: none;
+            border-top: 1px solid rgba(15, 23, 42, 0.08);
+            border-radius: 0;
+            padding: 10px 0 0 0;
             display: flex;
             flex-direction: column;
-            gap: 4px;
-            margin-top: 2px;
+            gap: 6px;
+            margin-top: 4px;
         }
 
         .summary-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 11.5px;
-            color: rgba(255, 255, 255, 0.6);
+            font-size: 12px;
+            color: #475569;
         }
 
         .summary-row.discount-row {
-            color: #4ade80;
+            color: #059669;
+            font-weight: 600;
             display: none;
         }
 
@@ -928,43 +948,45 @@
         }
 
         .summary-row.total-row {
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-            padding-top: 6px;
-            margin-top: 2px;
-            font-size: 13px;
+            border-top: 1px solid rgba(15, 23, 42, 0.12);
+            padding-top: 8px;
+            margin-top: 4px;
+            font-size: 13.5px;
             font-weight: 700;
-            color: #ffffff;
+            color: #0f172a;
         }
 
         .total-amount {
-            font-size: 14.5px;
-            color: #ffffff;
-            letter-spacing: 0.02em;
+            font-size: 16px;
+            font-weight: 800;
+            color: #0f172a;
+            letter-spacing: -0.01em;
         }
 
         .btn-submit-workshop {
             width: 100%;
-            margin-top: 4px;
-            padding: 11px 16px;
-            background: #ffffff;
-            color: #080c10;
+            margin-top: 8px;
+            padding: 13px 20px;
+            background: #0f172a;
+            color: #ffffff;
             border: none;
             border-radius: 8px;
-            font-size: 12.5px;
+            font-size: 13px;
             font-weight: 700;
             font-family: inherit;
             cursor: pointer;
-            transition: background 0.18s ease, transform 0.1s ease, box-shadow 0.18s ease;
+            transition: all 0.18s ease;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
+            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.15);
         }
 
         .btn-submit-workshop:hover:not(:disabled) {
-            background: rgba(255, 255, 255, 0.92);
+            background: #1e293b;
             transform: translateY(-1px);
-            box-shadow: 0 4px 20px rgba(255, 255, 255, 0.2);
+            box-shadow: 0 6px 20px rgba(15, 23, 42, 0.22);
         }
 
         .btn-submit-workshop:disabled {
@@ -1375,30 +1397,30 @@
             flex-wrap: wrap;
             gap: 10px;
             padding-bottom: 12px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            border-bottom: 1px solid rgba(15, 23, 42, 0.08);
         }
 
         .btn-back-step1 {
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.14);
-            border-radius: 8px;
-            color: rgba(255, 255, 255, 0.75);
-            padding: 6px 12px;
-            font-size: 11.5px;
+            background: transparent;
+            border: none;
+            border-radius: 0;
+            color: #64748b;
+            padding: 0;
+            font-size: 12px;
             font-weight: 600;
             cursor: pointer;
             font-family: inherit;
-            transition: all 0.18s ease;
+            transition: color 0.18s ease;
         }
 
         .btn-back-step1:hover {
-            background: rgba(255, 255, 255, 0.10);
-            border-color: rgba(255, 255, 255, 0.28);
-            color: #ffffff;
-            transform: translateX(-2px);
+            color: #0f172a;
+            background: transparent;
+            border: none;
+            transform: none;
         }
 
         .step2-nav-pill {
@@ -1406,21 +1428,8 @@
             font-weight: 700;
             letter-spacing: 0.06em;
             text-transform: uppercase;
-            color: rgba(255, 255, 255, 0.45);
+            color: #94a3b8;
         }
-
-        .step2-grid {
-            display: grid;
-            grid-template-columns: 1fr 1.15fr;
-            gap: 24px;
-            align-items: start;
-        }
-
-        /* -------------------------------------------------------------
-           KROK 2 I 3: JEDNOLITY LAYOUT BEZ ZBĘDNYCH RAMEK (ZERO CARD-IN-CARD)
-           Jedyna ramka to zewnętrzna tafla widżetu.
-           Wewnątrz elementy oddzielone są wyłącznie przestrzenią i typografią.
-           ------------------------------------------------------------- */
 
         .step2-grid {
             display: grid;
@@ -1445,7 +1454,7 @@
             display: flex;
             flex-direction: column;
             gap: 14px;
-            color: #ffffff;
+            color: #0f172a;
         }
 
         .step2-summary-item-header {
@@ -1453,7 +1462,7 @@
             flex-direction: column;
             gap: 6px;
             padding-bottom: 12px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            border-bottom: 1px solid rgba(15, 23, 42, 0.08);
         }
 
         .step2-badge-event {
@@ -1462,17 +1471,17 @@
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.06em;
-            color: #4ade80;
-            background: rgba(74, 222, 128, 0.12);
-            border: 1px solid rgba(74, 222, 128, 0.28);
-            padding: 2.5px 8px;
-            border-radius: 9999px;
+            color: #059669;
+            background: transparent;
+            border: none;
+            padding: 0;
+            border-radius: 0;
         }
 
         .step2-event-title {
-            font-size: 15px;
-            font-weight: 700;
-            color: #ffffff;
+            font-size: 16px;
+            font-weight: 800;
+            color: #0f172a;
             margin: 0;
             letter-spacing: -0.01em;
         }
@@ -1491,13 +1500,13 @@
         }
 
         .step2-detail-label {
-            color: rgba(255, 255, 255, 0.45);
+            color: #64748b;
             font-weight: 600;
         }
 
         .step2-detail-val {
-            color: rgba(255, 255, 255, 0.92);
-            font-weight: 600;
+            color: #0f172a;
+            font-weight: 700;
             text-align: right;
             word-break: break-all;
         }
@@ -1509,7 +1518,7 @@
             padding: 14px 0 0 0;
             background: transparent;
             border: none;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            border-top: 1px solid rgba(15, 23, 42, 0.08);
             border-radius: 0;
             font-size: 12px;
         }
@@ -1517,29 +1526,29 @@
         .step2-fin-row {
             display: flex;
             justify-content: space-between;
-            color: rgba(255, 255, 255, 0.65);
+            color: #475569;
         }
 
         .step2-fin-row.discount {
-            color: #4ade80;
-            font-weight: 600;
+            color: #059669;
+            font-weight: 700;
         }
 
         .step2-fin-row.total {
-            border-top: 1px solid rgba(255, 255, 255, 0.12);
+            border-top: 1px solid rgba(15, 23, 42, 0.14);
             padding-top: 10px;
             margin-top: 4px;
             font-size: 14px;
             font-weight: 700;
-            color: #ffffff;
+            color: #0f172a;
             align-items: baseline;
         }
 
         .step2-fin-total-val {
-            font-size: 21px;
-            font-weight: 800;
-            color: #4ade80;
-            letter-spacing: -0.01em;
+            font-size: 22px;
+            font-weight: 900;
+            color: #0f172a;
+            letter-spacing: -0.02em;
         }
 
         .step2-guarantees {
@@ -1547,7 +1556,7 @@
             flex-direction: column;
             gap: 7px;
             font-size: 11px;
-            color: rgba(255, 255, 255, 0.45);
+            color: #64748b;
             line-height: 1.45;
             padding-top: 6px;
         }
@@ -1559,8 +1568,8 @@
         }
 
         .step2-check {
-            color: #4ade80;
-            font-weight: 700;
+            color: #059669;
+            font-weight: 800;
         }
 
         /* Prawa kolumna: Formularz faktury / Płatność */
@@ -1573,11 +1582,11 @@
             border-radius: 0;
             box-shadow: none;
             padding: 0;
-            color: #ffffff;
+            color: #0f172a;
         }
 
         .step2-action-col .workshop-section-title {
-            color: rgba(255, 255, 255, 0.55);
+            color: #64748b;
             font-size: 11px;
             font-weight: 700;
             text-transform: uppercase;
@@ -1604,123 +1613,93 @@
         }
 
         .step2-action-col .form-label {
-            color: rgba(255, 255, 255, 0.7);
+            color: #475569;
             font-size: 11px;
             font-weight: 600;
         }
 
-        /* Przełącznik Osoba prywatna / Firma */
+        /* Przełącznik Osoba prywatna / Firma (Czysty text-tabs, zero ramek) */
         .step2-action-col .buyer-type-toggle {
             display: flex;
-            gap: 6px;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.10);
-            border-radius: 8px;
-            padding: 3px;
+            gap: 24px;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+            border-radius: 0;
+            padding: 0 0 8px 0;
         }
 
         .step2-action-col .buyer-type-btn {
-            flex: 1;
-            padding: 7px 12px;
-            font-size: 12px;
-            font-weight: 600;
-            color: rgba(255, 255, 255, 0.6);
             background: transparent;
-            border: 1px solid transparent;
-            border-radius: 6px;
+            border: none;
+            border-bottom: 2px solid transparent;
+            border-radius: 0;
+            padding: 4px 0;
+            font-size: 12.5px;
+            font-weight: 600;
+            color: #94a3b8;
             cursor: pointer;
             font-family: inherit;
             transition: all 0.16s ease;
-            text-align: center;
+            text-align: left;
         }
 
         .step2-action-col .buyer-type-btn:hover {
-            color: #ffffff;
+            color: #0f172a;
         }
 
         .step2-action-col .buyer-type-btn.active {
-            background: rgba(255, 255, 255, 0.12);
-            color: #ffffff;
+            background: transparent;
+            color: #0f172a;
             font-weight: 700;
-            border-color: rgba(255, 255, 255, 0.22);
-            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
-        }
-
-        /* Inputy bezpośrednio na szkle */
-        .step2-action-col .form-input {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 8px;
-            padding: 10px 12px;
-            font-size: 12.5px;
-            color: #ffffff;
-            font-family: inherit;
-            transition: all 0.18s ease;
-        }
-
-        .step2-action-col .form-input::placeholder {
-            color: rgba(255, 255, 255, 0.3);
-        }
-
-        .step2-action-col .form-input:focus {
-            outline: none;
-            border-color: rgba(255, 255, 255, 0.45);
-            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.06);
-            background: rgba(255, 255, 255, 0.06);
-        }
-
-        .step2-action-col .form-input:disabled {
-            opacity: 0.45;
-            cursor: not-allowed;
-            background: rgba(255, 255, 255, 0.02);
-            border-color: rgba(255, 255, 255, 0.05);
-            color: rgba(255, 255, 255, 0.35);
+            border-bottom: 2px solid #0f172a;
+            box-shadow: none;
         }
 
         .step2-action-col .nip-badge-optional {
             font-size: 9.5px;
-            padding: 2px 7px;
-            border-radius: 4px;
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            color: rgba(255, 255, 255, 0.45);
+            padding: 0;
+            background: transparent;
+            border: none;
+            color: #94a3b8;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.04em;
         }
 
-        /* Karta firmy zweryfikowanej z MF (prosta plakietka bez zbędnych ramek) */
+        /* Karta firmy zweryfikowanej z MF */
         .step2-action-col .company-verified-card {
-            background: rgba(74, 222, 128, 0.06);
-            border: 1px solid rgba(74, 222, 128, 0.22);
-            border-radius: 8px;
-            padding: 10px 12px;
+            background: rgba(5, 150, 105, 0.06);
+            border: none;
+            border-left: 3px solid #059669;
+            border-radius: 0;
+            padding: 8px 12px;
             display: flex;
             flex-direction: column;
             gap: 4px;
         }
 
         .step2-action-col .company-badge-vat {
-            background: rgba(74, 222, 128, 0.15);
-            border: 1px solid rgba(74, 222, 128, 0.35);
-            color: #4ade80;
+            background: transparent;
+            border: none;
+            color: #059669;
             font-weight: 700;
+            padding: 0;
         }
 
         .step2-action-col .company-verified-name {
-            color: #ffffff;
+            color: #0f172a;
             font-weight: 700;
             font-size: 12px;
         }
 
         .step2-action-col .company-verified-addr {
-            color: rgba(255, 255, 255, 0.65);
+            color: #475569;
             font-size: 11px;
         }
 
-        .step2-action-col .company-verified-edit,
         .step2-action-col .btn-edit-company {
-            color: #4ade80;
+            color: #059669;
             font-size: 11px;
             font-weight: 600;
             text-decoration: underline;
@@ -1732,47 +1711,21 @@
         }
 
         .step2-action-col .btn-edit-company:hover {
-            color: #86efac;
-        }
-
-        /* Przycisk wysyłki (Czysty, nowoczesny, jak w Kroku 1) */
-        .step2-action-col .btn-submit-workshop {
-            width: 100%;
-            margin-top: 4px;
-            padding: 12px 18px;
-            background: #ffffff;
-            color: #080c10;
-            border: none;
-            border-radius: 8px;
-            font-size: 13px;
-            font-weight: 700;
-            font-family: inherit;
-            cursor: pointer;
-            transition: background 0.18s ease, transform 0.1s ease, box-shadow 0.18s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .step2-action-col .btn-submit-workshop:hover:not(:disabled) {
-            background: rgba(255, 255, 255, 0.92);
-            transform: translateY(-1px);
-            box-shadow: 0 4px 20px rgba(255, 255, 255, 0.2);
+            color: #047857;
         }
 
         /* -------------------------------------------------------------
-           KROK 3: PŁATNOŚĆ I PROFORMA (BEZ ZBĘDNYCH RAMEK)
+           KROK 3: PŁATNOŚĆ I PROFORMA (CZYSTA TYPOGRAFIA, ZERO RAMEK)
            ------------------------------------------------------------- */
         .step2-action-col .transfer-greeting-text {
             font-size: 13px;
-            color: rgba(255, 255, 255, 0.85);
+            color: #334155;
             line-height: 1.5;
             margin-top: 4px;
         }
 
         .step2-action-col .transfer-greeting-text strong {
-            color: #ffffff;
+            color: #0f172a;
             font-weight: 700;
         }
 
@@ -1782,37 +1735,46 @@
             border-radius: 0;
             padding: 14px 0 0 0;
             margin-top: 8px;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            border-top: 1px solid rgba(15, 23, 42, 0.08);
             box-shadow: none;
         }
 
         .step2-action-col .transfer-status-pill {
-            background: rgba(74, 222, 128, 0.12);
-            border: 1px solid rgba(74, 222, 128, 0.35);
-            color: #4ade80;
+            background: transparent;
+            border: none;
+            color: #059669;
             font-weight: 700;
+            padding: 0;
         }
 
         .step2-action-col .transfer-amount-row {
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            border-bottom: 1px solid rgba(15, 23, 42, 0.08);
             padding-bottom: 8px;
             margin-bottom: 12px;
         }
 
         .step2-action-col .transfer-amount-label {
-            color: rgba(255, 255, 255, 0.5);
+            color: #64748b;
             font-size: 11px;
             font-weight: 700;
         }
 
         .step2-action-col .transfer-amount-val {
-            color: #4ade80;
-            font-size: 22px;
-            font-weight: 800;
+            color: #0f172a;
+            font-size: 24px;
+            font-weight: 900;
+        }
+
+        .step2-action-col .transfer-field-item {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(15, 23, 42, 0.06);
         }
 
         .step2-action-col .transfer-field-label {
-            color: rgba(255, 255, 255, 0.45);
+            color: #64748b;
             font-size: 10px;
             font-weight: 600;
             text-transform: uppercase;
@@ -1820,93 +1782,98 @@
         }
 
         .step2-action-col .transfer-field-val-row {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 7px;
-            padding: 7px 10px;
+            background: transparent;
+            border: none;
+            border-radius: 0;
+            padding: 0;
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 12px;
         }
 
         .step2-action-col .transfer-field-val {
-            color: #ffffff;
-            font-size: 12.5px;
-            font-weight: 600;
+            color: #0f172a;
+            font-size: 13.5px;
+            font-weight: 700;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
         }
 
         .step2-action-col .btn-copy-transfer {
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.14);
-            color: rgba(255, 255, 255, 0.75);
-            font-weight: 600;
-            border-radius: 5px;
-            padding: 3px 8px;
-            font-size: 10.5px;
+            background: transparent;
+            border: none;
+            color: #059669;
+            font-weight: 700;
+            font-size: 11px;
             cursor: pointer;
+            padding: 0;
+            font-family: inherit;
         }
 
         .step2-action-col .btn-copy-transfer:hover {
-            background: rgba(255, 255, 255, 0.12);
-            color: #ffffff;
+            color: #047857;
+            text-decoration: underline;
         }
 
         .step2-action-col .btn-copy-transfer.copied {
-            background: rgba(74, 222, 128, 0.2);
-            border-color: rgba(74, 222, 128, 0.5);
-            color: #4ade80;
+            color: #059669;
+            font-weight: 800;
         }
 
         .step2-action-col .transfer-qr-section {
             background: transparent;
             border: none;
-            padding: 12px 0;
+            padding: 14px 0;
             display: flex;
             align-items: center;
-            gap: 14px;
+            gap: 16px;
         }
 
         .step2-action-col .transfer-qr-box {
             background: #ffffff;
-            border-radius: 6px;
+            border: 1px solid rgba(15, 23, 42, 0.1);
+            border-radius: 8px;
             padding: 4px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
         }
 
         .step2-action-col .transfer-qr-title {
-            color: #ffffff;
+            color: #0f172a;
             font-size: 12px;
             font-weight: 700;
         }
 
         .step2-action-col .transfer-qr-desc {
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 10.5px;
+            color: #64748b;
+            font-size: 11px;
             line-height: 1.4;
         }
 
         .step2-action-col .invoice-download-btn {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: #0f172a;
             color: #ffffff;
-            font-weight: 600;
+            border: none;
+            font-weight: 700;
             font-size: 12.5px;
             border-radius: 8px;
-            padding: 11px 16px;
+            padding: 12px 18px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
             text-decoration: none;
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
             transition: all 0.18s ease;
         }
 
         .step2-action-col .invoice-download-btn:hover {
-            background: rgba(255, 255, 255, 0.16);
-            border-color: rgba(255, 255, 255, 0.35);
+            background: #1e293b;
             transform: translateY(-1px);
         }
 
         .step2-action-col .transfer-subnote-text {
             font-size: 11px;
-            color: rgba(255, 255, 255, 0.4);
+            color: #64748b;
             text-align: center;
             line-height: 1.45;
         }
