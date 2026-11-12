@@ -14,6 +14,15 @@
   --mouse-y: 0;
 }
 
+/* W-02: Ukrycie usuniętych rozdziałów (CHAPTER 1, 2, 3) w menu mobilnym */
+.menu__navList,
+.menu__navListItem,
+.menu__left {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
 /* -------------------------------------------------------------
    GŁÓWNY KONTENER SCENY (PRZEZROCZYSTY, Z GŁĘBIĄ 3D)
    ------------------------------------------------------------- */
@@ -36,6 +45,14 @@
 .products-view-container.is-active {
   opacity: 1;
   visibility: visible;
+  pointer-events: auto;
+}
+
+/* W-03: Bezwzględna deaktywacja nakładki gdy sekcja nie jest aktywna */
+#products-view-container:not(.is-active) {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
 }
 
 body.is-menu-open #products-view-container,
@@ -484,8 +501,8 @@ body:has(.products-view-container.is-detail-view) .menuBtn {
 /* Przycisk X zamykający w prawym górnym rogu */
 .timeline-close-btn {
   position: fixed;
-  top: 36px;
-  right: clamp(24px, 4.5vw, 60px);
+  top: max(16px, env(safe-area-inset-top, 16px));
+  right: max(16px, env(safe-area-inset-right, 16px));
   width: 44px;
   height: 44px;
   border-radius: 50%;
@@ -792,6 +809,11 @@ body:has(.products-view-container.is-detail-view) .menuBtn {
 @media (max-width: 1024px) {
   .timeline-roadmap-bar {
     max-width: 100%;
+  }
+  .roadmap-node {
+    min-width: 44px !important;
+    min-height: 48px !important;
+    padding: 10px 4px !important;
   }
   .roadmap-node-title {
     display: none;

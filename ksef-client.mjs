@@ -299,6 +299,16 @@ export function getInvoiceById(idOrNumber) {
   return null;
 }
 
+export function escapeHtml(str) {
+  if (str === null || str === undefined) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
 // Generowanie eleganckiej wizualizacji HTML faktury z kodem QR KSeF
 export function generateInvoiceHtml(inv) {
   const isB2B = Boolean(inv.buyer.nip);
@@ -311,7 +321,8 @@ export function generateInvoiceHtml(inv) {
 <html lang="pl">
 <head>
   <meta charset="UTF-8">
-  <title>${docTitle} ${inv.invoiceNumber}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${escapeHtml(docTitle)} ${escapeHtml(inv.invoiceNumber)}</title>
   <style>
     body { font-family: 'Helvetica Neue', Arial, sans-serif; color: #1a1a1a; background: #f9fafb; margin: 0; padding: 40px 20px; font-size: 13px; line-height: 1.5; }
     .invoice-card { max-width: 800px; margin: 0 auto; background: #ffffff; padding: 48px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); border: 1px solid #e5e7eb; }
@@ -326,13 +337,21 @@ export function generateInvoiceHtml(inv) {
     .parties-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 32px; }
     .party-title { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: #6b7280; font-weight: 700; margin-bottom: 8px; }
     .party-name { font-weight: 700; font-size: 14px; color: #111827; margin-bottom: 4px; }
-    table { width: 100%; border-collapse: collapse; margin-bottom: 28px; }
+    .table-container { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 28px; }
+    table { width: 100%; min-width: 600px; border-collapse: collapse; }
     th { text-align: left; padding: 10px 12px; background: #f3f4f6; font-size: 11px; text-transform: uppercase; color: #4b5563; font-weight: 700; }
     td { padding: 12px; border-bottom: 1px solid #e5e7eb; }
     .totals-box { margin-left: auto; width: 300px; margin-bottom: 32px; }
     .totals-row { display: flex; justify-content: space-between; padding: 6px 0; font-size: 13px; color: #4b5563; }
     .totals-row.final { font-size: 18px; font-weight: 800; color: #111827; border-top: 2px solid #111827; padding-top: 10px; margin-top: 6px; }
     .inv-footer { border-top: 1px solid #e5e7eb; padding-top: 20px; font-size: 11.5px; color: #6b7280; text-align: center; }
+    @media (max-width: 640px) {
+      body { padding: 12px 8px; }
+      .invoice-card { padding: 20px 14px; }
+      .inv-header { flex-direction: column; gap: 14px; }
+      .parties-grid { grid-template-columns: 1fr; gap: 20px; }
+      .totals-box { width: 100%; margin-left: 0; }
+    }
     @media print { body { background: #fff; padding: 0; } .invoice-card { border: none; box-shadow: none; padding: 0; } }
   </style>
 </head>
@@ -388,41 +407,43 @@ export function generateInvoiceHtml(inv) {
 
       <div>
         <div class="party-title">Nabywca (${isB2B ? 'Firma' : 'Osoba prywatna'})</div>
-        <div class="party-name">${inv.buyer.name}</div>
-        ${isB2B ? `<div>NIP: <strong>${inv.buyer.nip}</strong></div>` : ''}
-        <div>${inv.buyer.street || ''}</div>
-        <div>${inv.buyer.postalCode || ''} ${inv.buyer.city || ''}</div>
-        <div style="margin-top: 4px; color: #4b5563;">Email: ${inv.buyer.email || '-'}</div>
-        <div>Tel: ${inv.buyer.phone || '-'}</div>
+        <div class="party-name">${escapeHtml(inv.buyer.companyName || inv.buyer.name)}</div>
+        ${isB2B && inv.buyer.nip ? `<div>NIP: <strong>${escapeHtml(inv.buyer.nip)}</strong></div>` : ''}
+        <div>${escapeHtml(inv.buyer.street || '')}</div>
+        <div>${escapeHtml(inv.buyer.postalCode || '')} ${escapeHtml(inv.buyer.city || '')}</div>
+        <div style="margin-top: 4px; color: #4b5563;">Email: ${escapeHtml(inv.buyer.email || '-')}</div>
+        <div>Tel: ${escapeHtml(inv.buyer.phone || '-')}</div>
       </div>
     </div>
 
     <!-- POZYCJE -->
-    <table>
-      <thead>
-        <tr>
-          <th>Lp.</th>
-          <th>Nazwa usługi</th>
-          <th style="text-align: right;">Ilość</th>
-          <th style="text-align: right;">Cena netto</th>
-          <th style="text-align: right;">Stawka</th>
-          <th style="text-align: right;">Kwota VAT</th>
-          <th style="text-align: right;">Wartość brutto</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${inv.items.map((it, idx) => `
-        <tr>
-          <td>${idx + 1}</td>
-          <td><strong>${it.name}</strong></td>
-          <td style="text-align: right;">${it.quantity}</td>
-          <td style="text-align: right;">${it.unitNetto.toFixed(2)} PLN</td>
-          <td style="text-align: right;">${it.vatRate}%</td>
-          <td style="text-align: right;">${it.vatAmount.toFixed(2)} PLN</td>
-          <td style="text-align: right;"><strong>${it.totalBrutto.toFixed(2)} PLN</strong></td>
-        </tr>`).join('')}
-      </tbody>
-    </table>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Lp.</th>
+            <th>Nazwa usługi</th>
+            <th style="text-align: right;">Ilość</th>
+            <th style="text-align: right;">Cena netto</th>
+            <th style="text-align: right;">Stawka</th>
+            <th style="text-align: right;">Kwota VAT</th>
+            <th style="text-align: right;">Wartość brutto</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${inv.items.map((it, idx) => `
+          <tr>
+            <td>${idx + 1}</td>
+            <td><strong>${escapeHtml(it.name)}</strong></td>
+            <td style="text-align: right;">${it.quantity}</td>
+            <td style="text-align: right;">${Number(it.unitNetto).toFixed(2)} PLN</td>
+            <td style="text-align: right;">${it.vatRate}%</td>
+            <td style="text-align: right;">${Number(it.vatAmount).toFixed(2)} PLN</td>
+            <td style="text-align: right;"><strong>${Number(it.totalBrutto).toFixed(2)} PLN</strong></td>
+          </tr>`).join('')}
+        </tbody>
+      </table>
+    </div>
 
     <!-- PODSUMOWANIE -->
     <div class="totals-box">

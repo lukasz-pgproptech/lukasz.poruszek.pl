@@ -2,24 +2,25 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible” content=”IE=edge" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta
             name="viewport"
-            content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui"
+            content="width=device-width, initial-scale=1.0, viewport-fit=cover"
         />
 
         <base href="/" />
 
+        <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-        <meta name="theme-color" content="#000" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="theme-color" content="#020504" />
 
         <title>Łukasz Poruszek – Konsultacje i Warsztaty AI</title>
         <meta name="description" content="Oficjalna strona Łukasza Poruszka. Konsultacje strategiczne 1:1, mentoring biznesowy i kariery oraz warsztaty orkiestracji AI." />
         <meta property="og:title" content="Łukasz Poruszek – Konsultacje i Warsztaty AI" />
-        <meta property="og:description" content="Konsultacje strategiczne 1:1 oraz warsztaty orkiestracji AI." />
+        <meta property="og:description" content="Konsultacje strategiczne 1:1 oraz warsztaty orkiestracji AI. Od chaosu promptów do autonomicznych zespołów agentów." />
         <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary_large_image" />
+        <meta property="og:url" content="https://lukasz.poruszek.pl/" />
         <link rel="canonical" href="https://lukasz.poruszek.pl/" />
 
         <link
@@ -43,32 +44,19 @@
         <link
             rel="mask-icon"
             href="/favicon/safari-pinned-tab.svg"
-            color="#2e5925"
+            color="#00e599"
         />
         <link rel="shortcut icon" href="/favicon/favicon.ico" />
-        <meta name="msapplication-TileColor" content="#ffffff" />
+        <meta name="msapplication-TileColor" content="#020504" />
         <meta name="msapplication-config" content="/favicon/browserconfig.xml" />
-        <meta name="theme-color" content="#ffffff" />
-
-        <meta property="og:title" content="ŁUKASZ PORUSZEK" />
-        <meta
-            property="og:description"
-            content="From start to finish, it’s corn seed development that will change farming."
-        />
-        <meta property="og:updated_time" content="1559639779" />
-        <meta property="og:image" content="/fb.jpg" />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://lukasz.poruszek.pl/" />
 
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="lukaszporuszek" />
-        <meta name="twitter:title" content="ŁUKASZ PORUSZEK" />
+        <meta name="twitter:title" content="Łukasz Poruszek – Konsultacje i Warsztaty AI" />
         <meta
             name="twitter:description"
-            content="From start to finish, it’s corn seed development that will change farming."
+            content="Konsultacje strategiczne 1:1 oraz warsztaty orkiestracji AI. Od chaosu promptów do autonomicznych zespołów agentów."
         />
-        <meta name="twitter:image" content="/tw.jpg" />
-        <meta name="twitter:image:alt" content="ŁUKASZ PORUSZEK" />
 
         <link rel="stylesheet" href="/products-view.css" />
         <link rel="stylesheet" href="/booking-widget.css" />
@@ -174,17 +162,17 @@
             </svg>
 
             <div class="unsupported__inner">
-                <h2 class="unsupported__title  title3">
-                    This experience does not <br>
-                    work on this browser.
+                <h2 class="unsupported__title title3">
+                    Twoja przeglądarka ma wyłączoną akcelerację 3D (WebGL).
                 </h2>
-                <h2 class="body">
-                    Try it out using
-                    <a href="https://www.google.com/chrome/browser/desktop/" target="_blank">Chrome</a>,
-                    <a href="http://www.mozilla.org/firefox/new/" target="_blank">Firefox</a>,
-                    <a href="http://www.apple.com/osx/" target="_blank">Safari</a> or
-                    <a href="https://www.microsoft.com/software-download/windows10" target="_blank">Edge</a>.
+                <h2 class="body" style="margin-top: 14px; font-size: 15px; line-height: 1.6; color: rgba(255, 255, 255, 0.75);">
+                    Aby w pełni korzystać z interaktywnej prezentacji 3D, uruchom stronę w Chrome, Safari, Firefox lub Edge.<br>
+                    Możesz również przejść bezpośrednio do rezerwacji:
                 </h2>
+                <div style="margin-top: 24px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
+                    <button type="button" onclick="openBookingModal('warsztaty')" style="background: #00e599; color: #020504; font-weight: 700; padding: 14px 24px; border: none; border-radius: 8px; cursor: pointer; font-size: 14px;">Zarezerwuj Warsztaty AI</button>
+                    <button type="button" onclick="openBookingModal('biznes')" style="background: rgba(255,255,255,0.1); color: #ffffff; font-weight: 700; padding: 14px 24px; border: 1px solid rgba(255,255,255,0.25); border-radius: 8px; cursor: pointer; font-size: 14px;">Umów Mentoring 1:1</button>
+                </div>
             </div>
         </div>
 
@@ -344,12 +332,14 @@
              ============================================================= -->
         <div id="booking-modal-overlay" class="booking-modal-overlay" role="dialog" aria-modal="true" aria-label="Rezerwacja spotkań i warsztatów">
             <div class="glass-booking-surface" onclick="event.stopPropagation()">
+                <button class="booking-close-btn" id="bookingCloseBtn" type="button" aria-label="Zamknij" onclick="closeBookingModal()">✕</button>
                 
                 <!-- SELEKTOR 3 TYPÓW SPOTKAŃ -->
                 <nav class="event-type-selector" aria-label="Wybór typu spotkania">
                     <button class="event-type-btn active" id="btn-opt1" type="button" onclick="switchBookingTab('biznes')">
                         <span class="event-name">
-                            Mentoring biznesowy
+                            <span class="label-full">Mentoring biznesowy</span>
+                            <span class="label-short">Biznes</span>
                             <span class="event-badge">OSOBA</span>
                         </span>
                         <span class="event-meta">90 min • Indywidualna sesja 1:1</span>
@@ -357,7 +347,8 @@
 
                     <button class="event-type-btn" id="btn-opt2" type="button" onclick="switchBookingTab('kariera')">
                         <span class="event-name">
-                            Mentoring kariery
+                            <span class="label-full">Mentoring kariery</span>
+                            <span class="label-short">Kariera</span>
                             <span class="event-badge">OSOBA</span>
                         </span>
                         <span class="event-meta">90 min • Indywidualna sesja 1:1</span>
@@ -365,7 +356,8 @@
 
                     <button class="event-type-btn" id="btn-opt3" type="button" onclick="switchBookingTab('warsztaty')">
                         <span class="event-name">
-                            Warsztaty AI
+                            <span class="label-full">Warsztaty AI</span>
+                            <span class="label-short">Warsztaty</span>
                             <span class="event-badge">GRUPA</span>
                         </span>
                         <span class="event-meta">6 spotkań × 2h • Grupa warsztatowa</span>

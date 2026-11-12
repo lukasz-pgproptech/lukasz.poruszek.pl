@@ -208,10 +208,12 @@ const server = http.createServer((req, res) => {
   // -------------------------------------------------------------
   // API: WYSZUKIWANIE DANYCH FIRMY PO NIP (Biała Lista VAT MF)
   // -------------------------------------------------------------
-  if (req.method === 'GET' && reqPath === '/api/nip-lookup') {
+  if (req.method === 'GET' && (reqPath === '/api/nip-lookup' || reqPath.startsWith('/api/nip/'))) {
     const urlObj = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
-    const rawNip = urlObj.searchParams.get('nip') || '';
-    const cleanNip = rawNip.replace(/\D/g, '');
+    const rawNip = reqPath === '/api/nip-lookup'
+      ? (urlObj.searchParams.get('nip') || '')
+      : reqPath.replace('/api/nip/', '');
+    const cleanNip = String(rawNip).replace(/\D/g, '');
 
     if (cleanNip.length !== 10) {
       res.writeHead(400, { 'Content-Type': 'application/json' });
@@ -600,12 +602,20 @@ const server = http.createServer((req, res) => {
           invoiceNumber: invoice.invoiceNumber,
           invoiceUrl: `/api/invoices/${invoice.id}`,
           isProforma: true,
+          invoice: {
+            invoiceId: invoice.id,
+            invoiceNumber: invoice.invoiceNumber,
+            downloadUrl: `/api/invoices/${invoice.id}`
+          },
           transfer: {
             recipient: recipientName,
             recipientShort: recipientShort,
+            account: formattedAccount,
             accountFormatted: formattedAccount,
             accountRaw: rawAccount,
+            rawAccount: rawAccount,
             title: transferTitle,
+            amount: finalPricePln,
             amountPln: finalPricePln,
             amountFormatted: `${finalPricePln.toLocaleString('pl-PL')} PLN`,
             nip: '7963033913',
@@ -782,13 +792,21 @@ const server = http.createServer((req, res) => {
           invoiceNumber: invoice.invoiceNumber,
           invoiceUrl: `/api/invoices/${invoice.id}`,
           isProforma: true,
+          invoice: {
+            invoiceId: invoice.id,
+            invoiceNumber: invoice.invoiceNumber,
+            downloadUrl: `/api/invoices/${invoice.id}`
+          },
           slot: bookResult.slot,
           transfer: {
             recipient: recipientName,
             recipientShort: recipientShort,
+            account: formattedAccount,
             accountFormatted: formattedAccount,
             accountRaw: rawAccount,
+            rawAccount: rawAccount,
             title: transferTitle,
+            amount: finalPricePln,
             amountPln: finalPricePln,
             amountFormatted: `${finalPricePln.toLocaleString('pl-PL')} PLN`,
             nip: '7963033913',
@@ -808,7 +826,9 @@ const server = http.createServer((req, res) => {
   // -------------------------------------------------------------
   // API: LISTA REZERWOWA / WŁASNA PROPOZYCJA TERMINU -> ZAPIS + RESEND EMAIL
   // -------------------------------------------------------------
-  if (req.method === 'POST' && reqPath === '/api/waitlist') {
+  // API: PROPOZYCJA TERMINU LUB ZAPIS NA LISTĘ OCZEKUJĄCYCH
+  // -------------------------------------------------------------
+  if (req.method === 'POST' && (reqPath === '/api/waitlist' || reqPath === '/api/propose-slot')) {
     let body = '';
     req.on('data', chunk => body += chunk);
     req.on('end', async () => {
@@ -822,7 +842,7 @@ const server = http.createServer((req, res) => {
           return;
         }
 
-        const isCustomProposal = Boolean(isProposal || (month && month.toLowerCase().includes('grudzień')));
+        const isCustomProposal = Boolean(reqPath === '/api/propose-slot' || isProposal || (month && month.toLowerCase().includes('grudzień')));
 
         // 1. Zapis lokalny do pliku JSON
         saveJsonData('waitlist.json', {

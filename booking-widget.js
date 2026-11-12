@@ -572,9 +572,19 @@
       .catch(() => {});
   } catch (e) {}
 
+  function escapeHtml(str) {
+    if (str === null || str === undefined) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
+
   // Pomocnicza funkcja kopiowania do schowka
   window.copyTransferText = function (btn, text) {
-    if (!text) return;
+    if (!text || text === 'undefined' || text === 'null') return;
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(text).then(() => {
         const orig = btn.textContent;
@@ -973,7 +983,10 @@
 
       nipDebounceTimer = setTimeout(async () => {
         try {
-          const res = await fetch(`/api/nip-lookup?nip=${encodeURIComponent(cleanNip)}`);
+          let res = await fetch(`/api/nip-lookup?nip=${encodeURIComponent(cleanNip)}`);
+          if (res.status === 404) {
+            res = await fetch(`/api/nip/${encodeURIComponent(cleanNip)}`);
+          }
           const data = await res.json();
           if (spinner) spinner.style.display = 'none';
 
@@ -1183,41 +1196,51 @@
               }
             }
 
+            // W-11: Bezpieczne mapowanie danych z eliminacją wartości undefined
+            const invoiceNum = data.invoiceNumber || (data.invoice && data.invoice.invoiceNumber) || 'Proforma';
+            const invoiceDownloadUrl = data.invoiceUrl || (data.invoice && (data.invoice.downloadUrl || data.invoice.invoiceUrl)) || '';
+            const transfer = data.transfer || {};
+            const accountFormatted = transfer.accountFormatted || transfer.account || '46 1140 2004 0000 3902 8547 5429';
+            const accountRaw = transfer.accountRaw || transfer.rawAccount || '46114020040000390285475429';
+            const recipient = transfer.recipient || 'POLSKA GRUPA PROPTECH SP. Z O.O.';
+            const transferTitle = transfer.title || `${itemTitle} ${invoiceNum}`;
+            const amountFormatted = transfer.amountFormatted || `${transfer.amount !== undefined ? Number(transfer.amount).toFixed(2) : (data.amountPln !== undefined ? Number(data.amountPln).toFixed(2) : '')} PLN`;
+
             paymentBox.innerHTML = `
               <div class="transfer-status-pill">✓ Miejsce wstępnie zablokowane na 24h</div>
               <div class="transfer-greeting-text">
-                Dziękujemy, <strong>${name}</strong>!<br>
-                Rezerwacja ${itemTitle} została zarejestrowana (nr <strong>${data.invoiceNumber}</strong>).
+                Dziękujemy, <strong>${escapeHtml(name)}</strong>!<br>
+                Rezerwacja ${escapeHtml(itemTitle)} została zarejestrowana (nr <strong>${escapeHtml(invoiceNum)}</strong>).
               </div>
 
               <div class="bank-transfer-card">
                 <div class="transfer-amount-row">
                   <span class="transfer-amount-label">Kwota do zapłaty:</span>
-                  <span class="transfer-amount-val">${data.transfer.amountFormatted}</span>
+                  <span class="transfer-amount-val">${escapeHtml(amountFormatted)}</span>
                 </div>
 
                 <div class="transfer-fields-list">
                   <div class="transfer-field-item">
                     <span class="transfer-field-label">Numer rachunku bankowego:</span>
                     <div class="transfer-field-val-row">
-                      <span class="transfer-field-val">${data.transfer.accountFormatted}</span>
-                      <button type="button" class="btn-copy-transfer" onclick="copyTransferText(this, '${data.transfer.accountRaw}')">Kopiuj</button>
+                      <span class="transfer-field-val">${escapeHtml(accountFormatted)}</span>
+                      <button type="button" class="btn-copy-transfer" onclick="copyTransferText(this, '${escapeHtml(accountRaw)}')">Kopiuj</button>
                     </div>
                   </div>
 
                   <div class="transfer-field-item">
                     <span class="transfer-field-label">Odbiorca:</span>
                     <div class="transfer-field-val-row">
-                      <span class="transfer-field-val" style="font-family: inherit; font-size: 11px;">${data.transfer.recipient}</span>
-                      <button type="button" class="btn-copy-transfer" onclick="copyTransferText(this, '${data.transfer.recipient}')">Kopiuj</button>
+                      <span class="transfer-field-val" style="font-family: inherit; font-size: 11px;">${escapeHtml(recipient)}</span>
+                      <button type="button" class="btn-copy-transfer" onclick="copyTransferText(this, '${escapeHtml(recipient)}')">Kopiuj</button>
                     </div>
                   </div>
 
                   <div class="transfer-field-item">
                     <span class="transfer-field-label">Tytuł przelewu:</span>
                     <div class="transfer-field-val-row">
-                      <span class="transfer-field-val">${data.transfer.title}</span>
-                      <button type="button" class="btn-copy-transfer" onclick="copyTransferText(this, '${data.transfer.title}')">Kopiuj</button>
+                      <span class="transfer-field-val">${escapeHtml(transferTitle)}</span>
+                      <button type="button" class="btn-copy-transfer" onclick="copyTransferText(this, '${escapeHtml(transferTitle)}')">Kopiuj</button>
                     </div>
                   </div>
                 </div>
@@ -1226,13 +1249,13 @@
               </div>
 
               <div style="margin-top: 10px; display: flex; flex-direction: column; gap: 6px;">
-                ${data.invoiceUrl ? `
-                  <a href="${data.invoiceUrl}" target="_blank" class="invoice-download-btn">
-                    📄 Pobierz Fakturę Proforma (${data.invoiceNumber || 'Proforma'})
+                ${invoiceDownloadUrl ? `
+                  <a href="${escapeHtml(invoiceDownloadUrl)}" target="_blank" class="invoice-download-btn">
+                    📄 Pobierz Fakturę Proforma (${escapeHtml(invoiceNum)})
                   </a>
                 ` : ''}
                 <div class="transfer-subnote-text">
-                  Potwierdzenie rezerwacji zostało wysłane na <strong>${finalEmail}</strong>.<br>
+                  Potwierdzenie rezerwacji zostało wysłane na <strong>${escapeHtml(finalEmail)}</strong>.<br>
                   Po zaksięgowaniu wpłaty dokument zostanie przekształcony w e-Fakturę VAT KSeF.
                 </div>
               </div>
@@ -1277,7 +1300,8 @@
 
     try {
       const titleEl = document.getElementById('mentoring-active-title');
-      await fetch('/api/waitlist', {
+      const endpoint = isProposal ? '/api/propose-slot' : '/api/waitlist';
+      await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -1309,6 +1333,11 @@
   window.openBookingModal = function (tab) {
     const overlay = document.getElementById('booking-modal-overlay');
     if (!overlay) return;
+
+    // W-07 / TASK-13: Oszczędzanie GPU - wstrzymanie ciężkiego renderowania 3D pod szklanym modalem
+    if (window.appStore && window.appStore.state) {
+      window.appStore.state.isRenderingPaused = true;
+    }
 
     if (window.scrollHandler && window.getSnapPos) {
       try {
@@ -1355,6 +1384,11 @@
       overlay.classList.remove('is-visible');
     }
     isModalOpen = false;
+
+    // Przywrócenie renderowania 3D
+    if (window.appStore && window.appStore.state) {
+      window.appStore.state.isRenderingPaused = false;
+    }
 
     if (window.appStore && window.appStore.state && window.appStore.state.navigation) {
       window.appStore.state.navigation.hotspotDna = false;

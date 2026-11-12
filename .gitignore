@@ -45,3 +45,7 @@ images/
 
 # Tymczasowe
 temp_prism/
+original_wp.js
+*.full-3d-backup
+.wrangler/
+.ignore

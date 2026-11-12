@@ -199,7 +199,8 @@ async function getPublicDecemberSlots(env) {
 
 async function bookMentoringSlot(env, { slotId, name, email, phone, reservationId }) {
   const slots = await loadDecemberSlots(env);
-  const target = slots[slotId];
+  const normalizedId = String(slotId || '').replace(/^(\d{4}-\d{2}-\d{2})[-_](\d{2}:\d{2})$/, '$1_$2');
+  const target = slots[slotId] || slots[normalizedId];
 
   if (!target) {
     return { success: false, error: 'Nie znaleziono wybranego terminu.' };
@@ -257,17 +258,34 @@ async function getNextInvoiceNumber(env) {
   return `LP/${year}/${month}/${seq}`;
 }
 
+export function escapeHtml(str) {
+  if (str === null || str === undefined) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
 export function generateInvoiceHtml(invoice) {
   const { invoiceNumber, issueDate, dueDate, seller, buyer, items, totalNet, totalVat, totalGross, paymentMethod } = invoice;
 
-  const itemsRows = items.map((it, idx) => `
+  const safeBuyerName = escapeHtml(buyer.companyName || buyer.name || '');
+  const safeBuyerNip = escapeHtml(buyer.nip || '');
+  const safeBuyerStreet = escapeHtml(buyer.street || '');
+  const safeBuyerPostalCode = escapeHtml(buyer.postalCode || '');
+  const safeBuyerCity = escapeHtml(buyer.city || '');
+  const safeBuyerEmail = escapeHtml(buyer.email || '');
+
+  const itemsRows = (items || []).map((it, idx) => `
     <tr>
       <td style="padding: 10px; border-bottom: 1px solid #e2e8f0; font-size: 13px;">${idx + 1}</td>
       <td style="padding: 10px; border-bottom: 1px solid #e2e8f0; font-size: 13px;">
-        <strong>${it.name}</strong>
-        ${it.description ? `<div style="font-size: 11px; color: #64748b; margin-top: 3px;">${it.description}</div>` : ''}
+        <strong>${escapeHtml(it.name)}</strong>
+        ${it.description ? `<div style="font-size: 11px; color: #64748b; margin-top: 3px;">${escapeHtml(it.description)}</div>` : ''}
       </td>
-      <td style="padding: 10px; border-bottom: 1px solid #e2e8f0; font-size: 13px; text-align: center;">${it.quantity} ${it.unit || 'szt.'}</td>
+      <td style="padding: 10px; border-bottom: 1px solid #e2e8f0; font-size: 13px; text-align: center;">${it.quantity} ${escapeHtml(it.unit || 'szt.')}</td>
       <td style="padding: 10px; border-bottom: 1px solid #e2e8f0; font-size: 13px; text-align: right;">${Number(it.unitPriceNet).toFixed(2)} PLN</td>
       <td style="padding: 10px; border-bottom: 1px solid #e2e8f0; font-size: 13px; text-align: right;">${Number(it.netAmount).toFixed(2)} PLN</td>
       <td style="padding: 10px; border-bottom: 1px solid #e2e8f0; font-size: 13px; text-align: center;">${it.vatRate}%</td>
@@ -280,7 +298,8 @@ export function generateInvoiceHtml(invoice) {
 <html lang="pl">
 <head>
   <meta charset="utf-8">
-  <title>FAKTURA PROFORMA ${invoiceNumber}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAKTURA PROFORMA ${escapeHtml(invoiceNumber)}</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: #0f172a; background: #f8fafc; padding: 40px 20px; }
@@ -293,7 +312,8 @@ export function generateInvoiceHtml(invoice) {
     .party-col h4 { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: #64748b; margin-bottom: 8px; border-bottom: 1px solid #e2e8f0; padding-bottom: 4px; }
     .party-name { font-size: 14px; font-weight: 700; color: #0f172a; margin-bottom: 4px; }
     .party-details { font-size: 12px; color: #475569; line-height: 1.6; }
-    .table-wrap { width: 100%; border-collapse: collapse; margin-bottom: 32px; }
+    .table-container { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 32px; }
+    .table-wrap { width: 100%; min-width: 620px; border-collapse: collapse; }
     .table-wrap th { background: #f1f5f9; padding: 10px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: #475569; text-align: left; }
     .totals-box { margin-left: auto; width: 320px; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; background: #f8fafc; margin-bottom: 32px; }
     .total-row { display: flex; justify-content: space-between; font-size: 12px; color: #475569; margin-bottom: 6px; }
@@ -301,6 +321,14 @@ export function generateInvoiceHtml(invoice) {
     .payment-box { background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; padding: 18px; font-size: 12px; line-height: 1.6; color: #1e293b; }
     .payment-title { font-weight: 700; text-transform: uppercase; font-size: 11px; letter-spacing: 0.05em; color: #0f172a; margin-bottom: 6px; }
     .inv-footer { margin-top: 40px; text-align: center; font-size: 11px; color: #94a3b8; border-top: 1px solid #f1f5f9; padding-top: 20px; }
+    @media (max-width: 640px) {
+      body { padding: 12px 8px; }
+      .invoice-card { padding: 20px 14px; border-radius: 8px; }
+      .inv-header { flex-direction: column; gap: 14px; }
+      .inv-dates { text-align: left; }
+      .parties-grid { grid-template-columns: 1fr; gap: 20px; }
+      .totals-box { width: 100%; margin-left: 0; }
+    }
     @media print { body { background: #ffffff; padding: 0; } .invoice-card { border: none; box-shadow: none; padding: 0; } }
   </style>
 </head>
@@ -309,55 +337,57 @@ export function generateInvoiceHtml(invoice) {
     <div class="inv-header">
       <div>
         <h1 class="inv-title">FAKTURA PROFORMA</h1>
-        <div class="inv-number">Numer: ${invoiceNumber}</div>
+        <div class="inv-number">Numer: ${escapeHtml(invoiceNumber)}</div>
       </div>
       <div class="inv-dates">
-        <div><strong>Data wystawienia:</strong> ${issueDate}</div>
-        <div><strong>Termin płatności:</strong> ${dueDate}</div>
-        <div><strong>Metoda płatności:</strong> ${paymentMethod || 'Przelew bankowy'}</div>
+        <div><strong>Data wystawienia:</strong> ${escapeHtml(issueDate)}</div>
+        <div><strong>Termin płatności:</strong> ${escapeHtml(dueDate)}</div>
+        <div><strong>Metoda płatności:</strong> ${escapeHtml(paymentMethod || 'Przelew bankowy')}</div>
       </div>
     </div>
 
     <div class="parties-grid">
       <div class="party-col">
         <h4>Sprzedawca</h4>
-        <div class="party-name">${seller.name}</div>
+        <div class="party-name">${escapeHtml(seller.name)}</div>
         <div class="party-details">
-          NIP: <strong>${seller.nip}</strong><br>
-          ${seller.street}<br>
-          ${seller.postalCode} ${seller.city}<br>
-          KRS: ${seller.krs || '-'} • REGON: ${seller.regon || '-'}
+          NIP: <strong>${escapeHtml(seller.nip)}</strong><br>
+          ${escapeHtml(seller.street)}<br>
+          ${escapeHtml(seller.postalCode)} ${escapeHtml(seller.city)}<br>
+          KRS: ${escapeHtml(seller.krs || '-')} • REGON: ${escapeHtml(seller.regon || '-')}
         </div>
       </div>
       <div class="party-col">
         <h4>Nabywca</h4>
-        <div class="party-name">${buyer.companyName || buyer.name}</div>
+        <div class="party-name">${safeBuyerName}</div>
         <div class="party-details">
-          ${buyer.nip ? `NIP: <strong>${buyer.nip}</strong><br>` : ''}
-          ${buyer.street || ''}<br>
-          ${buyer.postalCode || ''} ${buyer.city || ''}<br>
-          E-mail: ${buyer.email || '-'}
+          ${safeBuyerNip ? `NIP: <strong>${safeBuyerNip}</strong><br>` : ''}
+          ${safeBuyerStreet ? `${safeBuyerStreet}<br>` : ''}
+          ${safeBuyerPostalCode || safeBuyerCity ? `${safeBuyerPostalCode} ${safeBuyerCity}<br>` : ''}
+          E-mail: ${safeBuyerEmail || '-'}
         </div>
       </div>
     </div>
 
-    <table class="table-wrap">
-      <thead>
-        <tr>
-          <th>Lp.</th>
-          <th>Nazwa usługi</th>
-          <th style="text-align: center;">Ilość</th>
-          <th style="text-align: right;">Cena netto</th>
-          <th style="text-align: right;">Wartość netto</th>
-          <th style="text-align: center;">VAT</th>
-          <th style="text-align: right;">Kwota VAT</th>
-          <th style="text-align: right;">Wartość brutto</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${itemsRows}
-      </tbody>
-    </table>
+    <div class="table-container">
+      <table class="table-wrap">
+        <thead>
+          <tr>
+            <th>Lp.</th>
+            <th>Nazwa usługi</th>
+            <th style="text-align: center;">Ilość</th>
+            <th style="text-align: right;">Cena netto</th>
+            <th style="text-align: right;">Wartość netto</th>
+            <th style="text-align: center;">VAT</th>
+            <th style="text-align: right;">Kwota VAT</th>
+            <th style="text-align: right;">Wartość brutto</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${itemsRows}
+        </tbody>
+      </table>
+    </div>
 
     <div class="totals-box">
       <div class="total-row"><span>Suma netto:</span><span>${Number(totalNet).toFixed(2)} PLN</span></div>
@@ -367,9 +397,9 @@ export function generateInvoiceHtml(invoice) {
 
     <div class="payment-box">
       <div class="payment-title">Dane do płatności przelewem bankowym</div>
-      <div>Odbiorca: <strong>${seller.name}</strong></div>
-      <div>Numer rachunku: <strong>${seller.bankAccount}</strong></div>
-      <div>Tytuł przelewu: <strong>${invoice.transferTitle || `Proforma ${invoiceNumber}`}</strong></div>
+      <div>Odbiorca: <strong>${escapeHtml(seller.name)}</strong></div>
+      <div>Numer rachunku: <strong>${escapeHtml(seller.bankAccount)}</strong></div>
+      <div>Tytuł przelewu: <strong>${escapeHtml(invoice.transferTitle || `Proforma ${invoiceNumber}`)}</strong></div>
       <div>Kwota: <strong>${Number(totalGross).toFixed(2)} PLN</strong></div>
     </div>
 
@@ -393,8 +423,8 @@ async function sendReservationEmail({ to, name, group, amountPln, invoiceNumber,
   const emailHtml = `
     <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; color: #0f172a;">
       <h2 style="color: #0f172a; margin-top: 0;">Dziękujemy za rezerwację!</h2>
-      <p>Cześć <strong>${name}</strong>,</p>
-      <p>Twoja rezerwacja na <strong>${group}</strong> została pomyślnie zarejestrowana.</p>
+      <p>Cześć <strong>${escapeHtml(name)}</strong>,</p>
+      <p>Twoja rezerwacja na <strong>${escapeHtml(group)}</strong> została pomyślnie zarejestrowana.</p>
 
       ${isZeroPayment ? `
         <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 16px; margin: 20px 0;">
@@ -476,7 +506,16 @@ export default {
       return new Response(null, { status: 204, headers: corsHeaders() });
     }
 
-    // 1. GET /api/mentoring-slots
+    // 1. GET /api/payment-config
+    if (request.method === 'GET' && path === '/api/payment-config') {
+      return json({
+        success: true,
+        mode: 'bank_transfer',
+        blikSupported: true
+      });
+    }
+
+    // 2. GET /api/mentoring-slots
     if (request.method === 'GET' && path === '/api/mentoring-slots') {
       const publicSlots = await getPublicDecemberSlots(env);
       return json({
@@ -487,9 +526,12 @@ export default {
       });
     }
 
-    // 2. GET /api/nip/:nip
-    if (request.method === 'GET' && path.startsWith('/api/nip/')) {
-      const nip = path.replace('/api/nip/', '').replace(/\D/g, '');
+    // 3. GET /api/nip/:nip oraz GET /api/nip-lookup?nip=...
+    if (request.method === 'GET' && (path.startsWith('/api/nip/') || path === '/api/nip-lookup')) {
+      const rawNip = path === '/api/nip-lookup'
+        ? (url.searchParams.get('nip') || '')
+        : path.replace('/api/nip/', '');
+      const nip = String(rawNip).replace(/\D/g, '');
       if (nip.length !== 10) {
         return json({ success: false, error: 'Nieprawidłowy NIP. Wymagane 10 cyfr.' }, 400);
       }
@@ -674,6 +716,8 @@ export default {
         success: true,
         paymentMode: 'bank_transfer',
         amountPln: finalPricePln,
+        invoiceNumber,
+        invoiceUrl: `/api/invoices/${invoiceId}`,
         invoice: {
           invoiceId,
           invoiceNumber,
@@ -683,6 +727,8 @@ export default {
           recipient: recipientName,
           recipientShort,
           account: SELLER_DATA.bankAccount,
+          accountFormatted: SELLER_DATA.bankAccount,
+          accountRaw: rawAccount,
           rawAccount,
           title: transferTitle,
           amount: finalPricePln,
@@ -817,6 +863,8 @@ export default {
         paymentMode: 'bank_transfer',
         amountPln: finalPricePln,
         replenishedSlotId: bookRes.replenishedSlotId,
+        invoiceNumber,
+        invoiceUrl: `/api/invoices/${invoiceId}`,
         invoice: {
           invoiceId,
           invoiceNumber,
@@ -826,6 +874,8 @@ export default {
           recipient: recipientName,
           recipientShort,
           account: SELLER_DATA.bankAccount,
+          accountFormatted: SELLER_DATA.bankAccount,
+          accountRaw: rawAccount,
           rawAccount,
           title: transferTitle,
           amount: finalPricePln,
@@ -868,14 +918,14 @@ export default {
             body: JSON.stringify({
               from: 'Łukasz Poruszek <kontakt@poruszek.pl>',
               to: [ADMIN_EMAIL],
-              subject: `[Propozycja terminu] Nowe zgłoszenie od ${email}`,
+              subject: `[Propozycja terminu] Nowe zgłoszenie od ${escapeHtml(email)}`,
               html: `
                 <h3>Nowa propozycja terminu mentoringu</h3>
-                <p><strong>E-mail:</strong> ${email}</p>
-                <p><strong>Typ:</strong> ${type || 'Mentoring'}</p>
-                <p><strong>Miesiąc:</strong> ${month || '2026-12'}</p>
+                <p><strong>E-mail:</strong> ${escapeHtml(email)}</p>
+                <p><strong>Typ:</strong> ${escapeHtml(type || 'Mentoring')}</p>
+                <p><strong>Miesiąc:</strong> ${escapeHtml(month || '2026-12')}</p>
                 <p><strong>Proponowany termin / Notatka:</strong></p>
-                <blockquote style="background:#f1f5f9;padding:12px;border-left:4px solid #0f172a;">${note || 'Brak dodatkowej notatki'}</blockquote>
+                <blockquote style="background:#f1f5f9;padding:12px;border-left:4px solid #0f172a;">${escapeHtml(note || 'Brak dodatkowej notatki')}</blockquote>
               `
             })
           });

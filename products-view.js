@@ -465,8 +465,8 @@
           s2.hotspot.object.scale.set(1.25, 1.25, 1.25);
         }
 
-        // Płynny ślizg widżetu 3D do wycentrowanego gniazda osi roadmapy
-        const targetY = -245;
+        // Płynny ślizg widżetu 3D do wycentrowanego gniazda osi roadmapy (relatywny na mobile)
+        const targetY = window.innerHeight < 768 ? Math.round(-0.28 * window.innerHeight) : -245;
         animateHotspotTo(0, targetY, 380);
       }
     } catch (e) {}
@@ -606,6 +606,7 @@
   function initProductsView() {
     const container = document.getElementById('products-view-container');
     if (!container) return;
+    setSectionState(false);
 
     const items = container.querySelectorAll('.product-item');
     const editorialWrap = document.getElementById('detailEditorial');
@@ -933,11 +934,17 @@
 
     if (active) {
       container.classList.add('is-active');
+      container.style.opacity = '1';
+      container.style.visibility = 'visible';
+      container.style.pointerEvents = 'auto';
       isSectionActive = true;
       window.isSection2Active = true;
       hideWebGLScene2FallbackText();
     } else {
       container.classList.remove('is-active');
+      container.style.opacity = '0';
+      container.style.visibility = 'hidden';
+      container.style.pointerEvents = 'none';
       isSectionActive = false;
       window.isSection2Active = false;
     }
@@ -979,12 +986,46 @@
         window.view.sideNav.props.active = false;
       }
 
-      if (window.scrollHandler && window.getSnapPos) {
+      // W-03: Wykrywanie pozycji ze scrollHandler, swipeHandler lub appStore (brak window.scrollHandler na mobile)
+      let cur = null;
+      if (window.scrollHandler) {
+        try {
+          cur = (typeof window.scrollHandler.getScrollPosition === 'function')
+            ? window.scrollHandler.getScrollPosition()
+            : (window.scrollHandler.position !== undefined ? window.scrollHandler.position : null);
+        } catch (e) {}
+      }
+      if (cur === null && window.swipeHandler) {
+        try {
+          cur = (typeof window.swipeHandler.getScrollPosition === 'function')
+            ? window.swipeHandler.getScrollPosition()
+            : (window.swipeHandler.position !== undefined ? window.swipeHandler.position : null);
+        } catch (e) {}
+      }
+      if (cur === null && window.appStore && window.appStore.state && window.appStore.state.scroll) {
+        cur = window.appStore.state.scroll.position !== undefined ? window.appStore.state.scroll.position : null;
+      }
+
+      // Sprawdzenie stanu bieżącej sekcji i podsekcji z appStore
+      const appState = window.appStore && window.appStore.state ? window.appStore.state : null;
+      const currentSection = appState
+        ? (appState.currentSection || (appState.navigation && appState.navigation.currentSection))
+        : null;
+      const currentSubSection = appState ? appState.currentSubSection : null;
+
+      // W-03: Krystaliczna Macierz (Scena 2) to sekcja 'science' z podsekcją 'data'.
+      // Helisa DNA (Scena 1) to 'dna', a Scena 0 to 'landing'/'hero'.
+      if (currentSubSection === 'data') {
+        if (!isSectionActive) {
+          setSectionState(true);
+        }
+      } else if (currentSubSection === 'dna' || currentSection === 'landing' || currentSection === 'hero') {
+        if (isSectionActive) {
+          setSectionState(false);
+        }
+      } else if (cur !== null && window.getSnapPos) {
         try {
           const snap = window.getSnapPos('science', 'data');
-          const cur = (typeof window.scrollHandler.getScrollPosition === 'function')
-            ? window.scrollHandler.getScrollPosition()
-            : (window.scrollHandler.position !== undefined ? window.scrollHandler.position : (window.appStore && window.appStore.state && window.appStore.state.scroll ? window.appStore.state.scroll.position : 0));
           const isInRange = Math.abs(cur - snap) < 380;
           if (isInRange && !isSectionActive) {
             setSectionState(true);
@@ -992,7 +1033,10 @@
             setSectionState(false);
           }
         } catch (e) {}
+      } else if (!window.scrollHandler && !window.swipeHandler && !window.isSection2Active && isSectionActive) {
+        setSectionState(false);
       }
+
       requestAnimationFrame(checkState);
     }
     requestAnimationFrame(checkState);

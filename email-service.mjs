@@ -8,6 +8,7 @@ import util from 'node:util';
 import fs from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';
+import { escapeHtml } from './ksef-client.mjs';
 
 const execPromise = util.promisify(exec);
 
@@ -122,30 +123,30 @@ export async function sendReservationEmail({
   <div class="email-container">
     <div class="email-header">
       <h1>Warsztaty Praktycznego AI</h1>
-      <p>Potwierdzenie rezerwacji miejsca • ${group}</p>
+      <p>Potwierdzenie rezerwacji miejsca • ${escapeHtml(group)}</p>
     </div>
 
     <div class="email-body">
-      <div class="greeting">Dzień dobry ${name},</div>
+      <div class="greeting">Dzień dobry ${escapeHtml(name)},</div>
 
       <div class="intro-text">
-        Dziękuję za zgłoszenie na warsztaty. Twoja wstępna rezerwacja została zarejestrowana pod numerem <strong>${invoiceNumber}</strong>. 
+        Dziękuję za zgłoszenie na warsztaty. Twoja wstępna rezerwacja została zarejestrowana pod numerem <strong>${escapeHtml(invoiceNumber)}</strong>. 
         Poniżej znajdziesz podsumowanie rezerwacji oraz dane niezbędne do realizacji płatności.
       </div>
 
       <table class="details-table">
         <tr>
           <td class="td-label">Wybrany cykl:</td>
-          <td class="td-val">${group}</td>
+          <td class="td-val">${escapeHtml(group)}</td>
         </tr>
         <tr>
           <td class="td-label">Uczestnik / Dane:</td>
-          <td class="td-val">${name} (${to})</td>
+          <td class="td-val">${escapeHtml(name)} (${escapeHtml(to)})</td>
         </tr>
         ${buyer && buyer.nip ? `
         <tr>
           <td class="td-label">NIP nabywcy:</td>
-          <td class="td-val">${buyer.nip}</td>
+          <td class="td-val">${escapeHtml(buyer.nip)}</td>
         </tr>
         ` : ''}
         <tr>
@@ -159,19 +160,19 @@ export async function sendReservationEmail({
         <div class="payment-box-title">💳 Dane do przelewu bankowego (Termin: 24h)</div>
         <div class="payment-row">
           <span class="payment-label">Numer rachunku:</span>
-          <span class="payment-val">${transfer.accountFormatted}</span>
+          <span class="payment-val">${escapeHtml(transfer.accountFormatted)}</span>
         </div>
         <div class="payment-row">
           <span class="payment-label">Odbiorca:</span>
-          <span class="payment-val">${transfer.recipient}</span>
+          <span class="payment-val">${escapeHtml(transfer.recipient)}</span>
         </div>
         <div class="payment-row">
           <span class="payment-label">Tytuł przelewu:</span>
-          <span class="payment-val">${transfer.title}</span>
+          <span class="payment-val">${escapeHtml(transfer.title)}</span>
         </div>
         <div class="payment-row">
           <span class="payment-label">Kwota:</span>
-          <span class="payment-val">${transfer.amountFormatted}</span>
+          <span class="payment-val">${escapeHtml(transfer.amountFormatted)}</span>
         </div>
       </div>
       ` : ''}
@@ -252,19 +253,19 @@ export async function sendWaitlistNotificationEmail({ email, note, type, month, 
     <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
       <tr>
         <td style="padding: 8px 0; color: #64748b; width: 35%; font-size: 13px;">Adres e-mail:</td>
-        <td style="padding: 8px 0; font-weight: 700; color: #0f172a; font-size: 13px;"><a href="mailto:${email}">${email}</a></td>
+        <td style="padding: 8px 0; font-weight: 700; color: #0f172a; font-size: 13px;"><a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a></td>
       </tr>
       <tr>
         <td style="padding: 8px 0; color: #64748b; font-size: 13px;">Typ konsultacji:</td>
-        <td style="padding: 8px 0; font-weight: 700; color: #0f172a; font-size: 13px;">${type}</td>
+        <td style="padding: 8px 0; font-weight: 700; color: #0f172a; font-size: 13px;">${escapeHtml(type)}</td>
       </tr>
       <tr>
         <td style="padding: 8px 0; color: #64748b; font-size: 13px;">Miesiąc:</td>
-        <td style="padding: 8px 0; font-weight: 700; color: #0f172a; font-size: 13px;">${month}</td>
+        <td style="padding: 8px 0; font-weight: 700; color: #0f172a; font-size: 13px;">${escapeHtml(month)}</td>
       </tr>
       <tr>
         <td style="padding: 8px 0; color: #64748b; vertical-align: top; font-size: 13px;">Wiadomość / Propozycja:</td>
-        <td style="padding: 8px 0; color: #0f172a; font-size: 13px; line-height: 1.5;">${note ? String(note).replace(/\n/g, '<br>') : '<em>Brak dodatkowej notatki</em>'}</td>
+        <td style="padding: 8px 0; color: #0f172a; font-size: 13px; line-height: 1.5;">${note ? escapeHtml(note).replace(/\n/g, '<br>') : '<em>Brak dodatkowej notatki</em>'}</td>
       </tr>
     </table>
 
