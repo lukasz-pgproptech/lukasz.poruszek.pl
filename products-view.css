@@ -14,10 +14,11 @@
   --mouse-y: 0;
 }
 
-/* W-02: Ukrycie usuniętych rozdziałów (CHAPTER 1, 2, 3) w menu mobilnym */
+/* W-02: Ukrycie usuniętych rozdziałów (CHAPTER 1, 2, 3) oraz nagłówka w menu mobilnym */
 .menu__navList,
 .menu__navListItem,
-.menu__left {
+.menu__left,
+.menu__header {
   display: none !important;
   visibility: hidden !important;
   pointer-events: none !important;
@@ -357,12 +358,30 @@ body.is-modal-open #products-view-container,
    RESPONSYWNOŚĆ (TABLETY I MOBILE)
    ------------------------------------------------------------- */
 @media (max-width: 1024px) {
+  .products-view-container {
+    pointer-events: none !important;
+  }
+
   .scene-container {
     grid-template-columns: 1fr;
     gap: 36px;
     padding-top: 80px;
     padding-bottom: 60px;
     overflow-y: auto;
+    pointer-events: none !important;
+  }
+
+  .left-column {
+    pointer-events: none !important;
+  }
+
+  .right-column {
+    padding-bottom: 40px;
+    pointer-events: none !important;
+  }
+
+  .product-item {
+    pointer-events: auto !important;
   }
   
   .headline {
@@ -371,10 +390,6 @@ body.is-modal-open #products-view-container,
   
   .detail-title {
     font-size: clamp(26px, 4.5vw, 40px);
-  }
-  
-  .right-column {
-    padding-bottom: 40px;
   }
 }
 

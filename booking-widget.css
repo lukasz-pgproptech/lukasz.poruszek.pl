@@ -49,12 +49,24 @@
 /* W-02: Ukrycie usuniętych rozdziałów (CHAPTER 1, 2, 3) w menu mobilnym */
 .menu__navList,
 .menu__navListItem,
+.menu__header,
 .menu__left,
 .menu__cortevaLogo,
 .cortevaLogo,
 .legal__cortevaLogo,
 .menu__social {
     display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+
+/* Ukrycie hamburgera podczas otwartego modalu rezerwacji na telefonie i desktopie */
+body.is-modal-open .menuBtn,
+body.is-modal-open .menuBtn__line,
+.booking-modal-overlay.is-visible ~ .menuBtn,
+body:has(.booking-modal-overlay.is-visible) .menuBtn {
+    display: none !important;
+    opacity: 0 !important;
     visibility: hidden !important;
     pointer-events: none !important;
 }

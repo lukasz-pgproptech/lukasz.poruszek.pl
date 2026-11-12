@@ -490,16 +490,16 @@
     },
     january: {
       name: 'Grupa styczniowa',
-      label: 'Grupa styczniowa (start 5.01.2027, 19:00)',
+      label: 'Grupa styczniowa (start 12.01.2027, 19:00)',
       scheduleTitle: 'Harmonogram cyklu (wtorki 19:00 – 21:00)',
       status: 'Status: Zapisy otwarte',
       sessions: [
-        { num: '01', date: '5 stycznia 2027', time: '19:00 – 21:00 (Start cyklu)' },
-        { num: '02', date: '12 stycznia 2027', time: '19:00 – 21:00' },
-        { num: '03', date: '19 stycznia 2027', time: '19:00 – 21:00' },
-        { num: '04', date: '26 stycznia 2027', time: '19:00 – 21:00' },
-        { num: '05', date: '2 lutego 2027', time: '19:00 – 21:00' },
-        { num: '06', date: '9 lutego 2027', time: '19:00 – 21:00 (Finał)' }
+        { num: '01', date: '12 stycznia 2027', time: '19:00 – 21:00 (Start cyklu)' },
+        { num: '02', date: '19 stycznia 2027', time: '19:00 – 21:00' },
+        { num: '03', date: '26 stycznia 2027', time: '19:00 – 21:00' },
+        { num: '04', date: '2 lutego 2027', time: '19:00 – 21:00' },
+        { num: '05', date: '9 lutego 2027', time: '19:00 – 21:00' },
+        { num: '06', date: '16 lutego 2027', time: '19:00 – 21:00 (Finał)' }
       ]
     }
   };

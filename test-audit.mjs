@@ -337,6 +337,46 @@ const resWs50 = await workerModule.fetch(reqWs50, mockEnvEdge);
 const dataWs50 = await resWs50.json();
 assert(dataWs50.amountPln === 600 && dataWs50.transfer.amount === 600, '50% coupon correctly computes 600 PLN final price');
 
+console.log('\n=== TEST SUITE 9: User Requests Verification (Schedule, Favicon, Gestures, UI) ===');
+
+// 1. Workshop January Group Schedule
+const bookingJsSuite9 = fs.readFileSync(path.join(__dirname, 'booking-widget.js'), 'utf-8');
+assert(bookingJsSuite9.includes('12.01.2027') && !bookingJsSuite9.includes('05.01.2027'), 'booking-widget.js shifted January group start to 12.01.2027');
+assert(bookingJsSuite9.includes('16 lutego 2027'), 'booking-widget.js January group ends on 16 lutego 2027 (no collision with Dec 5th Jan)');
+
+const indexHtmlSuite9 = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf-8');
+const index3dHtmlSuite9 = fs.readFileSync(path.join(__dirname, 'index.3d.html'), 'utf-8');
+assert(indexHtmlSuite9.includes('start 12.01') && !indexHtmlSuite9.includes('start 05.01'), 'index.html displays January group start 12.01');
+assert(index3dHtmlSuite9.includes('start 12.01') && !index3dHtmlSuite9.includes('start 05.01'), 'index.3d.html displays January group start 12.01');
+
+// 2. Favicon
+assert(fs.existsSync(path.join(__dirname, 'favicon.svg')), 'favicon.svg exists in workspace');
+assert(fs.existsSync(path.join(__dirname, 'favicon.ico')), 'favicon.ico exists in workspace');
+assert(fs.existsSync(path.join(__dirname, 'favicon/favicon-32x32.png')), 'favicon/favicon-32x32.png exists');
+const favSvg = fs.readFileSync(path.join(__dirname, 'favicon.svg'), 'utf-8');
+assert(favSvg.includes('ŁP'), 'favicon.svg contains ŁP monogram');
+assert(indexHtmlSuite9.includes('/favicon.svg'), 'index.html links to /favicon.svg');
+assert(index3dHtmlSuite9.includes('/favicon.svg'), 'index.3d.html links to /favicon.svg');
+
+// 3. Progress Ring removal on mobile
+const mainJsSuite9 = fs.readFileSync(path.join(__dirname, 'main.76ceb4644b28bd9c30b5.js'), 'utf-8');
+assert(mainJsSuite9.includes('progressRing.object.visible=!1'), 'main bundle permanently hides progressRing');
+
+// 4. Explore the Story removal
+assert(mainJsSuite9.includes('"menu-headline":""'), 'main bundle clears "menu-headline" ("Explore the Story" removed)');
+
+const bookingCssSuite9 = fs.readFileSync(path.join(__dirname, 'booking-widget.css'), 'utf-8');
+const productsCssSuite9 = fs.readFileSync(path.join(__dirname, 'products-view.css'), 'utf-8');
+assert(bookingCssSuite9.includes('.menu__header'), 'booking-widget.css hides .menu__header');
+assert(productsCssSuite9.includes('.menu__header'), 'products-view.css hides .menu__header');
+
+// 5. Hide hamburger button on mobile during modal
+assert(bookingCssSuite9.includes('body.is-modal-open .menuBtn'), 'booking-widget.css hides .menuBtn when modal is open');
+
+// 6. Mobile swipe handler on window & scene pointer events
+assert(mainJsSuite9.includes('window.addEventListener("touchstart",this.onTouchStart'), 'main bundle attaches touchstart to window');
+assert(productsCssSuite9.includes('.products-view-container') && productsCssSuite9.includes('pointer-events: none !important'), 'products-view.css frees pointer-events for mobile touch pass-through');
+
 console.log(`\n========================================`);
 console.log(`RESULT: ${passed} PASSED, ${failed} FAILED`);
 console.log(`========================================`);

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0e1411" />
+      <stop offset="100%" stop-color="#020403" />
+    </linearGradient>
+    <linearGradient id="border" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00e599" stop-opacity="0.6" />
+      <stop offset="100%" stop-color="#00e599" stop-opacity="0.1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Base Squircle -->
+  <rect x="2" y="2" width="60" height="60" rx="14" fill="url(#bg)" stroke="url(#border)" stroke-width="2" />
+  
+  <!-- Geometric Brutalist Monogram ŁP -->
+  <!-- Ł: Vertical stem -->
+  <rect x="13" y="16" width="5" height="32" rx="1.5" fill="#ffffff" />
+  <!-- Ł: Bottom horizontal bar -->
+  <rect x="13" y="43" width="14" height="5" rx="1.5" fill="#ffffff" />
+  <!-- Ł: Diagonal cross stroke in emerald neon -->
+  <line x1="10" y1="35" x2="22" y2="27" stroke="#00e599" stroke-width="4" stroke-linecap="round" />
+  
+  <!-- P: Vertical stem -->
+  <rect x="33" y="16" width="5" height="32" rx="1.5" fill="#ffffff" />
+  <!-- P: Upper loop (Geometric brutalist) -->
+  <path d="M 33 16 L 44 16 C 49.5 16 52 19 52 24 C 52 29 49.5 32 44 32 L 33 32 Z" fill="none" stroke="#ffffff" stroke-width="5" stroke-linejoin="round" />
+  
+  <!-- Accent Tech Dot -->
+  <circle cx="48" cy="45" r="2.5" fill="#00e599" />
+</svg>
