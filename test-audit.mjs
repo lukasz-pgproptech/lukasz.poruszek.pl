@@ -377,6 +377,41 @@ assert(bookingCssSuite9.includes('body.is-modal-open .menuBtn'), 'booking-widget
 assert(mainJsSuite9.includes('window.addEventListener("touchstart",this.onTouchStart'), 'main bundle attaches touchstart to window');
 assert(productsCssSuite9.includes('.products-view-container') && productsCssSuite9.includes('pointer-events: none !important'), 'products-view.css frees pointer-events for mobile touch pass-through');
 
+console.log('\n=== TEST SUITE 10: Legal Compliance (Terms of Service, Privacy Policy, Consents) ===');
+
+// 1. Legal files existence
+assert(fs.existsSync(path.join(__dirname, 'legal/regulamin.md')), 'legal/regulamin.md exists');
+assert(fs.existsSync(path.join(__dirname, 'legal/polityka-prywatnosci.md')), 'legal/polityka-prywatnosci.md exists');
+assert(fs.existsSync(path.join(__dirname, 'regulamin.html')), 'regulamin.html exists');
+assert(fs.existsSync(path.join(__dirname, 'polityka-prywatnosci.html')), 'polityka-prywatnosci.html exists');
+
+// 2. Regulamin content checks
+const regulaminMd = fs.readFileSync(path.join(__dirname, 'legal/regulamin.md'), 'utf-8');
+const regulaminHtml = fs.readFileSync(path.join(__dirname, 'regulamin.html'), 'utf-8');
+assert(regulaminMd.includes('POLSKA GRUPA PROPTECH') && regulaminMd.includes('7963033913'), 'legal/regulamin.md specifies seller details (PG Proptech, NIP 7963033913)');
+assert(regulaminMd.includes('KRS: 0000922442'), 'legal/regulamin.md contains KRS: 0000922442');
+assert(regulaminMd.includes('24 godziny przed planowanym rozpoczęciem sesji'), 'legal/regulamin.md specifies 24h free rescheduling for 1:1 mentoring');
+assert(regulaminMd.includes('art. 38 pkt 1 Ustawy o prawach konsumenta'), 'legal/regulamin.md cites consumer withdrawal exemption art. 38');
+assert(regulaminHtml.includes('Polska Grupa Proptech Sp. z o.o.') && regulaminHtml.includes('Regulamin'), 'regulamin.html renders company & title');
+
+// 3. Privacy Policy content checks
+const privacyMd = fs.readFileSync(path.join(__dirname, 'legal/polityka-prywatnosci.md'), 'utf-8');
+const privacyHtml = fs.readFileSync(path.join(__dirname, 'polityka-prywatnosci.html'), 'utf-8');
+assert(privacyMd.includes('RODO') && privacyMd.includes('art. 6 ust. 1 lit. b'), 'legal/polityka-prywatnosci.md cites GDPR legal bases');
+assert(privacyMd.includes('Privacy-First') && privacyMd.includes('Brak inwazyjnych ciasteczek śledzących'), 'legal/polityka-prywatnosci.md explains Privacy-First & Zero Cookie Banner');
+assert(privacyMd.includes('Prezesa Urzędu Ochrony Danych Osobowych'), 'legal/polityka-prywatnosci.md informs about right to lodge complaint with PUODO');
+assert(privacyHtml.includes('Privacy-First') && privacyHtml.includes('Polityka Prywatności'), 'polityka-prywatnosci.html renders Privacy Policy');
+
+// 4. Booking Modal Step 2 Consents
+assert(indexHtmlSuite9.includes('ws2-consent-terms') && indexHtmlSuite9.includes('/regulamin'), 'index.html contains ws2-consent-terms with link to /regulamin');
+assert(indexHtmlSuite9.includes('ws2-consumer-waiver') && indexHtmlSuite9.includes('ws2-consent-execution'), 'index.html contains ws2-consumer-waiver');
+assert(index3dHtmlSuite9.includes('ws2-consent-terms') && index3dHtmlSuite9.includes('/regulamin'), 'index.3d.html contains ws2-consent-terms');
+assert(bookingJsSuite9.includes('ws2-consent-terms') && bookingJsSuite9.includes('checked'), 'booking-widget.js validates ws2-consent-terms before submission');
+
+// 5. Menu Footer Legal Links
+assert(mainJsSuite9.includes('"menu-item_eight-label":"Regulamin"') && mainJsSuite9.includes('"menu-item_eight-link":"/regulamin"'), 'main bundle menu links to /regulamin');
+assert(mainJsSuite9.includes('"menu-item_nine-label":"Polityka Prywatności"') && mainJsSuite9.includes('"menu-item_nine-link":"/polityka-prywatnosci"'), 'main bundle menu links to /polityka-prywatnosci');
+
 console.log(`\n========================================`);
 console.log(`RESULT: ${passed} PASSED, ${failed} FAILED`);
 console.log(`========================================`);

@@ -958,6 +958,11 @@
         card.style.display = 'flex';
       }
     }
+
+    const consumerWaiver = document.getElementById('ws2-consumer-waiver');
+    if (consumerWaiver) {
+      consumerWaiver.style.display = (type === 'individual') ? 'flex' : 'none';
+    }
   };
 
   // OBSŁUGA NIP W KROKU 2 (BIAŁA LISTA MF)
@@ -1067,6 +1072,13 @@
     if (!street) { streetInput.focus(); return; }
     if (!zip) { zipInput.focus(); return; }
     if (!city) { cityInput.focus(); return; }
+
+    const consentTerms = document.getElementById('ws2-consent-terms');
+    if (consentTerms && !consentTerms.checked) {
+      alert('Aby złożyć zamówienie, prosimy o zaznaczenie akceptacji Regulaminu oraz Polityki Prywatności.');
+      consentTerms.focus();
+      return;
+    }
 
     if (btn) btn.disabled = true;
     if (btnText) btnText.textContent = 'Rezerwacja w toku...';

@@ -2013,3 +2013,44 @@ body:has(.booking-modal-overlay.is-visible) .menuBtn {
                 font-size: 13px !important;
             }
         }
+
+        /* =============================================================
+           CHECKBOXY ZGÓD FORMALNO-PRAWNYCH W KROKU 2 (RODO & KONSUMENT)
+           ============================================================= */
+        .legal-consent-group {
+            margin: 18px 0 22px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .legal-checkbox-label {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 12px;
+            line-height: 1.45;
+            color: #475569;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .legal-checkbox-label input[type="checkbox"] {
+            width: 17px;
+            height: 17px;
+            margin-top: 1px;
+            flex-shrink: 0;
+            accent-color: #059669;
+            cursor: pointer;
+        }
+
+        .legal-checkbox-label a {
+            color: #059669;
+            font-weight: 600;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+
+        .legal-checkbox-label a:hover {
+            color: #047857;
+        }

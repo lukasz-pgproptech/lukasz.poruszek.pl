@@ -924,6 +924,10 @@ const server = http.createServer((req, res) => {
   // -------------------------------------------------------------
   if (reqPath === '/widget' || reqPath === '/widget/' || reqPath === '/sandbox') {
     reqPath = '/widget-dev.html';
+  } else if (reqPath === '/regulamin' || reqPath === '/regulamin/') {
+    reqPath = '/regulamin.html';
+  } else if (reqPath === '/polityka-prywatnosci' || reqPath === '/polityka-prywatnosci/') {
+    reqPath = '/polityka-prywatnosci.html';
   } else if (reqPath === '/' || reqPath === '') {
     reqPath = fs.existsSync(path.join(__dirname, 'index.3d.html')) ? '/index.3d.html' : '/index.html';
   }

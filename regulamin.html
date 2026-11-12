@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Regulamin świadczenia usług i sprzedaży | Łukasz Poruszek</title>
+    <meta name="description" content="Regulamin świadczenia usług drogą elektroniczną i sprzedaży warsztatów AI oraz mentoringu 1:1 przez Polską Grupę Proptech Sp. z o.o." />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+    <style>
+        :root {
+            --bg-base: #040807;
+            --bg-card: rgba(12, 22, 18, 0.7);
+            --border-dim: rgba(255, 255, 255, 0.12);
+            --border-focus: #00e599;
+            --text-main: #f0f4f2;
+            --text-muted: rgba(240, 244, 242, 0.65);
+            --text-dim: rgba(240, 244, 242, 0.45);
+            --accent: #00e599;
+            --accent-glow: rgba(0, 229, 153, 0.25);
+            --font-display: 'Manifold-CF-Extra-Bold', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            font-size: 16px;
+            line-height: 1.7;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(0, 229, 153, 0.08) 0%, transparent 60%),
+                radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 100% 100%, 32px 32px;
+        }
+
+        /* NAGŁÓWEK NAWIGACYJNY */
+        .legal-nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(4, 8, 7, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-dim);
+            padding: 16px 24px;
+        }
+
+        .legal-nav__inner {
+            max-width: 960px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .legal-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: #ffffff;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+        }
+
+        .legal-brand svg {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+        }
+
+        .legal-nav__links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--accent);
+        }
+
+        .nav-btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-dim);
+            border-radius: 999px;
+            color: #ffffff;
+            font-size: 13.5px;
+            text-decoration: none;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .nav-btn-back:hover {
+            border-color: var(--accent);
+            background: rgba(0, 229, 153, 0.12);
+            color: var(--accent);
+            transform: translateX(-2px);
+        }
+
+        /* GŁÓWNA TREŚĆ DOKUMENTU */
+        .legal-container {
+            max-width: 880px;
+            margin: 0 auto;
+            padding: 56px 24px 100px;
+            flex: 1;
+            width: 100%;
+        }
+
+        .legal-header {
+            margin-bottom: 48px;
+            border-bottom: 1px solid var(--border-dim);
+            padding-bottom: 32px;
+        }
+
+        .legal-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            background: rgba(0, 229, 153, 0.1);
+            border: 1px solid rgba(0, 229, 153, 0.3);
+            border-radius: 6px;
+            font-size: 12px;
+            font-family: var(--font-display);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 16px;
+        }
+
+        .legal-title {
+            font-size: clamp(28px, 4.5vw, 44px);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            line-height: 1.15;
+            color: #ffffff;
+            margin-bottom: 16px;
+        }
+
+        .legal-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            font-size: 13.5px;
+            color: var(--text-dim);
+        }
+
+        .legal-meta span {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* SEKCJE DOKUMENTU */
+        .legal-article {
+            margin-bottom: 40px;
+        }
+
+        .legal-article h2 {
+            font-size: clamp(20px, 3vw, 24px);
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            color: #ffffff;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            border-left: 3px solid var(--accent);
+            padding-left: 14px;
+        }
+
+        .legal-article h3 {
+            font-size: 17px;
+            font-weight: 600;
+            color: #e5ede9;
+            margin: 20px 0 10px 0;
+        }
+
+        .legal-article p {
+            margin-bottom: 16px;
+            color: var(--text-muted);
+            text-align: justify;
+        }
+
+        .legal-article ul, .legal-article ol {
+            margin-bottom: 16px;
+            padding-left: 24px;
+            color: var(--text-muted);
+        }
+
+        .legal-article li {
+            margin-bottom: 8px;
+        }
+
+        .legal-highlight-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-dim);
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin: 24px 0;
+        }
+
+        .legal-highlight-box strong {
+            color: #ffffff;
+        }
+
+        .legal-highlight-box.warning {
+            border-color: rgba(255, 179, 0, 0.4);
+            background: rgba(40, 28, 6, 0.35);
+        }
+
+        .legal-highlight-box.success {
+            border-color: rgba(0, 229, 153, 0.35);
+            background: rgba(0, 30, 20, 0.35);
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+            margin: 20px 0;
+            border: 1px solid var(--border-dim);
+            border-radius: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            text-align: left;
+        }
+
+        th, td {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border-dim);
+        }
+
+        th {
+            background: rgba(255, 255, 255, 0.04);
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        /* STOPKA */
+        .legal-footer {
+            border-top: 1px solid var(--border-dim);
+            padding: 40px 24px;
+            text-align: center;
+            font-size: 13.5px;
+            color: var(--text-dim);
+            background: rgba(2, 4, 3, 0.95);
+        }
+
+        .legal-footer a {
+            color: var(--text-muted);
+            text-decoration: underline;
+        }
+
+        .legal-footer a:hover {
+            color: var(--accent);
+        }
+
+        @media (max-width: 640px) {
+            .legal-nav__inner {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .legal-nav__links {
+                width: 100%;
+                justify-content: space-between;
+            }
+            .legal-article p {
+                text-align: left;
+            }
+        }
+
+        @media print {
+            body {
+                background: #ffffff !important;
+                color: #000000 !important;
+                background-image: none !important;
+            }
+            .legal-nav, .nav-btn-back {
+                display: none !important;
+            }
+            .legal-title, .legal-article h2, .legal-article h3, strong {
+                color: #000000 !important;
+            }
+            .legal-article p, .legal-article li, .legal-meta {
+                color: #333333 !important;
+            }
+            .legal-highlight-box {
+                border: 1px solid #cccccc !important;
+                background: #f9f9f9 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PASEK NAWIGACYJNY -->
+    <header class="legal-nav">
+        <div class="legal-nav__inner">
+            <a href="/" class="legal-brand" title="Powrót do strony głównej">
+                <svg viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="128" height="128" rx="28" fill="#020403" />
+                    <rect x="2" y="2" width="124" height="124" rx="26" stroke="#00e599" stroke-width="2.5" stroke-opacity="0.8" />
+                    <path d="M34 36V92H64" stroke="#ffffff" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M26 68L48 56" stroke="#00e599" stroke-width="7" stroke-linecap="round" />
+                    <path d="M68 36V92M68 36H86C95.9411 36 104 44.0589 104 54C104 63.9411 95.9411 72 86 72H68" stroke="#ffffff" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" />
+                    <circle cx="102" cy="92" r="5" fill="#00e599" />
+                </svg>
+                <span>ŁUKASZ PORUSZEK</span>
+            </a>
+
+            <div class="legal-nav__links">
+                <a href="/polityka-prywatnosci" class="nav-link">Polityka Prywatności</a>
+                <a href="/" class="nav-btn-back">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                    Wróć do serwisu
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- KONTENER DOKUMENTU -->
+    <main class="legal-container">
+        <div class="legal-header">
+            <div class="legal-badge">DOKUMENT PRAWNY</div>
+            <h1 class="legal-title">Regulamin świadczenia usług drogą elektroniczną i sprzedaży</h1>
+            <div class="legal-meta">
+                <span><strong>Wersja:</strong> 1.0</span>
+                <span><strong>Data publikacji:</strong> 13 listopada 2026 r.</span>
+                <span><strong>Sprzedawca:</strong> Polska Grupa Proptech Sp. z o.o.</span>
+            </div>
+        </div>
+
+        <section class="legal-article">
+            <h2>§ 1. Postanowienia ogólne i dane Usługodawcy</h2>
+            <p>1. Niniejszy regulamin (zwany dalej <strong>„Regulaminem”</strong>) określa zasady korzystania z serwisu internetowego dostępnego pod adresem <strong>https://lukasz.poruszek.pl</strong>, warunki zawierania umów o świadczenie usług drogą elektroniczną, procedurę rezerwacji i zakupu usług szkoleniowych (Warsztaty AI) oraz usług doradczych (Mentoring 1:1), a także tryb postępowania reklamacyjnego i odstąpienia od umowy.</p>
+            <p>2. Właścicielem Serwisu i Usługodawcą jest:</p>
+            <div class="legal-highlight-box">
+                <strong>POLSKA GRUPA PROPTECH SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ</strong><br />
+                Siedziba i adres: ul. Jacka Malczewskiego 29, 26-600 Radom<br />
+                KRS: <strong>0000922442</strong> (Sąd Rejonowy Lublin-Wschód w Lublinie z siedzibą w Świdniku, VI Wydział Gospodarczy KRS)<br />
+                NIP: <strong>7963033913</strong> | REGON: <strong>389965030</strong><br />
+                Kapitał zakładowy: 5 000,00 PLN (opłacony w całości)<br />
+                Adres e-mail do kontaktu i reklamacji: <strong>kontakt@lukasz.poruszek.pl</strong>
+            </div>
+            <p>3. Usługi doradcze i warsztatowe świadczone są bezpośrednio przez architekta systemów AI Łukasza Poruszka w imieniu Usługodawcy.</p>
+        </section>
+
+        <section class="legal-article">
+            <h2>§ 2. Wymagania techniczne</h2>
+            <p>Do prawidłowego korzystania z Serwisu oraz udziału w Usługach online niezbędne jest spełnienie następujących minimalnych wymagań technicznych:</p>
+            <ul>
+                <li>Urządzenie z dostępem do sieci Internet (komputer, laptop, tablet, smartfon) o przepustowości łącza min. 10 Mbps;</li>
+                <li>Aktualna wersja przeglądarki internetowej (Google Chrome, Mozilla Firefox, Safari, Microsoft Edge) z włączoną obsługą JavaScript oraz akceleracją sprzętową WebGL;</li>
+                <li>Aktywny adres poczty elektronicznej (e-mail);</li>
+                <li>Do udziału w sesjach online na żywo: sprawny mikrofon, głośniki lub słuchawki, opcjonalnie kamera internetowa;</li>
+                <li>Dostęp do platformy wideokonferencyjnej wskazanej przez Usługodawcę (Google Meet / Cal Video) – bez konieczności instalowania płatnego oprogramowania.</li>
+            </ul>
+        </section>
+
+        <section class="legal-article">
+            <h2>§ 3. Rodzaje i charakterystyka usług</h2>
+            <p>1. Usługodawca świadczy za pośrednictwem Serwisu:</p>
+            <ul>
+                <li><strong>Warsztaty AI („Orkiestracja Systemów AI”):</strong> cykl 6 spotkań online po 2 godziny zegarowe (wtorki 19:00 – 21:00) w kameralnych grupach, wsparcie mentora, zadania praktyczne, kody źródłowe oraz nagrania wideo.</li>
+                <li><strong>Mentoring Biznesowy 1:1:</strong> indywidualna sesja 90 minut obejmująca analizę architektury AI, weryfikację założeń projektowych, audyt technologiczny i optymalizację kosztów.</li>
+                <li><strong>Mentoring Kariery 1:1:</strong> indywidualna sesja 90 minut obejmująca audyt repozytoriów, profilu inżynierskiego oraz strategię transformacji w kierunku ról AI Engineer / AI Architect.</li>
+            </ul>
+            <p>2. Usługi mają charakter doradczo-szkoleniowy. Usługodawca dzieli się sprawdzoną wiedzą inżynieryjną, nie gwarantując jednak osiągnięcia z góry określonych zysków gospodarczych, co zależy od indywidualnych działań Klienta.</p>
+        </section>
+
+        <section class="legal-article">
+            <h2>§ 4. Procedura rezerwacji i zawarcia umowy</h2>
+            <p>1. Klient dokonuje wyboru grupy warsztatowej lub wolnego slotu mentoringu za pośrednictwem interaktywnego widżetu w Serwisie.</p>
+            <p>2. W Kroku 2 Klient podaje swoje dane identyfikacyjne, dane do faktury VAT (w tym NIP w przypadku transakcji B2B), zapoznaje się z niniejszym Regulaminem i Polityką Prywatności oraz zaznacza wymagane zgody.</p>
+            <p>3. Po zatwierdzeniu formularza rezerwacja zostaje zarejestrowana, a Klient otrzymuje na podany adres e-mail oraz na ekranie dokument proforma wraz z unikalnym numerem rachunku bankowego oraz kodem QR do przelewu.</p>
+        </section>
+
+        <section class="legal-article">
+            <h2>§ 5. Ceny i formy płatności</h2>
+            <p>1. Ceny prezentowane w Serwisie są cenami w złotych polskich (PLN). W podsumowaniu Klient widzi kwotę netto, 23% VAT oraz kwotę brutto.</p>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Usługa</th>
+                            <th>Cena Netto</th>
+                            <th>VAT (23%)</th>
+                            <th>Cena Brutto</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Warsztaty AI (cykl 6 tygodni)</td>
+                            <td>975,61 PLN</td>
+                            <td>224,39 PLN</td>
+                            <td><strong>1 200,00 PLN</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Mentoring Biznesowy 1:1 (90 min)</td>
+                            <td>731,71 PLN</td>
+                            <td>168,29 PLN</td>
+                            <td><strong>900,00 PLN</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Mentoring Kariery 1:1 (90 min)</td>
+                            <td>487,80 PLN</td>
+                            <td>112,20 PLN</td>
+                            <td><strong>600,00 PLN</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p>2. <strong>Metoda płatności:</strong> Przelew bankowy na rachunek Sprzedawcy w mBank S.A. nr: <code>46 1140 2004 0000 3902 8547 5429</code> (standard QR ZBP) lub certyfikowana płatność elektroniczna.</p>
+            <p>3. <strong>Termin płatności:</strong> Płatność powinna zostać zrealizowana w terminie 24 godzin od dokonania rezerwacji w celu gwarancji utrzymania wybranego terminu.</p>
+            <p>4. <strong>Faktury i KSeF:</strong> Do każdej transakcji wystawiana jest faktura VAT, przesyłana w formacie PDF oraz rejestrowana w Krajowym Systemie e-Faktur (KSeF).</p>
+        </section>
+
+        <section class="legal-article">
+            <h2>§ 6. Realizacja usług i zmiana terminu (Mentoring 1:1)</h2>
+            <div class="legal-highlight-box success">
+                <strong>Zasada bezpłatnego przełożenia sesji 1:1:</strong><br />
+                Klient ma prawo do bezpłatnej zmiany terminu sesji mentoringowej, pod warunkiem poinformowania Usługodawcy drogą mailową (<code>kontakt@lukasz.poruszek.pl</code>) <strong>najpóźniej na 24 godziny przed planowaną sesją</strong>.
+            </div>
+            <p>W przypadku zgłoszenia zmiany terminu na mniej niż 24 godziny przed sesją lub niestawienia się Klienta na spotkaniu online w wyznaczonym terminie, sesję uznaje się za zrealizowaną z uwagi na zablokowanie wyłącznego czasu mentora.</p>
+            <p>W przypadku Warsztatów AI, w razie nieobecności na sesji na żywo, Uczestnik otrzymuje pełny dostęp do nagrania wideo oraz kodu ze spotkania.</p>
+        </section>
+
+        <section class="legal-article">
+            <h2>§ 7. Prawa autorskie i własność intelektualna</h2>
+            <p>1. Wszelkie materiały udostępniane w ramach Warsztatów i Mentoringu (architektury agentów, prompty, kody źródłowe, schematy MCP, nagrania) stanowią utwory podlegające ochronie prawa autorskiego.</p>
+            <p>2. Klient otrzymuje niewyłączną licencję na korzystanie z materiałów na własny użytek osobisty lub na wewnętrzne potrzeby własnej firmy.</p>
+            <p>3. Zabrania się bez pisemnej zgody Usługodawcy odsprzedaży, publicznego udostępniania, nagrywania spotkań we własnym zakresie lub wykorzystywania materiałów do prowadzenia własnej konkurencyjnej działalności szkoleniowej.</p>
+        </section>
+
+        <section class="legal-article">
+            <h2>§ 8. Poufność (NDA w B2B)</h2>
+            <p>Usługodawca zobowiązuje się do zachowania pełnej poufności wszelkich informacji technologicznych i biznesowych Klienta poruszanych podczas sesji mentoringowych. Na życzenie Klienta B2B możliwe jest podpisanie odrębnej umowy NDA przed rozpoczęciem konsultacji.</p>
+        </section>
+
+        <section class="legal-article">
+            <h2>§ 9. Prawo odstąpienia od umowy (Konsumenci)</h2>
+            <p>1. Konsument oraz Przedsiębiorca na prawach konsumenta (PNPK) mają prawo odstąpić od Umowy zawartej na odległość w terminie <strong>14 dni</strong> od jej zawarcia bez podawania przyczyny.</p>
+            <div class="legal-highlight-box warning">
+                <strong>Wyłączenie prawa do odstąpienia (art. 38 pkt 1 Ustawy o prawach konsumenta):</strong><br />
+                Prawo odstąpienia nie przysługuje w odniesieniu do umów o świadczenie usług, jeżeli Usługodawca wykonał w pełni usługę za wyraźną i uprzednią zgodą konsumenta, który został poinformowany przed rozpoczęciem świadczenia, że po jego wykonaniu utraci prawo odstąpienia od umowy.
+            </div>
+            <p>2. Oświadczenie o odstąpieniu można złożyć mailowo na adres: <code>kontakt@lukasz.poruszek.pl</code>.</p>
+        </section>
+
+        <section class="legal-article">
+            <h2>§ 10. Postępowanie reklamacyjne</h2>
+            <p>1. Wszelkie reklamacje dotyczące Usług można zgłaszać drogą elektroniczną na adres: <strong>kontakt@lukasz.poruszek.pl</strong>.</p>
+            <p>2. Usługodawca rozpatrzy reklamację w terminie <strong>14 dni kalendarzowych</strong> od dnia jej doręczenia.</p>
+        </section>
+
+        <section class="legal-article">
+            <h2>§ 11. Postanowienia końcowe</h2>
+            <p>1. Regulamin podlega prawu polskiemu. Ewentualne spory z podmiotami B2B rozstrzygane będą przez sąd właściwy dla siedziby Usługodawcy.</p>
+            <p>2. Regulamin obowiązuje od dnia 13 listopada 2026 r.</p>
+        </section>
+    </main>
+
+    <!-- STOPKA -->
+    <footer class="legal-footer">
+        <p>&copy; 2026 Polska Grupa Proptech Sp. z o.o. Wszelkie prawa zastrzeżone.</p>
+        <p style="margin-top: 8px;">
+            <a href="/">Strona główna</a> &bull; 
+            <a href="/regulamin">Regulamin</a> &bull; 
+            <a href="/polityka-prywatnosci">Polityka Prywatności</a>
+        </p>
+    </footer>
+
+</body>
+</html>

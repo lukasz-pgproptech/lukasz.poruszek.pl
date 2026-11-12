@@ -55,8 +55,8 @@
             content="Konsultacje strategiczne 1:1 oraz warsztaty orkiestracji AI. Od chaosu promptów do autonomicznych zespołów agentów."
         />
 
-        <link rel="stylesheet" href="/products-view.css?v=2.5" />
-        <link rel="stylesheet" href="/booking-widget.css?v=2.5" />
+        <link rel="stylesheet" href="/products-view.css?v=2.6" />
+        <link rel="stylesheet" href="/booking-widget.css?v=2.6" />
 
         <style>
             html, body {
@@ -320,7 +320,7 @@
             </div>
         </div>
 
-        <script src="/products-view.js?v=2.5"></script>
+        <script src="/products-view.js?v=2.6"></script>
 
         <!-- =============================================================
              MODAL SZKLANY: REZERWACJA MENTORINGU & WARSZTATY AI
@@ -672,6 +672,18 @@
                                             </div>
                                         </div>
 
+                                        <!-- Checkboxy zgód formalno-prawnych (RODO / Konsument) -->
+                                        <div class="legal-consent-group">
+                                            <label class="legal-checkbox-label">
+                                                <input type="checkbox" id="ws2-consent-terms" required />
+                                                <span>Akceptuję <a href="/regulamin" target="_blank" rel="noopener">Regulamin</a> oraz <a href="/polityka-prywatnosci" target="_blank" rel="noopener">Politykę Prywatności</a> i zobowiązuję się do ich przestrzegania.</span>
+                                            </label>
+                                            <label class="legal-checkbox-label" id="ws2-consumer-waiver" style="display: flex;">
+                                                <input type="checkbox" id="ws2-consent-execution" />
+                                                <span>Wyrażam zgodę na rozpoczęcie świadczenia usługi przed upływem 14 dni na odstąpienie od umowy i przyjmuję do wiadomości utratę tego prawa z chwilą pełnego wykonania usługi.</span>
+                                            </label>
+                                        </div>
+
                                         <button type="submit" class="btn-submit-workshop" id="ws2-submit-btn">
                                             <span id="ws2-submit-btn-text">Zatwierdź dane i przejdź do płatności (1 200 PLN)</span>
                                             <span>→</span>
@@ -690,7 +702,7 @@
         </div>
 
         <script src="/qrcode.min.js"></script>
-        <script src="/booking-widget.js?v=2.5"></script>
+        <script src="/booking-widget.js?v=2.6"></script>
         <script>
             var ps = document.createElement('script');
             ps.src = '/prism-controller.js?t=' + Date.now();

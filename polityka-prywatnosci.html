@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Polityka Prywatności i Informacja o Cookies | Łukasz Poruszek</title>
+    <meta name="description" content="Polityka prywatności i ochrona danych osobowych RODO w serwisie lukasz.poruszek.pl. Zasada Privacy-First i brak inwazyjnych trackerów." />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+    <style>
+        :root {
+            --bg-base: #040807;
+            --bg-card: rgba(12, 22, 18, 0.7);
+            --border-dim: rgba(255, 255, 255, 0.12);
+            --border-focus: #00e599;
+            --text-main: #f0f4f2;
+            --text-muted: rgba(240, 244, 242, 0.65);
+            --text-dim: rgba(240, 244, 242, 0.45);
+            --accent: #00e599;
+            --accent-glow: rgba(0, 229, 153, 0.25);
+            --font-display: 'Manifold-CF-Extra-Bold', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            font-size: 16px;
+            line-height: 1.7;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(0, 229, 153, 0.08) 0%, transparent 60%),
+                radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 100% 100%, 32px 32px;
+        }
+
+        .legal-nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(4, 8, 7, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-dim);
+            padding: 16px 24px;
+        }
+
+        .legal-nav__inner {
+            max-width: 960px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .legal-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: #ffffff;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+        }
+
+        .legal-brand svg {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+        }
+
+        .legal-nav__links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--accent);
+        }
+
+        .nav-btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-dim);
+            border-radius: 999px;
+            color: #ffffff;
+            font-size: 13.5px;
+            text-decoration: none;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .nav-btn-back:hover {
+            border-color: var(--accent);
+            background: rgba(0, 229, 153, 0.12);
+            color: var(--accent);
+            transform: translateX(-2px);
+        }
+
+        .legal-container {
+            max-width: 880px;
+            margin: 0 auto;
+            padding: 56px 24px 100px;
+            flex: 1;
+            width: 100%;
+        }
+
+        .legal-header {
+            margin-bottom: 48px;
+            border-bottom: 1px solid var(--border-dim);
+            padding-bottom: 32px;
+        }
+
+        .legal-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            background: rgba(0, 229, 153, 0.1);
+            border: 1px solid rgba(0, 229, 153, 0.3);
+            border-radius: 6px;
+            font-size: 12px;
+            font-family: var(--font-display);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 16px;
+        }
+
+        .legal-title {
+            font-size: clamp(28px, 4.5vw, 44px);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            line-height: 1.15;
+            color: #ffffff;
+            margin-bottom: 16px;
+        }
+
+        .legal-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            font-size: 13.5px;
+            color: var(--text-dim);
+        }
+
+        .legal-meta span {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .legal-article {
+            margin-bottom: 40px;
+        }
+
+        .legal-article h2 {
+            font-size: clamp(20px, 3vw, 24px);
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            color: #ffffff;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            border-left: 3px solid var(--accent);
+            padding-left: 14px;
+        }
+
+        .legal-article p {
+            margin-bottom: 16px;
+            color: var(--text-muted);
+            text-align: justify;
+        }
+
+        .legal-article ul, .legal-article ol {
+            margin-bottom: 16px;
+            padding-left: 24px;
+            color: var(--text-muted);
+        }
+
+        .legal-article li {
+            margin-bottom: 8px;
+        }
+
+        .legal-highlight-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-dim);
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin: 24px 0;
+        }
+
+        .legal-highlight-box strong {
+            color: #ffffff;
+        }
+
+        .legal-highlight-box.privacy {
+            border-color: rgba(0, 229, 153, 0.45);
+            background: rgba(0, 32, 22, 0.45);
+        }
+
+        .legal-footer {
+            border-top: 1px solid var(--border-dim);
+            padding: 40px 24px;
+            text-align: center;
+            font-size: 13.5px;
+            color: var(--text-dim);
+            background: rgba(2, 4, 3, 0.95);
+        }
+
+        .legal-footer a {
+            color: var(--text-muted);
+            text-decoration: underline;
+        }
+
+        .legal-footer a:hover {
+            color: var(--accent);
+        }
+
+        @media (max-width: 640px) {
+            .legal-nav__inner {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .legal-nav__links {
+                width: 100%;
+                justify-content: space-between;
+            }
+            .legal-article p {
+                text-align: left;
+            }
+        }
+
+        @media print {
+            body {
+                background: #ffffff !important;
+                color: #000000 !important;
+                background-image: none !important;
+            }
+            .legal-nav, .nav-btn-back {
+                display: none !important;
+            }
+            .legal-title, .legal-article h2, strong {
+                color: #000000 !important;
+            }
+            .legal-article p, .legal-article li, .legal-meta {
+                color: #333333 !important;
+            }
+            .legal-highlight-box {
+                border: 1px solid #cccccc !important;
+                background: #f9f9f9 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PASEK NAWIGACYJNY -->
+    <header class="legal-nav">
+        <div class="legal-nav__inner">
+            <a href="/" class="legal-brand" title="Powrót do strony głównej">
+                <svg viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="128" height="128" rx="28" fill="#020403" />
+                    <rect x="2" y="2" width="124" height="124" rx="26" stroke="#00e599" stroke-width="2.5" stroke-opacity="0.8" />
+                    <path d="M34 36V92H64" stroke="#ffffff" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M26 68L48 56" stroke="#00e599" stroke-width="7" stroke-linecap="round" />
+                    <path d="M68 36V92M68 36H86C95.9411 36 104 44.0589 104 54C104 63.9411 95.9411 72 86 72H68" stroke="#ffffff" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" />
+                    <circle cx="102" cy="92" r="5" fill="#00e599" />
+                </svg>
+                <span>ŁUKASZ PORUSZEK</span>
+            </a>
+
+            <div class="legal-nav__links">
+                <a href="/regulamin" class="nav-link">Regulamin</a>
+                <a href="/" class="nav-btn-back">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                    Wróć do serwisu
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- KONTENER DOKUMENTU -->
+    <main class="legal-container">
+        <div class="legal-header">
+            <div class="legal-badge">OCHRONA DANYCH &bull; RODO</div>
+            <h1 class="legal-title">Polityka Prywatności i Informacja o Plikach Cookies</h1>
+            <div class="legal-meta">
+                <span><strong>Wersja:</strong> 1.0</span>
+                <span><strong>Data publikacji:</strong> 13 listopada 2026 r.</span>
+                <span><strong>Administrator:</strong> Polska Grupa Proptech Sp. z o.o.</span>
+            </div>
+        </div>
+
+        <section class="legal-article">
+            <h2>§ 1. Administrator Danych Osobowych (ADO)</h2>
+            <p>1. Niniejsza Polityka Prywatności określa zasady przetwarzania i ochrony danych osobowych Użytkowników oraz Klientów korzystających z serwisu internetowego <strong>https://lukasz.poruszek.pl</strong> (zwanego dalej <strong>„Serwisem”</strong>).</p>
+            <p>2. Administratorem danych osobowych w rozumieniu art. 4 pkt 7 Rozporządzenia Parlamentu Europejskiego i Rady (UE) 2016/679 (RODO) jest:</p>
+            <div class="legal-highlight-box">
+                <strong>POLSKA GRUPA PROPTECH SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ</strong><br />
+                Siedziba: ul. Jacka Malczewskiego 29, 26-600 Radom<br />
+                KRS: <strong>0000922442</strong> | NIP: <strong>7963033913</strong> | REGON: <strong>389965030</strong><br />
+                Adres e-mail: <strong>kontakt@lukasz.poruszek.pl</strong>
+            </div>
+        </section>
+
+        <section class="legal-article">
+            <h2>§ 2. Cele i podstawy prawne przetwarzania danych</h2>
+            <p>Dane osobowe Użytkowników i Klientów przetwarzane są w następujących celach:</p>
+            <ul>
+                <li><strong>Zawarcie i realizacja Umowy (rezerwacja Warsztatów AI lub Mentoringu 1:1):</strong> art. 6 ust. 1 lit. b RODO.</li>
+                <li><strong>Wypełnienie obowiązków podatkowo-księgowych:</strong> art. 6 ust. 1 lit. c RODO w zw. z ustawą o podatku od towarów i usług, ustawą o rachunkowości oraz przepisami o KSeF (wystawianie proform i faktur VAT).</li>
+                <li><strong>Obsługa zapytań i komunikacja (formularz, propozycja terminu, lista rezerwowa):</strong> art. 6 ust. 1 lit. f RODO (prawnie uzasadniony interes Administratora).</li>
+                <li><strong>Ustalenie, dochodzenie lub obrona przed roszczeniami:</strong> art. 6 ust. 1 lit. f RODO.</li>
+                <li><strong>Marketing bezpośredni / Newsletter (o ile Użytkownik wyrazi zgodę):</strong> art. 6 ust. 1 lit. a RODO.</li>
+            </ul>
+        </section>
+
+        <section class="legal-article">
+            <h2>§ 3. Odbiorcy danych osobowych</h2>
+            <p>Administrator nie odsprzedaje ani nie udostępnia danych osobowych podmiotom trzecim. Dane mogą być powierzane wyłącznie zaufanym dostawcom technologicznym w niezbędnym zakresie:</p>
+            <ul>
+                <li><strong>Cloudflare, Inc.</strong> – hosting brzegowy (Cloudflare Pages, Workers), certyfikacja SSL/TLS i ochrona DDoS;</li>
+                <li><strong>Resend, Inc.</strong> – system wysyłki e-maili transakcyjnych (potwierdzenia rezerwacji, faktury, powiadomienia);</li>
+                <li><strong>mBank S.A.</strong> – obsługa rachunku bankowego i rozliczeń płatności;</li>
+                <li><strong>Ministerstwo Finansów (KSeF)</strong> – rejestracja faktur elektronicznych;</li>
+                <li><strong>Google LLC</strong> – platforma wideokonferencyjna Google Meet do realizacji spotkań online;</li>
+                <li>Biuro rachunkowo-księgowe obsługujące Administratora.</li>
+            </ul>
+        </section>
+
+        <section class="legal-article">
+            <h2>§ 4. Standard Privacy-First i informacja o Cookies</h2>
+            <div class="legal-highlight-box privacy">
+                <strong>Zasada Privacy-First (Brak Inwazyjnego Śledzenia):</strong><br />
+                Serwis został zaprojektowany z poszanowaniem prywatności Użytkownika. 
+                <strong>Nie stosujemy żadnych ciasteczek marketingowych, reklamowych ani profilujących firm trzecich (Meta Pixel, Google Ads Remarketing, TikTok Pixel) ani narzędzi nagrywających sesje (Hotjar).</strong>
+            </div>
+            <p>1. Serwis wykorzystuje wyłącznie <strong>niezbędne mechanizmy techniczne</strong> pamięci podręcznej (Local Storage / Session Storage), które są bezwzględnie konieczne do działania aplikacji (obsługa trójwymiarowego silnika WebGL Three.js, zapamiętanie kroków modalu rezerwacji).</p>
+            <p>2. Zgodnie z art. 173 ust. 3 ustawy Prawo telekomunikacyjne stosowanie technologii niezbędnych do działania strony nie wymaga uprzedniej zgody użytkownika, dlatego Serwis <strong>nie wyświetla irytującego banera cookies</strong>.</p>
+        </section>
+
+        <section class="legal-article">
+            <h2>§ 5. Okres przechowywania danych</h2>
+            <p>Dane osobowe przechowywane są przez okres niezbędny do realizacji celów:</p>
+            <ul>
+                <li>Dane transakcyjne – przez czas trwania umowy oraz do upływu okresu przedawnienia roszczeń cywilnoprawnych (3 lata dla działalności gospodarczej, 6 lat dla roszczeń ogólnych);</li>
+                <li>Dane księgowo-fakturowe – przez okres 5 lat licząc od końca roku kalendarzowego, w którym upłynął termin płatności podatku;</li>
+                <li>Korespondencja i zapytania o terminy – do momentu zakończenia kontaktu lub wniesienia sprzeciwu.</li>
+            </ul>
+        </section>
+
+        <section class="legal-article">
+            <h2>§ 6. Prawa Użytkownika (RODO)</h2>
+            <p>Każdej osobie, której dane dotyczą, przysługują następujące uprawnienia:</p>
+            <ul>
+                <li>Prawo dostępu do swoich danych oraz otrzymania ich kopii (art. 15 RODO);</li>
+                <li>Prawo do sprostowania (poprawienia) danych (art. 16 RODO);</li>
+                <li>Prawo do usunięcia danych („prawo do bycia zapomnianym” – art. 17 RODO);</li>
+                <li>Prawo do ograniczenia przetwarzania danych (art. 18 RODO);</li>
+                <li>Prawo do przenoszenia danych (art. 20 RODO);</li>
+                <li>Prawo do wniesienia sprzeciwu wobec przetwarzania (art. 21 RODO);</li>
+                <li>Prawo do wniesienia skargi do organu nadzorczego: <strong>Prezes Urzędu Ochrony Danych Osobowych (PUODO)</strong>, ul. Stawki 2, 00-193 Warszawa.</li>
+            </ul>
+            <p>W celu realizacji swoich praw wystarczy przesłać wiadomość e-mail na adres: <strong>kontakt@lukasz.poruszek.pl</strong>.</p>
+        </section>
+
+        <section class="legal-article">
+            <h2>§ 7. Bezpieczeństwo danych</h2>
+            <p>Administrator stosuje nowoczesne środki ochrony danych, w tym pełne szyfrowanie połączenia protokołem SSL/TLS (HTTPS), zaporę sieciową WAF i ochronę anty-DDoS węzłów brzegowych oraz uwierzytelnianie dwuskładnikowe (2FA) do systemów zarządzania.</p>
+        </section>
+    </main>
+
+    <!-- STOPKA -->
+    <footer class="legal-footer">
+        <p>&copy; 2026 Polska Grupa Proptech Sp. z o.o. Wszelkie prawa zastrzeżone.</p>
+        <p style="margin-top: 8px;">
+            <a href="/">Strona główna</a> &bull; 
+            <a href="/regulamin">Regulamin</a> &bull; 
+            <a href="/polityka-prywatnosci">Polityka Prywatności</a>
+        </p>
+    </footer>
+
+</body>
+</html>
