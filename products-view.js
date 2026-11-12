@@ -647,16 +647,6 @@
           if (titleEl) titleEl.textContent = data.title;
           if (metricEl) metricEl.textContent = data.metric;
           if (bodyEl) bodyEl.innerHTML = data.body;
-          const ctaBtn = document.getElementById('editorialBookingCta');
-          if (ctaBtn) {
-            if (productId === 'workshops') {
-              ctaBtn.textContent = 'ZAPISZ SIĘ NA WARSZTATY (1 200 PLN) →';
-            } else if (productId === 'career') {
-              ctaBtn.textContent = 'UMÓW MENTORING KARIERY (500 PLN) →';
-            } else {
-              ctaBtn.textContent = 'UMÓW MENTORING BIZNESOWY (600 PLN) →';
-            }
-          }
           editorialWrap.classList.remove('is-fading');
         }, 110);
       }

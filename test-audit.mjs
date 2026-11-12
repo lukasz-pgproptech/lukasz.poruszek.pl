@@ -160,7 +160,7 @@ assert(bookingCss.includes('padding: 16px 64px 0 28px;'), 'booking-widget.css re
 assert(bookingCss.includes('.menuBtn') && bookingCss.includes('min-width: 48px !important') && bookingCss.includes('min-height: 48px !important'), 'booking-widget.css sets .menuBtn min 48x48px');
 assert(bookingCss.includes('.cal-nav-btn') && bookingCss.includes('min-width: 44px !important'), 'booking-widget.css sets .cal-nav-btn min 44x44px on mobile');
 assert(bookingCss.includes('font-size: 16px !important'), 'booking-widget.css enforces font-size: 16px !important on inputs to prevent iOS auto-zoom');
-assert(bookingCss.includes('max-height: calc(100dvh - 24px)'), 'booking-widget.css sets dynamic max-height: calc(100dvh - 24px)');
+assert(bookingCss.includes('max-height: calc(100dvh - 20px)') || bookingCss.includes('max-height: calc(100dvh - 24px)'), 'booking-widget.css sets dynamic max-height: calc(100dvh - 20px)');
 assert(bookingCss.includes('height: 44px') && bookingCss.includes('max-height: 44px') && bookingCss.includes('.event-type-selector'), 'booking-widget.css sets .event-type-selector height: 44px segmented control');
 
 console.log('\n=== TEST SUITE 3: products-view.css ===');
@@ -168,25 +168,28 @@ const productsCss = fs.readFileSync(path.join(__dirname, 'products-view.css'), '
 assert(productsCss.includes('.menu__navList') && productsCss.includes('display: none !important'), 'products-view.css hides .menu__navList with display: none !important');
 assert(productsCss.includes('#products-view-container:not(.is-active)') && productsCss.includes('opacity: 0 !important'), 'products-view.css strictly enforces opacity 0 !important on inactive container');
 assert(productsCss.includes('.roadmap-node') && productsCss.includes('min-width: 44px !important'), 'products-view.css sets roadmap-node touch target to min 44px');
+assert(!productsCss.includes('.editorial-booking-cta'), 'products-view.css has removed redundant .editorial-booking-cta');
 
 console.log('\n=== TEST SUITE 4: index.html & index.3d.html ===');
 const indexHtml = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf-8');
 assert(indexHtml.includes('<button class="booking-close-btn" id="bookingCloseBtn"'), 'index.html contains #bookingCloseBtn');
 assert(indexHtml.includes('viewport-fit=cover'), 'index.html includes viewport-fit=cover in viewport meta tag');
 assert(!indexHtml.includes('From start to finish, it’s corn seed development'), 'index.html has zero corn seed template references');
+assert(!indexHtml.includes('editorialBookingCta'), 'index.html has zero redundant editorial CTA buttons');
 assert(indexHtml.includes('label-short') && indexHtml.includes('label-full'), 'index.html has label-short and label-full spans for responsive segmented buttons');
 assert(indexHtml.includes('Twoja przeglądarka ma wyłączoną akcelerację 3D (WebGL).'), 'index.html has Polish unsupported fallback message');
 
 const index3dHtml = fs.readFileSync(path.join(__dirname, 'index.3d.html'), 'utf-8');
 assert(!index3dHtml.includes('From start to finish, it’s corn seed development'), 'index.3d.html has zero corn seed references');
+assert(!index3dHtml.includes('editorialBookingCta'), 'index.3d.html has zero redundant editorial CTA buttons');
 assert(index3dHtml.includes('bookingCloseBtn'), 'index.3d.html contains bookingCloseBtn');
 
 console.log('\n=== TEST SUITE 5: booking-widget.js & products-view.js ===');
 const bookingJs = fs.readFileSync(path.join(__dirname, 'booking-widget.js'), 'utf-8');
 assert(bookingJs.includes("text === 'undefined'"), 'booking-widget.js guards copyTransferText against copying "undefined"');
 assert(bookingJs.includes('/api/propose-slot'), 'booking-widget.js redirects proposal to /api/propose-slot');
-assert(bookingJs.includes('isRenderingPaused = true'), 'booking-widget.js pauses 3D rendering on modal open');
-assert(bookingJs.includes('isRenderingPaused = false'), 'booking-widget.js resumes 3D rendering on modal close');
+assert(bookingJs.includes('window.is3DRenderingPaused = false'), 'booking-widget.js keeps 3D rendering active during modal');
+assert(!bookingJs.includes('window.is3DRenderingPaused = true'), 'booking-widget.js does not freeze 3D rendering');
 assert(bookingJs.includes('data.amountPln'), 'booking-widget.js includes data.amountPln fallback in amountFormatted');
 assert(bookingJs.includes('escapeHtml(name)'), 'booking-widget.js escapes name in Step 3 innerHTML');
 
@@ -198,7 +201,7 @@ assert(productsJs.includes('Math.round(-0.28 * window.innerHeight)'), 'products-
 
 console.log('\n=== TEST SUITE 6: main.76ceb4644b28bd9c30b5.js (Pioneer 3D Engine) ===');
 const mainJs = fs.readFileSync(path.join(__dirname, 'main.76ceb4644b28bd9c30b5.js'), 'utf8');
-assert(mainJs.includes('isRenderingPaused)return;'), 'main bundle pauses render loop when isRenderingPaused is true');
+assert(!mainJs.includes('if(window.is3DRenderingPaused)return;'), 'main bundle onRender does not freeze background 3D animations');
 assert(mainJs.includes('n.width>0&&n.height>0&&(e.renderer.setRenderTarget(n),e.renderer.clear())'), 'main bundle guards zero-sized framebuffers against 6x GL_INVALID_FRAMEBUFFER_OPERATION');
 assert(mainJs.includes('window.swipeHandler=this,window.getSnapPos=J'), 'SwipeHandler exposes window.swipeHandler and window.getSnapPos on mobile');
 assert(!mainJs.includes('SwipeHandler.getSnapPosition() - Can\'t find section with name'), 'SwipeHandler.getSnapPosition safely handles missing sections without throwing');

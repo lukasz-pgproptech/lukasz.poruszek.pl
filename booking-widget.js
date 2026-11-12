@@ -1337,8 +1337,11 @@
 
     isProgrammaticModalOpen = true;
 
-    // W-07 / TASK-13: Oszczędzanie GPU - wstrzymanie ciężkiego renderowania 3D pod szklanym modalem
-    window.is3DRenderingPaused = true;
+    // Trójwymiarowa animacja WebGL działa nieprzerwanie w tle z 60 FPS
+    window.is3DRenderingPaused = false;
+
+    // Sprawdzenie czy użytkownik znajduje się w Scenie 2 (Krystaliczna Macierz / Przejmij Klocki)
+    let inSection2 = Boolean(window.isSection2Active || window.isDetailViewOpen);
 
     if (window.scrollHandler && window.getSnapPos) {
       try {
@@ -1346,7 +1349,8 @@
         const curPos = (typeof window.scrollHandler.getScrollPosition === 'function')
           ? window.scrollHandler.getScrollPosition()
           : (window.scrollHandler.position !== undefined ? window.scrollHandler.position : (window.appStore && window.appStore.state && window.appStore.state.scroll ? window.appStore.state.scroll.position : 0));
-        if (Math.abs(curPos - snapData) < 480 || window.isSection2Active || window.isDetailViewOpen) {
+        if (Math.abs(curPos - snapData) < 480 || inSection2) {
+          inSection2 = true;
           originSceneSnap = snapData;
         } else {
           originSceneSnap = null;
@@ -1354,6 +1358,11 @@
       } catch (e) {
         originSceneSnap = null;
       }
+    }
+
+    // Ukrycie orbitalnych przycisków 3D w Scenie 2 na czas otwarcia modalu
+    if (inSection2 && typeof window.hideScene2Hotspots === 'function') {
+      window.hideScene2Hotspots();
     }
 
     if (tab) {
@@ -1365,26 +1374,29 @@
     updatePriceDisplay();
 
     overlay.classList.add('is-visible');
+    document.body.classList.add('is-modal-open');
     isModalOpen = true;
     window.isModalOpen = true;
 
-    // Bezpieczna synchronizacja z silnikiem Three.js (Hotspot DNA)
-    try {
-      if (window.scrollHandler && window.getSnapPos) {
-        const snapDna = window.getSnapPos('science', 'dna');
-        if (typeof window.scrollHandler.scrollTo === 'function') {
-          window.scrollHandler.scrollTo(snapDna, { direct: true });
-        }
-      }
-    } catch (e) {}
-
-    setTimeout(() => {
+    // Tylko jeśli użytkownik NIE jest w Scenie 2, synchronizujemy widok z Hotspotem DNA Sceny 1
+    if (!inSection2) {
       try {
-        if (window.appStore && window.appStore.state && window.appStore.state.navigation) {
-          window.appStore.state.navigation.hotspotDna = true;
+        if (window.scrollHandler && window.getSnapPos) {
+          const snapDna = window.getSnapPos('science', 'dna');
+          if (typeof window.scrollHandler.scrollTo === 'function') {
+            window.scrollHandler.scrollTo(snapDna, { direct: true });
+          }
         }
       } catch (e) {}
-    }, 150);
+
+      setTimeout(() => {
+        try {
+          if (window.appStore && window.appStore.state && window.appStore.state.navigation) {
+            window.appStore.state.navigation.hotspotDna = true;
+          }
+        } catch (e) {}
+      }, 150);
+    }
   };
 
   window.closeBookingModal = function () {
@@ -1392,12 +1404,22 @@
     if (overlay) {
       overlay.classList.remove('is-visible');
     }
+    document.body.classList.remove('is-modal-open');
     isModalOpen = false;
     window.isModalOpen = false;
     isProgrammaticModalOpen = false;
-
-    // Przywrócenie renderowania 3D
     window.is3DRenderingPaused = false;
+
+    // Przywrócenie widoczności orbitalnych przycisków 3D w Scenie 2 (wyłącznie gdy sekcja 2 jest aktywna)
+    if (window.isSection2Active || originSceneSnap !== null) {
+      if (typeof window.showScene2Hotspots === 'function') {
+        window.showScene2Hotspots();
+      }
+    } else {
+      if (typeof window.hideScene2Hotspots === 'function') {
+        window.hideScene2Hotspots();
+      }
+    }
 
     try {
       if (window.appStore && window.appStore.state && window.appStore.state.navigation) {
@@ -1476,11 +1498,13 @@
             if (hotspotActive && !isModalOpen) {
               isProgrammaticModalOpen = false;
               overlay.classList.add('is-visible');
+              document.body.classList.add('is-modal-open');
               isModalOpen = true;
               window.isModalOpen = true;
               renderCalendar();
             } else if (!hotspotActive && isModalOpen && !isProgrammaticModalOpen) {
               overlay.classList.remove('is-visible');
+              document.body.classList.remove('is-modal-open');
               isModalOpen = false;
               window.isModalOpen = false;
             }
