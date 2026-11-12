@@ -904,8 +904,8 @@ body:has(.products-view-container.is-detail-view) .menuBtn {
     padding: 24px 16px;
   }
   .timeline-header {
-    padding-right: 56px !important;
-    max-width: 100%;
+    padding-right: 68px !important;
+    max-width: calc(100% - 68px) !important;
   }
   .roadmap-center-slot {
     width: 24px !important;
