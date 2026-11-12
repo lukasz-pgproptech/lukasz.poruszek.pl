@@ -1329,15 +1329,16 @@
 
   // OTWIERANIE I ZAMYKANIE MODALU
   let originSceneSnap = null;
+  let isProgrammaticModalOpen = false;
 
   window.openBookingModal = function (tab) {
     const overlay = document.getElementById('booking-modal-overlay');
     if (!overlay) return;
 
+    isProgrammaticModalOpen = true;
+
     // W-07 / TASK-13: Oszczędzanie GPU - wstrzymanie ciężkiego renderowania 3D pod szklanym modalem
-    if (window.appStore && window.appStore.state) {
-      window.appStore.state.isRenderingPaused = true;
-    }
+    window.is3DRenderingPaused = true;
 
     if (window.scrollHandler && window.getSnapPos) {
       try {
@@ -1356,25 +1357,33 @@
     }
 
     if (tab) {
-      window.switchBookingTab(tab);
+      const normalizedTab = (tab === 'workshops' || tab === 'warsztaty') ? 'warsztaty' :
+                            (tab === 'career' || tab === 'kariera') ? 'kariera' : 'biznes';
+      window.switchBookingTab(normalizedTab);
     }
     renderCalendar();
+    updatePriceDisplay();
 
     overlay.classList.add('is-visible');
     isModalOpen = true;
+    window.isModalOpen = true;
 
-    // Przejście kamery 3D do Hotspot DNA
-    if (window.scrollHandler && window.getSnapPos) {
-      try {
+    // Bezpieczna synchronizacja z silnikiem Three.js (Hotspot DNA)
+    try {
+      if (window.scrollHandler && window.getSnapPos) {
         const snapDna = window.getSnapPos('science', 'dna');
-        window.scrollHandler.scrollTo(snapDna, { direct: true });
-      } catch (e) {}
-    }
+        if (typeof window.scrollHandler.scrollTo === 'function') {
+          window.scrollHandler.scrollTo(snapDna, { direct: true });
+        }
+      }
+    } catch (e) {}
 
     setTimeout(() => {
-      if (window.appStore && window.appStore.state && window.appStore.state.navigation) {
-        window.appStore.state.navigation.hotspotDna = true;
-      }
+      try {
+        if (window.appStore && window.appStore.state && window.appStore.state.navigation) {
+          window.appStore.state.navigation.hotspotDna = true;
+        }
+      } catch (e) {}
     }, 150);
   };
 
@@ -1384,22 +1393,26 @@
       overlay.classList.remove('is-visible');
     }
     isModalOpen = false;
+    window.isModalOpen = false;
+    isProgrammaticModalOpen = false;
 
     // Przywrócenie renderowania 3D
-    if (window.appStore && window.appStore.state) {
-      window.appStore.state.isRenderingPaused = false;
-    }
+    window.is3DRenderingPaused = false;
 
-    if (window.appStore && window.appStore.state && window.appStore.state.navigation) {
-      window.appStore.state.navigation.hotspotDna = false;
-    }
+    try {
+      if (window.appStore && window.appStore.state && window.appStore.state.navigation) {
+        window.appStore.state.navigation.hotspotDna = false;
+      }
+    } catch (e) {}
 
     if (originSceneSnap !== null && window.scrollHandler) {
       const targetSnap = originSceneSnap;
       originSceneSnap = null;
       setTimeout(() => {
         try {
-          window.scrollHandler.scrollTo(targetSnap, { direct: true });
+          if (typeof window.scrollHandler.scrollTo === 'function') {
+            window.scrollHandler.scrollTo(targetSnap, { direct: true });
+          }
         } catch (e) {}
       }, 200);
     }
@@ -1454,21 +1467,26 @@
   // PĘTLA SYNCHRONIZACYJNA ZE STANEM 3D (hotspotDna)
   function startSyncLoop() {
     function checkSync() {
-      if (window.appStore && window.appStore.state && window.appStore.state.navigation) {
-        const hotspotActive = Boolean(window.appStore.state.navigation.hotspotDna);
-        const overlay = document.getElementById('booking-modal-overlay');
+      try {
+        if (window.appStore && window.appStore.state && window.appStore.state.navigation) {
+          const hotspotActive = Boolean(window.appStore.state.navigation.hotspotDna);
+          const overlay = document.getElementById('booking-modal-overlay');
 
-        if (overlay) {
-          if (hotspotActive && !isModalOpen) {
-            overlay.classList.add('is-visible');
-            isModalOpen = true;
-            renderCalendar();
-          } else if (!hotspotActive && isModalOpen) {
-            overlay.classList.remove('is-visible');
-            isModalOpen = false;
+          if (overlay) {
+            if (hotspotActive && !isModalOpen) {
+              isProgrammaticModalOpen = false;
+              overlay.classList.add('is-visible');
+              isModalOpen = true;
+              window.isModalOpen = true;
+              renderCalendar();
+            } else if (!hotspotActive && isModalOpen && !isProgrammaticModalOpen) {
+              overlay.classList.remove('is-visible');
+              isModalOpen = false;
+              window.isModalOpen = false;
+            }
           }
         }
-      }
+      } catch (e) {}
       requestAnimationFrame(checkSync);
     }
     requestAnimationFrame(checkSync);

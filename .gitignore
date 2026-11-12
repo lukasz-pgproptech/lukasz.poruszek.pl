@@ -49,3 +49,4 @@ original_wp.js
 *.full-3d-backup
 .wrangler/
 .ignore
+__pycache__/

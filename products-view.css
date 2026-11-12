@@ -348,6 +348,82 @@ body.is-menu-open #products-view-container,
   margin: 0;
 }
 
+.detail-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  margin-top: 24px;
+}
+
+.editorial-booking-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: var(--pv-accent, #00e599);
+  color: #020504;
+  font-family: var(--pv-font-mono, 'JetBrains Mono', monospace);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 14px 24px;
+  border: 1px solid var(--pv-accent, #00e599);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  min-height: 48px;
+  touch-action: manipulation;
+}
+
+.editorial-booking-cta:hover {
+  background: #ffffff;
+  color: #020504;
+  border-color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 229, 153, 0.3);
+}
+
+.editorial-details-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #ffffff;
+  font-family: var(--pv-font-mono, 'JetBrains Mono', monospace);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  padding: 14px 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  min-height: 48px;
+  touch-action: manipulation;
+}
+
+.editorial-details-cta:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+@media (max-width: 768px) {
+  .detail-actions {
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+  }
+  .editorial-booking-cta,
+  .editorial-details-cta {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
 /* -------------------------------------------------------------
    RESPONSYWNOŚĆ (TABLETY I MOBILE)
    ------------------------------------------------------------- */
