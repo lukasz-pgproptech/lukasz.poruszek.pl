@@ -466,7 +466,10 @@
         }
 
         // Płynny ślizg widżetu 3D do wycentrowanego gniazda osi roadmapy (relatywny na mobile)
-        const targetY = window.innerHeight < 768 ? Math.round(-0.28 * window.innerHeight) : -245;
+        const isMobileScreen = window.innerWidth <= 768 || (window.innerWidth / window.innerHeight) < 0.65;
+        const targetY = isMobileScreen 
+          ? Math.round(-0.32 * window.innerHeight) 
+          : (window.innerHeight < 768 ? Math.round(-0.28 * window.innerHeight) : -245);
         animateHotspotTo(0, targetY, 380);
       }
     } catch (e) {}
@@ -502,19 +505,24 @@
       window.view.menuBtn.object.visible = true;
     }
 
-    // Płynny powrót widżetu 3D do bazowej pozycji w Scenie 2
+    // Płynny powrót widżetu 3D do bazowej pozycji w Scenie 2 (na desktopie)
     try {
       if (window.view && window.view.sections && window.view.sections[1] && window.view.sections[1].data) {
         const s2 = window.view.sections[1].data;
-        if (s2.hotspot && s2.hotspot.object) {
-          s2.hotspot.object.scale.set(1, 1, 1);
-        }
-        const origX = 0.32 * (s2.hotspot.props.viewport ? s2.hotspot.props.viewport.width : 1440);
-        const origY = -0.27 * (s2.hotspot.props.viewport ? s2.hotspot.props.viewport.height : 900);
-        animateHotspotTo(origX, origY, 380);
+        if (window.innerWidth <= 768) {
+          if (s2.hotspot && s2.hotspot.hide) s2.hotspot.hide({ delay: 0 });
+          if (s2.moreHotspot && s2.moreHotspot.hide) s2.moreHotspot.hide({ delay: 0 });
+        } else {
+          if (s2.hotspot && s2.hotspot.object) {
+            s2.hotspot.object.scale.set(1, 1, 1);
+          }
+          const origX = 0.32 * (s2.hotspot.props.viewport ? s2.hotspot.props.viewport.width : 1440);
+          const origY = -0.27 * (s2.hotspot.props.viewport ? s2.hotspot.props.viewport.height : 900);
+          animateHotspotTo(origX, origY, 380);
 
-        if (s2.hotspot && s2.hotspot.show) s2.hotspot.show({ delay: 0.1 });
-        if (s2.moreHotspot && s2.moreHotspot.show) s2.moreHotspot.show({ delay: 0.15 });
+          if (s2.hotspot && s2.hotspot.show) s2.hotspot.show({ delay: 0.1 });
+          if (s2.moreHotspot && s2.moreHotspot.show) s2.moreHotspot.show({ delay: 0.15 });
+        }
       }
     } catch (e) {}
 
@@ -597,6 +605,10 @@
       const s2 = window.view.sections[1].data;
       if (s2.title && s2.title.object) s2.title.object.visible = false;
       if (s2.bodyText && s2.bodyText.object) s2.bodyText.object.visible = false;
+      if (window.innerWidth <= 768 && !window.isDetailViewOpen) {
+        if (s2.hotspot && s2.hotspot.hide) s2.hotspot.hide({ delay: 0 });
+        if (s2.moreHotspot && s2.moreHotspot.hide) s2.moreHotspot.hide({ delay: 0 });
+      }
     }
   }
 

@@ -1864,14 +1864,20 @@
                 background: rgba(3, 8, 6, 0.75);
             }
             .glass-booking-surface {
-                max-height: calc(100dvh - 24px);
-                height: calc(100dvh - 24px);
+                max-height: calc(100dvh - 20px);
+                height: auto;
+                overflow-y: auto !important;
+                -webkit-overflow-scrolling: touch;
                 border-radius: 16px;
+                padding-bottom: max(32px, env(safe-area-inset-bottom, 32px));
             }
 
             .booking-close-btn {
-                top: 10px !important;
-                right: 10px !important;
+                position: sticky;
+                top: 8px !important;
+                right: 8px !important;
+                align-self: flex-end;
+                z-index: 100;
             }
 
             /* W-07: Redukcja selektora zakładek do poziomego paska Segmented Control (<= 44px) */
