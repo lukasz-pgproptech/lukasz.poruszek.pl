@@ -409,8 +409,31 @@ assert(index3dHtmlSuite9.includes('ws2-consent-terms') && index3dHtmlSuite9.incl
 assert(bookingJsSuite9.includes('ws2-consent-terms') && bookingJsSuite9.includes('checked'), 'booking-widget.js validates ws2-consent-terms before submission');
 
 // 5. Menu Footer Legal Links
-assert(mainJsSuite9.includes('"menu-item_eight-label":"Regulamin"') && mainJsSuite9.includes('"menu-item_eight-link":"/regulamin"'), 'main bundle menu links to /regulamin');
-assert(mainJsSuite9.includes('"menu-item_nine-label":"Polityka Prywatności"') && mainJsSuite9.includes('"menu-item_nine-link":"/polityka-prywatnosci"'), 'main bundle menu links to /polityka-prywatnosci');
+const mainJsCurrent = fs.readFileSync(path.join(__dirname, 'main.76ceb4644b28bd9c30b5.js'), 'utf-8');
+assert(mainJsCurrent.includes('"menu-item_eight-label":"Regulamin"') && mainJsCurrent.includes('"menu-item_eight-link":"/regulamin"'), 'main bundle menu links to /regulamin');
+assert(mainJsCurrent.includes('"menu-item_nine-label":"Polityka Prywatności"') && mainJsCurrent.includes('"menu-item_nine-link":"/polityka-prywatnosci"'), 'main bundle menu links to /polityka-prywatnosci');
+assert(!mainJsCurrent.includes('"menu-item_ten-label":"Polityka Prywatności"'), 'main bundle removed duplicate broken Polityka Prywatności label');
+assert(!mainJsCurrent.includes('"menu-item_ten-link":"https://lukasz.poruszek.pl/"'), 'main bundle removed broken link for menu-item_ten');
+assert(!mainJsCurrent.includes('copy["menu-item_ten-link"]'), 'main bundle template completely eliminated 10th duplicate link');
+
+// 6. Contact Email (kontakt@pgproptech.com) across all legal & email touchpoints
+assert(regulaminMd.includes('kontakt@pgproptech.com'), 'legal/regulamin.md contains kontakt@pgproptech.com');
+assert(regulaminHtml.includes('kontakt@pgproptech.com'), 'regulamin.html contains kontakt@pgproptech.com');
+assert(privacyMd.includes('kontakt@pgproptech.com'), 'legal/polityka-prywatnosci.md contains kontakt@pgproptech.com');
+assert(privacyHtml.includes('kontakt@pgproptech.com'), 'polityka-prywatnosci.html contains kontakt@pgproptech.com');
+
+const emailServiceCode = fs.readFileSync(path.join(__dirname, 'email-service.mjs'), 'utf-8');
+const workerCode = fs.readFileSync(path.join(__dirname, 'workers/api/src/index.js'), 'utf-8');
+assert(emailServiceCode.includes("reply_to: 'kontakt@pgproptech.com'"), 'email-service.mjs sets reply_to: kontakt@pgproptech.com');
+assert(workerCode.includes("reply_to: 'kontakt@pgproptech.com'"), 'workers/api/src/index.js sets reply_to: kontakt@pgproptech.com');
+
+// 7. Verify absolute zero occurrences of old kontakt@lukasz.poruszek.pl in codebase
+assert(!regulaminMd.includes('kontakt@lukasz.poruszek.pl'), 'legal/regulamin.md has zero old email');
+assert(!regulaminHtml.includes('kontakt@lukasz.poruszek.pl'), 'regulamin.html has zero old email');
+assert(!privacyMd.includes('kontakt@lukasz.poruszek.pl'), 'legal/polityka-prywatnosci.md has zero old email');
+assert(!privacyHtml.includes('kontakt@lukasz.poruszek.pl'), 'polityka-prywatnosci.html has zero old email');
+assert(!emailServiceCode.includes('kontakt@lukasz.poruszek.pl'), 'email-service.mjs has zero old email');
+assert(!workerCode.includes('kontakt@lukasz.poruszek.pl'), 'workers/api/src/index.js has zero old email');
 
 console.log(`\n========================================`);
 console.log(`RESULT: ${passed} PASSED, ${failed} FAILED`);

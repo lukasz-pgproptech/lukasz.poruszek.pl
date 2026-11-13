@@ -477,6 +477,7 @@ async function sendReservationEmail({ to, name, group, amountPln, invoiceNumber,
       body: JSON.stringify({
         from: 'Łukasz Poruszek <kontakt@poruszek.pl>',
         to: [to],
+        reply_to: 'kontakt@pgproptech.com',
         subject: `Potwierdzenie rezerwacji i faktura proforma ${invoiceNumber}`,
         html: emailHtml,
         attachments: [

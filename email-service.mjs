@@ -186,7 +186,7 @@ export async function sendReservationEmail({
       <div class="note-box">
         <strong>Załącznik:</strong> Do niniejszej wiadomości załączono Fakturę Proforma w formacie PDF.<br>
         Miejsce na warsztatach pozostaje zarezerwowane przez 24 godziny. Po zaksięgowaniu wpłaty otrzymasz potwierdzenie uczestnictwa, materiały wstępne oraz e-Fakturę VAT zgodną ze standardem KSeF.<br><br>
-        W razie jakichkolwiek pytań wystarczy odpowiedzieć bezpośrednio na tę wiadomość e-mail.
+        W razie jakichkolwiek pytań wystarczy odpowiedzieć bezpośrednio na tę wiadomość e-mail lub napisać na adres kontakt@pgproptech.com.
       </div>
     </div>
   </div>
@@ -199,7 +199,7 @@ export async function sendReservationEmail({
       from: fromAddress,
       to: [to],
       bcc: [adminEmail],
-      reply_to: adminEmail,
+      reply_to: 'kontakt@pgproptech.com',
       subject: subject,
       html: emailHtml,
       attachments: attachments.length > 0 ? attachments : undefined

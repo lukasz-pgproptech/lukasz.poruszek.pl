@@ -15,7 +15,7 @@
    wpisana do rejestru przedsiębiorców Krajowego Rejestru Sądowego prowadzonego przez Sąd Rejonowy Lublin-Wschód w Lublinie z siedzibą w Świdniku, VI Wydział Gospodarczy KRS pod numerem **KRS: 0000922442**,  
    posiadająca **NIP: 7963033913**, **REGON: 389965030**,  
    kapitał zakładowy: 5 000,00 PLN (opłacony w całości),  
-   adres poczty elektronicznej (e-mail): **kontakt@lukasz.poruszek.pl**,  
+   adres poczty elektronicznej (e-mail): **kontakt@pgproptech.com**,  
    zwana w dalszej części Regulaminu **„Usługodawcą”** lub **„Sprzedawcą”**.
 3. Ilekroć w niniejszym Regulaminie użyto poniższych pojęć, należy je rozumieć następująco:
    * **Serwis** – strona internetowa prowadzona przez Usługodawcę pod adresem URL https://lukasz.poruszek.pl wraz ze wszystkimi jej podstronami i modułami funkcjonalnymi.
@@ -105,7 +105,7 @@
    * W przypadku niemożności uczestnictwa w sesji na żywo Uczestnik otrzymuje dostęp do pełnego nagrania wideo z danego spotkania oraz materiałów roboczych.
 2. **Realizacja Mentoringu 1:1 oraz Zmiana Terminu:**
    * Sesja odbywa się w terminie wybranym przez Klienta podczas rezerwacji.
-   * **Bezpłatna zmiana terminu:** Klient ma prawo do bezpłatnej zmiany terminu sesji mentoringowej, pod warunkiem poinformowania Usługodawcy pocztą elektroniczną (na adres `kontakt@lukasz.poruszek.pl`) **najpóźniej na 24 godziny przed planowanym rozpoczęciem sesji**. Nowy termin ustalany jest w ramach wolnych slotów w kalendarzu.
+   * **Bezpłatna zmiana terminu:** Klient ma prawo do bezpłatnej zmiany terminu sesji mentoringowej, pod warunkiem poinformowania Usługodawcy pocztą elektroniczną (na adres `kontakt@pgproptech.com`) **najpóźniej na 24 godziny przed planowanym rozpoczęciem sesji**. Nowy termin ustalany jest w ramach wolnych slotów w kalendarzu.
    * **Późne odwołanie / niestawiennictwo:** Zgłoszenie zmiany terminu na mniej niż 24 godziny przed sesją lub niestawienie się Klienta na spotkaniu online w wyznaczonym czasie (spóźnienie przekraczające 15 minut) jest traktowane jako należyte zrealizowanie Usługi przez Usługodawcę, a wpłacone wynagrodzenie nie podlega zwrotowi. Wynika to z faktu rezerwacji wyłącznego czasu mentora i braku możliwości zaoferowania zwolnionego terminu innemu Użytkownikowi.
 3. Usługodawca zastrzega sobie prawo do zmiany terminu pojedynczych zajęć warsztatowych lub sesji mentoringowej w sytuacjach nadzwyczajnych (nagła choroba mentora, awaria techniczna o zasięgu globalnym). W takim przypadku Usługodawca niezwłocznie uzgadnia z Uczestnikami termin zastępczy, dogodny dla stron.
 
@@ -139,7 +139,7 @@
 3. W przypadku gdy na wyraźne żądanie Klienta świadczenie Usługi (np. sesja Mentoringu lub pierwsze spotkanie Warsztatów) ma rozpocząć się przed upływem 14-dniowego terminu do odstąpienia od umowy:
    * jeśli usługa zostanie wykonana w całości przed upływem 14 dni – prawo do odstąpienia wygasa;
    * jeśli Klient odstąpi od umowy w trakcie trwania cyklu warsztatowego (przed jego zakończeniem) – Usługodawca zwraca wpłaconą kwotę pomniejszoną o wartość świadczeń już spełnionych proporcjonalnie do zrealizowanych modułów/sesji.
-4. Aby skorzystać z prawa odstąpienia od umowy, Klient składa Usługodawcy jednoznaczne oświadczenie o odstąpieniu drogą elektroniczną na adres: **kontakt@lukasz.poruszek.pl**. Klient może skorzystać z ustawowego wzoru formularza odstąpienia od umowy, nie jest to jednak obowiązkowe.
+4. Aby skorzystać z prawa odstąpienia od umowy, Klient składa Usługodawcy jednoznaczne oświadczenie o odstąpieniu drogą elektroniczną na adres: **kontakt@pgproptech.com**. Klient może skorzystać z ustawowego wzoru formularza odstąpienia od umowy, nie jest to jednak obowiązkowe.
 5. W przypadku skutecznego odstąpienia od umowy Usługodawca zwraca Klientowi wszystkie otrzymane płatności niezwłocznie, nie później niż w terminie 14 dni od dnia otrzymania oświadczenia, przy użyciu takiego samego sposobu zapłaty, jakiego użył Klient.
 6. **Klienci B2B:** W stosunku do Klientów będących Przedsiębiorcami (z wyłączeniem PNPK) rękojmia za wady oraz uprawnienie do odstąpienia od umowy zostają w najszerszym dopuszczalnym przez prawo zakresie wyłączone (art. 558 § 1 Kodeksu cywilnego).
 
@@ -152,7 +152,7 @@
    * dane identyfikujące Klienta (imię i nazwisko / nazwa firmy, adres e-mail);
    * opis okoliczności stanowiących podstawę reklamacji (opis wady, uchybienia lub problemu technicznego);
    * żądanie Klienta (np. powtórzenie sesji, usunięcie usterki, obniżenie ceny).
-3. Reklamacje należy składać drogą elektroniczną na adres e-mail: **kontakt@lukasz.poruszek.pl** z dopiskiem w tytule: *„Reklamacja”*.
+3. Reklamacje należy składać drogą elektroniczną na adres e-mail: **kontakt@pgproptech.com** z dopiskiem w tytule: *„Reklamacja”*.
 4. Usługodawca ustosunkuje się do reklamacji i udzieli odpowiedzi drogą elektroniczną w terminie **14 dni kalendarzowych** od dnia jej doręczenia.
 5. Konsument posiada m.in. następujące możliwości skorzystania z pozasądowych sposobów rozpatrywania reklamacji i dochodzenia roszczeń:
    * zwrócenie się do stałego polubownego sądu konsumenckiego;

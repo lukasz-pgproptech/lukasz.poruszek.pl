@@ -14,7 +14,7 @@
    z siedzibą w Radomiu, ul. Jacka Malczewskiego 29, 26-600 Radom,  
    wpisana do rejestru przedsiębiorców Krajowego Rejestru Sądowego pod numerem **KRS: 0000922442**,  
    posiadająca **NIP: 7963033913**, **REGON: 389965030**,  
-   adres e-mail: **kontakt@lukasz.poruszek.pl**,  
+   adres e-mail: **kontakt@pgproptech.com**,  
    zwana dalej **„Administratorem”**.
 3. Administrator przykłada szczególną wagę do ochrony prywatności i bezpieczeństwa danych osób odwiedzających Serwis. Dane osobowe są przetwarzane zgodnie z RODO, ustawą z dnia 10 maja 2018 r. o ochronie danych osobowych oraz ustawą z dnia 18 lipca 2002 r. o świadczeniu usług drogą elektroniczną.
 
@@ -94,7 +94,7 @@ Każdej osobie, której dane dotyczą, przysługują następujące prawa wynikaj
    ul. Stawki 2, 00-193 Warszawa  
    strona internetowa: [https://uodo.gov.pl](https://uodo.gov.pl).
 
-W celu realizacji swoich praw wystarczy przesłać stosowne oświadczenie na adres e-mail: **kontakt@lukasz.poruszek.pl**.
+W celu realizacji swoich praw wystarczy przesłać stosowne oświadczenie na adres e-mail: **kontakt@pgproptech.com**.
 
 ---
 
