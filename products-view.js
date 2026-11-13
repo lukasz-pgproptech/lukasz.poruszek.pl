@@ -541,23 +541,33 @@
       window.appStore.state.navigation.hotspotKernel = false;
     }
 
-    // 2. Natychmiastowy skok do Sceny 2 w silniku 3D WebGL
-    const snap = window.getSnapPos ? window.getSnapPos('science', 'data') : 3906;
+    // 2. Natychmiastowy skok do Sceny 2 w silniku 3D WebGL (SwipeHandler dla Mobile, ScrollHandler dla Desktop)
+    const snap = window.getSnapPos ? window.getSnapPos('science', 'data') : (window.innerWidth <= 768 ? 2928 : 3906);
+    if (window.swipeHandler) {
+      window.swipeHandler.position = snap;
+      window.swipeHandler.target = snap;
+      window.swipeHandler.vel = 0;
+      if (typeof window.swipeHandler.scrollTo === 'function') {
+        window.swipeHandler.scrollTo(snap, { direct: true });
+      }
+    }
     if (window.scrollHandler) {
       if (typeof window.scrollHandler.scrollTo === 'function') {
-        window.scrollHandler.scrollTo(snap);
+        window.scrollHandler.scrollTo(snap, { direct: true });
       } else if (window.scrollHandler.position !== undefined) {
         window.scrollHandler.position = snap;
       }
     }
     if (window.appStore && window.appStore.state && window.appStore.state.scroll) {
       window.appStore.state.scroll.position = snap;
+      window.appStore.state.scroll.positionPrev = snap;
     }
     if (typeof window.onSection2Active === 'function') {
       window.onSection2Active();
     }
 
-    // 3. Otwórz widok osi narracyjnej dla wybranego produktu
+    // 3. Wymuś stan aktywności widoku i otwórz oś narracyjną wybranego produktu
+    setSectionState(true);
     window.showProductDetail(productId);
   };
 
@@ -1024,6 +1034,15 @@
         ? (appState.currentSection || (appState.navigation && appState.navigation.currentSection))
         : null;
       const currentSubSection = appState ? appState.currentSubSection : null;
+
+      // Jeśli użytkownik ma otwarty widok szczegółowy (oś czasu / deep dive), NIE wyłączaj kontenera produktów!
+      if (window.isDetailViewOpen) {
+        if (!isSectionActive) {
+          setSectionState(true);
+        }
+        requestAnimationFrame(checkState);
+        return;
+      }
 
       // W-03: Krystaliczna Macierz (Scena 2) to sekcja 'science' z podsekcją 'data'.
       // Helisa DNA (Scena 1) to 'dna', a Scena 0 to 'landing'/'hero'.

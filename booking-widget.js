@@ -1361,12 +1361,13 @@
     // Sprawdzenie czy użytkownik znajduje się w Scenie 2 (Krystaliczna Macierz / Przejmij Klocki)
     let inSection2 = Boolean(window.isSection2Active || window.isDetailViewOpen);
 
-    if (window.scrollHandler && window.getSnapPos) {
+    const activeScrollHandler = window.swipeHandler || window.scrollHandler;
+    if (activeScrollHandler && window.getSnapPos) {
       try {
         const snapData = window.getSnapPos('science', 'data');
-        const curPos = (typeof window.scrollHandler.getScrollPosition === 'function')
-          ? window.scrollHandler.getScrollPosition()
-          : (window.scrollHandler.position !== undefined ? window.scrollHandler.position : (window.appStore && window.appStore.state && window.appStore.state.scroll ? window.appStore.state.scroll.position : 0));
+        const curPos = (typeof activeScrollHandler.getScrollPosition === 'function')
+          ? activeScrollHandler.getScrollPosition()
+          : (activeScrollHandler.position !== undefined ? activeScrollHandler.position : (window.appStore && window.appStore.state && window.appStore.state.scroll ? window.appStore.state.scroll.position : 0));
         if (Math.abs(curPos - snapData) < 480 || inSection2) {
           inSection2 = true;
           originSceneSnap = snapData;
@@ -1399,9 +1400,17 @@
     // Tylko jeśli użytkownik NIE jest w Scenie 2, synchronizujemy widok z Hotspotem DNA Sceny 1
     if (!inSection2) {
       try {
-        if (window.scrollHandler && window.getSnapPos) {
+        if (window.getSnapPos) {
           const snapDna = window.getSnapPos('science', 'dna');
-          if (typeof window.scrollHandler.scrollTo === 'function') {
+          if (window.swipeHandler) {
+            window.swipeHandler.position = snapDna;
+            window.swipeHandler.target = snapDna;
+            window.swipeHandler.vel = 0;
+            if (typeof window.swipeHandler.scrollTo === 'function') {
+              window.swipeHandler.scrollTo(snapDna, { direct: true });
+            }
+          }
+          if (window.scrollHandler && typeof window.scrollHandler.scrollTo === 'function') {
             window.scrollHandler.scrollTo(snapDna, { direct: true });
           }
         }
@@ -1445,12 +1454,20 @@
       }
     } catch (e) {}
 
-    if (originSceneSnap !== null && window.scrollHandler) {
+    if (originSceneSnap !== null) {
       const targetSnap = originSceneSnap;
       originSceneSnap = null;
       setTimeout(() => {
         try {
-          if (typeof window.scrollHandler.scrollTo === 'function') {
+          if (window.swipeHandler) {
+            window.swipeHandler.position = targetSnap;
+            window.swipeHandler.target = targetSnap;
+            window.swipeHandler.vel = 0;
+            if (typeof window.swipeHandler.scrollTo === 'function') {
+              window.swipeHandler.scrollTo(targetSnap, { direct: true });
+            }
+          }
+          if (window.scrollHandler && typeof window.scrollHandler.scrollTo === 'function') {
             window.scrollHandler.scrollTo(targetSnap, { direct: true });
           }
         } catch (e) {}

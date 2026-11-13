@@ -203,6 +203,16 @@ assert(productsJs.includes("container.style.opacity = '0'") && productsJs.includ
 assert(productsJs.includes("currentSubSection === 'data'"), 'products-view.js checks currentSubSection === data for Scene 2 activation');
 assert(productsJs.includes("currentSubSection === 'dna'"), 'products-view.js checks currentSubSection === dna for Scene 1 deactivation');
 assert(productsJs.includes('Math.round(-0.28 * window.innerHeight)'), 'products-view.js uses relative targetY for 3D hotspot on mobile');
+assert(productsJs.includes('if (window.swipeHandler)') && productsJs.includes('window.swipeHandler.scrollTo(snap, { direct: true })'), 'products-view.js synchronizes window.swipeHandler on mobile in navigateFromMenu');
+assert(productsJs.includes('window.swipeHandler.target = snap') && productsJs.includes('window.swipeHandler.vel = 0'), 'products-view.js resets SwipeHandler physics target and velocity in navigateFromMenu');
+assert(productsJs.includes('if (window.isDetailViewOpen)') && productsJs.includes('if (!isSectionActive) {') && productsJs.includes('setSectionState(true);'), 'products-view.js guards checkState loop from deactivating container when isDetailViewOpen');
+assert(bookingJs.includes('const activeScrollHandler = window.swipeHandler || window.scrollHandler;'), 'booking-widget.js detects active handler across mobile (SwipeHandler) and desktop (ScrollHandler)');
+assert(bookingJs.includes('if (window.swipeHandler)') && bookingJs.includes('window.swipeHandler.scrollTo(targetSnap, { direct: true })'), 'booking-widget.js restores position via SwipeHandler on modal close');
+
+const indexHtmlContent = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf8');
+const index3dHtmlContent = fs.readFileSync(path.join(__dirname, 'index.3d.html'), 'utf8');
+assert(indexHtmlContent.includes('products-view.js?v=2.9') && indexHtmlContent.includes('booking-widget.js?v=2.9'), 'index.html uses cache-busting v=2.9');
+assert(index3dHtmlContent.includes('products-view.js?v=2.9') && index3dHtmlContent.includes('booking-widget.js?v=2.9'), 'index.3d.html uses cache-busting v=2.9');
 
 console.log('\n=== TEST SUITE 6: main.76ceb4644b28bd9c30b5.js (Pioneer 3D Engine) ===');
 const mainJs = fs.readFileSync(path.join(__dirname, 'main.76ceb4644b28bd9c30b5.js'), 'utf8');
