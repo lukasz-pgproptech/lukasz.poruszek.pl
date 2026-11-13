@@ -162,6 +162,10 @@ assert(bookingCss.includes('.cal-nav-btn') && bookingCss.includes('min-width: 44
 assert(bookingCss.includes('font-size: 16px !important'), 'booking-widget.css enforces font-size: 16px !important on inputs to prevent iOS auto-zoom');
 assert(bookingCss.includes('max-height: calc(100dvh - 20px)') || bookingCss.includes('max-height: calc(100dvh - 24px)'), 'booking-widget.css sets dynamic max-height: calc(100dvh - 20px)');
 assert(bookingCss.includes('height: 44px') && bookingCss.includes('max-height: 44px') && bookingCss.includes('.event-type-selector'), 'booking-widget.css sets .event-type-selector height: 44px segmented control');
+assert(bookingCss.includes('.legal-checkbox-label input[type="checkbox"]') && bookingCss.includes('appearance: none !important'), 'booking-widget.css defines explicit custom appearance for legal checkbox');
+assert(bookingCss.includes('border: 2px solid') && bookingCss.includes('background-color: #ffffff'), 'booking-widget.css renders visible 2px border and white background for checkbox');
+assert(bookingCss.includes('background-image: url("data:image/svg+xml') && bookingCss.includes('background-color: #059669'), 'booking-widget.css renders emerald checkmark on checked state');
+assert(bookingCss.includes('.legal-checkbox-label') && bookingCss.includes('min-height: 44px !important'), 'booking-widget.css sets min-height: 44px on legal checkbox label for Apple HIG touch targets');
 
 console.log('\n=== TEST SUITE 3: products-view.css ===');
 const productsCss = fs.readFileSync(path.join(__dirname, 'products-view.css'), 'utf-8');
@@ -192,6 +196,7 @@ assert(bookingJs.includes('window.is3DRenderingPaused = false'), 'booking-widget
 assert(!bookingJs.includes('window.is3DRenderingPaused = true'), 'booking-widget.js does not freeze 3D rendering');
 assert(bookingJs.includes('data.amountPln'), 'booking-widget.js includes data.amountPln fallback in amountFormatted');
 assert(bookingJs.includes('escapeHtml(name)'), 'booking-widget.js escapes name in Step 3 innerHTML');
+assert(bookingJs.includes("consentTerms.classList.add('checkbox-error')") && bookingJs.includes('scrollIntoView'), 'booking-widget.js provides visual error and smooth scrollIntoView when consent is missing');
 
 const productsJs = fs.readFileSync(path.join(__dirname, 'products-view.js'), 'utf-8');
 assert(productsJs.includes("container.style.opacity = '0'") && productsJs.includes("container.style.visibility = 'hidden'"), 'products-view.js enforces inline style deactivation in setSectionState(false)');

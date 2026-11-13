@@ -1075,8 +1075,14 @@
 
     const consentTerms = document.getElementById('ws2-consent-terms');
     if (consentTerms && !consentTerms.checked) {
-      alert('Aby złożyć zamówienie, prosimy o zaznaczenie akceptacji Regulaminu oraz Polityki Prywatności.');
+      const consentGroup = document.querySelector('.legal-consent-group');
+      if (consentGroup && typeof consentGroup.scrollIntoView === 'function') {
+        consentGroup.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      consentTerms.classList.add('checkbox-error');
+      setTimeout(() => consentTerms.classList.remove('checkbox-error'), 3500);
       consentTerms.focus();
+      alert('Aby złożyć zamówienie, prosimy o zaznaczenie akceptacji Regulaminu oraz Polityki Prywatności.');
       return;
     }
 
@@ -1473,6 +1479,13 @@
     loadMentoringSlots();
     renderCalendar();
     updatePriceDisplay();
+
+    const consentTerms = document.getElementById('ws2-consent-terms');
+    if (consentTerms) {
+      consentTerms.addEventListener('change', function () {
+        consentTerms.classList.remove('checkbox-error');
+      });
+    }
 
     // Sprawdzenie powrotu z bramki płatności Paynow (?payment=success)
     try {
