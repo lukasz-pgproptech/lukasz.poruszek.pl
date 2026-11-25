@@ -19,11 +19,52 @@ const ADMIN_EMAIL = 'lukasz.main@gmail.com';
 const BASE_WORKSHOP_PRICE = 1200;
 const BASE_MENTORING_PRICE = 400;
 
-const COUPONS = {
-  'CHORWACJA': 50,
-  'RESICRAFT': 50,
-  '432834145': 100
+const DEFAULT_COUPONS = {
+  'CHORWACJA': { code: 'CHORWACJA', discountPercent: 50, label: '-50% (Rabat partnerski)', affiliateName: 'Partner Chorwacja', active: true, maxUses: null, createdAt: '2026-11-05T00:00:00.000Z' },
+  'RESICRAFT': { code: 'RESICRAFT', discountPercent: 50, label: '-50% (Rabat partnerski)', affiliateName: 'Resicraft', active: true, maxUses: null, createdAt: '2026-11-05T00:00:00.000Z' },
+  '432834145': { code: '432834145', discountPercent: 100, label: '-100% (Bezpłatny dostęp)', affiliateName: 'VIP / Wewnętrzny', active: true, maxUses: null, createdAt: '2026-11-05T00:00:00.000Z' }
 };
+
+async function getCouponsMap(env) {
+  if (env && env.RESERVATIONS) {
+    const stored = await env.RESERVATIONS.get('coupons_config', { type: 'json' });
+    if (stored && typeof stored === 'object' && Object.keys(stored).length > 0) {
+      return stored;
+    }
+    await env.RESERVATIONS.put('coupons_config', JSON.stringify(DEFAULT_COUPONS));
+  }
+  return { ...DEFAULT_COUPONS };
+}
+
+async function saveCouponsMap(env, coupons) {
+  if (env && env.RESERVATIONS) {
+    await env.RESERVATIONS.put('coupons_config', JSON.stringify(coupons));
+  }
+}
+
+async function listAllReservations(env) {
+  const results = [];
+  if (!env || !env.RESERVATIONS) return results;
+  let cursor = undefined;
+  do {
+    const listed = await env.RESERVATIONS.list({ prefix: 'reservation:', cursor });
+    for (const key of listed.keys) {
+      const val = await env.RESERVATIONS.get(key.name, { type: 'json' });
+      if (val) results.push({ id: key.name, ...val });
+    }
+    cursor = listed.list_complete ? undefined : listed.cursor;
+  } while (cursor);
+  results.sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
+  return results;
+}
+
+function isAdminAuthorized(request, env) {
+  const expected = (env && env.ADMIN_KEY) ? env.ADMIN_KEY : 'lp-admin-2026';
+  const headerKey = request.headers.get('X-Admin-Key') || '';
+  const authHeader = request.headers.get('Authorization') || '';
+  const bearer = authHeader.startsWith('Bearer ') ? authHeader.slice(7).trim() : '';
+  return (headerKey && headerKey === expected) || (bearer && bearer === expected);
+}
 
 export const SELLER_DATA = {
   nip: '7963033913',
@@ -76,7 +117,7 @@ export function generateZbpBankQrPayload({ nip = '7963033913', accountRaw, amoun
 function corsHeaders() {
   return {
     'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'GET, POST, HEAD, OPTIONS',
+    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, HEAD, OPTIONS',
     'Access-Control-Allow-Headers': '*',
   };
 }
@@ -593,16 +634,26 @@ export default {
         return json({ valid: false, message: 'Brak kodu.' });
       }
 
-      const discount = COUPONS[code];
-      if (discount !== undefined) {
+      const coupons = await getCouponsMap(env);
+      const couponObj = coupons[code];
+      if (couponObj && couponObj.active !== false) {
+        if (couponObj.maxUses !== null && couponObj.maxUses !== undefined && Number(couponObj.maxUses) > 0) {
+          const allRes = await listAllReservations(env);
+          const usedCount = allRes.filter(r => r.coupon === code).length;
+          if (usedCount >= Number(couponObj.maxUses)) {
+            return json({ valid: false, error: 'Limit użyć tego kodu rabatowego został wyczerpany.', message: 'Limit użyć tego kodu rabatowego został wyczerpany.' });
+          }
+        }
+        const discount = Number(couponObj.discountPercent || 0);
         return json({
           valid: true,
           code,
           discountPercent: discount,
+          label: couponObj.label || `-${discount}%`,
           message: discount === 100 ? 'Kod poprawny! Rabat 100% (bezpłatnie).' : `Kod poprawny! Rabat ${discount}%.`
         });
       } else {
-        return json({ valid: false, message: 'Nieprawidłowy kod rabatowy.' });
+        return json({ valid: false, error: 'Nieprawidłowy lub nieaktywny kod rabatowy.', message: 'Nieprawidłowy lub nieaktywny kod rabatowy.' });
       }
     }
 
@@ -619,8 +670,12 @@ export default {
       const selectedGroup = group || 'Grupa grudniowa (start 1.12.2026, 19:00)';
       let discountPercent = 0;
       const normalizedCoupon = coupon ? String(coupon).trim().toUpperCase() : null;
-      if (normalizedCoupon && COUPONS[normalizedCoupon] !== undefined) {
-        discountPercent = COUPONS[normalizedCoupon];
+      const coupons = await getCouponsMap(env);
+      const appliedCouponObj = (normalizedCoupon && coupons[normalizedCoupon] && coupons[normalizedCoupon].active !== false)
+        ? coupons[normalizedCoupon]
+        : null;
+      if (appliedCouponObj) {
+        discountPercent = Number(appliedCouponObj.discountPercent || 0);
       }
 
       const finalPricePln = Math.max(0, Math.round(BASE_WORKSHOP_PRICE * (1 - discountPercent / 100)));
@@ -673,11 +728,19 @@ export default {
         await env.RESERVATIONS.put(`invoice:${invoiceId}`, JSON.stringify(invoiceData));
         await env.RESERVATIONS.put(`reservation:ws:${Date.now()}`, JSON.stringify({
           type: 'workshop',
+          event: 'Warsztaty AI',
           group: selectedGroup,
           name,
           email,
+          phone: phone || '',
+          coupon: appliedCouponObj ? appliedCouponObj.code : null,
+          discountPercent,
+          affiliateName: appliedCouponObj ? (appliedCouponObj.affiliateName || '') : '',
+          basePricePln: BASE_WORKSHOP_PRICE,
           finalPricePln,
+          buyerType: buyer.type,
           invoiceNumber,
+          invoiceId,
           createdAt: new Date().toISOString()
         }));
       }
@@ -751,8 +814,12 @@ export default {
 
       let discountPercent = 0;
       const normalizedCoupon = coupon ? String(coupon).trim().toUpperCase() : null;
-      if (normalizedCoupon && COUPONS[normalizedCoupon] !== undefined) {
-        discountPercent = COUPONS[normalizedCoupon];
+      const coupons = await getCouponsMap(env);
+      const appliedCouponObj = (normalizedCoupon && coupons[normalizedCoupon] && coupons[normalizedCoupon].active !== false)
+        ? coupons[normalizedCoupon]
+        : null;
+      if (appliedCouponObj) {
+        discountPercent = Number(appliedCouponObj.discountPercent || 0);
       }
 
       const finalPricePln = Math.max(0, Math.round(BASE_MENTORING_PRICE * (1 - discountPercent / 100)));
@@ -818,13 +885,21 @@ export default {
         await env.RESERVATIONS.put(`invoice:${invoiceId}`, JSON.stringify(invoiceData));
         await env.RESERVATIONS.put(`reservation:mentoring:${Date.now()}`, JSON.stringify({
           type: 'mentoring',
+          event: type || 'Mentoring 1:1',
           slotId,
           date,
           time,
           name,
           email,
+          phone: phone || '',
+          coupon: appliedCouponObj ? appliedCouponObj.code : null,
+          discountPercent,
+          affiliateName: appliedCouponObj ? (appliedCouponObj.affiliateName || '') : '',
+          basePricePln: BASE_MENTORING_PRICE,
           finalPricePln,
+          buyerType: buyer.type,
           invoiceNumber,
+          invoiceId,
           createdAt: new Date().toISOString()
         }));
       }
@@ -1004,6 +1079,74 @@ export default {
 
       const invoiceHtml = generateInvoiceHtml(invoiceData);
       return html(invoiceHtml);
+    }
+
+    // 9. ADMIN API: Zarządzanie kodami rabatowymi i podgląd użyć (Afiliacja)
+    if (path.startsWith('/api/admin/')) {
+      if (!isAdminAuthorized(request, env)) {
+        return json({ error: 'Brak autoryzacji (nieprawidłowy klucz administratora).' }, 401);
+      }
+
+      if (request.method === 'GET' && path === '/api/admin/coupons') {
+        const coupons = await getCouponsMap(env);
+        const reservations = await listAllReservations(env);
+        const stats = {};
+        for (const r of reservations) {
+          if (r.coupon) {
+            if (!stats[r.coupon]) stats[r.coupon] = { uses: 0, revenuePln: 0 };
+            stats[r.coupon].uses += 1;
+            stats[r.coupon].revenuePln += Number(r.finalPricePln ?? r.amountPln ?? 0);
+          }
+        }
+        const list = Object.values(coupons).map(c => ({
+          ...c,
+          uses: stats[c.code]?.uses || 0,
+          revenuePln: stats[c.code]?.revenuePln || 0
+        }));
+        return json({ success: true, coupons: list });
+      }
+
+      if (request.method === 'POST' && path === '/api/admin/coupons') {
+        let body = {};
+        try { body = await request.json(); } catch { return json({ error: 'Nieprawidłowy JSON' }, 400); }
+        const code = String(body.code || '').trim().toUpperCase().replace(/[^A-Z0-9_-]/g, '');
+        const discountPercent = Number(body.discountPercent);
+        if (!code || isNaN(discountPercent) || discountPercent < 1 || discountPercent > 100) {
+          return json({ error: 'Podaj poprawny kod (A-Z, 0-9, -, _) oraz rabat od 1 do 100%.' }, 400);
+        }
+        const coupons = await getCouponsMap(env);
+        const existing = coupons[code];
+        coupons[code] = {
+          code,
+          discountPercent,
+          label: String(body.label || `-${discountPercent}%${body.affiliateName ? ` (Partner: ${body.affiliateName})` : ''}`).trim(),
+          affiliateName: String(body.affiliateName || '').trim(),
+          active: body.active !== undefined ? Boolean(body.active) : true,
+          maxUses: (body.maxUses !== null && body.maxUses !== undefined && body.maxUses !== '') ? Number(body.maxUses) : null,
+          createdAt: existing?.createdAt || new Date().toISOString(),
+          updatedAt: new Date().toISOString()
+        };
+        await saveCouponsMap(env, coupons);
+        return json({ success: true, coupon: coupons[code] });
+      }
+
+      if (request.method === 'DELETE' && path.startsWith('/api/admin/coupons/')) {
+        const code = decodeURIComponent(path.replace('/api/admin/coupons/', '')).trim().toUpperCase();
+        const coupons = await getCouponsMap(env);
+        if (!coupons[code]) {
+          return json({ error: 'Nie znaleziono kodu.' }, 404);
+        }
+        delete coupons[code];
+        await saveCouponsMap(env, coupons);
+        return json({ success: true, deleted: code });
+      }
+
+      if (request.method === 'GET' && path === '/api/admin/reservations') {
+        const reservations = await listAllReservations(env);
+        return json({ success: true, reservations });
+      }
+
+      return json({ error: 'Not found' }, 404);
     }
 
     return json({ error: 'Not found' }, 404);

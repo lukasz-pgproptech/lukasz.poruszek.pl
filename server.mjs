@@ -34,12 +34,60 @@ const PAYNOW_API_URL = PAYNOW_ENV === 'sandbox'
   ? 'https://api.sandbox.paynow.pl'
   : 'https://api.paynow.pl';
 
-// Kody rabatowe
-const COUPONS = {
-  'CHORWACJA': 50,  // -50%
-  'RESICRAFT': 50,  // -50%
-  '432834145': 100  // -100% (Bezpłatnie)
+// Kody rabatowe (dynamiczne w data/coupons.json + domyślny seed)
+const DEFAULT_COUPONS = {
+  'CHORWACJA': { code: 'CHORWACJA', discountPercent: 50, label: '-50% (Rabat partnerski)', affiliateName: 'Partner Chorwacja', active: true, maxUses: null, createdAt: '2026-11-05T00:00:00.000Z' },
+  'RESICRAFT': { code: 'RESICRAFT', discountPercent: 50, label: '-50% (Rabat partnerski)', affiliateName: 'Resicraft', active: true, maxUses: null, createdAt: '2026-11-05T00:00:00.000Z' },
+  '432834145': { code: '432834145', discountPercent: 100, label: '-100% (Bezpłatny dostęp)', affiliateName: 'VIP / Wewnętrzny', active: true, maxUses: null, createdAt: '2026-11-05T00:00:00.000Z' }
 };
+
+const COUPONS_FILE = path.join(__dirname, 'data', 'coupons.json');
+
+function loadCouponsMap() {
+  try {
+    if (fs.existsSync(COUPONS_FILE)) {
+      const parsed = JSON.parse(fs.readFileSync(COUPONS_FILE, 'utf8'));
+      if (parsed && typeof parsed === 'object' && Object.keys(parsed).length > 0) {
+        return parsed;
+      }
+    }
+  } catch (e) {
+    console.warn('[Server] Błąd odczytu coupons.json:', e.message);
+  }
+  saveCouponsMap(DEFAULT_COUPONS);
+  return { ...DEFAULT_COUPONS };
+}
+
+function saveCouponsMap(coupons) {
+  try {
+    const dir = path.dirname(COUPONS_FILE);
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+    fs.writeFileSync(COUPONS_FILE, JSON.stringify(coupons, null, 2), 'utf8');
+  } catch (e) {
+    console.error('[Server] Błąd zapisu coupons.json:', e.message);
+  }
+}
+
+function loadReservationsList() {
+  try {
+    const filePath = path.join(__dirname, 'data', 'reservations.json');
+    if (fs.existsSync(filePath)) {
+      const arr = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+      if (Array.isArray(arr)) {
+        return arr.sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
+      }
+    }
+  } catch (e) {}
+  return [];
+}
+
+function isAdminAuthorized(req) {
+  const expected = process.env.ADMIN_KEY || 'lp-admin-2026';
+  const headerKey = req.headers['x-admin-key'] || '';
+  const authHeader = req.headers['authorization'] || '';
+  const bearer = authHeader.startsWith('Bearer ') ? authHeader.slice(7).trim() : '';
+  return (headerKey && headerKey === expected) || (bearer && bearer === expected);
+}
 
 const BASE_WORKSHOP_PRICE = 1200; // PLN
 const BASE_MENTORING_PRICE = 400; // PLN
@@ -179,23 +227,28 @@ const server = http.createServer((req, res) => {
           return;
         }
 
-        if (COUPONS[code] !== undefined) {
-          const discountPercent = COUPONS[code];
-          const labels = {
-            'CHORWACJA': '-50% (Rabat partnerski)',
-            'RESICRAFT': '-50% (Rabat partnerski)',
-            '432834145': '-100% (Bezpłatny dostęp)'
-          };
+        const coupons = loadCouponsMap();
+        const couponObj = coupons[code];
+        if (couponObj && couponObj.active !== false) {
+          if (couponObj.maxUses !== null && couponObj.maxUses !== undefined && Number(couponObj.maxUses) > 0) {
+            const usedCount = loadReservationsList().filter(r => r.coupon === code).length;
+            if (usedCount >= Number(couponObj.maxUses)) {
+              res.writeHead(200, { 'Content-Type': 'application/json' });
+              res.end(JSON.stringify({ valid: false, error: 'Limit użyć tego kodu rabatowego został wyczerpany.' }));
+              return;
+            }
+          }
+          const discountPercent = Number(couponObj.discountPercent || 0);
           res.writeHead(200, { 'Content-Type': 'application/json' });
           res.end(JSON.stringify({
             valid: true,
             code,
             discountPercent,
-            label: labels[code] || `-${discountPercent}%`
+            label: couponObj.label || `-${discountPercent}%`
           }));
         } else {
           res.writeHead(200, { 'Content-Type': 'application/json' });
-          res.end(JSON.stringify({ valid: false, error: 'Nieprawidłowy lub wygasły kod rabatowy.' }));
+          res.end(JSON.stringify({ valid: false, error: 'Nieprawidłowy lub nieaktywny kod rabatowy.' }));
         }
       } catch (e) {
         res.writeHead(400, { 'Content-Type': 'application/json' });
@@ -337,8 +390,12 @@ const server = http.createServer((req, res) => {
         // Obliczenie ceny z uwzględnieniem kodu rabatowego (walidacja serwera)
         let discountPercent = 0;
         const normalizedCoupon = coupon ? String(coupon).trim().toUpperCase() : null;
-        if (normalizedCoupon && COUPONS[normalizedCoupon] !== undefined) {
-          discountPercent = COUPONS[normalizedCoupon];
+        const coupons = loadCouponsMap();
+        const appliedCouponObj = (normalizedCoupon && coupons[normalizedCoupon] && coupons[normalizedCoupon].active !== false)
+          ? coupons[normalizedCoupon]
+          : null;
+        if (appliedCouponObj) {
+          discountPercent = Number(appliedCouponObj.discountPercent || 0);
         }
 
         const finalPricePln = Math.max(0, Math.round(BASE_WORKSHOP_PRICE * (1 - discountPercent / 100)));
@@ -376,7 +433,10 @@ const server = http.createServer((req, res) => {
             name,
             email,
             phone: phone || '',
-            coupon: normalizedCoupon,
+            coupon: appliedCouponObj ? appliedCouponObj.code : null,
+            discountPercent,
+            affiliateName: appliedCouponObj ? (appliedCouponObj.affiliateName || '') : '',
+            basePricePln: BASE_WORKSHOP_PRICE,
             amountPln: 0,
             paymentStatus: 'free_100_percent_discount',
             externalId,
@@ -559,7 +619,10 @@ const server = http.createServer((req, res) => {
           name,
           email,
           phone: phone || '',
-          coupon: normalizedCoupon || null,
+          coupon: appliedCouponObj ? appliedCouponObj.code : null,
+          discountPercent,
+          affiliateName: appliedCouponObj ? (appliedCouponObj.affiliateName || '') : '',
+          basePricePln: BASE_WORKSHOP_PRICE,
           amountPln: finalPricePln,
           externalId,
           paymentMode: 'bank_transfer',
@@ -692,8 +755,12 @@ const server = http.createServer((req, res) => {
         // 2. Kalkulacja kwoty z kodem rabatowym (400 PLN bazowo)
         let discountPercent = 0;
         const normalizedCoupon = coupon ? String(coupon).trim().toUpperCase() : null;
-        if (normalizedCoupon && COUPONS[normalizedCoupon] !== undefined) {
-          discountPercent = COUPONS[normalizedCoupon];
+        const coupons = loadCouponsMap();
+        const appliedCouponObj = (normalizedCoupon && coupons[normalizedCoupon] && coupons[normalizedCoupon].active !== false)
+          ? coupons[normalizedCoupon]
+          : null;
+        if (appliedCouponObj) {
+          discountPercent = Number(appliedCouponObj.discountPercent || 0);
         }
 
         const finalPricePln = Math.max(0, Math.round(BASE_MENTORING_PRICE * (1 - discountPercent / 100)));
@@ -749,7 +816,10 @@ const server = http.createServer((req, res) => {
           name,
           email,
           phone: phone || '',
-          coupon: normalizedCoupon || null,
+          coupon: appliedCouponObj ? appliedCouponObj.code : null,
+          discountPercent,
+          affiliateName: appliedCouponObj ? (appliedCouponObj.affiliateName || '') : '',
+          basePricePln: BASE_WORKSHOP_PRICE,
           amountPln: finalPricePln,
           externalId,
           paymentMode: 'bank_transfer',
@@ -920,10 +990,102 @@ const server = http.createServer((req, res) => {
   }
 
   // -------------------------------------------------------------
+  // ADMIN API: ZARZĄDZANIE KODAMI RABATOWYMI I AFILIACJA
+  // -------------------------------------------------------------
+  if (reqPath.startsWith('/api/admin/')) {
+    if (!isAdminAuthorized(req)) {
+      res.writeHead(401, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ error: 'Brak autoryzacji (nieprawidłowy klucz administratora).' }));
+      return;
+    }
+
+    if (req.method === 'GET' && reqPath === '/api/admin/coupons') {
+      const coupons = loadCouponsMap();
+      const reservations = loadReservationsList();
+      const stats = {};
+      for (const r of reservations) {
+        if (r.coupon) {
+          if (!stats[r.coupon]) stats[r.coupon] = { uses: 0, revenuePln: 0 };
+          stats[r.coupon].uses += 1;
+          stats[r.coupon].revenuePln += Number(r.finalPricePln ?? r.amountPln ?? 0);
+        }
+      }
+      const list = Object.values(coupons).map(c => ({
+        ...c,
+        uses: stats[c.code]?.uses || 0,
+        revenuePln: stats[c.code]?.revenuePln || 0
+      }));
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: true, coupons: list }));
+      return;
+    }
+
+    if (req.method === 'POST' && reqPath === '/api/admin/coupons') {
+      let body = '';
+      req.on('data', chunk => body += chunk);
+      req.on('end', () => {
+        try {
+          const payload = JSON.parse(body || '{}');
+          const code = String(payload.code || '').trim().toUpperCase().replace(/[^A-Z0-9_-]/g, '');
+          const discountPercent = Number(payload.discountPercent);
+          if (!code || isNaN(discountPercent) || discountPercent < 1 || discountPercent > 100) {
+            res.writeHead(400, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ error: 'Podaj poprawny kod (A-Z, 0-9, -, _) oraz rabat od 1 do 100%.' }));
+            return;
+          }
+          const coupons = loadCouponsMap();
+          const existing = coupons[code];
+          coupons[code] = {
+            code,
+            discountPercent,
+            label: String(payload.label || `-${discountPercent}%${payload.affiliateName ? ` (Partner: ${payload.affiliateName})` : ''}`).trim(),
+            affiliateName: String(payload.affiliateName || '').trim(),
+            active: payload.active !== undefined ? Boolean(payload.active) : true,
+            maxUses: (payload.maxUses !== null && payload.maxUses !== undefined && payload.maxUses !== '') ? Number(payload.maxUses) : null,
+            createdAt: existing?.createdAt || new Date().toISOString(),
+            updatedAt: new Date().toISOString()
+          };
+          saveCouponsMap(coupons);
+          res.writeHead(200, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: true, coupon: coupons[code] }));
+        } catch (e) {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ error: 'Nieprawidłowy JSON.' }));
+        }
+      });
+      return;
+    }
+
+    if (req.method === 'DELETE' && reqPath.startsWith('/api/admin/coupons/')) {
+      const code = decodeURIComponent(reqPath.replace('/api/admin/coupons/', '')).trim().toUpperCase();
+      const coupons = loadCouponsMap();
+      if (!coupons[code]) {
+        res.writeHead(404, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: 'Nie znaleziono kodu.' }));
+        return;
+      }
+      delete coupons[code];
+      saveCouponsMap(coupons);
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: true, deleted: code }));
+      return;
+    }
+
+    if (req.method === 'GET' && reqPath === '/api/admin/reservations') {
+      const reservations = loadReservationsList();
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ success: true, reservations }));
+      return;
+    }
+  }
+
+  // -------------------------------------------------------------
   // STATYCZNE SERWOWANIE PLIKÓW
   // -------------------------------------------------------------
   if (reqPath === '/widget' || reqPath === '/widget/' || reqPath === '/sandbox') {
     reqPath = '/widget-dev.html';
+  } else if (reqPath === '/admin' || reqPath === '/admin/') {
+    reqPath = '/admin.html';
   } else if (reqPath === '/regulamin' || reqPath === '/regulamin/') {
     reqPath = '/regulamin.html';
   } else if (reqPath === '/polityka-prywatnosci' || reqPath === '/polityka-prywatnosci/') {
